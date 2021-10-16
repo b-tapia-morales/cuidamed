@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS residence.elder
     responsible_rut VARCHAR(16) REFERENCES residence.responsible (rut)
 );
 
-CREATE TABLE IF NOT EXISTS address
+CREATE TABLE IF NOT EXISTS residence.address
 (
     commune_id  SMALLINT     NOT NULL REFERENCES residence.commune (id),
     street      VARCHAR(128) NOT NULL,
