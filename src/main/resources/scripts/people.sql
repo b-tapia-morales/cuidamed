@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS person
+CREATE TABLE IF NOT EXISTS residence.person
 (
     rut              VARCHAR(16) PRIMARY KEY,
     first_names      VARCHAR(128) NOT NULL,
@@ -9,35 +9,35 @@ CREATE TABLE IF NOT EXISTS person
     sex              SMALLINT     NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS responsible
+CREATE TABLE IF NOT EXISTS residence.responsible
 (
-    rut          VARCHAR(16) PRIMARY KEY REFERENCES person (rut),
+    rut          VARCHAR(16) PRIMARY KEY REFERENCES residence.person (rut),
     mobile_phone VARCHAR(16) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS carer
+CREATE TABLE IF NOT EXISTS residence.carer
 (
-    rut          VARCHAR(16) PRIMARY KEY REFERENCES person (rut),
+    rut          VARCHAR(16) PRIMARY KEY REFERENCES residence.person (rut),
     mobile_phone VARCHAR(16) NOT NULL,
-    hire_date    DATE NOT NULL
+    hire_date    DATE        NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS elder
+CREATE TABLE IF NOT EXISTS residence.elder
 (
-    rut             VARCHAR(16) PRIMARY KEY REFERENCES person (rut),
+    rut             VARCHAR(16) PRIMARY KEY REFERENCES residence.person (rut),
     active          BOOLEAN,
     admission_date  DATE NOT NULL,
-    responsible_rut VARCHAR(16) REFERENCES responsible (rut)
+    responsible_rut VARCHAR(16) REFERENCES residence.responsible (rut)
 );
 
 CREATE TABLE IF NOT EXISTS address
 (
-    commune_id  SMALLINT     NOT NULL REFERENCES cuidamed.public.commune (id),
+    commune_id  SMALLINT     NOT NULL REFERENCES residence.commune (id),
     street      VARCHAR(128) NOT NULL,
     number      SMALLINT     NOT NULL,
     postal_code INT,
     fixed_phone VARCHAR(16),
-    person_rut  VARCHAR(16) REFERENCES person (rut),
+    person_rut  VARCHAR(16) REFERENCES residence.person (rut),
     PRIMARY KEY (commune_id, street, number, person_rut)
 );
 
