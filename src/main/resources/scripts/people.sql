@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS person
     last_name        VARCHAR(64)  NOT NULL,
     second_last_name VARCHAR(64)  NOT NULL,
     birth_date       DATE         NOT NULL,
-    age              SMALLINT
+    age              SMALLINT,
+    sex              SMALLINT     NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS responsible
