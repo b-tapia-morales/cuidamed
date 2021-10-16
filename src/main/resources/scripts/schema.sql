@@ -1,12 +1,12 @@
 
-CREATE DATABASE cuidamed
+CREATE DATABASE cuidamed;
 
-CREATE TABLE region IF NOT EXISTS
+CREATE TABLE IF NOT EXISTS region
 (
     id SMALLSERIAL PRIMARY KEY,
     region_name VARCHAR(64) UNIQUE NOT NULL,
     abbreviation VARCHAR(4) UNIQUE NOT NULL,
-    capital VARCHAR(64) UNIQUE NOT NULL,
+    capital VARCHAR(64) UNIQUE NOT NULL
 );
 
 INSERT INTO region (region_name, abbreviation, capital)
