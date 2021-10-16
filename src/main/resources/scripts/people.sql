@@ -12,13 +12,13 @@ CREATE TABLE IF NOT EXISTS person
 CREATE TABLE IF NOT EXISTS responsible
 (
     rut          VARCHAR(16) PRIMARY KEY REFERENCES person (rut),
-    mobile_phone VARCHAR(16)
+    mobile_phone VARCHAR(16) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS carer
 (
     rut          VARCHAR(16) PRIMARY KEY REFERENCES person (rut),
-    mobile_phone VARCHAR(16),
+    mobile_phone VARCHAR(16) NOT NULL,
     hire_date    DATE NOT NULL
 );
 
