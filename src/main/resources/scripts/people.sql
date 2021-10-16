@@ -11,15 +11,15 @@ CREATE TABLE IF NOT EXISTS person
 
 CREATE TABLE IF NOT EXISTS responsible
 (
-    rut   VARCHAR(16) PRIMARY KEY REFERENCES person (rut),
-    phone VARCHAR(16)
+    rut          VARCHAR(16) PRIMARY KEY REFERENCES person (rut),
+    mobile_phone VARCHAR(16)
 );
 
 CREATE TABLE IF NOT EXISTS carer
 (
-    rut       VARCHAR(16) PRIMARY KEY REFERENCES person (rut),
-    phone     VARCHAR(16),
-    hire_date DATE NOT NULL
+    rut          VARCHAR(16) PRIMARY KEY REFERENCES person (rut),
+    mobile_phone VARCHAR(16),
+    hire_date    DATE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS elder
@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS address
     street      VARCHAR(128) NOT NULL,
     number      SMALLINT     NOT NULL,
     postal_code INT,
+    fixed_phone VARCHAR(16),
     person_rut  VARCHAR(16) REFERENCES person (rut),
     PRIMARY KEY (commune_id, street, number, person_rut)
 );
