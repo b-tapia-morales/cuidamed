@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS region
+CREATE TABLE IF NOT EXISTS residence.region
 (
     id           SMALLSERIAL PRIMARY KEY,
     region_name  VARCHAR(64) UNIQUE NOT NULL,
@@ -6,21 +6,21 @@ CREATE TABLE IF NOT EXISTS region
     capital      VARCHAR(64) UNIQUE NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS province
+CREATE TABLE IF NOT EXISTS residence.province
 (
     id            SMALLSERIAL PRIMARY KEY,
     province_name VARCHAR(64) UNIQUE NOT NULL,
-    region_id     SMALLINT REFERENCES region (id)
+    region_id     SMALLINT REFERENCES residence.region (id)
 );
 
-CREATE TABLE IF NOT EXISTS commune
+CREATE TABLE IF NOT EXISTS residence.commune
 (
     id           SMALLSERIAL PRIMARY KEY,
     commune_name VARCHAR(64) UNIQUE NOT NULL,
-    province_id  SMALLINT REFERENCES province (id)
+    province_id  SMALLINT REFERENCES residence.province (id)
 );
 
-INSERT INTO region (region_name, abbreviation, capital)
+INSERT INTO residence.region (region_name, abbreviation, capital)
 VALUES ('Arica y Parinacota', 'AP', 'Arica'),
        ('Tarapacá', 'TA', 'Iquique'),
        ('Antofagasta', 'AN', 'Antofagasta'),
@@ -38,7 +38,7 @@ VALUES ('Arica y Parinacota', 'AP', 'Arica'),
        ('Aysén del General Carlos Ibáñez del Campo', 'AI', 'Coyhaique'),
        ('Magallanes y de la Antártica Chilena', 'MG', 'Punta Arenas');
 
-INSERT INTO province (province_name, region_id)
+INSERT INTO residence.province (province_name, region_id)
 VALUES ('Arica', 1),
        ('Parinacota', 1),
        ('Iquique', 2),
@@ -96,7 +96,7 @@ VALUES ('Arica', 1),
        ('Tierra del Fuego', 16),
        ('Antártica Chilena', 16);
 
-INSERT INTO commune (commune_name, province_id)
+INSERT INTO residence.commune (commune_name, province_id)
 VALUES ('Arica', 1),
        ('Camarones', 1),
        ('General Lagos', 2),
