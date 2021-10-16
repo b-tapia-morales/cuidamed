@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS province
     region_id     SMALLINT REFERENCES region (id)
 );
 
-CREATE TABLE commune
+CREATE TABLE IF NOT EXISTS commune
 (
     id           SMALLSERIAL PRIMARY KEY,
     commune_name VARCHAR(64) UNIQUE NOT NULL,
