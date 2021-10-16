@@ -1,3 +1,4 @@
+
 CREATE TABLE IF NOT EXISTS region
 (
     id           SMALLSERIAL PRIMARY KEY,
