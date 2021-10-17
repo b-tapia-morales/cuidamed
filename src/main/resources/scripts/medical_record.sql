@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS residence.medical_record
 CREATE TABLE IF NOT EXISTS residence.routine_checkup
 (
     elder_rut           VARCHAR(16) NOT NULL REFERENCES residence.elder (rut),
-    checkup_date                DATE    NOT NULL,
+    checkup_date        DATE    NOT NULL,
     height              FLOAT   NOT NULL,
     weight              FLOAT   NOT NULL,
     BMI                 FLOAT   NOT NULL,
