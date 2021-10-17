@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS residence.routine_checkup
     PRIMARY KEY (elder_rut, checkup_date)
 );
 
-CREATE TABLE IF NOT EXISTS residence.routine_checkup
+CREATE TABLE IF NOT EXISTS residence.allergy
 (
 
 );
