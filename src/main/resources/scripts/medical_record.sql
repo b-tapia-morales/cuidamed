@@ -26,3 +26,13 @@ CREATE TABLE IF NOT EXISTS residence.allergy
     type         SMALLINT    NOT NULL,
     PRIMARY KEY (elder_rut, allergy_name)
 );
+
+CREATE TABLE IF NOT EXISTS residence.surgical_intervention
+(
+    elder_rut           VARCHAR(16) NOT NULL REFERENCES residence.elder (rut),
+    date        DATE        NOT NULL,
+    hospital            VARCHAR(20) NOT NULL,
+    severity      SMALLINT    NOT NULL,
+    description VARCHAR(64) NOT NULL,
+    PRIMARY KEY (elder_rut, surgery_date)
+);
