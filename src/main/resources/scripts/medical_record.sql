@@ -18,3 +18,8 @@ CREATE TABLE IF NOT EXISTS residence.routine_checkup
     body_temperature    FLOAT   NOT NULL,
     PRIMARY KEY (elder_rut, checkup_date)
 );
+
+CREATE TABLE IF NOT EXISTS residence.routine_checkup
+(
+
+);
