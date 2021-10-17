@@ -22,17 +22,17 @@ CREATE TABLE IF NOT EXISTS residence.routine_checkup
 CREATE TABLE IF NOT EXISTS residence.allergy
 (
     elder_rut    VARCHAR(16) NOT NULL REFERENCES residence.elder (rut),
-    allergy_name VARCHAR(24) NOT NULL,
     type         SMALLINT    NOT NULL,
+    allergy_name TEXT        NOT NULL,
     PRIMARY KEY (elder_rut, allergy_name)
 );
 
 CREATE TABLE IF NOT EXISTS residence.surgical_intervention
 (
-    elder_rut           VARCHAR(16) NOT NULL REFERENCES residence.elder (rut),
+    elder_rut   VARCHAR(16) NOT NULL REFERENCES residence.elder (rut),
     date        DATE        NOT NULL,
-    hospital            VARCHAR(20) NOT NULL,
-    severity      SMALLINT    NOT NULL,
-    description VARCHAR(64) NOT NULL,
+    hospital    VARCHAR(32) NOT NULL,
+    severity    SMALLINT    NOT NULL,
+    description TEXT        NOT NULL,
     PRIMARY KEY (elder_rut, date)
 );
