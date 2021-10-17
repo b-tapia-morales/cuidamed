@@ -34,5 +34,5 @@ CREATE TABLE IF NOT EXISTS residence.surgical_intervention
     hospital            VARCHAR(20) NOT NULL,
     severity      SMALLINT    NOT NULL,
     description VARCHAR(64) NOT NULL,
-    PRIMARY KEY (elder_rut, surgery_date)
+    PRIMARY KEY (elder_rut, date)
 );
