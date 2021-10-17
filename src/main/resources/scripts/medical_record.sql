@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS residence.medical_record
 CREATE TABLE IF NOT EXISTS residence.routine_checkup
 (
     elder_rut          VARCHAR(16) NOT NULL REFERENCES residence.elder (rut),
-    date               DATE        NOT NULL,
+    checkup_date       DATE        NOT NULL,
     height             REAL        NOT NULL,
     weight             REAL        NOT NULL,
     bmi                REAL        NOT NULL,
@@ -16,23 +16,23 @@ CREATE TABLE IF NOT EXISTS residence.routine_checkup
     diastolic_pressure REAL        NOT NULL,
     systolic_pressure  REAL        NOT NULL,
     body_temperature   REAL        NOT NULL,
-    PRIMARY KEY (elder_rut, date)
+    PRIMARY KEY (elder_rut, checkup_date)
 );
 
 CREATE TABLE IF NOT EXISTS residence.allergy
 (
     elder_rut    VARCHAR(16) NOT NULL REFERENCES residence.elder (rut),
-    type         SMALLINT    NOT NULL,
+    allergy_type SMALLINT    NOT NULL,
     allergy_name TEXT        NOT NULL,
     PRIMARY KEY (elder_rut, allergy_name)
 );
 
 CREATE TABLE IF NOT EXISTS residence.surgical_intervention
 (
-    elder_rut   VARCHAR(16) NOT NULL REFERENCES residence.elder (rut),
-    date        DATE        NOT NULL,
-    hospital    VARCHAR(32) NOT NULL,
-    severity    SMALLINT    NOT NULL,
-    description TEXT        NOT NULL,
-    PRIMARY KEY (elder_rut, date)
+    elder_rut         VARCHAR(16) NOT NULL REFERENCES residence.elder (rut),
+    intervention_date DATE        NOT NULL,
+    hospital          VARCHAR(32) NOT NULL,
+    severity          SMALLINT    NOT NULL,
+    description       TEXT        NOT NULL,
+    PRIMARY KEY (elder_rut, intervention_date)
 );
