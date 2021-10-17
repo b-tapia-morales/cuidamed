@@ -23,8 +23,3 @@ CREATE TABLE IF NOT EXISTS residence.allergy
 (
 
 );
-
-CREATE TABLE IF NOT EXISTS residence.surgical_intervention
-(
-
-);
