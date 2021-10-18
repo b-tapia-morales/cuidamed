@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS residence.routine_checkup
     diastolic_pressure REAL        NOT NULL,
     systolic_pressure  REAL        NOT NULL,
     body_temperature   REAL        NOT NULL,
-    FOREIGN KEY (elder_rut) REFERENCES residence.elder (rut),
+    FOREIGN KEY (elder_rut) REFERENCES residence.medical_record (elder_rut),
     PRIMARY KEY (elder_rut, checkup_date)
 );
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS residence.allergy
     elder_rut    VARCHAR(16) NOT NULL,
     allergy_type SMALLINT    NOT NULL,
     allergy_name TEXT        NOT NULL,
-    FOREIGN KEY (elder_rut) REFERENCES residence.elder (rut),
+    FOREIGN KEY (elder_rut) REFERENCES residence.medical_record (elder_rut),
     PRIMARY KEY (elder_rut, allergy_name)
 );
 
@@ -43,6 +43,6 @@ CREATE TABLE IF NOT EXISTS residence.surgical_intervention
     hospital          VARCHAR(32) NOT NULL,
     severity          SMALLINT    NOT NULL,
     description       TEXT        NOT NULL,
-    FOREIGN KEY (elder_rut) REFERENCES residence.elder (rut),
+    FOREIGN KEY (elder_rut) REFERENCES residence.medical_record (elder_rut),
     PRIMARY KEY (elder_rut, intervention_date)
 );
