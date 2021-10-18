@@ -1,23 +1,32 @@
+DROP TABLE IF EXISTS residence.commune;
+DROP TABLE IF EXISTS residence.province;
+DROP TABLE IF EXISTS residence.region;
+
 CREATE TABLE IF NOT EXISTS residence.region
 (
-    id           SMALLSERIAL PRIMARY KEY,
+    id           SMALLSERIAL,
     region_name  VARCHAR(64) UNIQUE NOT NULL,
     abbreviation VARCHAR(4) UNIQUE  NOT NULL,
-    capital      VARCHAR(64) UNIQUE NOT NULL
+    capital      VARCHAR(64) UNIQUE NOT NULL,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS residence.province
 (
-    id            SMALLSERIAL PRIMARY KEY,
+    id            SMALLSERIAL,
     province_name VARCHAR(64) UNIQUE NOT NULL,
-    region_id     SMALLINT REFERENCES residence.region (id)
+    region_id     SMALLINT           NOT NULL,
+    FOREIGN KEY (region_id) references residence.region (id),
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS residence.commune
 (
-    id           SMALLSERIAL PRIMARY KEY,
+    id           SMALLSERIAL,
     commune_name VARCHAR(64) UNIQUE NOT NULL,
-    province_id  SMALLINT REFERENCES residence.province (id)
+    province_id  SMALLINT           NOT NULL,
+    FOREIGN KEY (province_id) references residence.province (id),
+    PRIMARY KEY (id)
 );
 
 INSERT INTO residence.region (region_name, abbreviation, capital)
