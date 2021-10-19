@@ -14,38 +14,50 @@ public enum Gender {
     NOT_APPLICABLE(9, "No aplica");
 
     private final int code;
-    private final String string;
+    private final String name;
 
-    private static final Gender[] ARRAY = values();
-    private static final int[] CODES = Stream.of(ARRAY).mapToInt(Gender::getCode).toArray();
-    private static final Map<Integer, Gender> MAP = IntStream
-            .range(0, ARRAY.length)
+    private static final Gender[] VALUES = values();
+    private static final int[] CODES = Stream.of(VALUES).mapToInt(Gender::getCode).toArray();
+    private static final String[] NAMES = Stream.of(VALUES).map(Gender::getName).toArray(String[]::new);
+    private static final Map<Integer, Gender> VALUES_MAP = IntStream
+            .range(0, VALUES.length)
             .boxed()
-            .collect(Collectors.toMap(i -> CODES[i], i -> ARRAY[i], (a, b) -> a, LinkedHashMap::new));
+            .collect(Collectors.toMap(i -> CODES[i], i -> VALUES[i], (a, b) -> a, LinkedHashMap::new));
+    private static final Map<String, Gender> NAMES_MAP = IntStream
+            .range(0, VALUES.length)
+            .boxed()
+            .collect(Collectors.toMap(i -> NAMES[i], i -> VALUES[i], (a, b) -> a, LinkedHashMap::new));
 
-    Gender(final int code, final String string) {
+    Gender(final int code, final String name) {
         this.code = code;
-        this.string = string;
+        this.name = name;
     }
 
     public static Gender getValueFromCode(final int code) {
-        if (!MAP.containsKey(code)) {
+        if (!VALUES_MAP.containsKey(code)) {
             throw new IllegalArgumentException();
         }
-        return MAP.get(code);
+        return VALUES_MAP.get(code);
+    }
+
+    public static Gender getValueFromName(final String name) {
+        if (!NAMES_MAP.containsKey(name)) {
+            throw new IllegalArgumentException();
+        }
+        return NAMES_MAP.get(name);
     }
 
     @Override
     public String toString() {
-        return string;
+        return name;
     }
 
     public int getCode() {
         return code;
     }
 
-    public String getString() {
-        return string;
+    public String getName() {
+        return name;
     }
 
 }
