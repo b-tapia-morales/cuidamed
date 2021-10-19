@@ -18,19 +18,18 @@ public enum Gender {
 
     private static final Gender[] VALUES = values();
     private static final int[] CODES = Stream.of(VALUES).mapToInt(Gender::getCode).toArray();
-    private static final String[] NAMES = Stream.of(VALUES).map(Gender::getName).toArray(String[]::new);
     private static final Map<Integer, Gender> VALUES_MAP = IntStream
             .range(0, VALUES.length)
             .boxed()
             .collect(Collectors.toMap(i -> CODES[i], i -> VALUES[i], (a, b) -> a, LinkedHashMap::new));
-    private static final Map<String, Gender> NAMES_MAP = IntStream
-            .range(0, VALUES.length)
-            .boxed()
-            .collect(Collectors.toMap(i -> NAMES[i], i -> VALUES[i], (a, b) -> a, LinkedHashMap::new));
 
     Gender(final int code, final String name) {
         this.code = code;
         this.name = name;
+    }
+
+    public static Gender[] getValues() {
+        return VALUES;
     }
 
     public static Gender getValueFromCode(final int code) {
@@ -38,13 +37,6 @@ public enum Gender {
             throw new IllegalArgumentException();
         }
         return VALUES_MAP.get(code);
-    }
-
-    public static Gender getValueFromName(final String name) {
-        if (!NAMES_MAP.containsKey(name)) {
-            throw new IllegalArgumentException();
-        }
-        return NAMES_MAP.get(name);
     }
 
     @Override
