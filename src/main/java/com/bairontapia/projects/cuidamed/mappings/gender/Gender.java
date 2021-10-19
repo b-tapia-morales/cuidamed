@@ -2,8 +2,8 @@ package com.bairontapia.projects.cuidamed.mappings.gender;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public enum Gender {
@@ -13,12 +13,12 @@ public enum Gender {
   NOT_APPLICABLE(9, "No aplica");
 
   private static final Gender[] VALUES = values();
-  private static final int[] CODES = Stream.of(VALUES).mapToInt(Gender::getCode).toArray();
   private static final Map<Integer, Gender> VALUES_MAP =
-      IntStream.range(0, VALUES.length)
-          .boxed()
+      Stream.of(VALUES)
           .collect(
-              Collectors.toMap(i -> CODES[i], i -> VALUES[i], (a, b) -> a, LinkedHashMap::new));
+              Collectors.toMap(
+                  Gender::getCode, Function.identity(), (a, b) -> a, LinkedHashMap::new));
+
   private final int code;
   private final String name;
 
