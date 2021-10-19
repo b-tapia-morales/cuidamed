@@ -1,6 +1,8 @@
 REVOKE CONNECT ON DATABASE cuidamed FROM public;
 
-SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = 'cuidamed';
+SELECT pg_terminate_backend(pid)
+FROM pg_stat_activity
+WHERE datname = 'cuidamed';
 
 DROP DATABASE cuidamed;
 
