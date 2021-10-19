@@ -31,6 +31,6 @@ public enum DosageStatus {
   }
 
   public String getStatus() {
-    return status;
+    return this.status;
   }
 }
