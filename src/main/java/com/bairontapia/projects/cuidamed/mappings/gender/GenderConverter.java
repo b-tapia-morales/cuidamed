@@ -5,16 +5,16 @@ import javax.persistence.Converter;
 import java.util.Objects;
 
 @Converter
-public class GenderConverter implements AttributeConverter<Gender, String> {
+public class GenderConverter implements AttributeConverter<Gender, Short> {
 
-    public String convertToDatabaseColumn(final Gender value) {
+    public Short convertToDatabaseColumn(final Gender value) {
         Objects.requireNonNull(value);
-        return value.getName();
+        return (short) value.getCode();
     }
 
-    public Gender convertToEntityAttribute(final String name) {
-        Objects.requireNonNull(name);
-        return Gender.getValueFromName(name);
+    public Gender convertToEntityAttribute(final Short code) {
+        Objects.requireNonNull(code);
+        return Gender.getValueFromCode(code);
     }
 
 }
