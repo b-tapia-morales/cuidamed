@@ -1,7 +1,5 @@
 package com.bairontapia.projects.cuidamed.mappings.bloodtype;
 
-import java.util.stream.Stream;
-
 public enum BloodType {
     A_MINUS("A-"),
     A_PLUS("A+"),
@@ -12,9 +10,9 @@ public enum BloodType {
     O_MINUS("O-"),
     O_PLUS("O+");
 
-    private final String name;
-
     private static final BloodType[] VALUES = values();
+
+    private final String name;
 
     BloodType(final String name) {
         this.name = name;
@@ -34,10 +32,6 @@ public enum BloodType {
     @Override
     public String toString() {
         return name;
-    }
-
-    public int getIndex() {
-        return ordinal() + 1;
     }
 
     public String getName() {

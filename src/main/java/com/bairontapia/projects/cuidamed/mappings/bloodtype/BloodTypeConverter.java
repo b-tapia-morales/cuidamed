@@ -8,13 +8,13 @@ import java.util.Objects;
 public class BloodTypeConverter implements AttributeConverter<BloodType, Short> {
 
     @Override
-    public Short convertToDatabaseColumn(BloodType value) {
+    public Short convertToDatabaseColumn(final BloodType value) {
         Objects.requireNonNull(value);
-        return (short) value.getIndex();
+        return (short) (value.ordinal() + 1);
     }
 
     @Override
-    public BloodType convertToEntityAttribute(Short index) {
+    public BloodType convertToEntityAttribute(final Short index) {
         Objects.requireNonNull(index);
         return BloodType.getValueFromIndex(index);
     }
