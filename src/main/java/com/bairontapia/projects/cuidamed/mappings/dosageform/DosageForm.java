@@ -14,7 +14,7 @@ public enum DosageForm {
   ENEMAS("Enemas"),
   OVULES("Óvulos"),
   LOTIONS("Lociones"),
-  SPRAYS("Aerosol"),
+  SPRAYS("Aerosoles"),
   GELS("Gel"),
   OINTMENTS("Ungüentos"),
   SUSPENSIONS("Suspensiones"),
