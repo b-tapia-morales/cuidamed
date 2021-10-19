@@ -1,12 +1,26 @@
 package com.bairontapia.projects.cuidamed.mappings.dosage_form;
 
-import com.bairontapia.projects.cuidamed.mappings.dosage_status.DosageStatus;
-
 public enum DosageForm {
-  SOLID("Solidos"),
-  SEMI_SOLID("Semi solidos"),
-  LIQUID("Liquidos"),
-  Gaseous("Gaseosos");
+  BARS("Barras"),
+  CAPSULES("Cápsulas"),
+  TABLETS("Comprimidos"),
+  CHEWING_GUMS("Gomas de mascar"),
+  GRANULATED("Granulados"),
+  PATCHES("Parches"),
+  POWDERS("Polvos"),
+  DROPS("Gotas"),
+  SYRUP("Jarabe"),
+  SUPPOSITORIES("Supositorios"),
+  ENEMAS("Enemas"),
+  OVULES("Óvulos"),
+  LOTIONS("Lociones"),
+  SPRAYS("Aerosol"),
+  GELS("Gel"),
+  OINTMENTS("Ungüentos"),
+  SUSPENSIONS("Suspensiones"),
+  MOUTHWASH("Colutorio"),
+  SYRINGES("Jeringas"),
+  DISSOLUTION("Disolución");
 
   private static final DosageForm[] VALUES = values();
 
