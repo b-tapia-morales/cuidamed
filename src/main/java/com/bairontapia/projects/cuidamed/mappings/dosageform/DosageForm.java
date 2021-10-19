@@ -1,4 +1,4 @@
-package com.bairontapia.projects.cuidamed.mappings.dosage_form;
+package com.bairontapia.projects.cuidamed.mappings.dosageform;
 
 public enum DosageForm {
   BARS("Barras"),
