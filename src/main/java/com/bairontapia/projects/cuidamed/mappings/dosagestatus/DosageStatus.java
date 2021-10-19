@@ -1,4 +1,4 @@
-package com.bairontapia.projects.cuidamed.mappings.dosage_status;
+package com.bairontapia.projects.cuidamed.mappings.dosagestatus;
 
 public enum DosageStatus {
   UNDEFINED("Sin definir"),
