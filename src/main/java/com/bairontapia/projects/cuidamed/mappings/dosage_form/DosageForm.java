@@ -4,7 +4,7 @@ import com.bairontapia.projects.cuidamed.mappings.dosage_status.DosageStatus;
 
 public enum DosageForm {
   SOLID("Solidos"),
-  SEMI_SOLID("Semi-solidos"),
+  SEMI_SOLID("Semi solidos"),
   LIQUID("Liquidos"),
   Gaseous("Gaseosos");
 
