@@ -12,8 +12,8 @@ public enum DosageForm {
 
   private final String form;
 
-  DosageForm(final String status) {
-    this.form = status;
+  DosageForm(final String dForms) {
+    this.form = dForms;
   }
 
   public static DosageForm[] getValues() {
