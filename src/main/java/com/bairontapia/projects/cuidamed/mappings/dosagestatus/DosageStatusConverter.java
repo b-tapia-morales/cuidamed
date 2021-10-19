@@ -1,4 +1,4 @@
-package com.bairontapia.projects.cuidamed.mappings.dosage_status;
+package com.bairontapia.projects.cuidamed.mappings.dosagestatus;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
