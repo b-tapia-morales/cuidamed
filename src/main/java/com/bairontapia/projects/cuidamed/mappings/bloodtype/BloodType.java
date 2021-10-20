@@ -37,4 +37,8 @@ public enum BloodType {
   public String getName() {
     return name;
   }
+
+  public int getIndex() {
+    return ordinal() + 1;
+  }
 }

@@ -10,7 +10,7 @@ public class HealthSystemConverter implements AttributeConverter<HealthSystem, S
   @Override
   public Short convertToDatabaseColumn(final HealthSystem value) {
     Objects.requireNonNull(value);
-    return (short) (value.ordinal() + 1);
+    return (short) value.getIndex();
   }
 
   @Override

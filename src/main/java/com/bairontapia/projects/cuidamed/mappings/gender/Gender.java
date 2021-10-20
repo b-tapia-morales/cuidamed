@@ -50,4 +50,8 @@ public enum Gender {
   public String getName() {
     return name;
   }
+
+  public int getIndex() {
+    return ordinal() + 1;
+  }
 }

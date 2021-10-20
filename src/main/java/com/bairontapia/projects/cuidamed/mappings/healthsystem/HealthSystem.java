@@ -31,4 +31,8 @@ public enum HealthSystem {
   public String getStatus() {
     return name;
   }
+
+  public int getIndex() {
+    return ordinal() + 1;
+  }
 }

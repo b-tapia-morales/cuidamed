@@ -10,7 +10,7 @@ public class DosageStatusConverter implements AttributeConverter<DosageStatus, S
   @Override
   public Short convertToDatabaseColumn(DosageStatus value) {
     Objects.requireNonNull(value);
-    return (short) (value.ordinal() + 1);
+    return (short) value.getIndex();
   }
 
   @Override

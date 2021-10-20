@@ -33,4 +33,8 @@ public enum DosageStatus {
   public String getStatus() {
     return this.status;
   }
+
+  public int getIndex() {
+    return ordinal() + 1;
+  }
 }
