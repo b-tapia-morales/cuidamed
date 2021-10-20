@@ -1,6 +1,6 @@
-package com.bairontapia.projects.cuidamed.mappings.typeallergy;
+package com.bairontapia.projects.cuidamed.mappings.allergytype;
 
-public enum TypeAllergy {
+public enum AllergyType {
     DRUG_ALLERGY("medicamentos"),
     FOOD_ALLERGY("comidas"),
     INSECT_ALLERGY("insectos"),
@@ -9,19 +9,19 @@ public enum TypeAllergy {
     PET_ALLERGY("mascotas"),
     POLLEN_ALLERGY("polen");
 
-    private static final TypeAllergy[] VALUES = values();
+    private static final AllergyType[] VALUES = values();
 
     private final String name;
 
-    TypeAllergy(String name){
+    AllergyType(String name){
         this.name = name;
     }
 
-    public static TypeAllergy[] getValues() {
+    public static AllergyType[] getValues() {
         return VALUES;
     }
 
-    public static TypeAllergy getValueFromIndex(final int index){
+    public static AllergyType getValueFromIndex(final int index){
         if(index < 1 || index > VALUES.length){
             throw new IllegalArgumentException();
         }
