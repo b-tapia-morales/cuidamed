@@ -26,8 +26,8 @@ public enum DosageForm {
 
   private final String form;
 
-  DosageForm(final String dForms) {
-    this.form = dForms;
+  DosageForm(final String form) {
+    this.form = form;
   }
 
   public static DosageForm[] getValues() {
@@ -47,6 +47,10 @@ public enum DosageForm {
   }
 
   public String getForm() {
-    return this.form;
+    return form;
+  }
+
+  public int getIndex() {
+    return ordinal() + 1;
   }
 }
