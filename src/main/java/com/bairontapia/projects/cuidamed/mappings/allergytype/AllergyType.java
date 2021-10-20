@@ -1,13 +1,13 @@
 package com.bairontapia.projects.cuidamed.mappings.allergytype;
 
 public enum AllergyType {
-    DRUG_ALLERGY("medicamentos"),
-    FOOD_ALLERGY("comidas"),
-    INSECT_ALLERGY("insectos"),
-    LATEX_ALLERGY("latex"),
-    MOLD_ALLERGY("moho"),
-    PET_ALLERGY("mascotas"),
-    POLLEN_ALLERGY("polen");
+    DRUGS("Medicamentos"),
+    FOODS("Comidas"),
+    INSECTS("Insectos"),
+    LATEX("Látex"),
+    MOLD("Moho"),
+    PETS("Mascotas"),
+    POLLEN("Polen");
 
     private static final AllergyType[] VALUES = values();
 
