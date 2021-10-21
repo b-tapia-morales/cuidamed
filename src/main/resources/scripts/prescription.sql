@@ -54,3 +54,8 @@ CREATE TABLE IF NOT EXISTS residence.medication_prescription
     FOREIGN KEY (medication_name) REFERENCES residence.medication (medication_name),
     PRIMARY KEY (elder_rut, disease_name, prescription_date, medication_name)
 );
+
+CREATE TABLE IF NOT EXISTS residence.medication_administration
+(
+
+);
