@@ -1,3 +1,6 @@
 package com.bairontapia.projects.cuidamed.person;
 
-public class Elder {}
+import javax.persistence.Entity;
+
+@Entity
+public class Elder extends Person {}

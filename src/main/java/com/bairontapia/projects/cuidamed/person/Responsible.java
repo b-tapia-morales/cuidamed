@@ -1,3 +1,6 @@
 package com.bairontapia.projects.cuidamed.person;
 
-public class Responsible {}
+import javax.persistence.Entity;
+
+@Entity
+public class Responsible extends Person {}
