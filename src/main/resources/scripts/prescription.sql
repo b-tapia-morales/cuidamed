@@ -57,5 +57,15 @@ CREATE TABLE IF NOT EXISTS residence.medication_prescription
 
 CREATE TABLE IF NOT EXISTS residence.medication_administration
 (
-
+    carer_rut       VARCHAR(16) NOT NULL,
+    elder_rut       VARCHAR(16) NOT NULL,
+    medication_name VARCHAR(64) NOT NULL,
+    estimated_date  DATE        NOT NULL,
+    status          VARCHAR(12) NOT NULL,
+    quantity        INT         NOT NULL,
+    real_date       DATE,
+    FOREIGN KEY (carer_rut) REFERENCES residence.carer (rut),
+    FOREIGN KEY (elder_rut) REFERENCES residence.elder (rut),
+    FOREIGN KEY (medication_name) REFERENCES residence.medication (medication_name),
+    PRIMARY KEY (carer_rut, elder_rut, medication_name, estimated_date)
 );
