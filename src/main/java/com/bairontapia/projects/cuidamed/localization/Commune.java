@@ -18,7 +18,7 @@ public class Commune {
   private String name;
 
   @JoinColumn(name = "province_id", unique = true, updatable = false, nullable = false)
-  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToOne(cascade = CascadeType.ALL)
   private Province province;
 
   @Override
