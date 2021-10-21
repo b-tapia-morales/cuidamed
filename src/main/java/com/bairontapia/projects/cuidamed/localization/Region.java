@@ -72,8 +72,8 @@ public class Region {
     return name;
   }
 
-  public void setName(final String regionName) {
-    this.name = regionName;
+  public void setName(final String name) {
+    this.name = name;
   }
 
   public String getAbbreviation() {

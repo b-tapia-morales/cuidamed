@@ -54,8 +54,8 @@ public class Province {
     return name;
   }
 
-  public void setName(final String provinceName) {
-    this.name = provinceName;
+  public void setName(final String name) {
+    this.name = name;
   }
 
   public Region getRegion() {

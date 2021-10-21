@@ -54,8 +54,8 @@ public class Commune {
     return name;
   }
 
-  public void setName(final String communeName) {
-    this.name = communeName;
+  public void setName(final String name) {
+    this.name = name;
   }
 
   public Province getProvince() {
