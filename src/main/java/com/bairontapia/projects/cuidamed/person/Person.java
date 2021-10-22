@@ -13,8 +13,8 @@ public class Person {
     @Column(name = "rut", unique = true, updatable = true, nullable = false)
     private String rut;
 
-    @Column(name = "firts_names", unique = false, updatable = true, nullable = false)
-    private String firtsNames;
+    @Column(name = "first_names", unique = false, updatable = true, nullable = false)
+    private String firstNames;
 
     @Column(name = "last_name", unique = false, updatable = true, nullable = false)
     private String lastName;
@@ -32,7 +32,7 @@ public class Person {
     public String toString() {
         return "Person{" +
                 "rut='" + rut + '\'' +
-                ", firtsNames='" + firtsNames + '\'' +
+                ", firstNames='" + firstNames + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", secondLastName='" + secondLastName + '\'' +
                 ", birthDate=" + birthDate +
@@ -53,12 +53,12 @@ public class Person {
         this.rut = rutID;
     }
 
-    public String getFirtsNames() {
-        return firtsNames;
+    public String getFirstNames() {
+        return firstNames;
     }
 
-    public void setFirtsNames(String firtsNames) {
-        this.firtsNames = firtsNames;
+    public void setFirstNames(String firstNames) {
+        this.firstNames = firstNames;
     }
 
     public String getLastName() {
