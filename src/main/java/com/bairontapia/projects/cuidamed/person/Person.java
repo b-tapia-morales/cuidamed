@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.util.Objects;
 
 
-@MappedSuperclass
+@Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(schema = "residence", name = "person")
 public class Person {
