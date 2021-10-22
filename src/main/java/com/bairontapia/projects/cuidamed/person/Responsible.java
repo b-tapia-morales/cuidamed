@@ -1,6 +1,16 @@
 package com.bairontapia.projects.cuidamed.person;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+;
 
 @Entity
-public class Responsible extends Person {}
+@Table(schema = "residence", name = "responsible")
+@PrimaryKeyJoinColumn(name = "rut")
+public class Responsible extends Person {
+    //atributos correspondientes
+
+
+    //conexion con clase Elder
+    @OneToOne(mappedBy = "responsible")
+    private Elder elder;
+}

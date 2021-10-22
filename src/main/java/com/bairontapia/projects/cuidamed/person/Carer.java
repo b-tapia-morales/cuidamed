@@ -1,6 +1,11 @@
 package com.bairontapia.projects.cuidamed.person;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+
 
 @Entity
-public class Carer extends Person {}
+@Table(schema = "residence", name = "carer")
+@PrimaryKeyJoinColumn(name = "rut")
+public class Carer extends Person {
+
+}
