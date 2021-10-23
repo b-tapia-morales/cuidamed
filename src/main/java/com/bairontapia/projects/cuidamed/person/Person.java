@@ -1,5 +1,7 @@
 package com.bairontapia.projects.cuidamed.person;
 
+import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
@@ -24,8 +26,8 @@ public class Person {
   @Column(name = "birth_date", nullable = false)
   private Date birthDate;
 
-  @Column(name = "sex", nullable = false)
-  private int sex;
+  @Convert(converter = Gender.class)
+  private Gender gender;
 
   @Override
   public String toString() {
@@ -43,10 +45,7 @@ public class Person {
         + secondLastName
         + '\''
         + ", birthDate="
-        + birthDate
-        + ", sex="
-        + sex
-        + '}';
+        + birthDate;
   }
 
   @Override
@@ -94,11 +93,11 @@ public class Person {
     this.birthDate = birthDate;
   }
 
-  public int getSex() {
-    return sex;
+  public Gender getGender() {
+    return gender;
   }
 
-  public void setSex(int sex) {
-    this.sex = sex;
+  public void setGender(final Gender gender) {
+    this.gender = gender;
   }
 }
