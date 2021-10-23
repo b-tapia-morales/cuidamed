@@ -7,15 +7,15 @@ import java.util.Objects;
 @Converter
 public class HealthSystemConverter implements AttributeConverter<HealthSystem, Short> {
 
-    @Override
-    public Short convertToDatabaseColumn(final HealthSystem value) {
-        Objects.requireNonNull(value);
-        return (short) value.getIndex();
-    }
+  @Override
+  public Short convertToDatabaseColumn(final HealthSystem value) {
+    Objects.requireNonNull(value);
+    return (short) value.getIndex();
+  }
 
-    @Override
-    public HealthSystem convertToEntityAttribute(final Short index) {
-        Objects.requireNonNull(index);
-        return HealthSystem.getValueFromIndex(index);
-    }
+  @Override
+  public HealthSystem convertToEntityAttribute(final Short index) {
+    Objects.requireNonNull(index);
+    return HealthSystem.getValueFromIndex(index);
+  }
 }

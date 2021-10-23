@@ -1,38 +1,38 @@
 package com.bairontapia.projects.cuidamed.mappings.healthsystem;
 
 public enum HealthSystem {
-    PUBLIC("Fonasa"),
-    PRIVATE("Isapre");
+  PUBLIC("Fonasa"),
+  PRIVATE("Isapre");
 
-    private static final HealthSystem[] VALUES = values();
+  private static final HealthSystem[] VALUES = values();
 
-    private final String name;
+  private final String name;
 
-    HealthSystem(final String name) {
-        this.name = name;
+  HealthSystem(final String name) {
+    this.name = name;
+  }
+
+  public static HealthSystem[] getValues() {
+    return VALUES;
+  }
+
+  public static HealthSystem getValueFromIndex(final int index) {
+    if (index < 1 || index > VALUES.length) {
+      throw new IllegalArgumentException();
     }
+    return VALUES[index - 1];
+  }
 
-    public static HealthSystem[] getValues() {
-        return VALUES;
-    }
+  @Override
+  public String toString() {
+    return name;
+  }
 
-    public static HealthSystem getValueFromIndex(final int index) {
-        if (index < 1 || index > VALUES.length) {
-            throw new IllegalArgumentException();
-        }
-        return VALUES[index - 1];
-    }
+  public String getStatus() {
+    return name;
+  }
 
-    @Override
-    public String toString() {
-        return name;
-    }
-
-    public String getStatus() {
-        return name;
-    }
-
-    public int getIndex() {
-        return ordinal() + 1;
-    }
+  public int getIndex() {
+    return ordinal() + 1;
+  }
 }
