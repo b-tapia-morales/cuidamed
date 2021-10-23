@@ -4,19 +4,18 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
 
-
 @Entity
 @Table(schema = "residence", name = "elder")
 @PrimaryKeyJoinColumn(name = "rut")
 public class Elder extends Person {
-    @Column(name = "is_active", unique = false, updatable = true, nullable = false)
+    @Column(name = "is_active", nullable = false)
     private boolean isActive;
 
-    @Column(name = "admission_date", unique = false, updatable = false, nullable = false)
+    @Column(name = "admission_date", updatable = false, nullable = false)
     private Date admissionDate;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "rut_responsible", referencedColumnName = "rut", unique = false, updatable = false, nullable = false)
+    @JoinColumn(name = "responsible_rut", referencedColumnName = "rut", updatable = false, nullable = false)
     private Responsible responsible;
 
     @Override

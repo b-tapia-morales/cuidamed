@@ -1,17 +1,18 @@
 package com.bairontapia.projects.cuidamed.person;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
 @Table(schema = "residence", name = "carer")
 @PrimaryKeyJoinColumn(name = "rut")
 public class Carer extends Person {
-  @Column(name = "mobile_phone", unique = true, updatable = true, nullable = false)
+  @Column(name = "mobile_phone", unique = true, nullable = false)
   private String mobilePhone;
 
-  @Column(name = "hire_date", unique = false, updatable = true, nullable = false)
+  @Temporal(TemporalType.DATE)
+  @Column(name = "hire_date", nullable = false)
   private Date hireDate;
 
   @Override
