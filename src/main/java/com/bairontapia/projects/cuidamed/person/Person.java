@@ -1,6 +1,7 @@
 package com.bairontapia.projects.cuidamed.person;
 
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
+import com.bairontapia.projects.cuidamed.mappings.gender.GenderConverter;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -9,7 +10,7 @@ import java.util.Objects;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(schema = "residence", name = "person")
-public class Person {
+public abstract class Person {
   @Id
   @Column(name = "rut", unique = true, nullable = false)
   private String rut;
@@ -26,26 +27,19 @@ public class Person {
   @Column(name = "birth_date", nullable = false)
   private Date birthDate;
 
-  @Convert(converter = Gender.class)
+  @Column(name = "gender", nullable = false)
+  @Convert(converter = GenderConverter.class)
   private Gender gender;
 
   @Override
-  public String toString() {
-    return "Person{"
-        + "rut='"
-        + rut
-        + '\''
-        + ", firstNames='"
-        + firstNames
-        + '\''
-        + ", lastName='"
-        + lastName
-        + '\''
-        + ", secondLastName='"
-        + secondLastName
-        + '\''
-        + ", birthDate="
-        + birthDate;
+  public boolean equals(final Object object) {
+    if (this == object) {
+      return true;
+    }
+    if (object instanceof Person person) {
+      return Objects.equals(rut, person.getRut());
+    }
+    return false;
   }
 
   @Override

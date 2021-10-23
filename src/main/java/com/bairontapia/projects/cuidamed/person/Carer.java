@@ -2,7 +2,6 @@ package com.bairontapia.projects.cuidamed.person;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Table(schema = "residence", name = "carer")
@@ -15,20 +14,12 @@ public class Carer extends Person {
   @Column(name = "hire_date", nullable = false)
   private Date hireDate;
 
-  @Override
-  public String toString() {
-    return "Carer{" + "mobilePhone='" + mobilePhone + '\'' + ", hireDate=" + hireDate + '}';
+  public String getMobilePhone() {
+    return mobilePhone;
   }
 
-  @Override
-  public boolean equals(final Object object) {
-    if (this == object) {
-      return true;
-    }
-    if (object instanceof Carer carer) {
-      return Objects.equals(getRut(), carer.getRut());
-    }
-    return false;
+  public void setMobilePhone(String mobilePhone) {
+    this.mobilePhone = mobilePhone;
   }
 
   public Date getHireDate() {
