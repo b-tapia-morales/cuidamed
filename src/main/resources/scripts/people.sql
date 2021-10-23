@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS residence.person
     second_last_name VARCHAR(64)  NOT NULL,
     birth_date       DATE         NOT NULL,
     age              SMALLINT     NOT NULL,
-    sex              SMALLINT     NOT NULL,
+    gender           SMALLINT     NOT NULL,
     PRIMARY KEY (rut)
 );
 
