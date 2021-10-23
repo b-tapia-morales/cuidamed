@@ -1,7 +1,7 @@
 package com.bairontapia.projects.cuidamed.person;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(schema = "residence", name = "elder")

@@ -4,7 +4,7 @@ import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.mappings.gender.GenderConverter;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -24,6 +24,7 @@ public abstract class Person {
   @Column(name = "second_last_name", nullable = false)
   private String secondLastName;
 
+  @Temporal(TemporalType.DATE)
   @Column(name = "birth_date", nullable = false)
   private Date birthDate;
 
