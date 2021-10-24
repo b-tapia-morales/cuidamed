@@ -1,5 +1,7 @@
 package com.bairontapia.projects.cuidamed.person;
 
+import com.bairontapia.projects.cuidamed.medicalrecord.MedicalRecord;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,4 +27,9 @@ public class Elder extends Person {
       updatable = false,
       nullable = false)
   private Responsible responsible;
+
+  @OneToOne(mappedBy = "elder", cascade = CascadeType.ALL)
+  @PrimaryKeyJoinColumn
+  @Setter(AccessLevel.PROTECTED)
+  private MedicalRecord medicalRecord;
 }

@@ -22,7 +22,7 @@ public class Province {
   @Column(name = "province_name", unique = true, updatable = false, nullable = false)
   private String name;
 
-  @JoinColumn(name = "region_id", unique = true, updatable = false, nullable = false)
+  @JoinColumn(name = "region_id", updatable = false, nullable = false)
   @OneToOne(cascade = CascadeType.ALL)
   private Region region;
 
