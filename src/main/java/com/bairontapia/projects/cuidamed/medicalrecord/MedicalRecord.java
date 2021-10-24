@@ -1,10 +1,11 @@
-package com.bairontapia.projects.cuidamed.medical_record;
+package com.bairontapia.projects.cuidamed.medicalrecord;
 
 import com.bairontapia.projects.cuidamed.mappings.bloodtype.BloodType;
 import com.bairontapia.projects.cuidamed.mappings.bloodtype.BloodTypeConverter;
 import com.bairontapia.projects.cuidamed.mappings.healthsystem.HealthSystem;
 import com.bairontapia.projects.cuidamed.mappings.healthsystem.HealthSystemConverter;
 import com.bairontapia.projects.cuidamed.person.Elder;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,5 +31,6 @@ public class MedicalRecord {
   @OneToOne(cascade = CascadeType.ALL)
   @MapsId
   @JoinColumn(name = "elder_rut", updatable = false, nullable = false)
+  @Setter(AccessLevel.PROTECTED)
   private Elder elder;
 }

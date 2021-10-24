@@ -1,6 +1,7 @@
 package com.bairontapia.projects.cuidamed.person;
 
-import com.bairontapia.projects.cuidamed.medical_record.MedicalRecord;
+import com.bairontapia.projects.cuidamed.medicalrecord.MedicalRecord;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,5 +30,6 @@ public class Elder extends Person {
 
   @OneToOne(mappedBy = "elder", cascade = CascadeType.ALL)
   @PrimaryKeyJoinColumn
+  @Setter(AccessLevel.PROTECTED)
   private MedicalRecord medicalRecord;
 }
