@@ -4,7 +4,7 @@ import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.mappings.gender.GenderConverter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +12,7 @@ import java.util.Objects;
 @Table(schema = "residence", name = "person")
 public abstract class Person {
   @Id
-  @Column(name = "rut", unique = true, nullable = false)
+  @Column(name = "rut", unique = true, nullable = false, updatable = false)
   private String rut;
 
   @Column(name = "first_names", nullable = false)
@@ -24,9 +24,8 @@ public abstract class Person {
   @Column(name = "second_last_name", nullable = false)
   private String secondLastName;
 
-  @Temporal(TemporalType.DATE)
   @Column(name = "birth_date", nullable = false)
-  private Date birthDate;
+  private LocalDate birthDate;
 
   @Column(name = "gender", nullable = false)
   @Convert(converter = GenderConverter.class)
@@ -80,11 +79,11 @@ public abstract class Person {
     this.secondLastName = secondLastName;
   }
 
-  public Date getBirthDate() {
+  public LocalDate getBirthDate() {
     return birthDate;
   }
 
-  public void setBirthDate(Date birthDate) {
+  public void setBirthDate(LocalDate birthDate) {
     this.birthDate = birthDate;
   }
 

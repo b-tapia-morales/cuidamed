@@ -1,7 +1,10 @@
 package com.bairontapia.projects.cuidamed.person;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import java.time.LocalDate;
 
 @Entity
 @Table(schema = "residence", name = "carer")
@@ -10,9 +13,8 @@ public class Carer extends Person {
   @Column(name = "mobile_phone", unique = true, nullable = false)
   private String mobilePhone;
 
-  @Temporal(TemporalType.DATE)
   @Column(name = "hire_date", nullable = false)
-  private Date hireDate;
+  private LocalDate hireDate;
 
   public String getMobilePhone() {
     return mobilePhone;
@@ -22,11 +24,11 @@ public class Carer extends Person {
     this.mobilePhone = mobilePhone;
   }
 
-  public Date getHireDate() {
+  public LocalDate getHireDate() {
     return hireDate;
   }
 
-  public void setHireDate(Date hireDate) {
+  public void setHireDate(LocalDate hireDate) {
     this.hireDate = hireDate;
   }
 }

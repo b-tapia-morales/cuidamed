@@ -1,7 +1,7 @@
 package com.bairontapia.projects.cuidamed.person;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(schema = "residence", name = "elder")
@@ -10,9 +10,8 @@ public class Elder extends Person {
   @Column(name = "is_active", nullable = false)
   private Boolean isActive;
 
-  @Temporal(TemporalType.DATE)
   @Column(name = "admission_date", nullable = false)
-  private Date admissionDate;
+  private LocalDate admissionDate;
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(
@@ -30,11 +29,11 @@ public class Elder extends Person {
     isActive = active;
   }
 
-  public Date getAdmissionDate() {
+  public LocalDate getAdmissionDate() {
     return admissionDate;
   }
 
-  public void setAdmissionDate(Date admissionDate) {
+  public void setAdmissionDate(LocalDate admissionDate) {
     this.admissionDate = admissionDate;
   }
 
