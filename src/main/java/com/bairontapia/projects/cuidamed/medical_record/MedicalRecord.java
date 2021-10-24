@@ -29,6 +29,6 @@ public class MedicalRecord {
 
   @OneToOne(cascade = CascadeType.ALL)
   @MapsId
-  @JoinColumn(name = "elder_rut")
+  @JoinColumn(name = "elder_rut", updatable = false, nullable = false)
   private Elder elder;
 }

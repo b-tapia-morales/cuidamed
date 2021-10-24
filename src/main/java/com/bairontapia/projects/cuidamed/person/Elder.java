@@ -27,8 +27,7 @@ public class Elder extends Person {
       nullable = false)
   private Responsible responsible;
 
-  //
-  @OneToOne(mappedBy = "elder")
+  @OneToOne(mappedBy = "elder", cascade = CascadeType.ALL)
+  @PrimaryKeyJoinColumn
   private MedicalRecord medicalRecord;
-  //
 }
