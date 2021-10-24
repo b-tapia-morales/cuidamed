@@ -1,5 +1,8 @@
 package com.bairontapia.projects.cuidamed.mappings.healthsystem;
 
+import lombok.Getter;
+
+@Getter
 public enum HealthSystem {
   PUBLIC("Fonasa"),
   PRIVATE("Isapre");
@@ -25,10 +28,6 @@ public enum HealthSystem {
 
   @Override
   public String toString() {
-    return name;
-  }
-
-  public String getStatus() {
     return name;
   }
 

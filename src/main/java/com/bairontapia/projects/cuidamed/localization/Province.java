@@ -1,5 +1,8 @@
 package com.bairontapia.projects.cuidamed.localization;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
@@ -8,6 +11,8 @@ import java.util.Objects;
 @Entity
 @Table(schema = "residence", name = "province")
 @Immutable
+@Getter
+@Setter(AccessLevel.PRIVATE)
 public class Province {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,29 +45,5 @@ public class Province {
   @Override
   public String toString() {
     return name;
-  }
-
-  public Short getId() {
-    return id;
-  }
-
-  public void setId(final Short id) {
-    this.id = id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  public Region getRegion() {
-    return region;
-  }
-
-  public void setRegion(final Region region) {
-    this.region = region;
   }
 }

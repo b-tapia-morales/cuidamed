@@ -1,5 +1,8 @@
 package com.bairontapia.projects.cuidamed.mappings.dosagestatus;
 
+import lombok.Getter;
+
+@Getter
 public enum DosageStatus {
   UNDEFINED("Sin definir"),
   PENDING("Pendiente"),
@@ -28,10 +31,6 @@ public enum DosageStatus {
   @Override
   public String toString() {
     return status;
-  }
-
-  public String getStatus() {
-    return this.status;
   }
 
   public int getIndex() {

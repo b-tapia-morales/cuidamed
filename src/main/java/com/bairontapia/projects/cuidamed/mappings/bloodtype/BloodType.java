@@ -1,5 +1,8 @@
 package com.bairontapia.projects.cuidamed.mappings.bloodtype;
 
+import lombok.Getter;
+
+@Getter
 public enum BloodType {
   A_MINUS("A-"),
   A_PLUS("A+"),
@@ -31,10 +34,6 @@ public enum BloodType {
 
   @Override
   public String toString() {
-    return name;
-  }
-
-  public String getName() {
     return name;
   }
 

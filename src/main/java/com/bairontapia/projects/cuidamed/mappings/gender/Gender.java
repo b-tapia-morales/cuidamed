@@ -1,11 +1,14 @@
 package com.bairontapia.projects.cuidamed.mappings.gender;
 
+import lombok.Getter;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Getter
 public enum Gender {
   NOT_KNOWN(0, "Desconocido"),
   MALE(1, "Hombre"),
@@ -40,14 +43,6 @@ public enum Gender {
 
   @Override
   public String toString() {
-    return name;
-  }
-
-  public int getCode() {
-    return code;
-  }
-
-  public String getName() {
     return name;
   }
 

@@ -1,5 +1,8 @@
 package com.bairontapia.projects.cuidamed.mappings.dosageform;
 
+import lombok.Getter;
+
+@Getter
 public enum DosageForm {
   BARS("Barras"),
   CAPSULES("Cápsulas"),
@@ -43,10 +46,6 @@ public enum DosageForm {
 
   @Override
   public String toString() {
-    return form;
-  }
-
-  public String getForm() {
     return form;
   }
 

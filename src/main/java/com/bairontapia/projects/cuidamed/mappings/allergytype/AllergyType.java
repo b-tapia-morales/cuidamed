@@ -1,5 +1,8 @@
 package com.bairontapia.projects.cuidamed.mappings.allergytype;
 
+import lombok.Getter;
+
+@Getter
 public enum AllergyType {
   DRUGS("Medicamentos"),
   FOODS("Comidas"),
@@ -30,10 +33,6 @@ public enum AllergyType {
 
   @Override
   public String toString() {
-    return name;
-  }
-
-  public String getStatus() {
     return name;
   }
 

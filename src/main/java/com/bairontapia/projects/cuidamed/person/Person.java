@@ -2,6 +2,9 @@ package com.bairontapia.projects.cuidamed.person;
 
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.mappings.gender.GenderConverter;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,9 +13,12 @@ import java.util.Objects;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(schema = "residence", name = "person")
+@Getter
+@Setter
 public abstract class Person {
   @Id
   @Column(name = "rut", unique = true, nullable = false, updatable = false)
+  @Setter(AccessLevel.PROTECTED)
   private String rut;
 
   @Column(name = "first_names", nullable = false)
@@ -45,53 +51,5 @@ public abstract class Person {
   @Override
   public int hashCode() {
     return Objects.hashCode(rut);
-  }
-
-  public String getRut() {
-    return rut;
-  }
-
-  public void setRut(String rutID) {
-    this.rut = rutID;
-  }
-
-  public String getFirstNames() {
-    return firstNames;
-  }
-
-  public void setFirstNames(String firstNames) {
-    this.firstNames = firstNames;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
-
-  public String getSecondLastName() {
-    return secondLastName;
-  }
-
-  public void setSecondLastName(String secondLastName) {
-    this.secondLastName = secondLastName;
-  }
-
-  public LocalDate getBirthDate() {
-    return birthDate;
-  }
-
-  public void setBirthDate(LocalDate birthDate) {
-    this.birthDate = birthDate;
-  }
-
-  public Gender getGender() {
-    return gender;
-  }
-
-  public void setGender(final Gender gender) {
-    this.gender = gender;
   }
 }
