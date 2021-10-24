@@ -22,7 +22,7 @@ public class Commune {
   @Column(name = "commune_name", unique = true, updatable = false, nullable = false)
   private String name;
 
-  @JoinColumn(name = "province_id", unique = true, updatable = false, nullable = false)
+  @JoinColumn(name = "province_id", updatable = false, nullable = false)
   @OneToOne(cascade = CascadeType.ALL)
   private Province province;
 
