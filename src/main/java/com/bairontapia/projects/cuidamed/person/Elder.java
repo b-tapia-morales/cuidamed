@@ -1,5 +1,6 @@
 package com.bairontapia.projects.cuidamed.person;
 
+import com.bairontapia.projects.cuidamed.medical_record.MedicalRecord;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,4 +26,9 @@ public class Elder extends Person {
       updatable = false,
       nullable = false)
   private Responsible responsible;
+
+  //
+  @OneToOne(mappedBy = "elder")
+  private MedicalRecord medicalRecord;
+  //
 }
