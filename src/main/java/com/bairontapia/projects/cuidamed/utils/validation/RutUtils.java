@@ -34,7 +34,7 @@ public final class RutUtils {
     }
     var string = rut;
     string = StringUtils.upperCase(string);
-    string = RegExUtils.replaceAll(string, "[.-]", "");
+    string = StringUtils.replace(string, "-", "");
     final int n = string.length();
     int count = 0;
     final var builder = new StringBuilder().append(string.charAt(n - 1)).append("-");
