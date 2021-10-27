@@ -3,23 +3,23 @@ package com.bairontapia.projects.cuidamed.mappings.healthcaresystem;
 import lombok.Getter;
 
 @Getter
-public enum HealthcareSystem {
+public enum HealthCareSystem {
   PUBLIC("Fonasa"),
   PRIVATE("Isapre");
 
-  private static final HealthcareSystem[] VALUES = values();
+  private static final HealthCareSystem[] VALUES = values();
 
   private final String name;
 
-  HealthcareSystem(final String name) {
+  HealthCareSystem(final String name) {
     this.name = name;
   }
 
-  public static HealthcareSystem[] getValues() {
+  public static HealthCareSystem[] getValues() {
     return VALUES;
   }
 
-  public static HealthcareSystem getValueFromIndex(final int index) {
+  public static HealthCareSystem getValueFromIndex(final int index) {
     if (index < 1 || index > VALUES.length) {
       throw new IllegalArgumentException();
     }
