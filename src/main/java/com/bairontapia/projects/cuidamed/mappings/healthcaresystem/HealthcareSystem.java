@@ -1,25 +1,25 @@
-package com.bairontapia.projects.cuidamed.mappings.healthsystem;
+package com.bairontapia.projects.cuidamed.mappings.healthcaresystem;
 
 import lombok.Getter;
 
 @Getter
-public enum HealthSystem {
+public enum HealthcareSystem {
   PUBLIC("Fonasa"),
   PRIVATE("Isapre");
 
-  private static final HealthSystem[] VALUES = values();
+  private static final HealthcareSystem[] VALUES = values();
 
   private final String name;
 
-  HealthSystem(final String name) {
+  HealthcareSystem(final String name) {
     this.name = name;
   }
 
-  public static HealthSystem[] getValues() {
+  public static HealthcareSystem[] getValues() {
     return VALUES;
   }
 
-  public static HealthSystem getValueFromIndex(final int index) {
+  public static HealthcareSystem getValueFromIndex(final int index) {
     if (index < 1 || index > VALUES.length) {
       throw new IllegalArgumentException();
     }

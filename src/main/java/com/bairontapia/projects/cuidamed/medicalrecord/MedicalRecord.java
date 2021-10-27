@@ -2,8 +2,8 @@ package com.bairontapia.projects.cuidamed.medicalrecord;
 
 import com.bairontapia.projects.cuidamed.mappings.bloodtype.BloodType;
 import com.bairontapia.projects.cuidamed.mappings.bloodtype.BloodTypeConverter;
-import com.bairontapia.projects.cuidamed.mappings.healthsystem.HealthSystem;
-import com.bairontapia.projects.cuidamed.mappings.healthsystem.HealthSystemConverter;
+import com.bairontapia.projects.cuidamed.mappings.healthcaresystem.HealthcareSystem;
+import com.bairontapia.projects.cuidamed.mappings.healthcaresystem.HealthcareSystemConverter;
 import com.bairontapia.projects.cuidamed.person.Elder;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -25,8 +25,8 @@ public class MedicalRecord {
   private BloodType bloodType;
 
   @Column(name = "healthcare_system", nullable = false)
-  @Convert(converter = HealthSystemConverter.class)
-  private HealthSystem healthcareSystem;
+  @Convert(converter = HealthcareSystemConverter.class)
+  private HealthcareSystem healthcareSystem;
 
   @OneToOne(cascade = CascadeType.ALL)
   @MapsId
