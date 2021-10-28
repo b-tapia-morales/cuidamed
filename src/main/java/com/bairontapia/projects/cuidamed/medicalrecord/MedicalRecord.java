@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(schema = "residence", name = "medical_record")
@@ -33,4 +34,7 @@ public class MedicalRecord {
   @JoinColumn(name = "elder_rut", updatable = false, nullable = false)
   @Setter(AccessLevel.PROTECTED)
   private Elder elder;
+
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "medicalRecord")
+  private List<RoutineCheckup> listRoutineCheckup;
 }
