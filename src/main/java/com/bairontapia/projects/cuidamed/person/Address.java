@@ -20,7 +20,7 @@ public class Address {
   private Integer postalCode;
 
   @Column(name = "fixed_phone")
-  private Integer fixed_phone;
+  private Integer fixedPhone;
 
   @JoinColumn(name = "person_rut", referencedColumnName = "rut", insertable = false, updatable = false)
   @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
