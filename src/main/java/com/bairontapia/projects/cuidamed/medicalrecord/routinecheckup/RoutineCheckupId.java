@@ -1,4 +1,4 @@
-package com.bairontapia.projects.cuidamed.medicalrecord;
+package com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup;
 
 import lombok.Getter;
 import lombok.Setter;

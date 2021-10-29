@@ -4,6 +4,7 @@ import com.bairontapia.projects.cuidamed.mappings.bloodtype.BloodType;
 import com.bairontapia.projects.cuidamed.mappings.bloodtype.BloodTypeConverter;
 import com.bairontapia.projects.cuidamed.mappings.healthcaresystem.HealthCareSystem;
 import com.bairontapia.projects.cuidamed.mappings.healthcaresystem.HealthCareSystemConverter;
+import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineCheckup;
 import com.bairontapia.projects.cuidamed.person.Elder;
 import lombok.AccessLevel;
 import lombok.Getter;

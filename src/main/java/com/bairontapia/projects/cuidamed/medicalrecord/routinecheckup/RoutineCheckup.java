@@ -1,5 +1,6 @@
-package com.bairontapia.projects.cuidamed.medicalrecord;
+package com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup;
 
+import com.bairontapia.projects.cuidamed.medicalrecord.MedicalRecord;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
