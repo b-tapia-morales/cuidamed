@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(schema = "residence", name = "medical_record")
@@ -18,7 +20,7 @@ import javax.persistence.*;
 public class MedicalRecord {
   @Id
   @Column(name = "elder_rut", unique = true, nullable = false, updatable = false)
-  private String elderRut;
+  private String rut;
 
   @Column(name = "blood_type", nullable = false)
   @Convert(converter = BloodTypeConverter.class)
@@ -32,4 +34,9 @@ public class MedicalRecord {
   @JoinColumn(name = "elder_rut", nullable = false, updatable = false)
   @Setter(AccessLevel.PROTECTED)
   private Elder elder;
+
+  @OneToMany(mappedBy = "medicalRecord", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OrderBy("checkup_date DESC")
+  @Setter(AccessLevel.PRIVATE)
+  private List<RoutineCheckup> listRoutineCheckup = new ArrayList<>();
 }
