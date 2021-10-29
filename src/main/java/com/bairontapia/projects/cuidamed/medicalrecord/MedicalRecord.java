@@ -39,5 +39,5 @@ public class MedicalRecord {
   @OneToMany(mappedBy = "medicalRecord", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @OrderBy("checkup_date DESC")
   @Setter(AccessLevel.PRIVATE)
-  private List<RoutineCheckup> listRoutineCheckup = new ArrayList<>();
+  private List<RoutineCheckup> routineCheckups = new ArrayList<>();
 }
