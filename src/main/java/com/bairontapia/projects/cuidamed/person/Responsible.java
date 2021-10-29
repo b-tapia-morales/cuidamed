@@ -15,10 +15,10 @@ public class Responsible extends Person {
   @Column(name = "mobile_phone", unique = true, nullable = false)
   private Integer mobilePhone;
 
-  @OneToOne(mappedBy = "responsible")
+  @OneToOne(mappedBy = "responsible", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Elder elder;
 
-  @OneToOne(cascade = CascadeType.ALL, mappedBy = "person", fetch = FetchType.LAZY)
+  @OneToOne(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @Setter(AccessLevel.PROTECTED)
   private Address address;
 }

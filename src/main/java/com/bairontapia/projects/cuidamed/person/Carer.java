@@ -19,7 +19,7 @@ public class Carer extends Person {
   @Column(name = "hire_date", nullable = false)
   private LocalDate hireDate;
 
-  @OneToOne(cascade = CascadeType.ALL, mappedBy = "person", fetch = FetchType.LAZY)
+  @OneToOne(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @Setter(AccessLevel.PROTECTED)
   private Address address;
 }

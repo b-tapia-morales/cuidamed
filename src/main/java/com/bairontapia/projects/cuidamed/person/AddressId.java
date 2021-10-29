@@ -24,7 +24,7 @@ public class AddressId implements Serializable {
   @Column(name = "number", updatable = false, nullable = false)
   private Short number;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "person_rut", updatable = false, nullable = false)
   private Person person;
 

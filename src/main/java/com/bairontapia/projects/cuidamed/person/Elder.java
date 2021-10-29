@@ -20,12 +20,12 @@ public class Elder extends Person {
   @Column(name = "admission_date", nullable = false)
   private LocalDate admissionDate;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(
       name = "responsible_rut",
       referencedColumnName = "rut",
-      updatable = false,
-      nullable = false)
+      nullable = false,
+      updatable = false)
   private Responsible responsible;
 
   @OneToOne(mappedBy = "elder", cascade = CascadeType.ALL)

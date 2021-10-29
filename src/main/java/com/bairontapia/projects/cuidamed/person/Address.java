@@ -23,7 +23,7 @@ public class Address {
   private Integer fixed_phone;
 
   @JoinColumn(name = "person_rut", referencedColumnName = "rut", insertable = false, updatable = false)
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @Setter(AccessLevel.PROTECTED)
   private Person person;
 
