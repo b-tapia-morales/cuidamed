@@ -4,10 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -23,7 +20,12 @@ public class Address {
   private Integer postalCode;
 
   @Column(name = "fixed_phone")
-  private String fixed_phone;
+  private Integer fixed_phone;
+
+  @JoinColumn(name = "person_rut", referencedColumnName = "rut", insertable = false, updatable = false)
+  @OneToOne(cascade = CascadeType.ALL)
+  @Setter(AccessLevel.PROTECTED)
+  private Person person;
 
   @Override
   public boolean equals(final Object object) {
