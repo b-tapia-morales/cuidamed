@@ -1,5 +1,6 @@
 package com.bairontapia.projects.cuidamed.person;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,8 +13,12 @@ import javax.persistence.*;
 @Setter
 public class Responsible extends Person {
   @Column(name = "mobile_phone", unique = true, nullable = false)
-  private String mobilePhone;
+  private Integer mobilePhone;
 
-  @OneToOne(mappedBy = "responsible")
+  @OneToOne(mappedBy = "responsible", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Elder elder;
+
+  @OneToOne(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @Setter(AccessLevel.PROTECTED)
+  private Address address;
 }

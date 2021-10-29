@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS residence.person
 CREATE TABLE IF NOT EXISTS residence.responsible
 (
     rut          VARCHAR(16) NOT NULL,
-    mobile_phone VARCHAR(16) NOT NULL,
+    mobile_phone INT         NOT NULL,
     FOREIGN KEY (rut) REFERENCES residence.person (rut),
     PRIMARY KEY (rut)
 );
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS residence.responsible
 CREATE TABLE IF NOT EXISTS residence.carer
 (
     rut          VARCHAR(16) NOT NULL,
-    mobile_phone VARCHAR(16) NOT NULL,
+    mobile_phone INT         NOT NULL,
     hire_date    DATE        NOT NULL,
     FOREIGN KEY (rut) REFERENCES residence.person (rut),
     PRIMARY KEY (rut)
@@ -49,12 +49,13 @@ CREATE TABLE IF NOT EXISTS residence.address
     street      VARCHAR(128) NOT NULL,
     number      SMALLINT     NOT NULL,
     postal_code INT,
-    fixed_phone VARCHAR(16),
+    fixed_phone INT,
     person_rut  VARCHAR(16),
-    FOREIGN KEY (commune_id) REFERENCES residence.commune (id),
-    FOREIGN KEY (person_rut) REFERENCES residence.person (rut),
-    PRIMARY KEY (commune_id, street, number, person_rut)
+    FOREIGN KEY (commune_id) REFERENCES commune (id),
+    FOREIGN KEY (person_rut) REFERENCES person (rut),
+    primary key (commune_id, street, number, person_rut)
 );
+
 
 /*CREATE TABLE IF NOT EXISTS apartment
 (

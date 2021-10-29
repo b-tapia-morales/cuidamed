@@ -30,8 +30,8 @@ public class MedicalRecord {
   @Convert(converter = HealthCareSystemConverter.class)
   private HealthCareSystem healthCareSystem;
 
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "elder_rut", updatable = false, nullable = false)
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JoinColumn(name = "elder_rut", nullable = false, updatable = false)
   @Setter(AccessLevel.PROTECTED)
   private Elder elder;
 
