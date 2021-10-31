@@ -45,14 +45,14 @@ CREATE TABLE IF NOT EXISTS residence.elder
 
 CREATE TABLE IF NOT EXISTS residence.address
 (
-    commune_id  SMALLINT     NOT NULL,
+    commune_id  SMALLSERIAL     NOT NULL,
     street      VARCHAR(128) NOT NULL,
     number      SMALLINT     NOT NULL,
     postal_code INT,
     fixed_phone INT,
     person_rut  VARCHAR(16),
-    FOREIGN KEY (commune_id) REFERENCES commune (id),
-    FOREIGN KEY (person_rut) REFERENCES person (rut),
+    FOREIGN KEY (commune_id) REFERENCES residence.commune (id),
+    FOREIGN KEY (person_rut) REFERENCES residence.person (rut),
     primary key (commune_id, street, number, person_rut)
 );
 
