@@ -88,7 +88,7 @@ HAVING count(E.rut) >= 2;
  consulta 7
  */
 
-WITH medications AS (SELECT disease_name                                               AS disease,
+WITH medications AS (SELECT disease_name,
                             string_agg(medication_name, ', ' ORDER BY medication_name) AS list
                      FROM residence.person P,
                           residence.elder E,
@@ -99,13 +99,14 @@ WITH medications AS (SELECT disease_name                                        
 SELECT E.rut,
        CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
        Esd.diagnosis_date,
-       medications.list
+       M.list
 FROM residence.person P,
      residence.elder E,
      residence.elder_suffers_disease Esd,
-     medications
+     medications M
 WHERE P.rut = E.rut
   AND E.rut = Esd.elder_rut
+  AND Esd.disease_name = M.disease_name
   AND Esd.disease_name = 'Diabetes';
 /*
  consulta 8
