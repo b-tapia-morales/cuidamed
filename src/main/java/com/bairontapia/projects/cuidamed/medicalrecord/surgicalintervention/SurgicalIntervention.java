@@ -21,7 +21,7 @@ public class SurgicalIntervention {
     private String hospital;
 
     @Column(name = "severity", nullable = false)
-    private Integer severity;
+    private Short severity;
 
     @Column(name = "description", nullable = false)
     private String description;
@@ -33,9 +33,11 @@ public class SurgicalIntervention {
 
     @Override
     public boolean equals(final Object object){
-        if (this == object) return true;
-        if(object instanceof final SurgicalIntervention surgicalIntervention){
-            return Objects.equals(id,surgicalIntervention.id);
+        if (this == object) {
+            return true;
+        }
+        if (object instanceof final SurgicalIntervention surgicalIntervention){
+            return Objects.equals(id, surgicalIntervention.id);
         }
         return false;
     }

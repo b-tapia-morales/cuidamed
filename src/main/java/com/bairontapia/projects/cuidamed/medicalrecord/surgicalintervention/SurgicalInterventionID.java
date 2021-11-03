@@ -22,8 +22,10 @@ public class SurgicalInterventionID implements Serializable {
 
     @Override
     public boolean equals(final Object object){
-        if (this == object) return true;
-        if(object instanceof final SurgicalInterventionID id){
+        if (this == object) {
+            return true;
+        }
+        if (object instanceof final SurgicalInterventionID id){
             return new EqualsBuilder()
                     .append(rut,id.rut)
                     .append(interventionDate, id.interventionDate)
