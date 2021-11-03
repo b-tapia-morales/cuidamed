@@ -1,8 +1,8 @@
 package com.bairontapia.projects.cuidamed.mappings.dosagestatus;
 
+import java.util.Objects;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import java.util.Objects;
 
 @Converter
 public class DosageStatusConverter implements AttributeConverter<DosageStatus, Short> {

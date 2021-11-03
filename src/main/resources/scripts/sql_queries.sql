@@ -1,7 +1,9 @@
 /*
  consulta 1
  */
-SELECT E.rut, CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name, MP.start_date
+SELECT E.rut,
+       CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
+       MP.start_date
 FROM residence.elder E,
      residence.person P,
      residence.medication_prescription MP
@@ -16,7 +18,8 @@ WHERE P.rut = E.rut
  */
 SELECT DISTINCT ON (Ch.checkup_date) checkup_date,
                                      E.rut,
-                                     CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
+                                     CONCAT(P.first_names, ' ', P.last_name, ' ',
+                                            P.second_last_name) AS full_name,
                                      Ch.bmi
 FROM residence.elder E,
      residence.person P,
@@ -50,7 +53,9 @@ FROM residence.medical_record M
 GROUP BY M.blood_type
 ORDER BY M.blood_type;
 
-SELECT e.rut, CONCAT(first_names, ' ', last_name, ' ', second_last_name) as full_name, medical_record.blood_type
+SELECT e.rut,
+       CONCAT(first_names, ' ', last_name, ' ', second_last_name) as full_name,
+       medical_record.blood_type
 from residence.person as e,
      residence.elder,
      residence.medical_record
@@ -128,7 +133,8 @@ WHERE P.rut = E.rut
  consulta 9
  */
 SELECT DISTINCT ON (RC.checkup_date) P.rut,
-                                     CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) as full_name
+                                     CONCAT(P.first_names, ' ', P.last_name, ' ',
+                                            P.second_last_name) as full_name
 FROM residence.person P,
      residence.elder E,
      residence.disease D,

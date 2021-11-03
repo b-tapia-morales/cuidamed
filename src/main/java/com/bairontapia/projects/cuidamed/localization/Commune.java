@@ -1,12 +1,20 @@
 package com.bairontapia.projects.cuidamed.localization;
 
+import java.util.Objects;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Immutable;
-
-import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(schema = "residence", name = "commune")
@@ -14,6 +22,7 @@ import java.util.Objects;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 public class Commune {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", unique = true, updatable = false, nullable = false)
@@ -31,7 +40,7 @@ public class Commune {
     if (this == object) {
       return true;
     }
-    if (object instanceof Commune commune){
+    if (object instanceof Commune commune) {
       return Objects.equals(id, commune.id);
     }
     return false;

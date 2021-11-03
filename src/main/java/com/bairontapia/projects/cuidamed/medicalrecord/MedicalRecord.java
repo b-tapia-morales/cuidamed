@@ -7,19 +7,29 @@ import com.bairontapia.projects.cuidamed.mappings.healthcaresystem.HealthCareSys
 import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineCheckup;
 import com.bairontapia.projects.cuidamed.medicalrecord.surgicalintervention.SurgicalIntervention;
 import com.bairontapia.projects.cuidamed.person.Elder;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(schema = "residence", name = "medical_record")
 @Getter
 @Setter
 public class MedicalRecord {
+
   @Id
   @Column(name = "elder_rut", unique = true, nullable = false, updatable = false)
   private String rut;

@@ -1,12 +1,18 @@
 package com.bairontapia.projects.cuidamed.person;
 
 import com.bairontapia.projects.cuidamed.medicalrecord.MedicalRecord;
+import java.time.LocalDate;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Table(schema = "residence", name = "elder")
@@ -14,6 +20,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class Elder extends Person {
+
   @Column(name = "is_active", nullable = false)
   private Boolean isActive;
 

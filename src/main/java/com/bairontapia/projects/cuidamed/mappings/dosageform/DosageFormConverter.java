@@ -1,8 +1,8 @@
 package com.bairontapia.projects.cuidamed.mappings.dosageform;
 
+import java.util.Objects;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import java.util.Objects;
 
 @Converter
 public class DosageFormConverter implements AttributeConverter<DosageForm, Short> {

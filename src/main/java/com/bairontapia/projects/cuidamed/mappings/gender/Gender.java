@@ -1,12 +1,11 @@
 package com.bairontapia.projects.cuidamed.mappings.gender;
 
-import lombok.Getter;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import lombok.Getter;
 
 @Getter
 public enum Gender {

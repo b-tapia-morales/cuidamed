@@ -1,12 +1,16 @@
 package com.bairontapia.projects.cuidamed.localization;
 
+import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Immutable;
-
-import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(schema = "residence", name = "region")
@@ -14,6 +18,7 @@ import java.util.Objects;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 public class Region {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", unique = true, updatable = false, nullable = false)
@@ -33,7 +38,7 @@ public class Region {
     if (this == object) {
       return true;
     }
-    if (object instanceof Region region){
+    if (object instanceof Region region) {
       return Objects.equals(id, region.id);
       /*
       return new EqualsBuilder()

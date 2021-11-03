@@ -2,13 +2,18 @@ package com.bairontapia.projects.cuidamed.person;
 
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.mappings.gender.GenderConverter;
+import java.time.LocalDate;
+import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -16,6 +21,7 @@ import java.util.Objects;
 @Getter
 @Setter
 public abstract class Person {
+
   @Id
   @Column(name = "rut", unique = true, nullable = false, updatable = false)
   @Setter(AccessLevel.PROTECTED)

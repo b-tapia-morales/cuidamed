@@ -1,8 +1,8 @@
 package com.bairontapia.projects.cuidamed.mappings.bloodtype;
 
+import java.util.Objects;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import java.util.Objects;
 
 @Converter
 public class BloodTypeConverter implements AttributeConverter<BloodType, Short> {

@@ -1,8 +1,8 @@
 package com.bairontapia.projects.cuidamed.mappings.gender;
 
+import java.util.Objects;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import java.util.Objects;
 
 @Converter
 public class GenderConverter implements AttributeConverter<Gender, Short> {

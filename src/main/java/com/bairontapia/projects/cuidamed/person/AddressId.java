@@ -1,19 +1,24 @@
 package com.bairontapia.projects.cuidamed.person;
 
 import com.bairontapia.projects.cuidamed.localization.Commune;
+import java.io.Serializable;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.persistence.*;
-import java.io.Serializable;
-
 @Embeddable
 @Getter
 @Setter(AccessLevel.PROTECTED)
 public class AddressId implements Serializable {
+
   @JoinColumn(name = "commune_id", updatable = false, nullable = false)
   @OneToOne(cascade = CascadeType.ALL)
   private Commune commune;
@@ -35,11 +40,11 @@ public class AddressId implements Serializable {
     }
     if (object instanceof final AddressId addressId) {
       return new EqualsBuilder()
-              .append(commune, addressId.commune)
-              .append(street, addressId.street)
-              .append(number, addressId.number)
-              .append(person, addressId.person)
-              .isEquals();
+          .append(commune, addressId.commune)
+          .append(street, addressId.street)
+          .append(number, addressId.number)
+          .append(person, addressId.person)
+          .isEquals();
     }
     return false;
   }
@@ -47,10 +52,10 @@ public class AddressId implements Serializable {
   @Override
   public int hashCode() {
     return new HashCodeBuilder()
-            .append(commune)
-            .append(street)
-            .append(number)
-            .append(person)
-            .toHashCode();
+        .append(commune)
+        .append(street)
+        .append(number)
+        .append(person)
+        .toHashCode();
   }
 }
