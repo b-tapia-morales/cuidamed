@@ -88,10 +88,22 @@ HAVING count(E.rut) >= 2;
  consulta 7
  */
 
-SELECT E.rut, CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name
-FROM residence.elder E,
-     residence.person P,
-     residence.elder_suffers_disease Esd
+WITH medications AS (SELECT disease_name,
+                            string_agg(Md.medication_name, ', ' ORDER BY Md.medication_name) AS list
+                     FROM residence.person P,
+                          residence.elder E,
+                          residence.medication_prescription Md
+                     WHERE P.rut = E.rut
+                       AND E.rut = Md.elder_rut
+                     GROUP BY 1)
+SELECT E.rut,
+       CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
+       Esd.diagnosis_date,
+       medications.list
+FROM residence.person P,
+     residence.elder E,
+     residence.elder_suffers_disease Esd,
+     medications
 WHERE P.rut = E.rut
   AND E.rut = Esd.elder_rut
   AND Esd.disease_name = 'Diabetes';
