@@ -152,9 +152,11 @@ WHERE P.rut = E.rut
 ORDER BY checkup_date DESC;
 
 SELECT personE.rut,
-       CONCAT(personE.first_names, ' ', personE.last_name, ' ', personE.second_last_name) as elder_full_name,
+       CONCAT(personE.first_names, ' ', personE.last_name, ' ',
+              personE.second_last_name)                                                   as elder_full_name,
        personR.rut,
-       CONCAT(personR.first_names, ' ', personR.last_name, ' ', personR.second_last_name) as responsible_full_name,
+       CONCAT(personR.first_names, ' ', personR.last_name, ' ',
+              personR.second_last_name)                                                   as responsible_full_name,
        R.mobile_phone
 FROM residence.person personE,
      residence.elder E,

@@ -1,19 +1,19 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.surgicalintervention;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import java.io.Serializable;
-import java.time.LocalDate;
-
 @Embeddable
 @Getter
 @Setter
 public class SurgicalInterventionID implements Serializable {
+
   @Column(name = "elder_rut", nullable = false, updatable = false)
   private String rut;
 
