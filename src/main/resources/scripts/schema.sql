@@ -14,6 +14,7 @@ DROP TABLE IF EXISTS residence.allergy;
 DROP TABLE IF EXISTS residence.surgical_intervention;
 DROP TABLE IF EXISTS residence.medical_record;
 
+DROP TABLE IF EXISTS residence.medication_administration;
 DROP TABLE IF EXISTS residence.medication_prescription;
 DROP TABLE IF EXISTS residence.medication;
 DROP TABLE IF EXISTS residence.prescription;
