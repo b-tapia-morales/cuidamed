@@ -88,8 +88,8 @@ HAVING count(E.rut) >= 2;
  consulta 7
  */
 
-WITH medications AS (SELECT disease_name,
-                            string_agg(Md.medication_name, ', ' ORDER BY Md.medication_name) AS list
+WITH medications AS (SELECT disease_name                                               AS disease,
+                            string_agg(medication_name, ', ' ORDER BY medication_name) AS list
                      FROM residence.person P,
                           residence.elder E,
                           residence.medication_prescription Md
@@ -127,7 +127,7 @@ WHERE P.rut = E.rut
  consulta 9
  */
 SELECT DISTINCT ON (RC.checkup_date) P.rut,
-                                  CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) as full_name
+                                     CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) as full_name
 FROM residence.person P,
      residence.elder E,
      residence.disease D,
