@@ -46,21 +46,21 @@ VALUES ('5902831-6', '2021-11-04', 1.60, 64.0, 25.0, 93, 108, 74, 37.8);
  Alergias
  */
 INSERT INTO residence.allergy
-VALUES ('8346739-8', 3, 'líquidos para mano');
+VALUES ('8346739-8', 3, 'Líquidos para mano');
 INSERT INTO residence.allergy
-VALUES ('5875397-1', 3, 'guantes quirúrgicos');
+VALUES ('5875397-1', 3, 'Guantes Quirúrgicos');
 INSERT INTO residence.allergy
-VALUES ('8358513-7', 5, 'gato');
+VALUES ('8358513-7', 5, 'Gato');
 INSERT INTO residence.allergy
-VALUES ('5902831-6', 6, 'flores');
+VALUES ('5902831-6', 6, 'Flores');
 INSERT INTO residence.allergy
-VALUES ('8768514-4', 1, 'frutilla');
+VALUES ('8768514-4', 1, 'Frutilla');
 INSERT INTO residence.allergy
-VALUES ('5595642-1', 0, 'paracetamol');
+VALUES ('5595642-1', 0, 'Paracetamol');
 INSERT INTO residence.allergy
-VALUES ('5875397-1', 2, 'abeja');
+VALUES ('5875397-1', 2, 'Abeja');
 INSERT INTO residence.allergy
-VALUES ('5902831-6', 4, 'humedad');
+VALUES ('5902831-6', 4, 'Humedad');
 
 /*
  Intervenciones quirúrgicas.
@@ -71,4 +71,4 @@ INSERT INTO residence.surgical_intervention
 VALUES ('5902831-6', '2019-01-07', 'Clínica Elqui', 1,
         'Operación por caída en muslo izquierdo con corte de 15 cm, se ingresa un total de 15 puntos');
 INSERT INTO residence.surgical_intervention
-VALUES ('8768514-4', '2021-03-24', 'Ovalle', 2, 'Operación interna transplante de hígado');
+VALUES ('8768514-4', '2021-03-24', 'Ovalle', 2, 'Operación interna de transplante de hígado');
