@@ -5,6 +5,7 @@ import com.bairontapia.projects.cuidamed.mappings.bloodtype.BloodTypeConverter;
 import com.bairontapia.projects.cuidamed.mappings.healthcaresystem.HealthCareSystem;
 import com.bairontapia.projects.cuidamed.mappings.healthcaresystem.HealthCareSystemConverter;
 import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineCheckup;
+import com.bairontapia.projects.cuidamed.medicalrecord.surgicalintervention.SurgicalIntervention;
 import com.bairontapia.projects.cuidamed.person.Elder;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -40,4 +41,9 @@ public class MedicalRecord {
   @OrderBy("checkup_date DESC")
   @Setter(AccessLevel.PRIVATE)
   private List<RoutineCheckup> routineCheckups = new ArrayList<>();
+
+  @OneToMany(mappedBy = "medicalRecord", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OrderBy("intervention_date DESC")
+  @Setter(AccessLevel.PRIVATE)
+  private List<SurgicalIntervention> surgicalInterventions = new ArrayList<>();
 }
