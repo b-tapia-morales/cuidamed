@@ -92,7 +92,7 @@ HAVING count(E.rut) >= 2;
  consulta 8
  */
 SELECT E.rut,
-       CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) as full_name,
+       CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
        I.intervention_date,
        I.severity,
        I.description
@@ -101,7 +101,7 @@ FROM residence.person P,
      residence.surgical_intervention I
 WHERE P.rut = E.rut
   AND E.rut = I.elder_rut
-  AND I.hospital = '**PONER UN VALOR ACÁ**';
+  AND I.hospital LIKE '%Clínica%';
 
 
 /*
