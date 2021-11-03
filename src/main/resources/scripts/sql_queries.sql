@@ -1,4 +1,3 @@
-
 /*
  consulta 1
  */
@@ -9,7 +8,8 @@ FROM residence.elder E,
 WHERE P.rut = E.rut
   AND E.rut = MP.elder_rut
   AND MP.start_date IS NOT NULL
-  AND (SELECT extract(YEAR FROM age(CURRENT_DATE, MP.start_date)) * 12 +   extract(MONTH FROM age(CURRENT_DATE, MP.start_date))) > 1;
+  AND (SELECT extract(YEAR FROM age(CURRENT_DATE, MP.start_date)) * 12 +
+              extract(MONTH FROM age(CURRENT_DATE, MP.start_date))) > 1;
 
 /*
  consulta 2
@@ -30,9 +30,16 @@ ORDER BY checkup_date DESC;
 /*
  consulta 3
  */
-SELECT E.rut ,CONCAT(Pe.first_names, '', Pe.last_name, '',Pe.second_last_name) as “Full_name”, P.prescription_date, MP.start_date
-FROM residence.elder E, residence.prescription P, residence.medication_prescription MP, residence.medication M, residence.person Pe
-WHERE P.disease_name = M.medication_name;
+SELECT E.rut,
+       CONCAT(Pe.first_names, '', Pe.last_name, '', Pe.second_last_name) as full_name,
+       MP.prescription_date,
+       MP.start_date
+FROM residence.person Pe,
+     residence.elder E,
+     residence.medication_prescription MP
+WHERE Pe.rut = E.rut
+  AND E.rut = Mp.elder_rut
+  AND MP.medication_name = '**PONER VALOR ACÁ**';
 
 /*
  consulta 4
@@ -44,9 +51,13 @@ GROUP BY M.blood_type
 ORDER BY M.blood_type;
 
 SELECT e.rut, CONCAT(first_names, ' ', last_name, ' ', second_last_name) as full_name, medical_record.blood_type
-from residence.person as e, residence.elder, residence.medical_record
-where e.rut = elder.rut and elder.rut = medical_record.elder_rut
-group by (e.rut,full_name,blood_type) having blood_type = 1;
+from residence.person as e,
+     residence.elder,
+     residence.medical_record
+where e.rut = elder.rut
+  and elder.rut = medical_record.elder_rut
+group by (e.rut, full_name, blood_type)
+having blood_type = 1;
 
 /*
  consulta 5
