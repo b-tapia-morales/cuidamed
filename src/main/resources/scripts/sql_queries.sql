@@ -87,6 +87,7 @@ HAVING count(E.rut) >= 2;
 /*
  consulta 7
  */
+
 SELECT E.rut, CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name
 FROM residence.elder E,
      residence.person P,
