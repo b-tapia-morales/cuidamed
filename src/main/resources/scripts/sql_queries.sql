@@ -100,6 +100,7 @@ FROM residence.person P,
      residence.elder E,
      residence.surgical_intervention I
 WHERE P.rut = E.rut
+  AND E.rut = I.elder_rut
   AND I.hospital = '**PONER UN VALOR ACÁ**';
 
 
