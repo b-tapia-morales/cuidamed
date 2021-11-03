@@ -42,9 +42,6 @@ VALUES ('5875397-1', '2021-10-04', 1.50, 53.6, 23.6, 90, 105, 71, 35.9);
 INSERT INTO residence.routine_checkup
 VALUES ('5902831-6', '2021-11-04', 1.60, 64.0, 25.0, 93, 108, 74, 37.8);
 
-SELECT *
-FROM residence.routine_checkup;
-
 /*
  Alergias
  */
