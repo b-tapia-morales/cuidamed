@@ -1,25 +1,26 @@
 CREATE SCHEMA IF NOT EXISTS residence;
 
-DROP TABLE IF EXISTS residence.commune;
-DROP TABLE IF EXISTS residence.province;
-DROP TABLE IF EXISTS residence.region;
-
-DROP TABLE IF EXISTS residence.carer;
-DROP TABLE IF EXISTS residence.elder;
-DROP TABLE IF EXISTS residence.responsible;
-DROP TABLE IF EXISTS residence.person;
-
-DROP TABLE IF EXISTS residence.routine_checkup;
-DROP TABLE IF EXISTS residence.allergy;
-DROP TABLE IF EXISTS residence.surgical_intervention;
-DROP TABLE IF EXISTS residence.medical_record;
-
 DROP TABLE IF EXISTS residence.medication_administration;
 DROP TABLE IF EXISTS residence.medication_prescription;
 DROP TABLE IF EXISTS residence.medication;
 DROP TABLE IF EXISTS residence.prescription;
 DROP TABLE IF EXISTS residence.elder_suffers_disease;
 DROP TABLE IF EXISTS residence.disease;
+
+DROP TABLE IF EXISTS residence.routine_checkup;
+DROP TABLE IF EXISTS residence.allergy;
+DROP TABLE IF EXISTS residence.surgical_intervention;
+DROP TABLE IF EXISTS residence.medical_record;
+
+DROP TABLE IF EXISTS residence.address;
+DROP TABLE IF EXISTS residence.carer;
+DROP TABLE IF EXISTS residence.elder;
+DROP TABLE IF EXISTS residence.responsible;
+DROP TABLE IF EXISTS residence.person;
+
+DROP TABLE IF EXISTS residence.commune;
+DROP TABLE IF EXISTS residence.province;
+DROP TABLE IF EXISTS residence.region;
 
 CREATE TABLE IF NOT EXISTS residence.region
 (
@@ -89,7 +90,7 @@ CREATE TABLE IF NOT EXISTS residence.elder
 
 CREATE TABLE IF NOT EXISTS residence.address
 (
-    commune_id  SMALLSERIAL     NOT NULL,
+    commune_id  SMALLSERIAL  NOT NULL,
     street      VARCHAR(128) NOT NULL,
     number      SMALLINT     NOT NULL,
     postal_code INT,
