@@ -126,6 +126,23 @@ WHERE P.rut = E.rut
 /*
  consulta 9
  */
+SELECT DISTINCT ON (RC.checkup_date) P.rut,
+                                  CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) as full_name
+FROM residence.person P,
+     residence.elder E,
+     residence.disease D,
+     residence.elder_suffers_disease SD,
+     residence.routine_checkup RC,
+     residence.medical_record MR
+WHERE P.rut = E.rut
+    and E.rut = SD.elder_rut
+    and SD.disease_name = D.disease_name
+    and E.rut = MR.elder_rut
+    and MR.elder_rut = RC.elder_rut
+    and D.disease_name = 'hipertension'
+    and RC.diastolic_pressure < 80
+   or RC.systolic_pressure > 130
+ORDER BY checkup_date DESC;
 
 
 
