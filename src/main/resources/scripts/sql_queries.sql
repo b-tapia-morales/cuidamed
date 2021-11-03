@@ -62,7 +62,6 @@ having blood_type = 1;
 /*
  consulta 5
  */
-
 SELECT E.rut,
        CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
        (SELECT string_agg(Md.medication_name, ', ' ORDER BY medication_name)
@@ -92,6 +91,16 @@ HAVING count(E.rut) >= 2;
 /*
  consulta 8
  */
+SELECT E.rut,
+       CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) as full_name,
+       I.intervention_date,
+       I.severity,
+       I.description
+FROM residence.person P,
+     residence.elder E,
+     residence.surgical_intervention I
+WHERE P.rut = E.rut
+  AND I.hospital = '**PONER UN VALOR ACÁ**';
 
 
 /*
