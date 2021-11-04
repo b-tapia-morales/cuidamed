@@ -136,7 +136,8 @@ WHERE P.rut = E.rut
 /*
  consulta 9
  */
-SELECT DISTINCT ON (RC.checkup_date) P.rut,
+SELECT DISTINCT ON (RC.checkup_date) checkup_date,
+                                     P.rut,
                                      CONCAT(P.first_names, ' ', P.last_name, ' ',
                                             P.second_last_name) as full_name
 FROM residence.person P,
