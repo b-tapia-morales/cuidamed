@@ -1,5 +1,6 @@
 /*
- consulta 1
+ Consulta 1
+ AÚN POR PROBAR.
  */
 SELECT E.rut,
        CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
@@ -14,7 +15,8 @@ WHERE P.rut = E.rut
               extract(MONTH FROM age(CURRENT_DATE, MP.start_date))) > 1;
 
 /*
- consulta 2
+ Consulta 2
+ PROBADA.
  */
 SELECT DISTINCT ON (Ch.checkup_date) checkup_date,
                                      E.rut,
@@ -31,7 +33,8 @@ WHERE P.rut = E.rut
 ORDER BY checkup_date DESC;
 
 /*
- consulta 3
+ Consulta 3
+ AÚN POR PROBAR.
  */
 SELECT E.rut,
        CONCAT(Pe.first_names, '', Pe.last_name, '', Pe.second_last_name) as full_name,
@@ -45,27 +48,28 @@ WHERE Pe.rut = E.rut
   AND MP.medication_name = '**PONER VALOR ACÁ**';
 
 /*
- consulta 4
+ Consulta 4
+ PROBADA.
  */
-
 SELECT M.blood_type, count(*)
 FROM residence.medical_record M
 GROUP BY M.blood_type
 ORDER BY M.blood_type;
 
-SELECT e.rut,
+-- PARTE 2
+SELECT P.rut,
        CONCAT(first_names, ' ', last_name, ' ', second_last_name) as full_name,
-       medical_record.blood_type
-from residence.person as e,
-     residence.elder,
-     residence.medical_record
-WHERE e.rut = elder.rut
-  AND elder.rut = medical_record.elder_rut
-group by (e.rut, full_name, blood_type)
-having blood_type = 1;
+       MR.blood_type
+from residence.person P,
+     residence.elder E,
+     residence.medical_record MR
+WHERE P.rut = E.rut
+  AND E.rut = MR.elder_rut
+  AND MR.blood_type = 1;
 
 /*
- consulta 5
+ Consulta 5
+ AÚN POR PROBAR.
  */
 WITH medications AS (SELECT disease_name,
                             string_agg(medication_name, ', ' ORDER BY medication_name) AS list
@@ -90,13 +94,14 @@ GROUP BY E.rut, full_name, M.list
 HAVING count(E.rut) >= 2;
 
 /*
- consulta 6
+ Consulta 6
+ PENDIENTE.
  */
 
 /*
- consulta 7
+ Consulta 7
+ AÚN POR PROBAR.
  */
-
 WITH medications AS (SELECT disease_name,
                             string_agg(medication_name, ', ' ORDER BY medication_name) AS list
                      FROM residence.person P,
@@ -117,8 +122,10 @@ WHERE P.rut = E.rut
   AND E.rut = Esd.elder_rut
   AND Esd.disease_name = M.disease_name
   AND Esd.disease_name = 'Diabetes';
+
 /*
- consulta 8
+ Consulta 8.
+ PROBADA.
  */
 SELECT E.rut,
        CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
@@ -134,7 +141,8 @@ WHERE P.rut = E.rut
 
 
 /*
- consulta 9
+ Consulta 9.
+ AÚN POR PROBAR.
  */
 SELECT DISTINCT ON (RC.checkup_date) checkup_date,
                                      P.rut,
@@ -153,6 +161,10 @@ WHERE P.rut = E.rut
    OR RC.systolic_pressure > 130
 ORDER BY checkup_date DESC;
 
+/*
+ Consulta 10.
+ PROBADA.
+ */
 SELECT personE.rut                      AS elder_rut,
        CONCAT(personE.first_names, ' ', personE.last_name, ' ',
               personE.second_last_name) as elder_full_name,
