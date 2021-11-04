@@ -197,3 +197,29 @@ FROM residence.person P,
      residence.elder_suffers_disease SD
 WHERE P.rut = E.rut
   AND E.rut = SD.elder_rut;
+
+/**
+  CONSULTA 11.
+  AÚN SIN FUNCIONAR
+ */
+WITH days AS (SELECT Pr.elder_rut                         as rut,
+                     Pr.prescription_date::date - MP.start_date::date AS difference
+              FROM residence.prescription Pr,
+                   residence.medication_prescription MP
+              WHERE Pr.elder_rut = MP.elder_rut)
+SELECT P.rut,
+       CONCAT(P.first_names, ' ', P.last_name, ' ',
+              P.second_last_name),
+       Pr.prescription_date,
+       MP.start_date,
+       D.difference
+FROM residence.person P,
+     residence.elder E,
+     residence.prescription Pr,
+     residence.medication_prescription MP,
+     days D
+WHERE P.rut = E.rut
+  AND E.rut = Pr.elder_rut
+  AND Pr.elder_rut = MP.elder_rut
+  AND MP.elder_rut = D.rut
+  AND D.difference > 1;
