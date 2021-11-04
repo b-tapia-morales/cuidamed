@@ -71,29 +71,28 @@ WHERE P.rut = E.rut
  Consulta 5
  AÚN POR PROBAR.
  */
-WITH medications AS (SELECT disease_name,
-                            string_agg(medication_name, ', ' ORDER BY medication_name) AS list
-                     FROM residence.person P,
-                          residence.elder E,
-                          residence.medication_prescription Md
-                     WHERE P.rut = E.rut
-                       AND E.rut = Md.elder_rut
-                     GROUP BY 1)
+WITH medication_aggregation AS (SELECT disease_name,
+                                       string_agg(medication_name, ', ' ORDER BY medication_name) AS medications
+                                FROM residence.person P,
+                                     residence.elder E,
+                                     residence.medication_prescription Md
+                                WHERE P.rut = E.rut
+                                  AND E.rut = Md.elder_rut
+                                GROUP BY 1)
 SELECT E.rut,
        CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
-       M.list
+       Esd.disease_name,
+       M.medications
 FROM residence.person P,
      residence.elder E,
      residence.disease D,
      residence.elder_suffers_disease Esd,
-     medications M
+     medication_aggregation M
 WHERE P.rut = E.rut
   AND E.rut = Esd.elder_rut
-  AND Esd.disease_name = D.disease_name
-  AND D.disease_name = M.disease_name
+  AND M.disease_name = Esd.disease_name
   AND D.is_chronic = TRUE
-GROUP BY E.rut, full_name, M.list
-HAVING count(E.rut) >= 2;
+GROUP BY E.rut, full_name, M.medications, Esd.disease_name;
 
 /*
  Consulta 6
