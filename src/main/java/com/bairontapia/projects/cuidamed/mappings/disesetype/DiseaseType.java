@@ -13,7 +13,7 @@ public enum DiseaseType {
   MENTAL("mentales"),
   NERVOUSSYSTEM("sistema nervioso"),
   OPHTHALMOLOGICAL("oftalmologicas"),
-  AUDITORY("aditivas");
+  AUDITORY("auditivas");
 
 
   private static final DiseaseType[] VALUES = values();
