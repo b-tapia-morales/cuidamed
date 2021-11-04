@@ -142,12 +142,11 @@ SELECT DISTINCT ON (RC.checkup_date) checkup_date,
                                             P.second_last_name) as full_name
 FROM residence.person P,
      residence.elder E,
-     residence.elder_suffers_disease SD,
      residence.routine_checkup RC,
-     residence.medical_record MR
+     residence.elder_suffers_disease SD
 WHERE P.rut = E.rut
-    AND E.rut = SD.elder_rut
-    AND SD.elder_rut = RC.elder_rut
+    AND E.rut = RC.elder_rut
+    AND RC.elder_rut = SD.elder_rut
     AND lower(SD.disease_name) LIKE '%hipertension%'
    OR lower(SD.disease_name) LIKE '%hipertensión%'
     AND RC.diastolic_pressure < 80
