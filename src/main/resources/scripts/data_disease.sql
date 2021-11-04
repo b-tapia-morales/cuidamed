@@ -13,8 +13,8 @@ INSERT INTO residence.elder_suffers_disease
 VALUES ('8768514-4','artritis','2020-05-08')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.elder_suffers_disease
-VALUES ('8768514-4','alzheimer','2018-07-14')
+VALUES ('5595642-1','alzheimer','2018-07-14')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.elder_suffers_disease
-VALUES ('8768514-4','neumonia','2019-06-15')
+VALUES ('10031785-0','neumonia','2019-06-15')
 ON CONFLICT DO NOTHING;
