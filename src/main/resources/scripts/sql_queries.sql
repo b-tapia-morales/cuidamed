@@ -181,3 +181,18 @@ FROM residence.person personE,
 WHERE personE.rut = E.rut
   AND personR.rut = R.rut
   AND R.rut = E.responsible_rut;
+
+/*
+ Consulta 11
+ AÚN POR PROBAR.
+ */
+SELECT P.rut,
+       CONCAT(P.first_names, ' ', P.last_name, ' ',
+              P.second_last_name),
+       SD.disease_name,
+       SD.diagnosis_date
+FROM residence.person P,
+     residence.elder E,
+     residence.elder_suffers_disease SD
+WHERE P.rut = E.rut
+  AND E.rut = SD.elder_rut;
