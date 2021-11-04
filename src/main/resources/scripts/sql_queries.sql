@@ -330,3 +330,14 @@ FROM person_table P,
      full_address F
 WHERE P.responsible_rut = F.rut
   AND F.region_id <> 5;
+
+/*
+ CONSULTA 13.
+ PROBADO.
+ */
+WITH ages AS (SELECT date_part('year', age(CURRENT_DATE, P.birth_date)) AS difference
+              FROM residence.person P,
+                   residence.elder E
+              WHERE P.rut = E.rut)
+SELECT avg(difference) FROM ages;
+
