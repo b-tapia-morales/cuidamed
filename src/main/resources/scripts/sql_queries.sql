@@ -90,7 +90,8 @@ FROM residence.person P,
      medication_aggregation M
 WHERE P.rut = E.rut
   AND E.rut = Esd.elder_rut
-  AND M.disease_name = Esd.disease_name
+  AND D.disease_name = Esd.disease_name
+  AND Esd.disease_name = M.disease_name
   AND D.is_chronic = TRUE;
 
 /*
