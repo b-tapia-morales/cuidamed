@@ -174,12 +174,25 @@ SELECT personE.rut                      AS elder_rut,
        personR.rut                      AS responsible_rut,
        CONCAT(personR.first_names, ' ', personR.last_name, ' ',
               personR.second_last_name) as responsible_full_name,
-       CONCAT('+56 9 ', R.mobile_phone) AS responsible_mobile_phone
+       CONCAT('+56 9 ', R.mobile_phone) AS responsible_mobile_phone,
+       Reg.region_name,
+       Prov.province_name,
+       Comm.commune_name,
+       A.street,
+       A.number
 FROM residence.person personE,
      residence.elder E,
      residence.person personR,
-     residence.responsible R
-WHERE personE.rut = E.rut
+     residence.responsible R,
+     residence.address A,
+     residence.region Reg,
+     residence.province Prov,
+     residence.commune Comm
+WHERE Reg.id = Prov.region_id
+  AND Prov.id = Comm.province_id
+  AND Comm.id = A.commune_id
+  AND A.person_rut = personR.rut
+  AND personE.rut = E.rut
   AND personR.rut = R.rut
   AND R.rut = E.responsible_rut;
 
@@ -200,9 +213,9 @@ WHERE P.rut = E.rut
 
 /**
   CONSULTA 11.
-  AÚN SIN FUNCIONAR
+  PROBADA.
  */
-WITH days AS (SELECT Pr.elder_rut                         as rut,
+WITH days AS (SELECT Pr.elder_rut                                     as rut,
                      Pr.prescription_date::date - MP.start_date::date AS difference
               FROM residence.prescription Pr,
                    residence.medication_prescription MP
@@ -223,3 +236,42 @@ WHERE P.rut = E.rut
   AND Pr.elder_rut = MP.elder_rut
   AND MP.elder_rut = D.rut
   AND D.difference > 1;
+
+/*
+ CONSULTA 12.
+ AÚN POR PROBAR.
+ */
+WITH full_address AS (SELECT Reg.id,
+                             Reg.region_name,
+                             Prov.province_name,
+                             Comm.commune_name,
+                             A.person_rut,
+                             A.street,
+                             A.number
+                      FROM residence.address A
+                               INNER JOIN residence.commune Comm on A.commune_id = Comm.id
+                               INNER JOIN residence.province Prov on Comm.province_id = Prov.id
+                               INNER JOIN residence.region Reg on Prov.region_id = Reg.id)
+SELECT personE.rut                      AS elder_rut,
+       CONCAT(personE.first_names, ' ', personE.last_name, ' ',
+              personE.second_last_name) as elder_full_name,
+       personR.rut                      AS responsible_rut,
+       CONCAT(personR.first_names, ' ', personR.last_name, ' ',
+              personR.second_last_name) as responsible_full_name,
+       CONCAT('+56 9 ', R.mobile_phone) AS responsible_mobile_phone,
+       F.region_name,
+       F.province_name,
+       F.commune_name,
+       F.street,
+       F.number
+FROM residence.person personE,
+     residence.elder E,
+     residence.person personR,
+     residence.responsible R,
+     full_address F
+WHERE personE.rut = E.rut
+  AND personR.rut = R.rut
+  AND R.rut = E.responsible_rut
+  AND R.rut = F.person_rut
+  AND personR.rut = F.person_rut
+  AND F.id <> 4;
