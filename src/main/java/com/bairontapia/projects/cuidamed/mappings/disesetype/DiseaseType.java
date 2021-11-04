@@ -13,7 +13,13 @@ public enum DiseaseType {
   MENTAL("mentales"),
   NERVOUSSYSTEM("sistema nervioso"),
   OPHTHALMOLOGICAL("oftalmologicas"),
-  AUDITORY("auditivas");
+  AUDITORY("auditivas"),
+  CARDIOVASCULAR("cardiovascular"),
+  RESPIRATORY("respiratoria"),
+  DIGESTIVE("digestivo"),
+  SKIN("piel"),
+  SYSTEMGENOTPURINAARY("sistema genitourinario"),
+  CONGENITAL(" congénitas y alteraciones cromosómicas");
 
 
   private static final DiseaseType[] VALUES = values();
