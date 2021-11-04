@@ -67,22 +67,26 @@ having blood_type = 1;
 /*
  consulta 5
  */
+WITH medications AS (SELECT disease_name,
+                            string_agg(medication_name, ', ' ORDER BY medication_name) AS list
+                     FROM residence.person P,
+                          residence.elder E,
+                          residence.medication_prescription Md
+                     WHERE P.rut = E.rut
+                       AND E.rut = Md.elder_rut
+                     GROUP BY 1)
 SELECT E.rut,
        CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
-       (SELECT string_agg(Md.medication_name, ', ' ORDER BY medication_name)
-        FROM residence.person P,
-             residence.elder E,
-             residence.medication_prescription Md
-        WHERE P.rut = E.rut
-          AND E.rut = Md.elder_rut)                                     AS medication_list
+       M.list
 FROM residence.person P,
      residence.elder E,
      residence.disease D,
-     residence.elder_suffers_disease Esd
+     residence.elder_suffers_disease Esd,
+     medications M
 WHERE P.rut = E.rut
   AND E.rut = Esd.elder_rut
   AND D.is_chronic = TRUE
-GROUP BY E.rut, full_name, medication_list
+GROUP BY E.rut, full_name, M.list
 HAVING count(E.rut) >= 2;
 
 /*
@@ -153,10 +157,10 @@ ORDER BY checkup_date DESC;
 
 SELECT personE.rut,
        CONCAT(personE.first_names, ' ', personE.last_name, ' ',
-              personE.second_last_name)                                                   as elder_full_name,
+              personE.second_last_name) as elder_full_name,
        personR.rut,
        CONCAT(personR.first_names, ' ', personR.last_name, ' ',
-              personR.second_last_name)                                                   as responsible_full_name,
+              personR.second_last_name) as responsible_full_name,
        R.mobile_phone
 FROM residence.person personE,
      residence.elder E,
