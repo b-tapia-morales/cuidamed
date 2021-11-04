@@ -1,12 +1,12 @@
 /* Personas - Responsables */
 INSERT INTO residence.address
-VALUES (31, 'Juan Barrera Cortes', 2050, 1700000, 937351,'14585523-3')
+VALUES (31, 'Juan Barrera Cortés', 2050, 1700000, 937351,'14585523-3')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.address
 VALUES (31, 'Manuel Silva Briceño', 361, 1700000, 996322, '14207467-2')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.address
-VALUES (31, 'Decimo Erler', 283, 1700000, 554699, '13003385-7')
+VALUES (31, 'Décimo Erler', 283, 1700000, 554699, '13003385-7')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.address
 VALUES (31, 'Jorge Wilson del Solar', 431, 1700000, 599910, '12997638-1')
