@@ -339,5 +339,24 @@ WITH ages AS (SELECT date_part('year', age(CURRENT_DATE, P.birth_date)) AS diffe
               FROM residence.person P,
                    residence.elder E
               WHERE P.rut = E.rut)
-SELECT avg(difference) FROM ages;
+SELECT avg(difference)
+FROM ages;
+
+/*
+ CONSULTA 14.
+ PROBADO.
+ */
+WITH elder AS (SELECT date_part('year', age(CURRENT_DATE, P.birth_date)) AS age
+               FROM residence.person P,
+                    residence.elder E
+               WHERE P.rut = E.rut),
+     responsible AS (SELECT date_part('year', age(CURRENT_DATE, P.birth_date)) AS age
+                     FROM residence.person P,
+                          residence.responsible R
+                     WHERE P.rut = R.rut)
+SELECT avg(E.age) as elder_avg_age,
+       avg(R.age) as responsible_avg_age,
+       (round(cast(avg(E.age) - avg(R.age) AS NUMERIC), 2)) as avg_age_difference
+FROM elder E,
+     responsible R;
 
