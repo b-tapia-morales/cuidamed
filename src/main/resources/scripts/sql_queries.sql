@@ -239,39 +239,94 @@ WHERE P.rut = E.rut
 
 /*
  CONSULTA 12.
- AÚN POR PROBAR.
+ PROBADO.
  */
-WITH full_address AS (SELECT Reg.id,
-                             Reg.region_name,
-                             Prov.province_name,
-                             Comm.commune_name,
-                             A.person_rut,
+WITH full_address AS (SELECT Reg.id             AS region_id,
+                             Reg.region_name    AS region,
+                             Prov.province_name AS province,
+                             Comm.commune_name  AS commune,
+                             A.person_rut       AS rut,
+                             A.street,
+                             A.number
+                      FROM residence.address A,
+                           residence.responsible R,
+                           residence.region Reg,
+                           residence.province Prov,
+                           residence.commune Comm
+                      WHERE Reg.id = Prov.region_id
+                        AND Prov.id = Comm.province_id
+                        AND Comm.id = A.commune_id
+                        AND A.person_rut = R.rut),
+     person_table AS (SELECT personE.rut                      AS elder_rut,
+                             CONCAT(personE.first_names, ' ', personE.last_name, ' ',
+                                    personE.second_last_name) as elder_full_name,
+                             personR.rut                      AS responsible_rut,
+                             CONCAT(personR.first_names, ' ', personR.last_name, ' ',
+                                    personR.second_last_name) as responsible_full_name,
+                             CONCAT('+56 9 ', R.mobile_phone) AS responsible_mobile_phone
+                      FROM residence.person personE,
+                           residence.elder E,
+                           residence.person personR,
+                           residence.responsible R
+                      WHERE personE.rut = E.rut
+                        AND personR.rut = R.rut
+                        AND R.rut = E.responsible_rut)
+SELECT P.elder_rut,
+       P.elder_full_name,
+       P.responsible_rut,
+       P.responsible_full_name,
+       P.responsible_mobile_phone,
+       F.region,
+       F.province,
+       F.commune,
+       F.street,
+       F.number
+FROM person_table P,
+     full_address F
+WHERE P.responsible_rut = F.rut
+  AND F.region_id <> 5;
+
+/*
+ CONSULTA 12 (FORMA ALTERNATIVA)
+ PROBADO
+ */
+WITH full_address AS (SELECT Reg.id             AS region_id,
+                             Reg.region_name    AS region,
+                             Prov.province_name AS province,
+                             Comm.commune_name  AS commune,
+                             A.person_rut       AS rut,
                              A.street,
                              A.number
                       FROM residence.address A
-                               INNER JOIN residence.commune Comm on A.commune_id = Comm.id
-                               INNER JOIN residence.province Prov on Comm.province_id = Prov.id
-                               INNER JOIN residence.region Reg on Prov.region_id = Reg.id)
-SELECT personE.rut                      AS elder_rut,
-       CONCAT(personE.first_names, ' ', personE.last_name, ' ',
-              personE.second_last_name) as elder_full_name,
-       personR.rut                      AS responsible_rut,
-       CONCAT(personR.first_names, ' ', personR.last_name, ' ',
-              personR.second_last_name) as responsible_full_name,
-       CONCAT('+56 9 ', R.mobile_phone) AS responsible_mobile_phone,
-       F.region_name,
-       F.province_name,
-       F.commune_name,
+                               INNER JOIN residence.commune Comm on Comm.id = A.commune_id
+                               INNER JOIN residence.province Prov on Prov.id = Comm.province_id
+                               INNER JOIN residence.region Reg on Reg.id = Prov.region_id
+                               INNER JOIN residence.responsible R on R.rut = A.person_rut),
+     person_table AS (SELECT personE.rut                      AS elder_rut,
+                             CONCAT(personE.first_names, ' ', personE.last_name, ' ',
+                                    personE.second_last_name) as elder_full_name,
+                             personR.rut                      AS responsible_rut,
+                             CONCAT(personR.first_names, ' ', personR.last_name, ' ',
+                                    personR.second_last_name) as responsible_full_name,
+                             CONCAT('+56 9 ', R.mobile_phone) AS responsible_mobile_phone
+                      FROM residence.person personE,
+                           residence.elder E,
+                           residence.person personR,
+                           residence.responsible R
+                      WHERE personE.rut = E.rut
+                        AND personR.rut = R.rut
+                        AND R.rut = E.responsible_rut)
+SELECT P.elder_rut,
+       P.elder_full_name,
+       P.responsible_rut,
+       P.responsible_full_name,
+       P.responsible_mobile_phone,
+       F.region,
+       F.province,
+       F.commune,
        F.street,
        F.number
-FROM residence.person personE,
-     residence.elder E,
-     residence.person personR,
-     residence.responsible R,
+FROM person_table P,
      full_address F
-WHERE personE.rut = E.rut
-  AND personR.rut = R.rut
-  AND R.rut = E.responsible_rut
-  AND R.rut = F.person_rut
-  AND personR.rut = F.person_rut
-  AND F.id <> 4;
+WHERE P.responsible_rut = F.rut
+  AND F.region_id <> 5;
