@@ -32,7 +32,7 @@ INSERT INTO residence.disease
 VALUES ('Hipertension', 10, TRUE)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.disease
-VALUES ('Infarto', 10 TRUE)
+VALUES ('Infarto', 10, TRUE)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.disease
 VALUES ('Fibromialgia', 4, TRUE)
