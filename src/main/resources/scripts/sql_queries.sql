@@ -174,7 +174,7 @@ SELECT personE.rut                      AS elder_rut,
        personR.rut                      AS responsible_rut,
        CONCAT(personR.first_names, ' ', personR.last_name, ' ',
               personR.second_last_name) as responsible_full_name,
-       R.mobile_phone                   AS responsible_contact
+       CONCAT('+56 9 ', R.mobile_phone) AS responsible_mobile_phone
 FROM residence.person personE,
      residence.elder E,
      residence.person personR,
