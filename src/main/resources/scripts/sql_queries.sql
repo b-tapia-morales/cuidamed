@@ -69,7 +69,7 @@ WHERE P.rut = E.rut
 
 /*
  Consulta 5
- AÚN POR PROBAR.
+ PROBADA.
  */
 WITH medication_aggregation AS (SELECT disease_name,
                                        string_agg(medication_name, ', ' ORDER BY medication_name) AS medications
@@ -91,8 +91,7 @@ FROM residence.person P,
 WHERE P.rut = E.rut
   AND E.rut = Esd.elder_rut
   AND M.disease_name = Esd.disease_name
-  AND D.is_chronic = TRUE
-GROUP BY E.rut, full_name, M.medications, Esd.disease_name;
+  AND D.is_chronic = TRUE;
 
 /*
  Consulta 6
@@ -101,28 +100,30 @@ GROUP BY E.rut, full_name, M.medications, Esd.disease_name;
 
 /*
  Consulta 7
- AÚN POR PROBAR.
+ PROBADA.
  */
-WITH medications AS (SELECT disease_name,
-                            string_agg(medication_name, ', ' ORDER BY medication_name) AS list
-                     FROM residence.person P,
-                          residence.elder E,
-                          residence.medication_prescription Md
-                     WHERE P.rut = E.rut
-                       AND E.rut = Md.elder_rut
-                     GROUP BY 1)
+WITH medication_aggregation AS (SELECT disease_name,
+                                       string_agg(medication_name, ', ' ORDER BY medication_name) AS medications
+                                FROM residence.person P,
+                                     residence.elder E,
+                                     residence.medication_prescription Md
+                                WHERE P.rut = E.rut
+                                  AND E.rut = Md.elder_rut
+                                GROUP BY 1)
 SELECT E.rut,
        CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
-       Esd.diagnosis_date,
-       M.list
+       Esd.disease_name,
+       M.medications
 FROM residence.person P,
      residence.elder E,
+     residence.disease D,
      residence.elder_suffers_disease Esd,
-     medications M
+     medication_aggregation M
 WHERE P.rut = E.rut
   AND E.rut = Esd.elder_rut
+  AND D.disease_name = Esd.disease_name
   AND Esd.disease_name = M.disease_name
-  AND Esd.disease_name = 'Diabetes';
+  AND lower(M.disease_name) = 'artritis';
 
 /*
  Consulta 8.
