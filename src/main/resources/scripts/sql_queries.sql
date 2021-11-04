@@ -59,8 +59,8 @@ SELECT e.rut,
 from residence.person as e,
      residence.elder,
      residence.medical_record
-where e.rut = elder.rut
-  and elder.rut = medical_record.elder_rut
+WHERE e.rut = elder.rut
+  AND elder.rut = medical_record.elder_rut
 group by (e.rut, full_name, blood_type)
 having blood_type = 1;
 
@@ -141,18 +141,16 @@ SELECT DISTINCT ON (RC.checkup_date) P.rut,
                                             P.second_last_name) as full_name
 FROM residence.person P,
      residence.elder E,
-     residence.disease D,
      residence.elder_suffers_disease SD,
      residence.routine_checkup RC,
      residence.medical_record MR
 WHERE P.rut = E.rut
-    and E.rut = SD.elder_rut
-    and SD.disease_name = D.disease_name
-    and E.rut = MR.elder_rut
-    and MR.elder_rut = RC.elder_rut
-    and D.disease_name = 'hipertension'
-    and RC.diastolic_pressure < 80
-   or RC.systolic_pressure > 130
+    AND E.rut = SD.elder_rut
+    AND SD.elder_rut = RC.elder_rut
+    AND lower(SD.disease_name) LIKE '%hipertension%'
+   OR lower(SD.disease_name) LIKE '%hipertensión%'
+    AND RC.diastolic_pressure < 80
+   OR RC.systolic_pressure > 130
 ORDER BY checkup_date DESC;
 
 SELECT personE.rut,
@@ -167,5 +165,5 @@ FROM residence.person personE,
      residence.person personR,
      residence.responsible R
 WHERE personE.rut = E.rut
-  and personR.rut = R.rut
-  and R.rut = E.responsible_rut;
+  AND personR.rut = R.rut
+  AND R.rut = E.responsible_rut;
