@@ -89,6 +89,8 @@ FROM residence.person P,
      medications M
 WHERE P.rut = E.rut
   AND E.rut = Esd.elder_rut
+  AND Esd.disease_name = D.disease_name
+  AND D.disease_name = M.disease_name
   AND D.is_chronic = TRUE
 GROUP BY E.rut, full_name, M.list
 HAVING count(E.rut) >= 2;
