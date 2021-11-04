@@ -153,13 +153,13 @@ WHERE P.rut = E.rut
    OR RC.systolic_pressure > 130
 ORDER BY checkup_date DESC;
 
-SELECT personE.rut,
+SELECT personE.rut                      AS elder_rut,
        CONCAT(personE.first_names, ' ', personE.last_name, ' ',
               personE.second_last_name) as elder_full_name,
-       personR.rut,
+       personR.rut                      AS responsible_rut,
        CONCAT(personR.first_names, ' ', personR.last_name, ' ',
               personR.second_last_name) as responsible_full_name,
-       R.mobile_phone
+       R.mobile_phone                   AS responsible_contact
 FROM residence.person personE,
      residence.elder E,
      residence.person personR,
