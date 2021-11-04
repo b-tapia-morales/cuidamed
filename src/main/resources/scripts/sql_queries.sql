@@ -330,3 +330,45 @@ FROM person_table P,
      full_address F
 WHERE P.responsible_rut = F.rut
   AND F.region_id <> 5;
+
+SELECT DISTINCT E.rut                      AS elder_rut,
+                CONCAT(E.first_names, ' ', E.last_name, ' ',
+                       E.second_last_name) as elder_full_name
+from residence.person E,
+     residence.elder,
+     residence.elder_suffers_disease SD,
+     residence.disease D
+WHERE E.rut = elder.rut
+  AND E.rut = SD.elder_rut
+  AND SD.disease_name = D.disease_name
+  AND D.is_chronic = TRUE;
+
+SELECT DISTINCT E.rut                      AS elder_rut,
+                CONCAT(E.first_names, ' ', E.last_name, ' ',
+                       E.second_last_name) as elder_full_name
+from residence.person E,
+     residence.elder,
+     residence.elder_suffers_disease SD,
+     residence.disease D,
+     residence.medication_prescription MP
+WHERE E.rut = elder.rut
+  AND E.rut = SD.elder_rut
+  AND SD.disease_name = D.disease_name
+  AND D.is_chronic = FALSE
+  AND MP.disease_name = SD.disease_name
+  AND MP.end_date IS NOT NULL;
+
+SELECT DISTINCT E.rut                      AS elder_rut,
+                CONCAT(E.first_names, ' ', E.last_name, ' ',
+                       E.second_last_name) as elder_full_name
+from residence.person E,
+     residence.elder,
+     residence.elder_suffers_disease SD,
+     residence.disease D,
+     residence.medication_prescription MP
+WHERE E.rut = elder.rut
+  AND E.rut = SD.elder_rut
+  AND SD.disease_name = D.disease_name
+  AND D.is_chronic = FALSE
+  AND MP.disease_name = SD.disease_name
+  AND MP.end_date IS NULL;
