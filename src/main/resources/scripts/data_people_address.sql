@@ -1,20 +1,3 @@
-/*
-CREATE TABLE IF NOT EXISTS residence.address
-(
-    commune_id  SMALLSERIAL  NOT NULL,
-    street      VARCHAR(128) NOT NULL,
-    number      SMALLINT     NOT NULL,
-    postal_code INT,
-    fixed_phone INT, /* 6 digitos */
-    person_rut  VARCHAR(16),
-    FOREIGN KEY (commune_id) REFERENCES residence.commune (id),
-    FOREIGN KEY (person_rut) REFERENCES residence.person (rut),
-    primary key (commune_id, street, number, person_rut)
-);
-*/
-SELECT *
-FROM residence.commune WHERE commune_name = 'La Florida';
-
 /* Personas - Responsables */
 INSERT INTO residence.address
 VALUES (31, 'Juan Barrera Cortes', 2050, 1700000, 937351,'14585523-3')
@@ -63,12 +46,3 @@ ON CONFLICT DO NOTHING;
 INSERT INTO residence.address
 VALUES (148, 'Las Carmelitas', 2563, 2820000, 976529, '16213821-9')
 ON CONFLICT DO NOTHING;
-
-
-SELECT P.rut, P.first_names, P.last_name, P.second_last_name,C.commune_name, A.street, A.number, A.fixed_phone
-FROM residence.person P, residence.responsible R, residence.address A, residence.commune C
-WHERE P.rut = R.rut AND R.rut = A.person_rut AND A.commune_id = C.id;
-
-SELECT P.rut, P.first_names, P.last_name, P.second_last_name,C.commune_name, A.street, A.number, A.fixed_phone
-FROM residence.person P, residence.carer Carer, residence.address A, residence.commune C
-WHERE P.rut = Carer.rut AND Carer.rut = A.person_rut AND A.commune_id = C.id;
