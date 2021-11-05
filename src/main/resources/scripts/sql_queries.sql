@@ -150,7 +150,10 @@ WHERE P.rut = E.rut
 SELECT DISTINCT ON (RC.checkup_date) checkup_date,
                                      P.rut,
                                      CONCAT(P.first_names, ' ', P.last_name, ' ',
-                                            P.second_last_name) as full_name
+                                            P.second_last_name) as full_name,
+                                     RC.diastolic_pressure,
+                                     RC.systolic_pressure,
+                                     RC.heart_rate
 FROM residence.person P,
      residence.elder E,
      residence.routine_checkup RC,
@@ -160,8 +163,6 @@ WHERE P.rut = E.rut
     AND RC.elder_rut = SD.elder_rut
     AND lower(SD.disease_name) LIKE '%hipertension%'
    OR lower(SD.disease_name) LIKE '%hipertensión%'
-    AND RC.diastolic_pressure < 80
-   OR RC.systolic_pressure > 130
 ORDER BY checkup_date DESC;
 
 /*
