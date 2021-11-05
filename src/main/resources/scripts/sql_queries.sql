@@ -20,17 +20,19 @@ ORDER BY MP.start_date;
  Consulta 2.
  FORMA ALTERNATIVA.
  */
-WITH medication_aggregation AS (SELECT DISTINCT MP.start_date,
-                                                E.rut,
+WITH medication_aggregation AS (SELECT DISTINCT E.rut,
+                                                MP.disease_name,
+                                                MP.start_date,
                                                 string_agg(medication_name, ', ' ORDER BY medication_name) AS medications
                                 FROM residence.person P,
                                      residence.elder E,
                                      residence.medication_prescription MP
                                 WHERE P.rut = E.rut
                                   AND E.rut = MP.elder_rut
-                                GROUP BY E.rut, MP.start_date)
+                                GROUP BY E.rut, MP.disease_name, MP.start_date)
 SELECT E.rut,
        CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
+       M.disease_name,
        M.start_date,
        M.medications
 FROM residence.person P
@@ -63,15 +65,16 @@ ORDER BY checkup_date DESC;
  AÚN POR PROBAR.
  */
 SELECT E.rut,
-       CONCAT(Pe.first_names, '', Pe.last_name, '', Pe.second_last_name) as full_name,
+       CONCAT(Pe.first_names, ' ', Pe.last_name, ' ', Pe.second_last_name) as full_name,
        MP.prescription_date,
-       MP.start_date
+       MP.start_date,
+       MP.end_date
 FROM residence.person Pe,
      residence.elder E,
      residence.medication_prescription MP
 WHERE Pe.rut = E.rut
   AND E.rut = Mp.elder_rut
-  AND MP.medication_name = '**PONER VALOR ACÁ**';
+  AND MP.medication_name = 'Ibuprofeno';
 
 /*
  Consulta 4
@@ -267,18 +270,18 @@ WITH full_address AS (SELECT Reg.id             AS region_id,
                              Reg.region_name    AS region,
                              Prov.province_name AS province,
                              Comm.commune_name  AS commune,
-                             A.person_rut       AS rut,
-                             A.street,
-                             A.number
-                      FROM residence.address A,
+                             Addr.person_rut    AS rut,
+                             Addr.street,
+                             Addr.number
+                      FROM residence.address Addr,
                            residence.responsible R,
                            residence.region Reg,
                            residence.province Prov,
                            residence.commune Comm
                       WHERE Reg.id = Prov.region_id
                         AND Prov.id = Comm.province_id
-                        AND Comm.id = A.commune_id
-                        AND A.person_rut = R.rut),
+                        AND Comm.id = Addr.commune_id
+                        AND Addr.person_rut = R.rut),
      person_table AS (SELECT personE.rut                      AS elder_rut,
                              CONCAT(personE.first_names, ' ', personE.last_name, ' ',
                                     personE.second_last_name) as elder_full_name,
