@@ -395,7 +395,7 @@ WITH C AS (SELECT count(*)
                AND SD.disease_name = D.disease_name
                AND D.is_chronic = FALSE
                AND MP.end_date IS NOT NULL
-               AND extract(MONTH FROM age(MP.end_date, CURRENT_DATE)) > 1),
+               AND extract(DAY FROM age(MP.end_date, CURRENT_DATE)) > 1),
      NCNA AS (SELECT count(*)
               from residence.person P,
                    residence.elder E,
@@ -407,7 +407,7 @@ WITH C AS (SELECT count(*)
                 AND SD.disease_name = D.disease_name
                 AND D.is_chronic = FALSE
                 AND MP.end_date IS NOT NULL
-                AND extract(MONTH FROM age(MP.end_date, CURRENT_DATE)) < 1)
+                AND extract(DAY FROM age(MP.end_date, CURRENT_DATE)) < 1)
 SELECT C.count    AS chronic_active,
        NCA.count  AS not_chronic_active,
        NCNA.count AS not_chronic_not_active
