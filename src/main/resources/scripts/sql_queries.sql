@@ -375,42 +375,42 @@ ORDER BY age;
  CONSULTA 16.
  PROBADO.
  */
-WITH chronic_patients AS (SELECT count(*) as chronic_count
-                          FROM residence.person P,
-                               residence.elder E,
-                               residence.elder_suffers_disease SD,
-                               residence.disease D
-                          WHERE P.rut = E.rut
-                            AND E.rut = SD.elder_rut
-                            AND SD.disease_name = D.disease_name
-                            AND D.is_chronic = TRUE),
-     not_chronic_active AS (SELECT count(*) as not_chronic_active_count
-                                from residence.person P,
-                                     residence.elder E,
-                                     residence.elder_suffers_disease SD,
-                                     residence.medication_prescription MP,
-                                     residence.disease D
-                                WHERE P.rut = E.rut
-                                  AND E.rut = SD.elder_rut
-                                  AND SD.disease_name = D.disease_name
-                                  AND D.is_chronic = FALSE
-                                  AND MP.end_date IS NOT NULL
-                                  AND extract(MONTH FROM age(MP.end_date, CURRENT_DATE)) > 1),
-     not_chronic_not_active AS (SELECT count(*) as not_chronic_not_active_count
-                                    from residence.person P,
-                                         residence.elder E,
-                                         residence.elder_suffers_disease SD,
-                                         residence.medication_prescription MP,
-                                         residence.disease D
-                                    WHERE P.rut = E.rut
-                                      AND E.rut = SD.elder_rut
-                                      AND SD.disease_name = D.disease_name
-                                      AND D.is_chronic = FALSE
-                                      AND MP.end_date IS NOT NULL
-                                      AND extract(MONTH FROM age(MP.end_date, CURRENT_DATE)) < 1)
-SELECT C.chronic_count,
-       NCA.not_chronic_active_count,
-       NCNA.not_chronic_not_active_count
-FROM chronic_patients C,
-     not_chronic_active NCA,
-     not_chronic_not_active NCNA;
+WITH C AS (SELECT count(*)
+           FROM residence.person P,
+                residence.elder E,
+                residence.elder_suffers_disease SD,
+                residence.disease D
+           WHERE P.rut = E.rut
+             AND E.rut = SD.elder_rut
+             AND SD.disease_name = D.disease_name
+             AND D.is_chronic = TRUE),
+     NCA AS (SELECT count(*)
+             from residence.person P,
+                  residence.elder E,
+                  residence.elder_suffers_disease SD,
+                  residence.medication_prescription MP,
+                  residence.disease D
+             WHERE P.rut = E.rut
+               AND E.rut = SD.elder_rut
+               AND SD.disease_name = D.disease_name
+               AND D.is_chronic = FALSE
+               AND MP.end_date IS NOT NULL
+               AND extract(MONTH FROM age(MP.end_date, CURRENT_DATE)) > 1),
+     NCNA AS (SELECT count(*)
+              from residence.person P,
+                   residence.elder E,
+                   residence.elder_suffers_disease SD,
+                   residence.medication_prescription MP,
+                   residence.disease D
+              WHERE P.rut = E.rut
+                AND E.rut = SD.elder_rut
+                AND SD.disease_name = D.disease_name
+                AND D.is_chronic = FALSE
+                AND MP.end_date IS NOT NULL
+                AND extract(MONTH FROM age(MP.end_date, CURRENT_DATE)) < 1)
+SELECT C.count    AS chronic_active,
+       NCA.count  AS not_chronic_active,
+       NCNA.count AS not_chronic_not_active
+FROM C,
+     NCA,
+     NCNA;
