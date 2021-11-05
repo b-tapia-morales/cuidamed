@@ -215,27 +215,22 @@ WHERE P.rut = E.rut
   CONSULTA 11.
   PROBADA.
  */
-WITH days AS (SELECT Pr.elder_rut                                     as rut,
-                     Pr.prescription_date::date - MP.start_date::date AS difference
-              FROM residence.prescription Pr,
-                   residence.medication_prescription MP
-              WHERE Pr.elder_rut = MP.elder_rut)
-SELECT P.rut,
-       CONCAT(P.first_names, ' ', P.last_name, ' ',
-              P.second_last_name),
-       Pr.prescription_date,
-       MP.start_date,
-       D.difference
+SELECT DISTINCT Pr.elder_rut,
+                CONCAT(P.first_names, ' ', P.last_name, ' ',
+                       P.second_last_name)                                 AS full_name,
+                Pr.prescription_date,
+                MP.start_date,
+                extract(DAY FROM age(MP.start_date, Pr.prescription_date)) AS difference
 FROM residence.person P,
      residence.elder E,
      residence.prescription Pr,
-     residence.medication_prescription MP,
-     days D
+     residence.medication_prescription MP
 WHERE P.rut = E.rut
   AND E.rut = Pr.elder_rut
   AND Pr.elder_rut = MP.elder_rut
-  AND MP.elder_rut = D.rut
-  AND D.difference > 1;
+  AND Pr.disease_name = MP.disease_name
+  AND Pr.prescription_date = MP.prescription_date
+ORDER BY difference DESC;
 
 /*
  CONSULTA 12.
