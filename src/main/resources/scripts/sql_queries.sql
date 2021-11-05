@@ -150,7 +150,10 @@ WHERE P.rut = E.rut
 SELECT DISTINCT ON (RC.checkup_date) checkup_date,
                                      P.rut,
                                      CONCAT(P.first_names, ' ', P.last_name, ' ',
-                                            P.second_last_name) as full_name
+                                            P.second_last_name) as full_name,
+                                     RC.diastolic_pressure,
+                                     RC.systolic_pressure,
+                                     RC.heart_rate
 FROM residence.person P,
      residence.elder E,
      residence.routine_checkup RC,
@@ -160,8 +163,6 @@ WHERE P.rut = E.rut
     AND RC.elder_rut = SD.elder_rut
     AND lower(SD.disease_name) LIKE '%hipertension%'
    OR lower(SD.disease_name) LIKE '%hipertensión%'
-    AND RC.diastolic_pressure < 80
-   OR RC.systolic_pressure > 130
 ORDER BY checkup_date DESC;
 
 /*
@@ -215,27 +216,22 @@ WHERE P.rut = E.rut
   CONSULTA 11.
   PROBADA.
  */
-WITH days AS (SELECT Pr.elder_rut                                     as rut,
-                     Pr.prescription_date::date - MP.start_date::date AS difference
-              FROM residence.prescription Pr,
-                   residence.medication_prescription MP
-              WHERE Pr.elder_rut = MP.elder_rut)
-SELECT P.rut,
-       CONCAT(P.first_names, ' ', P.last_name, ' ',
-              P.second_last_name),
-       Pr.prescription_date,
-       MP.start_date,
-       D.difference
+SELECT DISTINCT Pr.elder_rut,
+                CONCAT(P.first_names, ' ', P.last_name, ' ',
+                       P.second_last_name)                                 AS full_name,
+                Pr.prescription_date,
+                MP.start_date,
+                extract(DAY FROM age(MP.start_date, Pr.prescription_date)) AS difference
 FROM residence.person P,
      residence.elder E,
      residence.prescription Pr,
-     residence.medication_prescription MP,
-     days D
+     residence.medication_prescription MP
 WHERE P.rut = E.rut
   AND E.rut = Pr.elder_rut
   AND Pr.elder_rut = MP.elder_rut
-  AND MP.elder_rut = D.rut
-  AND D.difference > 1;
+  AND Pr.disease_name = MP.disease_name
+  AND Pr.prescription_date = MP.prescription_date
+ORDER BY difference DESC;
 
 /*
  CONSULTA 12.
@@ -287,88 +283,85 @@ WHERE P.responsible_rut = F.rut
   AND F.region_id <> 5;
 
 /*
- CONSULTA 12 (FORMA ALTERNATIVA)
- PROBADO
+ CONSULTA 13.
+ PROBADO.
  */
-WITH full_address AS (SELECT Reg.id             AS region_id,
-                             Reg.region_name    AS region,
-                             Prov.province_name AS province,
-                             Comm.commune_name  AS commune,
-                             A.person_rut       AS rut,
-                             A.street,
-                             A.number
-                      FROM residence.address A
-                               INNER JOIN residence.commune Comm on Comm.id = A.commune_id
-                               INNER JOIN residence.province Prov on Prov.id = Comm.province_id
-                               INNER JOIN residence.region Reg on Reg.id = Prov.region_id
-                               INNER JOIN residence.responsible R on R.rut = A.person_rut),
-     person_table AS (SELECT personE.rut                      AS elder_rut,
-                             CONCAT(personE.first_names, ' ', personE.last_name, ' ',
-                                    personE.second_last_name) as elder_full_name,
-                             personR.rut                      AS responsible_rut,
-                             CONCAT(personR.first_names, ' ', personR.last_name, ' ',
-                                    personR.second_last_name) as responsible_full_name,
-                             CONCAT('+56 9 ', R.mobile_phone) AS responsible_mobile_phone
-                      FROM residence.person personE,
-                           residence.elder E,
-                           residence.person personR,
-                           residence.responsible R
-                      WHERE personE.rut = E.rut
-                        AND personR.rut = R.rut
-                        AND R.rut = E.responsible_rut)
-SELECT P.elder_rut,
-       P.elder_full_name,
-       P.responsible_rut,
-       P.responsible_full_name,
-       P.responsible_mobile_phone,
-       F.region,
-       F.province,
-       F.commune,
-       F.street,
-       F.number
-FROM person_table P,
-     full_address F
-WHERE P.responsible_rut = F.rut
-  AND F.region_id <> 5;
+WITH ages AS (SELECT date_part('year', age(CURRENT_DATE, P.birth_date)) AS difference
+              FROM residence.person P,
+                   residence.elder E
+              WHERE P.rut = E.rut)
+SELECT avg(difference)
+FROM ages;
 
-SELECT DISTINCT E.rut                      AS elder_rut,
-                CONCAT(E.first_names, ' ', E.last_name, ' ',
-                       E.second_last_name) as elder_full_name
-from residence.person E,
-     residence.elder,
-     residence.elder_suffers_disease SD,
-     residence.disease D
-WHERE E.rut = elder.rut
-  AND E.rut = SD.elder_rut
-  AND SD.disease_name = D.disease_name
-  AND D.is_chronic = TRUE;
+/*
+ CONSULTA 14.
+ PROBADO.
+ */
+WITH elder AS (SELECT date_part('year', age(CURRENT_DATE, P.birth_date)) AS age
+               FROM residence.person P,
+                    residence.elder E
+               WHERE P.rut = E.rut),
+     responsible AS (SELECT date_part('year', age(CURRENT_DATE, P.birth_date)) AS age
+                     FROM residence.person P,
+                          residence.responsible R
+                     WHERE P.rut = R.rut)
+SELECT avg(E.age)                                           as elder_avg_age,
+       avg(R.age)                                           as responsible_avg_age,
+       (round(cast(avg(E.age) - avg(R.age) AS NUMERIC), 2)) as avg_age_difference
+FROM elder E,
+     responsible R;
 
-SELECT DISTINCT E.rut                      AS elder_rut,
-                CONCAT(E.first_names, ' ', E.last_name, ' ',
-                       E.second_last_name) as elder_full_name
-from residence.person E,
-     residence.elder,
-     residence.elder_suffers_disease SD,
-     residence.disease D,
-     residence.medication_prescription MP
-WHERE E.rut = elder.rut
-  AND E.rut = SD.elder_rut
-  AND SD.disease_name = D.disease_name
-  AND D.is_chronic = FALSE
-  AND MP.disease_name = SD.disease_name
-  AND MP.end_date IS NOT NULL;
+/*
+ CONSULTA 15.
+ PROBADO.
+ */
+SELECT date_part('year', age(CURRENT_DATE, P.birth_date)) AS age, count(*)
+FROM residence.person P,
+     residence.elder E
+WHERE P.rut = E.rut
+GROUP BY age
+ORDER BY age;
 
-SELECT DISTINCT E.rut                      AS elder_rut,
-                CONCAT(E.first_names, ' ', E.last_name, ' ',
-                       E.second_last_name) as elder_full_name
-from residence.person E,
-     residence.elder,
-     residence.elder_suffers_disease SD,
-     residence.disease D,
-     residence.medication_prescription MP
-WHERE E.rut = elder.rut
-  AND E.rut = SD.elder_rut
-  AND SD.disease_name = D.disease_name
-  AND D.is_chronic = FALSE
-  AND MP.disease_name = SD.disease_name
-  AND MP.end_date IS NULL;
+/*
+ CONSULTA 16.
+ PROBADO.
+ */
+WITH C AS (SELECT count(*)
+           FROM residence.person P,
+                residence.elder E,
+                residence.elder_suffers_disease SD,
+                residence.disease D
+           WHERE P.rut = E.rut
+             AND E.rut = SD.elder_rut
+             AND SD.disease_name = D.disease_name
+             AND D.is_chronic = TRUE),
+     NCA AS (SELECT count(*)
+             from residence.person P,
+                  residence.elder E,
+                  residence.elder_suffers_disease SD,
+                  residence.medication_prescription MP,
+                  residence.disease D
+             WHERE P.rut = E.rut
+               AND E.rut = SD.elder_rut
+               AND SD.disease_name = D.disease_name
+               AND D.is_chronic = FALSE
+               AND MP.end_date IS NOT NULL
+               AND extract(DAY FROM age(MP.end_date, CURRENT_DATE)) > 1),
+     NCNA AS (SELECT count(*)
+              from residence.person P,
+                   residence.elder E,
+                   residence.elder_suffers_disease SD,
+                   residence.medication_prescription MP,
+                   residence.disease D
+              WHERE P.rut = E.rut
+                AND E.rut = SD.elder_rut
+                AND SD.disease_name = D.disease_name
+                AND D.is_chronic = FALSE
+                AND MP.end_date IS NOT NULL
+                AND extract(DAY FROM age(MP.end_date, CURRENT_DATE)) < 1)
+SELECT C.count    AS chronic_active,
+       NCA.count  AS not_chronic_active,
+       NCNA.count AS not_chronic_not_active
+FROM C,
+     NCA,
+     NCNA;

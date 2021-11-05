@@ -29,7 +29,7 @@ INSERT INTO residence.disease
 VALUES ('Diabetes', 5, TRUE)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.disease
-VALUES ('Hipertension', 10, TRUE)
+VALUES ('Hipertensión', 10, TRUE)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.disease
 VALUES ('Infarto', 10, TRUE)
@@ -44,7 +44,7 @@ INSERT INTO residence.disease
 VALUES ('Estreñimiento', 12, TRUE)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.disease
-VALUES ('Nauseas y vomitos', 12, TRUE)
+VALUES ('Nauseas y vómitos', 12, TRUE)
 ON CONFLICT DO NOTHING;
 
 
@@ -97,7 +97,7 @@ INSERT INTO residence.medication
 VALUES ('Pregabalina', 3, 3, 2)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
-VALUES ('Suplementos Vitaminicos', 3, 3, 2)
+VALUES ('Suplementos Vitamínicos', 3, 3, 2)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
 VALUES ('Lubiprostona', 3, 3, 2)
@@ -130,7 +130,7 @@ INSERT INTO residence.elder_suffers_disease
 VALUES ('5595642-1', 'Diabetes', '2017-07-02')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.elder_suffers_disease
-VALUES ('5875397-1', 'Nauseas y vomitos', '2018-11-08')
+VALUES ('5875397-1', 'Nauseas y vómitos', '2018-11-08')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.elder_suffers_disease
 VALUES ('8820206-6', 'Osteoporosis', '2020-09-30')
@@ -151,63 +151,63 @@ INSERT INTO residence.elder_suffers_disease
 VALUES ('5968347-0', 'Ictus', '2016-12-20')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.elder_suffers_disease
-VALUES ('5875397-1', 'Hipertension', '2018-09-25')
+VALUES ('5875397-1', 'Hipertensión', '2018-09-25')
 ON CONFLICT DO NOTHING;
 
 
 INSERT INTO residence.prescription
-VALUES ('8768514-4', 'Artritis', '2020-05-10', 'enfermedad que afecta los huesos')
+VALUES ('8768514-4', 'Artritis', '2020-05-10', 'Enfermedad que afecta los huesos.')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.prescription
-VALUES ('5595642-1', 'Alzheimer', '2018-07-15', 'enfermedad degenerativa cerebral')
+VALUES ('5595642-1', 'Alzheimer', '2018-07-15', 'Enfermedad degenerativa cerebral.')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.prescription
 VALUES ('10031785-0', 'Neumonia', '2019-06-18',
-        'enfemedad por covid necesita reposo 2 semanas en cama y sin licencia')
+        'Enfermedad por COVID. necesita reposo 2 semanas en cama y sin licencia.')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.prescription
 VALUES ('8742099-k', 'Demencia senil', '2018-05-14',
-        'enfermedad degenerativa se ruega tomar los medicamentos en orden')
+        'Enfermedad degenerativa. se ruega tomar los medicamentos en orden.')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.prescription
 VALUES ('8768514-4', 'Artrosis', '2020-03-19',
-        'enfermedad con mucho dolor en caso de no persistir se ruega llamar a un nuevo medico')
+        'enfermedad con mucho dolor. n caso de no persistir, se ruega llamar a un nuevo médico.')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.prescription
 VALUES ('5595642-1', 'Diabetes', '2017-07-02',
-        'enfermedad crónica típica chilena')
+        'Enfermedad crónica típica chilena.')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.prescription
-VALUES ('5875397-1', 'Nauseas y vomitos', '2018-11-08',
-        'dolores estomacales, cuidado en sus comidas alrededor de 1 semana')
+VALUES ('5875397-1', 'Nauseas y vómitos', '2018-11-08',
+        'Dolores estomacales, cuidado en sus comidas alrededor de 1 semana.')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.prescription
 VALUES ('8820206-6', 'Osteoporosis', '2020-09-30',
-        'dolores musculares fuertes en su zona abdominal toma de medicamentos recurrentes')
+        'dolores musculares fuertes en su zona abdominal. Toma de medicamentos recurrentes.')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.prescription
 VALUES ('8346739-8', 'Infarto', '2021-02-14',
-        'disminución de comidas por obstruction de arterias, se ruega ejercidos y nutricionista')
+        'Disminución de comidas por obstrucción de arterias. Se ruega ejercidos y nutricionista.')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.prescription
 VALUES ('8358513-7', 'Estreñimiento', '2018-05-14',
-        'comidas mas ligeras por 2 semanas y seguimiento de medicamentos ')
+        'Comidas más ligeras por 2 semanas y seguimiento de medicamentos.')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.prescription
 VALUES ('8358513-7', 'Diabetes', '2017-12-20',
-        'diabetes elevada toma de medicamentos urgentes de ahora en adelante')
+        'Diabetes elevada. toma de medicamentos urgentes de ahora en adelante.')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.prescription
 VALUES ('5902831-6', 'Parkinson', '2019-10-18',
-        'enfermedad degenerativa, empezar el tratamiento lo antes posible')
+        'Enfermedad degenerativa, empezar el tratamiento lo antes posible.')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.prescription
 VALUES ('5968347-0', 'Ictus', '2016-12-20',
-        'sintomas tipicos de la enfermedad Ictus , se ruega tomar los medicamentos los antes posibles')
+        'Síntomas típicos de la enfermedad ictus, se ruega tomar los medicamentos los antes posible.')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.prescription
-VALUES ('5875397-1', 'Hipertension', '2018-09-25',
-        'presiones arteriales altas se ruega, empezar un tratamiento')
+VALUES ('5875397-1', 'Hipertensión', '2018-09-25',
+        'Presiones arteriales altas, se ruega empezar un tratamiento.')
 ON CONFLICT DO NOTHING;
 
 INSERT INTO residence.medication_prescription
@@ -235,13 +235,14 @@ INSERT INTO residence.medication_prescription
 VALUES ('5595642-1', 'Diabetes', '2017-07-02', 'Tolbutamida', '2017-07-10', null)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication_prescription
-VALUES ('5875397-1', 'Nauseas y vomitos', '2018-11-08', 'Pepto-Bismol', '2018-11-09', null)
+VALUES ('5875397-1', 'Nauseas y vómitos', '2018-11-08', 'Pepto-Bismol', '2018-11-09', null)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication_prescription
-VALUES ('5875397-1', 'Nauseas y vomitos', '2018-11-08', 'Kaopectate', '2018-11-09', null)
+VALUES ('5875397-1', 'Nauseas y vómitos', '2018-11-08', 'Kaopectate', '2018-11-09', null)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication_prescription
-VALUES ('8820206-6', 'Osteoporosis', '2020-09-30', 'Suplementos de calcio y vitamina D', '2020-09-30',
+VALUES ('8820206-6', 'Osteoporosis', '2020-09-30', 'Suplementos de calcio y vitamina D',
+        '2020-09-30',
         null)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication_prescription
@@ -265,6 +266,6 @@ VALUES ('5968347-0', 'Ictus', '2016-12-20', 'Alteplasa', '2016-12-20',
         null)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication_prescription
-VALUES ('5875397-1', 'Hipertension', '2018-09-25', 'Alteplasa', '2018-09-25',
+VALUES ('5875397-1', 'Hipertensión', '2018-09-25', 'Alteplasa', '2018-09-25',
         null)
 ON CONFLICT DO NOTHING;
