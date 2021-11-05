@@ -1,9 +1,10 @@
 /*
  Consulta 1
- AÚN POR PROBAR.
+ PROBADA.
  */
 SELECT E.rut,
        CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
+       MP.medication_name,
        MP.start_date
 FROM residence.elder E,
      residence.person P,
@@ -12,7 +13,32 @@ WHERE P.rut = E.rut
   AND E.rut = MP.elder_rut
   AND MP.start_date IS NOT NULL
   AND (SELECT extract(YEAR FROM age(CURRENT_DATE, MP.start_date)) * 12 +
-              extract(MONTH FROM age(CURRENT_DATE, MP.start_date))) > 1;
+              extract(MONTH FROM age(CURRENT_DATE, MP.start_date))) > 12
+ORDER BY MP.start_date;
+
+/*
+ Consulta 2.
+ FORMA ALTERNATIVA.
+ */
+WITH medication_aggregation AS (SELECT DISTINCT MP.start_date,
+                                                E.rut,
+                                                string_agg(medication_name, ', ' ORDER BY medication_name) AS medications
+                                FROM residence.person P,
+                                     residence.elder E,
+                                     residence.medication_prescription MP
+                                WHERE P.rut = E.rut
+                                  AND E.rut = MP.elder_rut
+                                GROUP BY E.rut, MP.start_date)
+SELECT E.rut,
+       CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
+       M.start_date,
+       M.medications
+FROM residence.person P
+         INNER JOIN residence.elder E ON P.rut = E.rut
+         RIGHT OUTER JOIN medication_aggregation M ON E.rut = M.rut
+WHERE (SELECT extract(YEAR FROM age(CURRENT_DATE, M.start_date)) * 12 +
+              extract(MONTH FROM age(CURRENT_DATE, M.start_date))) > 12
+ORDER BY M.start_date;
 
 /*
  Consulta 2
