@@ -22,6 +22,7 @@ public class Responsible extends Person {
   private Integer mobilePhone;
 
   @OneToOne(mappedBy = "responsible", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @Setter(AccessLevel.PROTECTED)
   private Elder elder;
 
   @OneToOne(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
