@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import lombok.AccessLevel;
@@ -19,9 +18,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 @Setter(AccessLevel.PROTECTED)
 public class AddressId implements Serializable {
 
-  @JoinColumn(name = "commune_id", updatable = false, nullable = false)
-  @OneToOne(cascade = CascadeType.ALL)
-  private Commune commune;
+  @Column(name = "commune_id", updatable = false, nullable = false)
+  private Short communeId;
 
   @Column(name = "street", updatable = false, nullable = false)
   private String street;
@@ -29,9 +27,8 @@ public class AddressId implements Serializable {
   @Column(name = "number", updatable = false, nullable = false)
   private Short number;
 
-  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "person_rut", updatable = false, nullable = false)
-  private Person person;
+  @Column(name = "person_rut", updatable = false, nullable = false)
+  private String rut;
 
   @Override
   public boolean equals(final Object object) {
@@ -40,10 +37,10 @@ public class AddressId implements Serializable {
     }
     if (object instanceof final AddressId addressId) {
       return new EqualsBuilder()
-          .append(commune, addressId.commune)
+          .append(communeId, addressId.communeId)
           .append(street, addressId.street)
           .append(number, addressId.number)
-          .append(person, addressId.person)
+          .append(rut, addressId.rut)
           .isEquals();
     }
     return false;
@@ -52,10 +49,10 @@ public class AddressId implements Serializable {
   @Override
   public int hashCode() {
     return new HashCodeBuilder()
-        .append(commune)
+        .append(communeId)
         .append(street)
         .append(number)
-        .append(person)
+        .append(rut)
         .toHashCode();
   }
 }
