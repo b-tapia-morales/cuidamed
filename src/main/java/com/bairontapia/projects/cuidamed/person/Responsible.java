@@ -4,6 +4,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -11,6 +13,13 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
+@NamedEntityGraph(
+    name = "responsible-graph",
+    attributeNodes = {
+        @NamedAttributeNode("elder"),
+        @NamedAttributeNode("address")
+    }
+)
 @Entity
 @Table(schema = "residence", name = "responsible")
 @PrimaryKeyJoinColumn(name = "rut")
@@ -22,6 +31,7 @@ public class Responsible extends Person {
   private Integer mobilePhone;
 
   @OneToOne(mappedBy = "responsible", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @Setter(AccessLevel.PROTECTED)
   private Elder elder;
 
   @OneToOne(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

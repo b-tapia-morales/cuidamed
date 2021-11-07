@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -14,6 +16,13 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
+@NamedEntityGraph(
+    name = "elder-graph",
+    attributeNodes = {
+        @NamedAttributeNode("responsible"),
+        @NamedAttributeNode("medicalRecord")
+    }
+)
 @Entity
 @Table(schema = "residence", name = "elder")
 @PrimaryKeyJoinColumn(name = "rut")
