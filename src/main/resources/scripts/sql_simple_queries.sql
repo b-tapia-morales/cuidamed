@@ -36,8 +36,31 @@ WHERE P.rut = Ca.rut
 
 SELECT RC.elder_rut,
        count(RC.elder_rut) as rc_count
-FROM residence.person P,
-     residence.routine_checkup RC
-WHERE P.rut = RC.elder_rut
+FROM residence.routine_checkup RC
 GROUP BY RC.elder_rut
-ORDER BY rc_count;
+ORDER BY rc_count DESC;
+
+SELECT *
+FROM residence.person;
+SELECT *
+FROM residence.elder;
+SELECT *
+FROM residence.routine_checkup;
+SELECT *
+FROM residence.elder_suffers_disease;
+SELECT *
+FROM residence.responsible;
+SELECT *
+FROM residence.region;
+SELECT *
+FROM residence.province;
+SELECT *
+FROM residence.commune;
+SELECT *
+FROM residence.address;
+SELECT *
+FROM residence.carer;
+SELECT *
+FROM residence.surgical_intervention;
+SELECT *
+FROM residence.medical_record;
