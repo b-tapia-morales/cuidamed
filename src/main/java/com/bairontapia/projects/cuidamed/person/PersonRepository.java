@@ -11,7 +11,10 @@ public interface PersonRepository extends CrudRepository<Carer, String> {
   @Override
   @NonNull
   @Query(value =
-      "SELECT DISTINCT c FROM Carer c LEFT JOIN FETCH Address a ON c.rut = a.person.rut")
+      "SELECT c FROM Carer c LEFT JOIN FETCH Address a ON c.rut = a.person.rut "
+          + "LEFT JOIN FETCH Commune comm ON a.commune.id = comm.id "
+          + "LEFT JOIN FETCH Province prov ON comm.province.id = prov.id "
+          + "LEFT JOIN FETCH Region reg ON prov.region.id = reg.id")
   Iterable<Carer> findAll();
 
   @Query(value =
