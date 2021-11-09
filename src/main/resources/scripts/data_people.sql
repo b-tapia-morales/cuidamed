@@ -2,7 +2,7 @@
  Personas - Adultos mayores
  */
 INSERT INTO residence.person
-VALUES ('8742099-k', 'Matías Jose', 'González', 'Rojas', '1953-11-15', 1)
+VALUES ('8742099-k', 'Matías José', 'González', 'Rojas', '1953-11-15', 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.person
 VALUES ('8768514-4', 'Alberto Manuel', 'Rojas', 'Sepúlveda', '1953-11-15', 1)
@@ -36,41 +36,41 @@ ON CONFLICT DO NOTHING;
  Personas - Responsables
  */
 INSERT INTO residence.person
-VALUES ('14585523-3', 'Alondra María', 'González', 'Palma', '1951-11-30', 2)
+VALUES ('14585523-3', 'Alondra María', 'González', 'Palma', '1981-11-30', 2)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.person
-VALUES ('14207467-2', 'Juan Fernando', 'Contreras', 'Prado', '1951-11-30', 1)
+VALUES ('14207467-2', 'Juan Fernando', 'Contreras', 'Prado', '1979-11-25', 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.person
-VALUES ('13003385-7', 'Luz María', 'Sepúlveda', 'Burgos', '1951-11-30', 2)
+VALUES ('13003385-7', 'Luz María', 'Sepúlveda', 'Burgos', '1974-08-21', 2)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.person
-VALUES ('12997638-1', 'Verónica Marcela', 'Lopez', 'Aguirre', '1951-11-30', 2)
+VALUES ('12997638-1', 'Verónica Marcela', 'Lopez', 'Aguirre', '1986-02-03', 2)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.person
-VALUES ('14822838-8', 'Sebastián Felipe', 'Silva', 'Avello', '1951-11-30', 1)
+VALUES ('14822838-8', 'Sebastián Felipe', 'Silva', 'Avello', '1971-03-20', 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.person
-VALUES ('12682668-0', 'Diego Alejandro', 'Chepillo', 'Veliz', '1951-11-30', 1)
+VALUES ('12682668-0', 'Diego Alejandro', 'Chepillo', 'Veliz', '1988-06-17', 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.person
-VALUES ('14075371-8', 'Claudia Carmen', 'Carmona', 'Jara', '1951-11-30', 2)
+VALUES ('14075371-8', 'Claudia Carmen', 'Carmona', 'Jara', '1984-05-12', 2)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.person
-VALUES ('14102400-0', 'Mario Luis', 'Godoy', 'Olivares', '1951-11-30', 1)
+VALUES ('14102400-0', 'Mario Luis', 'Godoy', 'Olivares', '1976-08-14', 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.person
-VALUES ('13988190-7', 'Joselyn Ana', 'Zúñiga', 'Cordovez', '1951-11-30', 2)
+VALUES ('13988190-7', 'Joselyn Ana', 'Zúñiga', 'Cordovez', '1977-11-11', 2)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.person
-VALUES ('13371799-4', 'Ana María', 'Aguilar', 'Vicencio', '1951-11-30', 2)
+VALUES ('13371799-4', 'Ana María', 'Aguilar', 'Vicencio', '1979-06-06', 2)
 ON CONFLICT DO NOTHING;
 
 /*
  Personas - Cuidadores
  */
 INSERT INTO residence.person
-VALUES ('15787461-6', 'María Jose', 'Pastén', 'Cordovez', '1984-01-04', 2)
+VALUES ('15787461-6', 'María José', 'Pastén', 'Cordovez', '1984-01-04', 2)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.person
 VALUES ('17662625-9', 'Valentina ', 'González', 'Tapia', '1984-01-08', 2)
