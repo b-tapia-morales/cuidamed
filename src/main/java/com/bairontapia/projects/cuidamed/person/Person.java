@@ -44,6 +44,19 @@ public abstract class Person {
   private Gender gender;
 
   @Override
+  public String toString() {
+    return String.format
+        ("""
+            Rut:\t\t\t\t\t\t\t\t\t%s
+            Nombres:\t\t\t\t\t\t\t%s
+            Apellido paterno:\t\t\t%s
+            Apellido materno:\t\t\t%s
+            Fecha de nacimiento:\t%s
+            Sexo:\t\t\t\t\t\t\t\t\t%s
+            """, rut, firstNames, lastName, secondLastName, birthDate, gender);
+  }
+
+  @Override
   public boolean equals(final Object object) {
     if (this == object) {
       return true;
