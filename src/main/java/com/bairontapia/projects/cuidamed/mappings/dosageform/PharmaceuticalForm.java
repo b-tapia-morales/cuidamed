@@ -3,7 +3,7 @@ package com.bairontapia.projects.cuidamed.mappings.dosageform;
 import lombok.Getter;
 
 @Getter
-public enum DosageForm {
+public enum PharmaceuticalForm {
   BARS("Barras"),
   CAPSULES("Cápsulas"),
   TABLETS("Comprimidos"),
@@ -25,19 +25,19 @@ public enum DosageForm {
   SYRINGES("Jeringas"),
   DISSOLUTION("Disolución");
 
-  private static final DosageForm[] VALUES = values();
+  private static final PharmaceuticalForm[] VALUES = values();
 
   private final String form;
 
-  DosageForm(final String form) {
+  PharmaceuticalForm(final String form) {
     this.form = form;
   }
 
-  public static DosageForm[] getValues() {
+  public static PharmaceuticalForm[] getValues() {
     return VALUES;
   }
 
-  public static DosageForm getValueFromIndex(final int index) {
+  public static PharmaceuticalForm getValueFromIndex(final int index) {
     if (index < 1 || index > VALUES.length) {
       throw new IllegalArgumentException();
     }
