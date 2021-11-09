@@ -22,7 +22,7 @@ public class SurgicalIntervention {
 
   @EmbeddedId
   @Setter(AccessLevel.PRIVATE)
-  private SurgicalInterventionID id;
+  private SurgicalInterventionId id;
 
   @Column(name = "hospital", nullable = false)
   private String hospital;

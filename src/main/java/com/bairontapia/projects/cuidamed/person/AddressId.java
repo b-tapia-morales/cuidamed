@@ -1,12 +1,8 @@
 package com.bairontapia.projects.cuidamed.person;
 
-import com.bairontapia.projects.cuidamed.localization.Commune;
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

@@ -12,7 +12,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 @Embeddable
 @Getter
 @Setter
-public class SurgicalInterventionID implements Serializable {
+public class SurgicalInterventionId implements Serializable {
 
   @Column(name = "elder_rut", nullable = false, updatable = false)
   private String rut;
@@ -25,7 +25,7 @@ public class SurgicalInterventionID implements Serializable {
     if (this == object) {
       return true;
     }
-    if (object instanceof final SurgicalInterventionID id) {
+    if (object instanceof final SurgicalInterventionId id) {
       return new EqualsBuilder()
           .append(rut, id.rut)
           .append(interventionDate, id.interventionDate)

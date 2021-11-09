@@ -1,6 +1,6 @@
 /* Personas - Responsables */
 INSERT INTO residence.address
-VALUES (31, 'Juan Barrera Cortés', 2050, 1700000, 937351,'14585523-3')
+VALUES (31, 'Juan Barrera Cortés', 2050, 1700000, 937351, '14585523-3')
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.address
 VALUES (31, 'Manuel Silva Briceño', 361, 1700000, 996322, '14207467-2')

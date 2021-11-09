@@ -1,6 +1,5 @@
 package com.bairontapia.projects.cuidamed.mappings.disesetype;
 
-import com.bairontapia.projects.cuidamed.mappings.allergytype.AllergyType;
 import lombok.Getter;
 
 @Getter
@@ -42,11 +41,11 @@ public enum DiseaseType {
   }
 
   @Override
-  public String toString(){
+  public String toString() {
     return name;
   }
 
-  public int getIndex(){
+  public int getIndex() {
     return ordinal() + 1;
   }
 
