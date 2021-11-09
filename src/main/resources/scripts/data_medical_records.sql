@@ -2,25 +2,25 @@
  Fichas médicas
  */
 INSERT INTO residence.medical_record
-VALUES ('8742099-k', 3, 0);
+VALUES ('8742099-k', 4, 1);
 INSERT INTO residence.medical_record
-VALUES ('8768514-4', 2, 0);
+VALUES ('8768514-4', 3, 1);
 INSERT INTO residence.medical_record
-VALUES ('5595642-1', 0, 0);
+VALUES ('5595642-1', 1, 1);
 INSERT INTO residence.medical_record
-VALUES ('5875397-1', 6, 1);
+VALUES ('5875397-1', 7, 2);
 INSERT INTO residence.medical_record
-VALUES ('10031785-0', 7, 0);
+VALUES ('10031785-0', 8, 1);
 INSERT INTO residence.medical_record
-VALUES ('5968347-0', 1, 1);
+VALUES ('5968347-0', 1, 2);
 INSERT INTO residence.medical_record
-VALUES ('8820206-6', 3, 1);
+VALUES ('8820206-6', 3, 2);
 INSERT INTO residence.medical_record
-VALUES ('8346739-8', 4, 1);
+VALUES ('8346739-8', 4, 2);
 INSERT INTO residence.medical_record
-VALUES ('8358513-7', 6, 0);
+VALUES ('8358513-7', 6, 1);
 INSERT INTO residence.medical_record
-VALUES ('5902831-6', 4, 1);
+VALUES ('5902831-6', 4, 2);
 
 /*
  Chequeos rutinarios
@@ -46,29 +46,29 @@ VALUES ('5902831-6', '2021-11-04', 1.60, 64.0, 25.0, 93, 108, 74, 37.8);
  Alergias
  */
 INSERT INTO residence.allergy
-VALUES ('8346739-8', 3, 'Líquidos para mano');
+VALUES ('8346739-8', 4, 'Líquidos para mano');
 INSERT INTO residence.allergy
-VALUES ('5875397-1', 3, 'Guantes Quirúrgicos');
+VALUES ('5875397-1', 4, 'Guantes Quirúrgicos');
 INSERT INTO residence.allergy
-VALUES ('8358513-7', 5, 'Gato');
+VALUES ('8358513-7', 6, 'Gato');
 INSERT INTO residence.allergy
-VALUES ('5902831-6', 6, 'Flores');
+VALUES ('5902831-6', 7, 'Flores');
 INSERT INTO residence.allergy
-VALUES ('8768514-4', 1, 'Frutilla');
+VALUES ('8768514-4', 2, 'Frutilla');
 INSERT INTO residence.allergy
-VALUES ('5595642-1', 0, 'Paracetamol');
+VALUES ('5595642-1', 1, 'Paracetamol');
 INSERT INTO residence.allergy
-VALUES ('5875397-1', 2, 'Abeja');
+VALUES ('5875397-1', 3, 'Abeja');
 INSERT INTO residence.allergy
-VALUES ('5902831-6', 4, 'Humedad');
+VALUES ('5902831-6', 5, 'Humedad');
 
 /*
  Intervenciones quirúrgicas.
  */
 INSERT INTO residence.surgical_intervention
-VALUES ('8358513-7', '2020-04-15', 'San Pablo', 0, 'Esguince menor en tobillo derecho');
+VALUES ('8358513-7', '2020-04-15', 'San Pablo', 1, 'Esguince menor en tobillo derecho');
 INSERT INTO residence.surgical_intervention
-VALUES ('5902831-6', '2019-01-07', 'Clínica Elqui', 1,
+VALUES ('5902831-6', '2019-01-07', 'Clínica Elqui', 2,
         'Operación por caída en muslo izquierdo con corte de 15 cm, se ingresa un total de 15 puntos');
 INSERT INTO residence.surgical_intervention
-VALUES ('8768514-4', '2021-03-24', 'Ovalle', 2, 'Operación interna de transplante de hígado');
+VALUES ('8768514-4', '2021-03-24', 'Ovalle', 3, 'Operación interna de transplante de hígado');

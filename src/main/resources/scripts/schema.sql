@@ -191,6 +191,8 @@ CREATE TABLE IF NOT EXISTS residence.medication_prescription
     medication_name   VARCHAR(64) NOT NULL,
     start_date        DATE        NOT NULL,
     end_date          DATE,
+    frequency         SMALLINT    NOT NULL,
+    quantity          SMALLINT    NOT NULL,
     FOREIGN KEY (elder_rut, disease_name, prescription_date) REFERENCES residence.prescription (elder_rut, disease_name, prescription_date),
     FOREIGN KEY (medication_name) REFERENCES residence.medication (medication_name),
     PRIMARY KEY (elder_rut, disease_name, prescription_date, medication_name)
@@ -202,8 +204,6 @@ CREATE TABLE IF NOT EXISTS residence.medication_administration
     elder_rut          VARCHAR(16) NOT NULL,
     medication_name    VARCHAR(64) NOT NULL,
     status             SMALLINT    NOT NULL,
-    frequency          SMALLINT    NOT NULL,
-    quantity           SMALLINT    NOT NULL,
     estimated_datetime TIMESTAMP   NOT NULL,
     real_datetime      TIMESTAMP,
     FOREIGN KEY (carer_rut) REFERENCES residence.carer (rut),
