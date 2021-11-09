@@ -5,17 +5,17 @@ import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
 @Converter
-public class DosageFormConverter implements AttributeConverter<DosageForm, Short> {
+public class PharmaceuticalFormConverter implements AttributeConverter<PharmaceuticalForm, Short> {
 
   @Override
-  public Short convertToDatabaseColumn(final DosageForm value) {
+  public Short convertToDatabaseColumn(final PharmaceuticalForm value) {
     Objects.requireNonNull(value);
     return (short) value.getIndex();
   }
 
   @Override
-  public DosageForm convertToEntityAttribute(final Short index) {
+  public PharmaceuticalForm convertToEntityAttribute(final Short index) {
     Objects.requireNonNull(index);
-    return DosageForm.getValueFromIndex(index);
+    return PharmaceuticalForm.getValueFromIndex(index);
   }
 }
