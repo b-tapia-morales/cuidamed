@@ -36,4 +36,15 @@ public class Carer extends Person {
   @OneToOne(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @Setter(AccessLevel.PROTECTED)
   private Address address;
+
+  @Override
+  public String toString() {
+    var personFormat = super.toString();
+    return personFormat +
+        String.format("""
+        
+        Teléfono móvil:\t\t\t\t%s
+        Fecha de contrato:\t\t%s
+        """, mobilePhone, hireDate) + (address == null ? "" : address.toString());
+  }
 }
