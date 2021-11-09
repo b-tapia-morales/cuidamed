@@ -4,26 +4,11 @@ import lombok.Getter;
 
 @Getter
 public enum PharmaceuticalForm {
-  BARS("Barras"),
   CAPSULES("Cápsulas"),
   TABLETS("Comprimidos"),
   CHEWING_GUMS("Gomas de mascar"),
-  GRANULATED("Granulados"),
-  PATCHES("Parches"),
-  POWDERS("Polvos"),
-  DROPS("Gotas"),
-  SYRUP("Jarabe"),
-  SUPPOSITORIES("Supositorios"),
-  ENEMAS("Enemas"),
-  OVULES("Óvulos"),
-  LOTIONS("Lociones"),
-  SPRAYS("Aerosoles"),
-  GELS("Gel"),
-  OINTMENTS("Ungüentos"),
   SUSPENSIONS("Suspensiones"),
-  MOUTHWASH("Colutorio"),
-  SYRINGES("Jeringas"),
-  DISSOLUTION("Disolución");
+  SYRINGES("Jeringas");
 
   private static final PharmaceuticalForm[] VALUES = values();
 

@@ -49,64 +49,64 @@ ON CONFLICT DO NOTHING;
 
 
 INSERT INTO residence.medication
-VALUES ('Paracetamol', 1, 2, 2)
+VALUES ('Paracetamol', 1, 2, 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
-VALUES ('Ibuprofeno', 3, 3, 1)
+VALUES ('Ibuprofeno', 1, 2, 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
-VALUES ('Galantamina', 1, 1, 2)
+VALUES ('Galantamina', 1, 2, 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
-VALUES ('Azitromicina', 3, 3, 2)
+VALUES ('Azitromicina', 1, 1, 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
-VALUES ('Demerol', 3, 3, 2)
+VALUES ('Demerol', 1, 2, 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
-VALUES ('Donepezilo', 3, 3, 2)
+VALUES ('Donepezilo', 1, 2, 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
-VALUES ('Levadopa', 3, 3, 2)
+VALUES ('Levadopa', 1, 2, 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
-VALUES ('Alteplasa', 3, 3, 2)
+VALUES ('Alteplasa', 2, 5, 2) /* jeringa */
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
-VALUES ('Riluzol', 3, 3, 2)
+VALUES ('Riluzol', 1, 2, 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
-VALUES ('Suplementos de calcio y vitamina D', 3, 3, 2)
+VALUES ('Suplementos de calcio y vitamina D', 1, 1, 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
-VALUES ('Tolbutamida', 3, 3, 2)
+VALUES ('Tolbutamida', 1, 2, 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
-VALUES ('Acebutolol', 3, 3, 2)
+VALUES ('Acebutolol', 1, 1, 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
-VALUES ('Atenolol', 3, 3, 2)
+VALUES ('Atenolol', 1, 2, 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
-VALUES ('Nitroglicerina', 3, 3, 2)
+VALUES ('Nitroglicerina', 2, 5, 2) /* jeringa */
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
-VALUES ('Duloxetina', 3, 3, 2)
+VALUES ('Duloxetina', 1, 1, 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
-VALUES ('Pregabalina', 3, 3, 2)
+VALUES ('Pregabalina', 1, 1, 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
-VALUES ('Suplementos Vitamínicos', 3, 3, 2)
+VALUES ('Suplementos Vitamínicos', 1, 1, 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
-VALUES ('Lubiprostona', 3, 3, 2)
+VALUES ('Lubiprostona', 1, 1, 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
-VALUES ('Pepto-Bismol', 3, 3, 2)
+VALUES ('Pepto-Bismol', 1, 3, 1)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.medication
-VALUES ('Kaopectate', 3, 3, 2)
+VALUES ('Kaopectate', 1, 4, 2) /* suspensión */
 ON CONFLICT DO NOTHING;
 
 
