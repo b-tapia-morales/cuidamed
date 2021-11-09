@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -47,6 +48,7 @@ public class RoutineCheckup {
 
   @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "elder_rut", insertable = false, nullable = false, updatable = false)
+  @MapsId("rut")
   @Setter(AccessLevel.PROTECTED)
   private MedicalRecord medicalRecord;
 

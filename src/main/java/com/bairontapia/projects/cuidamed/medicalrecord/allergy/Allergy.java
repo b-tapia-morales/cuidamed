@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -29,10 +30,11 @@ public class Allergy {
 
   @Column(name = "allergy_type", nullable = false)
   @Convert(converter = AllergyTypeConverter.class)
-  private AllergyType allergyType;
+  private AllergyType type;
 
   @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "elder_rut", insertable = false, nullable = false, updatable = false)
+  @MapsId("rut")
   @Setter(AccessLevel.PROTECTED)
   private MedicalRecord medicalRecord;
 
