@@ -41,7 +41,7 @@ public class Address {
   private Integer fixedPhone;
 
   @JoinColumn(name = "commune_id", insertable = false, updatable = false)
-  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @MapsId("communeId")
   @Setter(AccessLevel.PROTECTED)
   private Commune commune;
@@ -51,6 +51,20 @@ public class Address {
   @MapsId("rut")
   @Setter(AccessLevel.PROTECTED)
   private Person person;
+
+  @Override
+  public String toString() {
+    return String.format
+        ("""
+                            
+                Región:\t\t\t\t\t\t\t\t%s
+                Provincia:\t\t\t\t\t\t%s
+                Comuna:\t\t\t\t\t\t\t\t%s
+                Calle:\t\t\t\t\t\t\t\t%s
+                Número:\t\t\t\t\t\t\t\t%s
+                """, commune.getProvince().getRegion(), commune.getProvince(), commune, id.getStreet(),
+            id.getNumber());
+  }
 
   @Override
   public boolean equals(final Object object) {

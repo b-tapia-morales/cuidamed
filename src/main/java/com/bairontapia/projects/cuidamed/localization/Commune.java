@@ -32,7 +32,7 @@ public class Commune {
   private String name;
 
   @JoinColumn(name = "province_id", updatable = false, nullable = false)
-  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private Province province;
 
   @Override

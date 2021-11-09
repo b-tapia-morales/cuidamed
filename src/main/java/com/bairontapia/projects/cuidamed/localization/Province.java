@@ -32,7 +32,7 @@ public class Province {
   private String name;
 
   @JoinColumn(name = "region_id", updatable = false, nullable = false)
-  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private Region region;
 
   @Override
