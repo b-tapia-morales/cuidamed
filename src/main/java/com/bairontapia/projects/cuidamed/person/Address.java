@@ -9,21 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
-import javax.persistence.NamedAttributeNode;
-import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-@NamedEntityGraph(
-    name = "address-graph",
-    attributeNodes = {
-        @NamedAttributeNode("commune"),
-        @NamedAttributeNode("person")
-    }
-)
 @Entity
 @Table(name = "address", schema = "residence")
 @Getter

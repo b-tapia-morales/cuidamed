@@ -12,7 +12,7 @@ class CuidaMedApplicationTests {
   PersonRepository personRepository;
 
   @Test
-  void contextLoads() {
-    personRepository.findAll().forEach(System.out::println);
+  void showAllCarers() {
+    personRepository.findAllCarersNative().forEach(System.out::println);
   }
 }
