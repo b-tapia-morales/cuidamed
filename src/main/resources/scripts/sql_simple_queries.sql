@@ -30,14 +30,14 @@ FROM residence.person P,
      residence.address A,
      residence.commune Co
 WHERE P.rut = Ca.rut
-  AND Ca.rut = A.person_rut
+  AND Ca.rut = A.rut
   AND A.commune_id = Co.id
   AND Co.commune_name = 'Rancagua';
 
-SELECT RC.elder_rut,
-       count(RC.elder_rut) as rc_count
+SELECT RC.rut,
+       count(RC.rut) as rc_count
 FROM residence.routine_checkup RC
-GROUP BY RC.elder_rut
+GROUP BY RC.rut
 ORDER BY rc_count DESC;
 
 SELECT *
@@ -47,7 +47,7 @@ FROM residence.elder;
 SELECT *
 FROM residence.routine_checkup;
 SELECT *
-FROM residence.elder_suffers_disease;
+FROM residence.sick_elderly;
 SELECT *
 FROM residence.responsible;
 SELECT *
