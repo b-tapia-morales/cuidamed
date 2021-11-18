@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS residence.medication_administration;
 DROP TABLE IF EXISTS residence.medication_prescription;
 DROP TABLE IF EXISTS residence.medication;
 DROP TABLE IF EXISTS residence.prescription;
-DROP TABLE IF EXISTS residence.elder_suffers_disease;
+DROP TABLE IF EXISTS residence.sick_elderly;
 DROP TABLE IF EXISTS residence.disease;
 
 DROP TABLE IF EXISTS residence.routine_checkup;
@@ -95,24 +95,24 @@ CREATE TABLE IF NOT EXISTS residence.address
     number      SMALLINT     NOT NULL,
     postal_code INT,
     fixed_phone INT,
-    person_rut  VARCHAR(16),
+    rut         VARCHAR(16) NOT NULL,
     FOREIGN KEY (commune_id) REFERENCES residence.commune (id),
-    FOREIGN KEY (person_rut) REFERENCES residence.person (rut),
-    primary key (commune_id, street, number, person_rut)
+    FOREIGN KEY (rut) REFERENCES residence.person (rut),
+    primary key (commune_id, street, number, rut)
 );
 
 CREATE TABLE IF NOT EXISTS residence.medical_record
 (
-    elder_rut         VARCHAR(16) NOT NULL,
+    rut               VARCHAR(16) NOT NULL,
     blood_type        SMALLINT    NOT NULL,
     healthcare_system SMALLINT    NOT NULL,
-    FOREIGN KEY (elder_rut) REFERENCES residence.elder (rut),
-    PRIMARY KEY (elder_rut)
+    FOREIGN KEY (rut) REFERENCES residence.elder (rut),
+    PRIMARY KEY (rut)
 );
 
 CREATE TABLE IF NOT EXISTS residence.routine_checkup
 (
-    elder_rut          VARCHAR(16) NOT NULL,
+    rut                VARCHAR(16) NOT NULL,
     checkup_date       DATE        NOT NULL,
     height             REAL        NOT NULL,
     weight             REAL        NOT NULL,
@@ -121,28 +121,28 @@ CREATE TABLE IF NOT EXISTS residence.routine_checkup
     diastolic_pressure REAL        NOT NULL,
     systolic_pressure  REAL        NOT NULL,
     body_temperature   REAL        NOT NULL,
-    FOREIGN KEY (elder_rut) REFERENCES residence.medical_record (elder_rut),
-    PRIMARY KEY (elder_rut, checkup_date)
+    FOREIGN KEY (rut) REFERENCES residence.medical_record (rut),
+    PRIMARY KEY (rut, checkup_date)
 );
 
 CREATE TABLE IF NOT EXISTS residence.allergy
 (
-    elder_rut    VARCHAR(16) NOT NULL,
+    rut          VARCHAR(16) NOT NULL,
     allergy_type SMALLINT    NOT NULL,
     allergy_name TEXT        NOT NULL,
-    FOREIGN KEY (elder_rut) REFERENCES residence.medical_record (elder_rut),
-    PRIMARY KEY (elder_rut, allergy_name)
+    FOREIGN KEY (rut) REFERENCES residence.medical_record (rut),
+    PRIMARY KEY (rut, allergy_name)
 );
 
 CREATE TABLE IF NOT EXISTS residence.surgical_intervention
 (
-    elder_rut         VARCHAR(16) NOT NULL,
+    rut               VARCHAR(16) NOT NULL,
     intervention_date DATE        NOT NULL,
     hospital          VARCHAR(32) NOT NULL,
     severity          SMALLINT    NOT NULL,
     description       TEXT        NOT NULL,
-    FOREIGN KEY (elder_rut) REFERENCES residence.medical_record (elder_rut),
-    PRIMARY KEY (elder_rut, intervention_date)
+    FOREIGN KEY (rut) REFERENCES residence.medical_record (rut),
+    PRIMARY KEY (rut, intervention_date)
 );
 
 CREATE TABLE IF NOT EXISTS residence.disease
@@ -153,14 +153,14 @@ CREATE TABLE IF NOT EXISTS residence.disease
     PRIMARY KEY (disease_name)
 );
 
-CREATE TABLE IF NOT EXISTS residence.elder_suffers_disease
+CREATE TABLE IF NOT EXISTS residence.sick_elderly
 (
-    elder_rut      VARCHAR(16) NOT NULL,
+    rut            VARCHAR(16) NOT NULL,
     disease_name   VARCHAR(32) NOT NULL,
     diagnosis_date DATE        NOT NULL,
-    FOREIGN KEY (elder_rut) REFERENCES residence.elder (rut),
+    FOREIGN KEY (rut) REFERENCES residence.elder (rut),
     FOREIGN KEY (disease_name) REFERENCES residence.disease (disease_name),
-    PRIMARY KEY (elder_rut, disease_name, diagnosis_date)
+    PRIMARY KEY (rut, disease_name, diagnosis_date)
 );
 
 CREATE TABLE IF NOT EXISTS residence.medication
@@ -174,18 +174,18 @@ CREATE TABLE IF NOT EXISTS residence.medication
 
 CREATE TABLE IF NOT EXISTS residence.prescription
 (
-    elder_rut         VARCHAR(16) NOT NULL,
+    rut               VARCHAR(16) NOT NULL,
     disease_name      VARCHAR(32) NOT NULL,
     prescription_date DATE        NOT NULL,
     description       TEXT        NOT NULL,
-    FOREIGN KEY (elder_rut) REFERENCES residence.elder (rut),
+    FOREIGN KEY (rut) REFERENCES residence.elder (rut),
     FOREIGN KEY (disease_name) REFERENCES residence.disease (disease_name),
-    PRIMARY KEY (elder_rut, disease_name, prescription_date)
+    PRIMARY KEY (rut, disease_name, prescription_date)
 );
 
 CREATE TABLE IF NOT EXISTS residence.medication_prescription
 (
-    elder_rut         VARCHAR(16) NOT NULL,
+    rut               VARCHAR(16) NOT NULL,
     disease_name      VARCHAR(32) NOT NULL,
     prescription_date DATE        NOT NULL,
     medication_name   VARCHAR(64) NOT NULL,
@@ -193,21 +193,21 @@ CREATE TABLE IF NOT EXISTS residence.medication_prescription
     end_date          DATE,
     frequency         SMALLINT    NOT NULL,
     quantity          SMALLINT    NOT NULL,
-    FOREIGN KEY (elder_rut, disease_name, prescription_date) REFERENCES residence.prescription (elder_rut, disease_name, prescription_date),
+    FOREIGN KEY (rut, disease_name, prescription_date) REFERENCES residence.prescription (rut, disease_name, prescription_date),
     FOREIGN KEY (medication_name) REFERENCES residence.medication (medication_name),
-    PRIMARY KEY (elder_rut, disease_name, prescription_date, medication_name)
+    PRIMARY KEY (rut, disease_name, prescription_date, medication_name)
 );
 
 CREATE TABLE IF NOT EXISTS residence.medication_administration
 (
-    carer_rut          VARCHAR(16) NOT NULL,
     elder_rut          VARCHAR(16) NOT NULL,
     medication_name    VARCHAR(64) NOT NULL,
-    status             SMALLINT    NOT NULL,
     estimated_datetime TIMESTAMP   NOT NULL,
     real_datetime      TIMESTAMP,
+    status             SMALLINT    NOT NULL,
+    carer_rut          VARCHAR(16),
     FOREIGN KEY (carer_rut) REFERENCES residence.carer (rut),
     FOREIGN KEY (elder_rut) REFERENCES residence.elder (rut),
     FOREIGN KEY (medication_name) REFERENCES residence.medication (medication_name),
-    PRIMARY KEY (carer_rut, elder_rut, medication_name, estimated_datetime)
+    PRIMARY KEY (elder_rut, medication_name, estimated_datetime)
 );

@@ -10,7 +10,7 @@ FROM residence.elder E,
      residence.person P,
      residence.medication_prescription MP
 WHERE P.rut = E.rut
-  AND E.rut = MP.elder_rut
+  AND E.rut = MP.rut
   AND MP.start_date IS NOT NULL
   AND (SELECT extract(YEAR FROM age(CURRENT_DATE, MP.start_date)) * 12 +
               extract(MONTH FROM age(CURRENT_DATE, MP.start_date))) > 12
@@ -28,7 +28,7 @@ WITH medication_aggregation AS (SELECT DISTINCT E.rut,
                                      residence.elder E,
                                      residence.medication_prescription MP
                                 WHERE P.rut = E.rut
-                                  AND E.rut = MP.elder_rut
+                                  AND E.rut = MP.rut
                                 GROUP BY E.rut, MP.disease_name, MP.start_date)
 SELECT E.rut,
        CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
@@ -55,7 +55,7 @@ FROM residence.elder E,
      residence.person P,
      residence.routine_checkup Ch
 WHERE P.rut = E.rut
-    AND E.rut = Ch.elder_rut
+    AND E.rut = Ch.rut
     AND Ch.bmi <= 18.4
    OR Ch.bmi >= 25.0
 ORDER BY checkup_date DESC;
@@ -73,7 +73,7 @@ FROM residence.person Pe,
      residence.elder E,
      residence.medication_prescription MP
 WHERE Pe.rut = E.rut
-  AND E.rut = Mp.elder_rut
+  AND E.rut = Mp.rut
   AND MP.medication_name = 'Ibuprofeno';
 
 /*
@@ -93,7 +93,7 @@ from residence.person P,
      residence.elder E,
      residence.medical_record MR
 WHERE P.rut = E.rut
-  AND E.rut = MR.elder_rut
+  AND E.rut = MR.rut
   AND MR.blood_type = 1;
 
 /*
@@ -106,7 +106,7 @@ WITH medication_aggregation AS (SELECT disease_name,
                                      residence.elder E,
                                      residence.medication_prescription Md
                                 WHERE P.rut = E.rut
-                                  AND E.rut = Md.elder_rut
+                                  AND E.rut = Md.rut
                                 GROUP BY 1)
 SELECT E.rut,
        CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
@@ -115,10 +115,10 @@ SELECT E.rut,
 FROM residence.person P,
      residence.elder E,
      residence.disease D,
-     residence.elder_suffers_disease Esd,
+     residence.sick_elderly Esd,
      medication_aggregation M
 WHERE P.rut = E.rut
-  AND E.rut = Esd.elder_rut
+  AND E.rut = Esd.rut
   AND D.disease_name = Esd.disease_name
   AND Esd.disease_name = M.disease_name
   AND D.is_chronic = TRUE;
@@ -138,7 +138,7 @@ WITH medication_aggregation AS (SELECT disease_name,
                                      residence.elder E,
                                      residence.medication_prescription Md
                                 WHERE P.rut = E.rut
-                                  AND E.rut = Md.elder_rut
+                                  AND E.rut = Md.rut
                                 GROUP BY 1)
 SELECT E.rut,
        CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
@@ -147,10 +147,10 @@ SELECT E.rut,
 FROM residence.person P,
      residence.elder E,
      residence.disease D,
-     residence.elder_suffers_disease Esd,
+     residence.sick_elderly Esd,
      medication_aggregation M
 WHERE P.rut = E.rut
-  AND E.rut = Esd.elder_rut
+  AND E.rut = Esd.rut
   AND D.disease_name = Esd.disease_name
   AND Esd.disease_name = M.disease_name
   AND lower(M.disease_name) = 'artritis';
@@ -168,7 +168,7 @@ FROM residence.person P,
      residence.elder E,
      residence.surgical_intervention I
 WHERE P.rut = E.rut
-  AND E.rut = I.elder_rut
+  AND E.rut = I.rut
   AND I.hospital LIKE '%Clínica%';
 
 
@@ -186,10 +186,10 @@ SELECT DISTINCT ON (RC.checkup_date) checkup_date,
 FROM residence.person P,
      residence.elder E,
      residence.routine_checkup RC,
-     residence.elder_suffers_disease SD
+     residence.sick_elderly SD
 WHERE P.rut = E.rut
-    AND E.rut = RC.elder_rut
-    AND RC.elder_rut = SD.elder_rut
+    AND E.rut = RC.rut
+    AND RC.rut = SD.rut
     AND lower(SD.disease_name) LIKE '%hipertension%'
    OR lower(SD.disease_name) LIKE '%hipertensión%'
 ORDER BY checkup_date DESC;
@@ -221,7 +221,7 @@ FROM residence.person personE,
 WHERE Reg.id = Prov.region_id
   AND Prov.id = Comm.province_id
   AND Comm.id = A.commune_id
-  AND A.person_rut = personR.rut
+  AND A.rut = personR.rut
   AND personE.rut = E.rut
   AND personR.rut = R.rut
   AND R.rut = E.responsible_rut;
@@ -237,15 +237,15 @@ SELECT P.rut,
        SD.diagnosis_date
 FROM residence.person P,
      residence.elder E,
-     residence.elder_suffers_disease SD
+     residence.sick_elderly SD
 WHERE P.rut = E.rut
-  AND E.rut = SD.elder_rut;
+  AND E.rut = SD.rut;
 
 /**
   CONSULTA 11.
   PROBADA.
  */
-SELECT DISTINCT Pr.elder_rut,
+SELECT DISTINCT Pr.rut,
                 CONCAT(P.first_names, ' ', P.last_name, ' ',
                        P.second_last_name)                                 AS full_name,
                 Pr.prescription_date,
@@ -256,8 +256,8 @@ FROM residence.person P,
      residence.prescription Pr,
      residence.medication_prescription MP
 WHERE P.rut = E.rut
-  AND E.rut = Pr.elder_rut
-  AND Pr.elder_rut = MP.elder_rut
+  AND E.rut = Pr.rut
+  AND Pr.rut = MP.rut
   AND Pr.disease_name = MP.disease_name
   AND Pr.prescription_date = MP.prescription_date
 ORDER BY difference DESC;
@@ -270,7 +270,7 @@ WITH full_address AS (SELECT Reg.id             AS region_id,
                              Reg.region_name    AS region,
                              Prov.province_name AS province,
                              Comm.commune_name  AS commune,
-                             Addr.person_rut    AS rut,
+                             Addr.rut    AS rut,
                              Addr.street,
                              Addr.number
                       FROM residence.address Addr,
@@ -281,7 +281,7 @@ WITH full_address AS (SELECT Reg.id             AS region_id,
                       WHERE Reg.id = Prov.region_id
                         AND Prov.id = Comm.province_id
                         AND Comm.id = Addr.commune_id
-                        AND Addr.person_rut = R.rut),
+                        AND Addr.rut = R.rut),
      person_table AS (SELECT personE.rut                      AS elder_rut,
                              CONCAT(personE.first_names, ' ', personE.last_name, ' ',
                                     personE.second_last_name) as elder_full_name,
@@ -358,20 +358,20 @@ ORDER BY age;
 WITH C AS (SELECT count(*)
            FROM residence.person P,
                 residence.elder E,
-                residence.elder_suffers_disease SD,
+                residence.sick_elderly SD,
                 residence.disease D
            WHERE P.rut = E.rut
-             AND E.rut = SD.elder_rut
+             AND E.rut = SD.rut
              AND SD.disease_name = D.disease_name
              AND D.is_chronic = TRUE),
      NCA AS (SELECT count(*)
              from residence.person P,
                   residence.elder E,
-                  residence.elder_suffers_disease SD,
+                  residence.sick_elderly SD,
                   residence.medication_prescription MP,
                   residence.disease D
              WHERE P.rut = E.rut
-               AND E.rut = SD.elder_rut
+               AND E.rut = SD.rut
                AND SD.disease_name = D.disease_name
                AND D.is_chronic = FALSE
                AND MP.end_date IS NOT NULL
@@ -379,11 +379,11 @@ WITH C AS (SELECT count(*)
      NCNA AS (SELECT count(*)
               from residence.person P,
                    residence.elder E,
-                   residence.elder_suffers_disease SD,
+                   residence.sick_elderly SD,
                    residence.medication_prescription MP,
                    residence.disease D
               WHERE P.rut = E.rut
-                AND E.rut = SD.elder_rut
+                AND E.rut = SD.rut
                 AND SD.disease_name = D.disease_name
                 AND D.is_chronic = FALSE
                 AND MP.end_date IS NOT NULL
