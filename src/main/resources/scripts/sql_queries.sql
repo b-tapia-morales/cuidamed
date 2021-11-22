@@ -1,6 +1,7 @@
 /*
  Consulta 1
- PROBADA.
+ Mostrar el rut, el nombre completo, el nombre del medicamento que tiene prescrito, y la fecha original
+ de prescripción de todos los adultos mayores cuyo tratamiento haya iniciado hace más de un año.
  */
 SELECT E.rut,
        CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
@@ -17,8 +18,8 @@ WHERE P.rut = E.rut
 ORDER BY MP.start_date;
 
 /*
- Consulta 2.
- FORMA ALTERNATIVA.
+ Mostrar el rut, el nombre completo, los medicamentos prescritos, y la fecha original
+ de prescripción de todos los adultos mayores cuyo tratamiento haya iniciado hace más de un año.
  */
 WITH medication_aggregation AS (SELECT DISTINCT E.rut,
                                                 MP.disease_name,
@@ -43,8 +44,8 @@ WHERE (SELECT extract(YEAR FROM age(CURRENT_DATE, M.start_date)) * 12 +
 ORDER BY M.start_date;
 
 /*
- Consulta 2
- PROBADA.
+ Mostrar la fecha de chequeo rutinario, el rut, el nombre completo y el IMC de todos los adultos
+ mayores que estén en condición de obesidad o de desnutrición.
  */
 SELECT DISTINCT ON (Ch.checkup_date) checkup_date,
                                      E.rut,
@@ -61,8 +62,8 @@ WHERE P.rut = E.rut
 ORDER BY checkup_date DESC;
 
 /*
- Consulta 3
- AÚN POR PROBAR.
+ Mostrar el rut, el nombre completo, la fecha de prescripción, de inicio y término de tratamiento de
+ todos los adultos mayores que hayan sido administrados el medicamento de Ibuprofeno.
  */
 SELECT E.rut,
        CONCAT(Pe.first_names, ' ', Pe.last_name, ' ', Pe.second_last_name) as full_name,
@@ -77,28 +78,16 @@ WHERE Pe.rut = E.rut
   AND MP.medication_name = 'Ibuprofeno';
 
 /*
- Consulta 4
- PROBADA.
+ Mostrar la cantidad de adultos mayores correspondientes a cada grupo sanguíneo.
  */
 SELECT M.blood_type, count(*)
 FROM residence.medical_record M
 GROUP BY M.blood_type
 ORDER BY M.blood_type;
 
--- PARTE 2
-SELECT P.rut,
-       CONCAT(first_names, ' ', last_name, ' ', second_last_name) as full_name,
-       MR.blood_type
-from residence.person P,
-     residence.elder E,
-     residence.medical_record MR
-WHERE P.rut = E.rut
-  AND E.rut = MR.rut
-  AND MR.blood_type = 1;
-
 /*
- Consulta 5
- PROBADA.
+ Mostrar el rut, el nombre completo, el nombre de la enfermedad y los medicamentos de todos los adultos
+ mayores que padezcan de enfermedades crónicas.
  */
 WITH medication_aggregation AS (SELECT disease_name,
                                        string_agg(medication_name, ', ' ORDER BY medication_name) AS medications
@@ -110,27 +99,22 @@ WITH medication_aggregation AS (SELECT disease_name,
                                 GROUP BY 1)
 SELECT E.rut,
        CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
-       Esd.disease_name,
+       SE.disease_name,
        M.medications
 FROM residence.person P,
      residence.elder E,
      residence.disease D,
-     residence.sick_elderly Esd,
+     residence.sick_elderly SE,
      medication_aggregation M
 WHERE P.rut = E.rut
-  AND E.rut = Esd.rut
-  AND D.disease_name = Esd.disease_name
-  AND Esd.disease_name = M.disease_name
+  AND E.rut = SE.rut
+  AND D.disease_name = SE.disease_name
+  AND SE.disease_name = M.disease_name
   AND D.is_chronic = TRUE;
 
 /*
- Consulta 6
- PENDIENTE.
- */
-
-/*
- Consulta 7
- PROBADA.
+ Mostrar el rut, el nombre completo, el nombre de la enfermedad y los medicamentos de todos los adultos
+ mayores que padezcan de Artritis.
  */
 WITH medication_aggregation AS (SELECT disease_name,
                                        string_agg(medication_name, ', ' ORDER BY medication_name) AS medications
@@ -142,22 +126,22 @@ WITH medication_aggregation AS (SELECT disease_name,
                                 GROUP BY 1)
 SELECT E.rut,
        CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
-       Esd.disease_name,
+       SE.disease_name,
        M.medications
 FROM residence.person P,
      residence.elder E,
      residence.disease D,
-     residence.sick_elderly Esd,
+     residence.sick_elderly SE,
      medication_aggregation M
 WHERE P.rut = E.rut
-  AND E.rut = Esd.rut
-  AND D.disease_name = Esd.disease_name
-  AND Esd.disease_name = M.disease_name
+  AND E.rut = SE.rut
+  AND D.disease_name = SE.disease_name
+  AND SE.disease_name = M.disease_name
   AND lower(M.disease_name) = 'artritis';
 
 /*
- Consulta 8.
- PROBADA.
+ Mostrar el rut, el nombre completo, la fecha de intervención, el grado de severidad y la descripción
+ del procedimiento de todos los adultos mayores que hayan sido atendidos en Clínicas.
  */
 SELECT E.rut,
        CONCAT(P.first_names, ' ', P.last_name, ' ', P.second_last_name) AS full_name,
@@ -173,8 +157,8 @@ WHERE P.rut = E.rut
 
 
 /*
- Consulta 9.
- AÚN POR PROBAR.
+ Mostrar la fecha de chequeo rutinario, el rut, el nombre completo, la presión diastólica y sistólica
+ y el ritmo cardiaco de todos los adultos mayores que hayan sido diagnosticados com Hipertensión.
  */
 SELECT DISTINCT ON (RC.checkup_date) checkup_date,
                                      P.rut,
@@ -186,17 +170,17 @@ SELECT DISTINCT ON (RC.checkup_date) checkup_date,
 FROM residence.person P,
      residence.elder E,
      residence.routine_checkup RC,
-     residence.sick_elderly SD
+     residence.sick_elderly SE
 WHERE P.rut = E.rut
     AND E.rut = RC.rut
-    AND RC.rut = SD.rut
-    AND lower(SD.disease_name) LIKE '%hipertension%'
-   OR lower(SD.disease_name) LIKE '%hipertensión%'
+    AND RC.rut = SE.rut
+    AND lower(SE.disease_name) LIKE '%hipertension%'
+   OR lower(SE.disease_name) LIKE '%hipertensión%'
 ORDER BY checkup_date DESC;
 
 /*
- Consulta 10.
- PROBADA.
+ Mostrar rut y nombre completo de todos los adultos mayores con sus respectivos responsables a cargo,
+ incluyendo rut, número de contacto y datos de localización.
  */
 SELECT personE.rut                      AS elder_rut,
        CONCAT(personE.first_names, ' ', personE.last_name, ' ',
@@ -227,23 +211,8 @@ WHERE Reg.id = Prov.region_id
   AND R.rut = E.responsible_rut;
 
 /*
- Consulta 11
- AÚN POR PROBAR.
- */
-SELECT P.rut,
-       CONCAT(P.first_names, ' ', P.last_name, ' ',
-              P.second_last_name),
-       SD.disease_name,
-       SD.diagnosis_date
-FROM residence.person P,
-     residence.elder E,
-     residence.sick_elderly SD
-WHERE P.rut = E.rut
-  AND E.rut = SD.rut;
-
-/**
-  CONSULTA 11.
-  PROBADA.
+ Mostrar el rut, el nombre completo, la fecha de prescripción, de inicio del tratamiento y la diferencia
+ en días entre estas dos últimas fechas de todos los adultos mayores.
  */
 SELECT DISTINCT Pr.rut,
                 CONCAT(P.first_names, ' ', P.last_name, ' ',
@@ -263,14 +232,14 @@ WHERE P.rut = E.rut
 ORDER BY difference DESC;
 
 /*
- CONSULTA 12.
- PROBADO.
+ Mostrar rut y nombre completo de todos los adultos mayores cuyos responsables a cargo vivan fuera de
+ la Región de Coquimbo, incluyendo rut, nombre completo, número de contacto y datos de localización.
  */
 WITH full_address AS (SELECT Reg.id             AS region_id,
                              Reg.region_name    AS region,
                              Prov.province_name AS province,
                              Comm.commune_name  AS commune,
-                             Addr.rut    AS rut,
+                             Addr.rut           AS rut,
                              Addr.street,
                              Addr.number
                       FROM residence.address Addr,
@@ -312,8 +281,7 @@ WHERE P.responsible_rut = F.rut
   AND F.region_id <> 5;
 
 /*
- CONSULTA 13.
- PROBADO.
+ Mostrar la edad promedio de los adultos mayores.
  */
 WITH ages AS (SELECT date_part('year', age(CURRENT_DATE, P.birth_date)) AS difference
               FROM residence.person P,
@@ -323,8 +291,7 @@ SELECT avg(difference)
 FROM ages;
 
 /*
- CONSULTA 14.
- PROBADO.
+ Mostrar la diferencia en edad promedio entre los adultos mayores y sus responsables.
  */
 WITH elder AS (SELECT date_part('year', age(CURRENT_DATE, P.birth_date)) AS age
                FROM residence.person P,
@@ -341,8 +308,7 @@ FROM elder E,
      responsible R;
 
 /*
- CONSULTA 15.
- PROBADO.
+ Mostrar la cantidad de adultos mayores correspondientes a una edad determinada.
  */
 SELECT date_part('year', age(CURRENT_DATE, P.birth_date)) AS age, count(*)
 FROM residence.person P,
@@ -352,39 +318,40 @@ GROUP BY age
 ORDER BY age;
 
 /*
- CONSULTA 16.
- PROBADO.
+ Mostrar la cantidad de adultos mayores que tengan enfermedades de carácter crónico, la cantidad de
+ adultos mayores que tengan enfermedades no crónicas cuyo tratamiento ya concluyó, y la cantidad de
+ adultos mayores que tengan enfermedades no crónicas cuyo tratamiento aún no concluye.
  */
 WITH C AS (SELECT count(*)
            FROM residence.person P,
                 residence.elder E,
-                residence.sick_elderly SD,
+                residence.sick_elderly SE,
                 residence.disease D
            WHERE P.rut = E.rut
-             AND E.rut = SD.rut
-             AND SD.disease_name = D.disease_name
+             AND E.rut = SE.rut
+             AND SE.disease_name = D.disease_name
              AND D.is_chronic = TRUE),
      NCA AS (SELECT count(*)
              from residence.person P,
                   residence.elder E,
-                  residence.sick_elderly SD,
+                  residence.sick_elderly SE,
                   residence.medication_prescription MP,
                   residence.disease D
              WHERE P.rut = E.rut
-               AND E.rut = SD.rut
-               AND SD.disease_name = D.disease_name
+               AND E.rut = SE.rut
+               AND SE.disease_name = D.disease_name
                AND D.is_chronic = FALSE
                AND MP.end_date IS NOT NULL
                AND extract(DAY FROM age(MP.end_date, CURRENT_DATE)) > 1),
      NCNA AS (SELECT count(*)
               from residence.person P,
                    residence.elder E,
-                   residence.sick_elderly SD,
+                   residence.sick_elderly SE,
                    residence.medication_prescription MP,
                    residence.disease D
               WHERE P.rut = E.rut
-                AND E.rut = SD.rut
-                AND SD.disease_name = D.disease_name
+                AND E.rut = SE.rut
+                AND SE.disease_name = D.disease_name
                 AND D.is_chronic = FALSE
                 AND MP.end_date IS NOT NULL
                 AND extract(DAY FROM age(MP.end_date, CURRENT_DATE)) < 1)
