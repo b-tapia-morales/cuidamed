@@ -1,7 +1,7 @@
 package com.bairontapia.projects.cuidamed.mappings.administrationroute;
 
 public enum AdministrationRoute {
-  ORAL("Vía oral"),
+  ORAL("Vía Oral"),
   PARENTAL("Vía Parental");
 
   private static final AdministrationRoute[] VALUES = values();
