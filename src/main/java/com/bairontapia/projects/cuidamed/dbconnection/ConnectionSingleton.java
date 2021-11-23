@@ -1,14 +1,12 @@
 package com.bairontapia.projects.cuidamed.dbconnection;
 
 import com.bairontapia.projects.cuidamed.utils.properties.PropertyUtils;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
-public class DBConnection {
+public class ConnectionSingleton {
 
   public Connection instance;
 
@@ -28,7 +26,7 @@ public class DBConnection {
 
   public Connection getInstance() throws ClassNotFoundException, SQLException, IOException {
     if (instance == null) {
-      instance = new DBConnection();
+      instance = instantiateConnection();
     }
     return instance;
   }
