@@ -4,8 +4,8 @@ import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public record Elder(String rut, String firstName, String lastName, String secondLastName,
-                    LocalDate birthDate, Gender gender, Boolean isActive, LocalDate admissionDate,
+public record Elder(String rut, String fullName, LocalDate birthDate, Gender gender,
+                    Boolean isActive, LocalDate admissionDate,
                     String responsibleRut) {
 
   @Override
@@ -29,14 +29,11 @@ public record Elder(String rut, String firstName, String lastName, String second
     return String.format
         ("""
                 Rut:\t\t\t\t\t\t\t\t\t%s
-                Nombres:\t\t\t\t\t\t\t%s
-                Apellido paterno:\t\t\t%s
-                Apellido materno:\t\t\t%s
+                Nombre completo:\t\t\t%s
                 Fecha de nacimiento:\t%s
                 Sexo:\t\t\t\t\t\t\t\t\t%s
                 Activo:\t\t\t\t\t\t\t\t\t%s
                 Fecha de admisión:\t\t%s
-                """, rut, firstName, lastName, secondLastName, birthDate, gender,
-            isActive ? "Sí" : "No", admissionDate);
+                """, rut, fullName, birthDate, gender, isActive ? "Sí" : "No", admissionDate);
   }
 }
