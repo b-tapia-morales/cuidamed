@@ -1,56 +1,13 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup;
 
-import com.bairontapia.projects.cuidamed.medicalrecord.MedicalRecord;
+import java.time.LocalDate;
 import java.util.Objects;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.Table;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 
-@Entity
-@Table(schema = "residence", name = "routine_checkup")
-@Getter
-@Setter
-public class RoutineCheckup {
 
-  @EmbeddedId
-  @Setter(AccessLevel.PROTECTED)
-  private RoutineCheckupId id;
+public record RoutineCheckup(String rut, LocalDate checkupDate, Double height, Double weight,
+                              Double bmi,Short heartRate, Double distolicPressure, Double systolicPressure,
+                             Double bodyTemperature) {
 
-  @Column(name = "height", nullable = false)
-  private Double height;
-
-  @Column(name = "weight", nullable = false)
-  private Double weight;
-
-  @Column(name = "bmi", nullable = false)
-  private Double bmi;
-
-  @Column(name = "heart_rate", nullable = false)
-  private Short heartRate;
-
-  @Column(name = "diastolic_pressure", nullable = false)
-  private Double diastolicPressure;
-
-  @Column(name = "systolic_pressure", nullable = false)
-  private Double systolicPressure;
-
-  @Column(name = "body_temperature", nullable = false)
-  private Double bodyTemperature;
-
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "elder_rut", insertable = false, nullable = false, updatable = false)
-  @MapsId("rut")
-  @Setter(AccessLevel.PROTECTED)
-  private MedicalRecord medicalRecord;
 
   @Override
   public boolean equals(final Object object) {
@@ -58,13 +15,13 @@ public class RoutineCheckup {
       return true;
     }
     if (object instanceof final RoutineCheckup routineCheckup) {
-      return Objects.equals(id, routineCheckup.id);
+      return Objects.equals(rut, routineCheckup.rut);
     }
     return false;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(id);
+    return Objects.hashCode(rut);
   }
 }
