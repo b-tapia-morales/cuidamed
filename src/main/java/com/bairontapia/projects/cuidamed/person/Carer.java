@@ -1,41 +1,18 @@
 package com.bairontapia.projects.cuidamed.person;
 
+import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import java.time.LocalDate;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 
-@Entity
-@Table(schema = "residence", name = "carer")
-@PrimaryKeyJoinColumn(name = "rut")
-@Getter
-@Setter
-public class Carer extends Person {
-
-  @Column(name = "mobile_phone", unique = true, nullable = false)
-  private Integer mobilePhone;
-
-  @Column(name = "hire_date", nullable = false)
-  private LocalDate hireDate;
-
-  @OneToOne(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @Setter(AccessLevel.PROTECTED)
-  private Address address;
+public record Carer(String rut, String firstName, String lastName, String secondLastName,
+                    LocalDate birthDate, Gender gender, Integer mobilePhone, LocalDate hireDate) {
 
   @Override
   public String toString() {
-    return super.toString() +
+    return
         String.format("""
-                    
+                        
             Teléfono móvil:\t\t\t\t%s
             Fecha de contrato:\t\t%s
-            """, mobilePhone, hireDate) + (address == null ? "" : address.toString());
+            """, mobilePhone, hireDate);
   }
 }
