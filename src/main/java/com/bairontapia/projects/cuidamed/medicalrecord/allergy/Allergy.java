@@ -1,9 +1,10 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.allergy;
 
 import com.bairontapia.projects.cuidamed.mappings.allergytype.AllergyType;
-import java.util.Objects;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public record Allergy(String rut, AllergyType type, String allergyName) {
+public record Allergy(String rut, AllergyType type, String name) {
 
   @Override
   public boolean equals(final Object object) {
@@ -11,14 +12,20 @@ public record Allergy(String rut, AllergyType type, String allergyName) {
       return true;
     }
     if (object instanceof final Allergy allergy) {
-      return Objects.equals(rut, allergy.rut);
+      return new EqualsBuilder()
+          .append(rut, allergy.rut)
+          .append(name, allergy.name)
+          .isEquals();
     }
     return false;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(rut);
+    return new HashCodeBuilder()
+        .append(rut)
+        .append(name)
+        .toHashCode();
   }
 }
 
