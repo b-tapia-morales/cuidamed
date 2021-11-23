@@ -1,13 +1,13 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup;
 
 import java.time.LocalDate;
-import java.util.Objects;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 
 public record RoutineCheckup(String rut, LocalDate checkupDate, Double height, Double weight,
-                              Double bmi,Short heartRate, Double distolicPressure, Double systolicPressure,
-                             Double bodyTemperature) {
-
+                             Double bmi, Short heartRate, Double diastolicPressure,
+                             Double systolicPressure, Double bodyTemperature) {
 
   @Override
   public boolean equals(final Object object) {
@@ -15,13 +15,17 @@ public record RoutineCheckup(String rut, LocalDate checkupDate, Double height, D
       return true;
     }
     if (object instanceof final RoutineCheckup routineCheckup) {
-      return Objects.equals(rut, routineCheckup.rut);
+      return new EqualsBuilder()
+          .append(rut, routineCheckup.rut)
+          .append(checkupDate, routineCheckup.checkupDate).isEquals();
     }
     return false;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(rut);
+    return new HashCodeBuilder()
+        .append(rut)
+        .append(checkupDate).toHashCode();
   }
 }
