@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS residence.address
     number      SMALLINT     NOT NULL,
     postal_code INT,
     fixed_phone INT,
-    rut         VARCHAR(16) NOT NULL,
+    rut         VARCHAR(16)  NOT NULL,
     FOREIGN KEY (commune_id) REFERENCES residence.commune (id),
     FOREIGN KEY (rut) REFERENCES residence.person (rut),
     primary key (commune_id, street, number, rut)
