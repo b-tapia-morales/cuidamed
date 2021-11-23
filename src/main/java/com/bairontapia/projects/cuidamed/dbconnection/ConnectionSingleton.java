@@ -6,29 +6,34 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionSingleton {
+public final class ConnectionSingleton {
 
-  public Connection instance;
+  private static final Connection INSTANCE;
 
-  public Connection instantiateConnection() {
+  static {
     Connection connection = null;
     try {
-      var properties = PropertyUtils.getProperties("application.properties");
-      var url = properties.getProperty("datasource.url");
-      var username = properties.getProperty("datasource.username");
-      var password = properties.getProperty("datasource.password");
-      connection = DriverManager.getConnection(url, username, password);
-    } catch (SQLException | IOException exception) {
+      connection = instantiateConnection();
+    } catch (IOException exception) {
+      System.out.println("ERROR: Could not read properties file");
+      System.exit(1);
+    } catch (SQLException exception) {
+      System.out.println("ERROR: Could not create connection to database");
       System.exit(1);
     }
-    return connection;
+    INSTANCE = connection;
   }
 
-  public Connection getInstance() throws ClassNotFoundException, SQLException, IOException {
-    if (instance == null) {
-      instance = instantiateConnection();
-    }
-    return instance;
+  public static Connection instantiateConnection() throws IOException, SQLException {
+    var properties = PropertyUtils.getProperties("application.properties");
+    var url = properties.getProperty("datasource.url");
+    var username = properties.getProperty("datasource.username");
+    var password = properties.getProperty("datasource.password");
+    return DriverManager.getConnection(url, username, password);
+  }
+
+  public static Connection getInstance() {
+    return INSTANCE;
   }
 }
 
