@@ -1,4 +1,4 @@
-package com.bairontapia.projects.cuidamed.mappings.dosageform;
+package com.bairontapia.projects.cuidamed.mappings.pharmaceuticalform;
 
 import lombok.Getter;
 

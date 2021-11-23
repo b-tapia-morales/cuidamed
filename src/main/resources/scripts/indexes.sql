@@ -1,1 +1,0 @@
-CREATE INDEX day_difference ON residence.elder USING btree (extract_days(admission_date));
