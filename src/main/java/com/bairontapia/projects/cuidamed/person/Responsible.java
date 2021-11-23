@@ -1,40 +1,40 @@
 package com.bairontapia.projects.cuidamed.person;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.NamedAttributeNode;
-import javax.persistence.NamedEntityGraph;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
+import java.time.LocalDate;
+import java.util.Objects;
 
-@NamedEntityGraph(
-    name = "responsible-graph",
-    attributeNodes = {
-        @NamedAttributeNode("elder"),
-        @NamedAttributeNode("address")
+public record Responsible(String rut, String firstName, String lastName, String secondLastName,
+                          LocalDate birthDate, Gender gender, Integer mobilePhone) {
+
+  @Override
+  public boolean equals(Object object) {
+    if (this == object) {
+      return true;
     }
-)
-@Entity
-@Table(schema = "residence", name = "responsible")
-@PrimaryKeyJoinColumn(name = "rut")
-@Getter
-@Setter
-public class Responsible extends Person {
+    if (object instanceof final Responsible responsible) {
+      return Objects.equals(rut, responsible.rut);
+    }
+    return false;
+  }
 
-  @Column(name = "mobile_phone", unique = true, nullable = false)
-  private Integer mobilePhone;
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(rut);
+  }
 
-  @OneToOne(mappedBy = "responsible", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @Setter(AccessLevel.PROTECTED)
-  private Elder elder;
+  @Override
+  public String toString() {
+    return
+        String.format("""
+            Rut:\t\t\t\t\t\t\t\t\t%s
+            Nombres:\t\t\t\t\t\t\t%s
+            Apellido paterno:\t\t\t%s
+            Apellido materno:\t\t\t%s
+            Fecha de nacimiento:\t%s
+            Sexo:\t\t\t\t\t\t\t\t\t%s
+            Teléfono móvil:\t\t\t\t%s
+            """, rut, firstName, lastName, secondLastName, birthDate, gender, mobilePhone);
+  }
 
-  @OneToOne(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @Setter(AccessLevel.PROTECTED)
-  private Address address;
 }

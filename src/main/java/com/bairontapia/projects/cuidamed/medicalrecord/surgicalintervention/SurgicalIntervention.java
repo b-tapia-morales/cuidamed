@@ -1,44 +1,11 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.surgicalintervention;
 
-import com.bairontapia.projects.cuidamed.medicalrecord.MedicalRecord;
-import java.util.Objects;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.Table;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import java.time.LocalDate;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-@Entity
-@Table(schema = "residence", name = "surgical_intervention")
-@Getter
-@Setter
-public class SurgicalIntervention {
-
-  @EmbeddedId
-  @Setter(AccessLevel.PRIVATE)
-  private SurgicalInterventionId id;
-
-  @Column(name = "hospital", nullable = false)
-  private String hospital;
-
-  @Column(name = "severity", nullable = false)
-  private Short severity;
-
-  @Column(name = "description", nullable = false)
-  private String description;
-
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "elder_rut", insertable = false, nullable = false, updatable = false)
-  @MapsId("rut")
-  @Setter(AccessLevel.PROTECTED)
-  private MedicalRecord medicalRecord;
+public record SurgicalIntervention(String rut, LocalDate interventionDate, String hospital,
+                                   Short severity, String description) {
 
   @Override
   public boolean equals(final Object object) {
@@ -46,13 +13,19 @@ public class SurgicalIntervention {
       return true;
     }
     if (object instanceof final SurgicalIntervention surgicalIntervention) {
-      return Objects.equals(id, surgicalIntervention.id);
+      return new EqualsBuilder()
+          .append(rut, surgicalIntervention.rut)
+          .append(interventionDate, surgicalIntervention.interventionDate)
+          .isEquals();
     }
     return false;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hashCode(id);
+    return new HashCodeBuilder()
+        .append(rut)
+        .append(interventionDate)
+        .toHashCode();
   }
 }
