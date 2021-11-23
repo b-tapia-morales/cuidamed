@@ -1,50 +1,35 @@
 package com.bairontapia.projects.cuidamed.person;
 
-import com.bairontapia.projects.cuidamed.medicalrecord.MedicalRecord;
+import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import java.time.LocalDate;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import java.util.Objects;
 
-@Entity
-@Table(schema = "residence", name = "elder")
-@PrimaryKeyJoinColumn(name = "rut")
-@Getter
-@Setter
-public class Elder extends Person {
+public record Elder(String rut, String firstName, String lastName, String secondLastName,
+                    LocalDate birthDate, Gender gender, Boolean isActive, LocalDate admissionDate,
+                    String responsibleRut) {
 
-  @Column(name = "is_active", nullable = false)
-  private Boolean isActive;
+  @Override
+  public boolean equals(Object object) {
+    if (this == object) {
+      return true;
+    }
+    if (object instanceof final Elder elder) {
+      return Objects.equals(rut, elder.rut);
+    }
+    return false;
+  }
 
-  @Column(name = "admission_date", nullable = false)
-  private LocalDate admissionDate;
-
-  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(
-      referencedColumnName = "rut",
-      nullable = false,
-      updatable = false)
-  private Responsible responsible;
-
-  @OneToOne(mappedBy = "elder", cascade = CascadeType.ALL)
-  @Setter(AccessLevel.PROTECTED)
-  private MedicalRecord medicalRecord;
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(rut);
+  }
 
   @Override
   public String toString() {
-    return super.toString() +
-        String.format
-            ("""
-                Activo:\t\t\t\t\t\t\t\t\t%s
-                Fecha de admisión:\t\t%s
-                """, isActive ? "Sí" : "No", admissionDate);
+    return String.format
+        ("""
+            Activo:\t\t\t\t\t\t\t\t\t%s
+            Fecha de admisión:\t\t%s
+            """, isActive ? "Sí" : "No", admissionDate);
   }
 }
