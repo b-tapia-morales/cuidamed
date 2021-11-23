@@ -1,24 +1,36 @@
 package com.bairontapia.projects.cuidamed.dbconnection;
+
+import com.bairontapia.projects.cuidamed.utils.properties.PropertyUtils;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.*;
 
 public class DBConnection {
 
-  private static Connection connection = null;
+  public Connection instance;
 
-  static {
-    String url = "jdbc:postgresql://10.4.3.195:5432/medicamentos?currentSchema=residence";
-    String user = "medicamentos_dev";
-    String pass = "AsJ65j54";
+  public Connection instantiateConnection() {
+    Connection connection = null;
     try {
-      Class.forName("org.postgresql.Driver");
-      connection = DriverManager.getConnection(url, user, pass);
-    } catch (ClassNotFoundException | SQLException e) {
-      e.printStackTrace();
+      var properties = PropertyUtils.getProperties("application.properties");
+      var url = properties.getProperty("datasource.url");
+      var username = properties.getProperty("datasource.username");
+      var password = properties.getProperty("datasource.password");
+      connection = DriverManager.getConnection(url, username, password);
+    } catch (SQLException | IOException exception) {
+      System.exit(1);
     }
-  }
-
-  public static Connection getConnection() {
     return connection;
   }
+
+  public Connection getInstance() throws ClassNotFoundException, SQLException, IOException {
+    if (instance == null) {
+      instance = new DBConnection();
+    }
+    return instance;
+  }
 }
+
