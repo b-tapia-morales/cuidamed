@@ -28,8 +28,15 @@ public record Elder(String rut, String firstName, String lastName, String second
   public String toString() {
     return String.format
         ("""
-            Activo:\t\t\t\t\t\t\t\t\t%s
-            Fecha de admisión:\t\t%s
-            """, isActive ? "Sí" : "No", admissionDate);
+                Rut:\t\t\t\t\t\t\t\t\t%s
+                Nombres:\t\t\t\t\t\t\t%s
+                Apellido paterno:\t\t\t%s
+                Apellido materno:\t\t\t%s
+                Fecha de nacimiento:\t%s
+                Sexo:\t\t\t\t\t\t\t\t\t%s
+                Activo:\t\t\t\t\t\t\t\t\t%s
+                Fecha de admisión:\t\t%s
+                """, rut, firstName, lastName, secondLastName, birthDate, gender,
+            isActive ? "Sí" : "No", admissionDate);
   }
 }

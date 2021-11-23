@@ -27,9 +27,14 @@ public record Responsible(String rut, String firstName, String lastName, String 
   public String toString() {
     return
         String.format("""
-                        
+            Rut:\t\t\t\t\t\t\t\t\t%s
+            Nombres:\t\t\t\t\t\t\t%s
+            Apellido paterno:\t\t\t%s
+            Apellido materno:\t\t\t%s
+            Fecha de nacimiento:\t%s
+            Sexo:\t\t\t\t\t\t\t\t\t%s
             Teléfono móvil:\t\t\t\t%s
-            """, mobilePhone);
+            """, rut, firstName, lastName, secondLastName, birthDate, gender, mobilePhone);
   }
 
 }
