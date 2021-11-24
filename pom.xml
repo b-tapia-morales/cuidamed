@@ -40,6 +40,12 @@
       <groupId>org.apache.commons</groupId>
       <version>3.12.0</version>
     </dependency>
+    <dependency>
+      <groupId>commons-dbutils</groupId>
+      <artifactId>commons-dbutils</artifactId>
+      <version>1.7</version>
+    </dependency>
+
 
   </dependencies>
   <description>A desktop application that registers the medication intake in a nursing home

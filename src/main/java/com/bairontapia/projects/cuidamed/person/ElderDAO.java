@@ -1,6 +1,6 @@
 package com.bairontapia.projects.cuidamed.person;
 
-import com.bairontapia.projects.cuidamed.dbconnection.ConnectionSingleton;
+import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.FilePathUtils;
 import java.io.IOException;
@@ -41,6 +41,28 @@ public class ElderDAO implements PersonDAO<Elder, String> {
       set.add(elder);
     }
     return set;
+  }
+
+  public Collection<Elder> getAllAlternative() throws IOException, SQLException {
+    /*var set = new LinkedHashSet<Elder>();
+    var connection = ConnectionSingleton.getInstance();
+    var query = TextFileUtils.readString(ELDER_QUERY_PATH);
+    var queryRunner = new QueryRunner(connection.g);
+    var resultSet = statement.executeQuery(query);
+    while (resultSet.next()) {
+      var rut = resultSet.getString(1);
+      var fullName = resultSet.getString(2);
+      var birthDate = resultSet.getDate(3);
+      var genderCode = resultSet.getShort(4);
+      var isActive = resultSet.getBoolean(5);
+      var admissionDate = resultSet.getDate(6);
+      var responsibleRut = resultSet.getString(7);
+      var elder = Elder.createInstance(rut, fullName, birthDate, genderCode, isActive,
+          admissionDate, responsibleRut);
+      set.add(elder);
+    }
+    return set;*/
+    return null;
   }
 
   @Override
