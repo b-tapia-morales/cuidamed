@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Optional;
 
-public interface NonCompositeIdDAO<T, ID> {
+public interface CrudDAO<T, ID> {
 
   Optional<T> get(ID id) throws IOException, SQLException;
 

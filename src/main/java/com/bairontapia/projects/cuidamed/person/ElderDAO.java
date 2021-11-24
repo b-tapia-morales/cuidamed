@@ -1,7 +1,7 @@
 package com.bairontapia.projects.cuidamed.person;
 
 import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
-import com.bairontapia.projects.cuidamed.daotemplate.NonCompositeIdDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Optional;
 
-public class ElderDAO implements NonCompositeIdDAO<Elder, String> {
+public class ElderDAO implements CrudDAO<Elder, String> {
 
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "elder");
