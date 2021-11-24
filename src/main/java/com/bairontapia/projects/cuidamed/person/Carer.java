@@ -1,11 +1,19 @@
 package com.bairontapia.projects.cuidamed.person;
 
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Objects;
+import org.apache.commons.lang3.StringUtils;
 
-public record Carer(String rut, String fullName, LocalDate birthDate, Gender gender,
-                    Integer mobilePhone, LocalDate hireDate) {
+public record Carer(String rut, String firstName, String lastName, String secondLastName,
+                    LocalDate birthDate, Gender gender, Integer mobilePhone, LocalDate hireDate) {
+
+  public static Carer createInstance(String rut, String firstName, String lastName,
+      String secondLastName, Date birthDate, short genderCode, int mobilePhone, Date hireDate) {
+    return new Carer(rut, firstName, lastName, secondLastName, birthDate.toLocalDate(),
+        Gender.getValueFromCode(genderCode), mobilePhone, hireDate.toLocalDate());
+  }
 
   @Override
   public boolean equals(Object object) {
@@ -33,6 +41,7 @@ public record Carer(String rut, String fullName, LocalDate birthDate, Gender gen
                 Sexo:\t\t\t\t\t\t\t\t\t%s
                 Teléfono móvil:\t\t\t\t%s
                 Fecha de contrato:\t\t%s
-                """, rut, fullName, birthDate, gender, mobilePhone, hireDate);
+                """, rut, StringUtils.joinWith(" ", firstName, lastName, secondLastName),
+            birthDate, gender, mobilePhone, hireDate);
   }
 }
