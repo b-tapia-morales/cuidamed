@@ -1,0 +1,2 @@
+SELECT *
+FROM residence.disease;
