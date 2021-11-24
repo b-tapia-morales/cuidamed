@@ -1,4 +1,4 @@
-package com.bairontapia.projects.cuidamed.mappings.disesetype;
+package com.bairontapia.projects.cuidamed.mappings.diseasetype;
 
 import lombok.Getter;
 
