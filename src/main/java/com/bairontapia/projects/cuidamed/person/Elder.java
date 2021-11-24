@@ -39,7 +39,7 @@ public record Elder(String rut, String fullName, LocalDate birthDate, Gender gen
             Nombre completo:\t\t\t%s
             Fecha de nacimiento:\t%s
             Sexo:\t\t\t\t\t\t\t\t\t%s
-            Activo:\t\t\t\t\t\t\t\t\t%s
+            Activo:\t\t\t\t\t\t\t\t%s
             Fecha de admisión:\t\t%s
             """, rut, fullName, birthDate, gender, isActive ? "Sí" : "No", admissionDate);
   }
