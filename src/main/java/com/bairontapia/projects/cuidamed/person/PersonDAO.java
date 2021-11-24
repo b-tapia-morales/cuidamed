@@ -13,6 +13,8 @@ public interface PersonDAO<T, ID> {
 
   void save(T t) throws IOException, SQLException;
 
+  void update(T t) throws IOException, SQLException;
+
   void delete(ID id) throws IOException, SQLException;
 
 }

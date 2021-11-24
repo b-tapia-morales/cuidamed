@@ -1,7 +1,6 @@
 package com.bairontapia.projects.cuidamed.utils.files;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 import java.io.IOException;

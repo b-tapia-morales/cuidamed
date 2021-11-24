@@ -7,13 +7,12 @@ public enum MeasureUnit {
   MG("Mg"),
   ML("Ml");
 
+  private static final MeasureUnit[] VALUES = values();
   private final String value;
 
   MeasureUnit(final String value) {
     this.value = value;
   }
-
-  private static final MeasureUnit[] VALUES = values();
 
   public static MeasureUnit[] getValues() {
     return VALUES;

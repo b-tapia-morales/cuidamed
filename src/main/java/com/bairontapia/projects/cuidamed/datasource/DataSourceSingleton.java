@@ -2,8 +2,6 @@ package com.bairontapia.projects.cuidamed.datasource;
 
 import com.bairontapia.projects.cuidamed.utils.properties.PropertyUtils;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -27,8 +25,8 @@ public final class DataSourceSingleton {
   }
 
   public static DataSource instantiateDataSource() throws IOException, SQLException {
-    var properties = PropertyUtils.getProperties("application.properties");
-    var dataSource = new BasicDataSource();
+    final var properties = PropertyUtils.getProperties("application.properties");
+    final var dataSource = new BasicDataSource();
     dataSource.setDriverClassName(properties.getProperty("datasource.driver-class-name"));
     dataSource.setUrl(properties.getProperty("datasource.url"));
     dataSource.setUsername(properties.getProperty("datasource.username"));

@@ -14,8 +14,7 @@ import org.apache.commons.lang3.StringUtils;
  * {@link Path} reference to the resources directory or a directory contained within it.
  *
  * <p>String references will terminate on a separator as defined by {@link File#separator} to
- * indicate that they
- * refer to a directory.</p>
+ * indicate that they refer to a directory.</p>
  */
 public final class DirectoryPathUtils {
 
