@@ -67,6 +67,7 @@ public class ElderDAO implements PersonDAO<Elder, String> {
     statement.setBoolean(7, elder.isActive());
     statement.setDate(8, Date.valueOf(elder.admissionDate()));
     statement.setString(9, elder.rut());
+    statement.executeUpdate();
   }
 
   @Override
