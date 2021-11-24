@@ -13,7 +13,7 @@ import java.util.Optional;
 public class ElderDAO implements PersonDAO<Elder, String> {
 
   private static final Path ELDER_QUERY_PATH = FilePathUtils
-      .relativePath("elder.sql", "scripts", "class_queries");
+      .relativePath("select_all_elders.sql", "scripts", "class_queries", "elder");
 
 
   @Override
