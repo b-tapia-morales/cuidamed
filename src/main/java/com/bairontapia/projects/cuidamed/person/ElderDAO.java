@@ -2,6 +2,7 @@ package com.bairontapia.projects.cuidamed.person;
 
 import com.bairontapia.projects.cuidamed.dbconnection.ConnectionSingleton;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
+import com.bairontapia.projects.cuidamed.utils.paths.FilePathUtils;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.sql.SQLException;
@@ -10,6 +11,10 @@ import java.util.LinkedHashSet;
 import java.util.Optional;
 
 public class ElderDAO implements PersonDAO<Elder, String> {
+
+  private static final Path ELDER_QUERY_PATH = FilePathUtils
+      .relativePath("elder.sql", "scripts", "class_queries");
+
 
   @Override
   public Optional<Elder> get(String rut) {
@@ -21,7 +26,7 @@ public class ElderDAO implements PersonDAO<Elder, String> {
     var set = new LinkedHashSet<Elder>();
     var connection = ConnectionSingleton.getInstance();
     var statement = connection.createStatement();
-    var query = TextFileUtils.readString(Path.of("class_queries/carer.sql"));
+    var query = TextFileUtils.readString(ELDER_QUERY_PATH);
     var resultSet = statement.executeQuery(query);
     while (resultSet.next()) {
       var rut = resultSet.getString(1);
