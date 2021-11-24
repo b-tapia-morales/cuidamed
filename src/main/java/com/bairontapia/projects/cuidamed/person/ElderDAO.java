@@ -26,13 +26,12 @@ public class ElderDAO implements CrudDAO<Elder, String> {
 
   @Override
   public Collection<Elder> getAll() throws IOException, SQLException {
-    System.out.println(GET_ALL_QUERY_PATH);
-    final var set = new LinkedHashSet<Elder>();
+    final var query = TextFileUtils.readString(GET_ALL_QUERY_PATH);
     final var connection = ConnectionSingleton.getInstance();
     final var statement = connection.createStatement();
-    final var query = TextFileUtils.readString(GET_ALL_QUERY_PATH);
     final var resultSet = statement.executeQuery(query);
-    while (resultSet.next()) {
+    final var set = new LinkedHashSet<Elder>();
+    while (resultSet.isBeforeFirst()) {
       final var rut = resultSet.getString(1);
       final var firstName = resultSet.getString(2);
       final var lastName = resultSet.getString(3);

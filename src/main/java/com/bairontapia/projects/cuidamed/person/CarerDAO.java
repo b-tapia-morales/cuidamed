@@ -25,13 +25,12 @@ public class CarerDAO implements CrudDAO<Carer, String> {
 
   @Override
   public Collection<Carer> getAll() throws IOException, SQLException {
-    System.out.println(GET_ALL_QUERY_PATH);
-    final var set = new LinkedHashSet<Carer>();
+    final var query = TextFileUtils.readString(GET_ALL_QUERY_PATH);
     final var connection = ConnectionSingleton.getInstance();
     final var statement = connection.createStatement();
-    final var query = TextFileUtils.readString(GET_ALL_QUERY_PATH);
     final var resultSet = statement.executeQuery(query);
-    while (resultSet.next()) {
+    final var set = new LinkedHashSet<Carer>();
+    while (resultSet.isBeforeFirst()) {
       final var carerRut = resultSet.getString(1);
       final var firstName = resultSet.getString(2);
       final var lastName = resultSet.getString(3);
@@ -40,9 +39,8 @@ public class CarerDAO implements CrudDAO<Carer, String> {
       final var genderCode = resultSet.getShort(6);
       final var mobilePhone = resultSet.getInt(7);
       final var hireDate = resultSet.getDate(8);
-      final var carer = Carer
-          .createInstance(carerRut, firstName, lastName, secondLastName, birthDate,
-              genderCode, mobilePhone, hireDate);
+      final var carer = Carer.createInstance(carerRut, firstName, lastName, secondLastName,
+          birthDate, genderCode, mobilePhone, hireDate);
       set.add(carer);
     }
     return set;

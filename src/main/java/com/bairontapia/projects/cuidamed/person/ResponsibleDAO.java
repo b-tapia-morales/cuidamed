@@ -25,14 +25,12 @@ public class ResponsibleDAO implements CrudDAO<Responsible, String> {
    */
   @Override
   public Optional<Responsible> get(String rut) throws SQLException, IOException {
-    var connection = ConnectionSingleton.getInstance();
-    Optional<Responsible> responsibleOptional = Optional.empty();
     final var query = TextFileUtils.readString(GET_QUERY_PATH);
-    var statement = connection.prepareStatement(query);
+    final var connection = ConnectionSingleton.getInstance();
+    final var statement = connection.prepareStatement(query);
     statement.setString(1, rut);
-
     final var resultSet = statement.executeQuery();
-    if (resultSet.next()) {
+    if (resultSet.isBeforeFirst()) {
       final var responsibleRut = resultSet.getString(1);
       final var firstName = resultSet.getString(2);
       final var lastName = resultSet.getString(3);
@@ -40,22 +38,20 @@ public class ResponsibleDAO implements CrudDAO<Responsible, String> {
       final var birthDate = resultSet.getDate(5);
       final var gender = resultSet.getShort(6);
       final var mobilePhone = resultSet.getInt(7);
-      final var responsible = Responsible
-          .createInstance(responsibleRut, firstName, lastName, secondLastName, birthDate, gender,
-              mobilePhone);
-      responsibleOptional = Optional.of(responsible);
+      final var responsible = Responsible.createInstance(responsibleRut, firstName,
+          lastName, secondLastName, birthDate, gender, mobilePhone);
+      return Optional.of(responsible);
     }
-    return responsibleOptional;
+    return Optional.empty();
   }
 
   @Override
   public Collection<Responsible> getAll() throws IOException, SQLException {
-    System.out.println(GET_ALL_QUERY_PATH);
-    final var set = new LinkedHashSet<Responsible>();
+    final var query = TextFileUtils.readString(GET_ALL_QUERY_PATH);
     final var connection = ConnectionSingleton.getInstance();
     final var statement = connection.createStatement();
-    final var query = TextFileUtils.readString(GET_ALL_QUERY_PATH);
     final var resultSet = statement.executeQuery(query);
+    final var set = new LinkedHashSet<Responsible>();
     while (resultSet.next()) {
       final var responsibleRut = resultSet.getString(1);
       final var firstName = resultSet.getString(2);
@@ -64,7 +60,6 @@ public class ResponsibleDAO implements CrudDAO<Responsible, String> {
       final var birthDate = resultSet.getDate(5);
       final var gender = resultSet.getShort(6);
       final var mobilePhone = resultSet.getInt(7);
-
       final var responsible = Responsible
           .createInstance(responsibleRut, firstName, lastName, secondLastName, birthDate, gender,
               mobilePhone);
