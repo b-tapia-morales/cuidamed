@@ -31,9 +31,8 @@ public class ElderDAO implements PersonDAO<Elder, String> {
       var isActive = resultSet.getBoolean(5);
       var admissionDate = resultSet.getDate(6);
       var responsibleRut = resultSet.getString(7);
-      var elder = Elder
-          .createInstance(rut, fullName, birthDate, genderCode, isActive, admissionDate,
-              responsibleRut);
+      var elder = Elder.createInstance(rut, fullName, birthDate, genderCode, isActive,
+          admissionDate, responsibleRut);
       set.add(elder);
     }
     return set;
