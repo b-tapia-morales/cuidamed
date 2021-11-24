@@ -1,7 +1,7 @@
 package com.bairontapia.projects.cuidamed.disease;
 
-import com.bairontapia.projects.cuidamed.mappings.disesetype.DiseaseType;
-import com.bairontapia.projects.cuidamed.person.Elder;
+
+import com.bairontapia.projects.cuidamed.mappings.diseasetype.DiseaseType;
 import java.util.Objects;
 
 public record Disease(String disease_name, DiseaseType diseaseType, Boolean is_chronic) {
