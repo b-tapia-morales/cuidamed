@@ -4,14 +4,11 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 
 public class FileUtils {
-
-  private static final Charset DEFAULT_CHARSET = UTF_8;
 
   private FileUtils() {
     throw new UnsupportedOperationException();
