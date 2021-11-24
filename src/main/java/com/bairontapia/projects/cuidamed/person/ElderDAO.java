@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Optional;
 
-public class ElderDAO implements PersonDAO<Elder> {
+public class ElderDAO implements NonCompositeIdDAO<Elder, String> {
 
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "elder");

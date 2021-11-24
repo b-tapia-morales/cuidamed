@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Optional;
 
-public interface PersonDAO<T> {
+public interface NonCompositeIdDAO<T, ID> {
 
-  Optional<T> get(String rut) throws IOException, SQLException;
+  Optional<T> get(ID id) throws IOException, SQLException;
 
   Collection<T> getAll() throws IOException, SQLException;
 
