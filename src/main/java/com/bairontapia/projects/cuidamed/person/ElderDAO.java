@@ -31,7 +31,7 @@ public class ElderDAO implements CrudDAO<Elder, String> {
     final var statement = connection.createStatement();
     final var resultSet = statement.executeQuery(query);
     final var set = new LinkedHashSet<Elder>();
-    while (resultSet.isBeforeFirst()) {
+    while (resultSet.next()) {
       final var rut = resultSet.getString(1);
       final var firstName = resultSet.getString(2);
       final var lastName = resultSet.getString(3);

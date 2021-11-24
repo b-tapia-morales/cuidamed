@@ -30,7 +30,7 @@ public class CarerDAO implements CrudDAO<Carer, String> {
     final var statement = connection.createStatement();
     final var resultSet = statement.executeQuery(query);
     final var set = new LinkedHashSet<Carer>();
-    while (resultSet.isBeforeFirst()) {
+    while (resultSet.next()) {
       final var carerRut = resultSet.getString(1);
       final var firstName = resultSet.getString(2);
       final var lastName = resultSet.getString(3);
