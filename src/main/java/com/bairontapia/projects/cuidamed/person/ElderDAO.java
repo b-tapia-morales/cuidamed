@@ -69,9 +69,5 @@ public class ElderDAO implements PersonDAO<Elder, String> {
     statement.setString(9, elder.rut());
     statement.executeUpdate();
   }
-
-  @Override
-  public void delete(String rut) {
-
-  }
+  
 }

@@ -15,6 +15,4 @@ public interface PersonDAO<T, ID> {
 
   void update(T t) throws IOException, SQLException;
 
-  void delete(ID id) throws IOException, SQLException;
-
 }
