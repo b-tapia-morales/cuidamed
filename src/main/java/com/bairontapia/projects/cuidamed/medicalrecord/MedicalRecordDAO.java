@@ -28,8 +28,8 @@ public class MedicalRecordDAO implements ReadOnlyDAO<MedicalRecord, String> {
     if (resultSet.isBeforeFirst()) {
       final var rut = resultSet.getString(1);
       final var bloodTypeCode = resultSet.getShort(2);
-      final var healthCareSystemCode = resultSet.getShort(3);
-      return Optional.of(MedicalRecord.createInstance(rut, bloodTypeCode, healthCareSystemCode));
+      final var healthCareCode = resultSet.getShort(3);
+      return Optional.of(MedicalRecord.createInstance(rut, bloodTypeCode, healthCareCode));
     }
     return Optional.empty();
   }
@@ -43,9 +43,9 @@ public class MedicalRecordDAO implements ReadOnlyDAO<MedicalRecord, String> {
     final var resultSet = statement.executeQuery(query);
     while (resultSet.next()) {
       final var rut = resultSet.getString(1);
-      final var firstName = resultSet.getShort(2);
-      final var lastName = resultSet.getShort(3);
-      final var medicalRecord = MedicalRecord.createInstance(rut, firstName, lastName);
+      final var bloodTypeCode = resultSet.getShort(2);
+      final var healthCareCode = resultSet.getShort(3);
+      final var medicalRecord = MedicalRecord.createInstance(rut, bloodTypeCode, healthCareCode);
       set.add(medicalRecord);
     }
     return set;
