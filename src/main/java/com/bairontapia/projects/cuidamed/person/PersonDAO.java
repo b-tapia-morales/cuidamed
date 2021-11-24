@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Optional;
 
-public interface PersonDAO<T, ID> {
+public interface PersonDAO<T> {
 
-  Optional<T> get(ID id) throws IOException, SQLException;
+  Optional<T> get(String rut) throws IOException, SQLException;
 
   Collection<T> getAll() throws IOException, SQLException;
 

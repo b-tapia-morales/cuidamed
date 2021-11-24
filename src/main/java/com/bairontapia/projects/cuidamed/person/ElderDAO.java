@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Optional;
 
-public class ElderDAO implements PersonDAO<Elder, String> {
+public class ElderDAO implements PersonDAO<Elder> {
 
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "elder");
@@ -69,5 +69,5 @@ public class ElderDAO implements PersonDAO<Elder, String> {
     statement.setString(9, elder.rut());
     statement.executeUpdate();
   }
-  
+
 }
