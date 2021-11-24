@@ -1,6 +1,7 @@
 package com.bairontapia.projects.cuidamed.person;
 
 import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
+import com.bairontapia.projects.cuidamed.daotemplate.NonCompositeIdDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
