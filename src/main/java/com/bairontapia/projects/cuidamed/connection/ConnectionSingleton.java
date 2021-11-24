@@ -1,4 +1,4 @@
-package com.bairontapia.projects.cuidamed.dbconnection;
+package com.bairontapia.projects.cuidamed.connection;
 
 import com.bairontapia.projects.cuidamed.utils.properties.PropertyUtils;
 import java.io.IOException;
