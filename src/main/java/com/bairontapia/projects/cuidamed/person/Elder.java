@@ -1,6 +1,7 @@
 package com.bairontapia.projects.cuidamed.person;
 
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
+import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -43,7 +44,8 @@ public record Elder(String rut, String firstName, String lastName, String second
                 Sexo:\t\t\t\t\t\t\t\t\t%s
                 Activo:\t\t\t\t\t\t\t\t%s
                 Fecha de admisión:\t\t%s
-                """, rut, StringUtils.joinWith(" ", firstName, lastName, secondLastName),
-            birthDate, gender, isActive ? "Sí" : "No", admissionDate);
+                """, RutUtils.format(rut),
+            StringUtils.joinWith(" ", firstName, lastName, secondLastName), birthDate, gender,
+            isActive ? "Sí" : "No", admissionDate);
   }
 }
