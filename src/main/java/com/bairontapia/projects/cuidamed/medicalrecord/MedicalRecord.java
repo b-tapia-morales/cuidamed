@@ -6,6 +6,12 @@ import java.util.Objects;
 
 public record MedicalRecord(String rut, BloodType bloodType, HealthCareSystem healthCareSystem) {
 
+  public static MedicalRecord createInstance(String rut, short bloodTypeCode,
+      short healthCareSystemCode) {
+    return new MedicalRecord(rut, BloodType.getValueFromIndex(bloodTypeCode),
+        HealthCareSystem.getValueFromIndex(healthCareSystemCode));
+  }
+
   @Override
   public boolean equals(Object object) {
     if (this == object) {
