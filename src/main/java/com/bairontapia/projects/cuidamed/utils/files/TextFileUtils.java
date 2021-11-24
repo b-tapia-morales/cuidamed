@@ -15,7 +15,7 @@ public class TextFileUtils {
   }
 
   public static void writeString(final Path path, final String content) throws IOException {
-    Files.writeString(path, content, NOFOLLOW_LINKS, TRUNCATE_EXISTING);
+    Files.writeString(path, content, UTF_8, TRUNCATE_EXISTING);
   }
 
   public static String readString(final Path path) throws IOException {
