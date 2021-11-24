@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum AdministrationRoute {
-  ORAL("Vía oral"),
+  ORAL("Vía Oral"),
   PARENTAL("Vía Parental");
 
   private static final AdministrationRoute[] VALUES = values();

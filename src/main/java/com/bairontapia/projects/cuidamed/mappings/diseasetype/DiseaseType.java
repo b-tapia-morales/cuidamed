@@ -4,21 +4,21 @@ import lombok.Getter;
 
 @Getter
 public enum DiseaseType {
-  ONCOLOGICAL("oncologica"),
-  INFECTIOUS("infecciosa"),
-  BLOOD("sangre"),
-  INMUNE("inmune"),
-  ENDOCRINE("endocrina"),
-  MENTAL("mentales"),
-  NERVOUSSYSTEM("sistema nervioso"),
-  OPHTHALMOLOGICAL("oftalmologicas"),
-  AUDITORY("auditivas"),
-  CARDIOVASCULAR("cardiovascular"),
-  RESPIRATORY("respiratoria"),
-  DIGESTIVE("digestivo"),
-  SKIN("piel"),
-  SYSTEMGENOTPURINAARY("sistema genitourinario"),
-  CONGENITAL(" congénitas y alteraciones cromosómicas");
+  ONCOLOGICAL("Oncológica"),
+  INFECTIOUS("Infecciosa"),
+  BLOOD("De la Sangre"),
+  INMUNE("Del Sistema Inmune"),
+  ENDOCRINE("Endocrina"),
+  MENTAL("Mental"),
+  NERVOUS_SYSTEM("Del Sistema Nervioso"),
+  OPHTHALMOLOGIST("Oftalmológica"),
+  AUDITORY("Auditiva"),
+  CARDIOVASCULAR("Cardiovascular"),
+  RESPIRATORY("Respiratoria"),
+  DIGESTIVE("Digestiva"),
+  SKIN("De la piel"),
+  GENITOURINARY_SYSTEM("Sistema Genitourinario"),
+  CONGENITAL("Congénitas y Alteraciones Cromosómicas");
 
 
   private static final DiseaseType[] VALUES = values();
