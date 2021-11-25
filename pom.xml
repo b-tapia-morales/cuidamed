@@ -17,24 +17,21 @@
         <version>3.8.1</version>
       </plugin>
 
+      <plugin>
+        <artifactId>javafx-maven-plugin</artifactId>
+        <configuration>
+          <mainClass>main.Main</mainClass>
+        </configuration>
+        <groupId>org.openjfx</groupId>
+        <version>0.0.8</version>
+      </plugin>
+
     </plugins>
 
   </build>
 
   <dependencies>
 
-    <dependency>
-      <artifactId>lombok</artifactId>
-      <groupId>org.projectlombok</groupId>
-      <scope>provided</scope>
-      <version>1.18.22</version>
-    </dependency>
-    <dependency>
-      <artifactId>postgresql</artifactId>
-      <groupId>org.postgresql</groupId>
-      <scope>runtime</scope>
-      <version>42.3.1</version>
-    </dependency>
     <dependency>
       <artifactId>commons-lang3</artifactId>
       <groupId>org.apache.commons</groupId>
@@ -49,6 +46,29 @@
       <artifactId>commons-dbutils</artifactId>
       <groupId>commons-dbutils</groupId>
       <version>1.7</version>
+    </dependency>
+    <dependency>
+      <artifactId>lombok</artifactId>
+      <groupId>org.projectlombok</groupId>
+      <scope>provided</scope>
+      <version>1.18.22</version>
+    </dependency>
+    <dependency>
+      <artifactId>javafx</artifactId>
+      <groupId>org.openjfx</groupId>
+      <type>pom</type>
+      <version>17.0.1</version>
+    </dependency>
+    <dependency>
+      <artifactId>javafx-graphics</artifactId>
+      <groupId>org.openjfx</groupId>
+      <version>17.0.1</version>
+    </dependency>
+    <dependency>
+      <artifactId>postgresql</artifactId>
+      <groupId>org.postgresql</groupId>
+      <scope>runtime</scope>
+      <version>42.3.1</version>
     </dependency>
 
   </dependencies>
