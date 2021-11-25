@@ -2,6 +2,7 @@ package com.bairontapia.projects.cuidamed.person;
 
 import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
 import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
+import com.bairontapia.projects.cuidamed.medicalrecord.surgicalintervention.SurgicalInterventionDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -13,11 +14,22 @@ import java.util.Optional;
 
 public class CarerDAO implements CrudDAO<Carer, String> {
 
+  private static CarerDAO instance;
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "carer");
   private static final Path GET_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
   private static final Path GET_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
   private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
+
+  private CarerDAO() {
+  }
+
+  public static CarerDAO getInstance() {
+    if (instance == null) {
+      instance = new CarerDAO();
+    }
+    return instance;
+  }
 
   @Override
   public Optional<Carer> get(String rut) throws IOException, SQLException {
