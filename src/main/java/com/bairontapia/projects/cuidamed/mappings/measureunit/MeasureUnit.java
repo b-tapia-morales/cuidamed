@@ -24,4 +24,8 @@ public enum MeasureUnit {
     }
     return VALUES[index - 1];
   }
+
+  public int getIndex() {
+    return ordinal() + 1;
+  }
 }

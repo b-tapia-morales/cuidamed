@@ -18,7 +18,8 @@ public class MedicationPrescriptionDAO implements CrudDAO<MedicationPrescription
       .relativePathString("scripts", "class_queries", "medication_prescription");
   private static final Path GET_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
   private static final Path GET_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
-  private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update");
+  private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
+  private static final Path SAVE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "save.sql");
 
   @Override
   public Optional<MedicationPrescription> get(String s) throws IOException, SQLException {
@@ -51,7 +52,18 @@ public class MedicationPrescriptionDAO implements CrudDAO<MedicationPrescription
 
   @Override
   public void save(MedicationPrescription medicationPrescription) throws IOException, SQLException {
-
+    var connection = ConnectionSingleton.getInstance();
+    var query = TextFileUtils.readString(SAVE_QUERY_PATH);
+    var statement = connection.prepareStatement(query);
+    statement.setString(1, medicationPrescription.rut());
+    statement.setString(2, medicationPrescription.diseaseName());
+    statement.setDate(3, Date.valueOf(medicationPrescription.prescriptionDate()));
+    statement.setString(4, medicationPrescription.medicationName());
+    statement.setDate(5, Date.valueOf(medicationPrescription.startDate()));
+    statement.setDate(6, Date.valueOf(medicationPrescription.endDate()));
+    statement.setInt(7, medicationPrescription.frequency());
+    statement.setInt(8, medicationPrescription.quantity());
+    statement.executeUpdate();
   }
 
   @Override
