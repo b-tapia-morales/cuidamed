@@ -72,8 +72,7 @@ public class RoutineCheckupDAO implements CrudDAO<RoutineCheckup, String> {
   @Override
   public void save(RoutineCheckup routineCheckup) throws IOException, SQLException {
     var connection = ConnectionSingleton.getInstance();
-    //var query = TextFileUtils.readString(SAVE_QUERY_PATH);
-    // statement = connection.prepareStatement(query);
+
 
   }
 

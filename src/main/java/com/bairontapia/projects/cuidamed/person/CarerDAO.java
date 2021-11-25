@@ -16,11 +16,32 @@ public class CarerDAO implements CrudDAO<Carer, String> {
 
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "carer");
+  private static final Path GET_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
   private static final Path GET_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
+  private static final Path SAVE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "save.sql");
   private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
 
   @Override
   public Optional<Carer> get(String rut) throws IOException, SQLException {
+    final var query = TextFileUtils.readString(GET_QUERY_PATH);
+    final var connection = ConnectionSingleton.getInstance();
+    final var statement = connection.prepareStatement(query);
+    statement.setString(1, rut);
+    final var resultSet = statement.executeQuery();
+    if (resultSet.next()) {
+      final var carerRut = resultSet.getString(1);
+      final var firstName = resultSet.getString(2);
+      final var lastName = resultSet.getString(3);
+      final var secondLastName = resultSet.getString(4);
+      final var birthDate = resultSet.getDate(5);
+      final var genderCode = resultSet.getShort(6);
+      final var mobilePhone = resultSet.getInt(7);
+      final var hireDate = resultSet.getDate(8);
+      return Optional
+          .of(Carer
+              .createInstance(carerRut, firstName, lastName, secondLastName, birthDate, genderCode,
+                  mobilePhone, hireDate));
+    }
     return Optional.empty();
   }
 
@@ -49,8 +70,18 @@ public class CarerDAO implements CrudDAO<Carer, String> {
 
   @Override
   public void save(Carer carer) throws IOException, SQLException {
-
-
+    final var query = TextFileUtils.readString(SAVE_QUERY_PATH);
+    final var connection = ConnectionSingleton.getInstance();
+    final var statement = connection.prepareStatement(query);
+    statement.setString(1, carer.rut());
+    statement.setString(2, carer.firstName());
+    statement.setString(3, carer.lastName());
+    statement.setString(4, carer.secondLastName());
+    statement.setDate(5, Date.valueOf(carer.birthDate()));
+    statement.setShort(6, (short) carer.gender().getIndex());
+    statement.setInt(7, carer.mobilePhone());
+    statement.setDate(8, Date.valueOf(carer.hireDate()));
+    statement.executeUpdate();
   }
 
   @Override
@@ -58,15 +89,14 @@ public class CarerDAO implements CrudDAO<Carer, String> {
     var connection = ConnectionSingleton.getInstance();
     var query = TextFileUtils.readString(UPDATE_QUERY_PATH);
     var statement = connection.prepareStatement(query);
-    statement.setString(1,carer.firstName());
-    statement.setString(2,carer.lastName());
-    statement.setString(3,carer.secondLastName());
-    statement.setDate(4, Date.valueOf(carer.birthDate()));
-    statement.setShort(5, (short) carer.gender().getIndex());
-    statement.setString(6,carer.rut());
-    statement.setInt(7,carer.mobilePhone());
+    statement.setString(1, carer.rut());
+    statement.setString(2, carer.firstName());
+    statement.setString(3, carer.lastName());
+    statement.setString(4, carer.secondLastName());
+    statement.setDate(5, Date.valueOf(carer.birthDate()));
+    statement.setShort(6, (short) carer.gender().getIndex());
+    statement.setInt(7, carer.mobilePhone());
     statement.setDate(8, Date.valueOf(carer.hireDate()));
     statement.executeUpdate();
-
   }
 }

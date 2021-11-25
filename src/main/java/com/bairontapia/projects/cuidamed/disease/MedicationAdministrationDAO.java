@@ -30,18 +30,19 @@ public class MedicationAdministrationDAO implements CrudDAO<MedicationAdministra
     final var query = TextFileUtils.readString(GET_ALL_QUERY_PATH);
     final var connection = ConnectionSingleton.getInstance();
     final var statement = connection.createStatement();
-    final var resulSet = statement.executeQuery(query);
+    final var resultSet = statement.executeQuery(query);
     final var set = new LinkedHashSet<MedicationAdministration>();
-    while (resulSet.next()) {
-      final var rut = resulSet.getString(1);
-      final var medicationName = resulSet.getString(2);
-      final var estimatedDateTime = resulSet.getDate(3);
-      final var realDateTime = resulSet.getDate(4);
-      final var dosegeStatus = resulSet.getShort(5);
-      final var carerRut = resulSet.getString(6);
+    while (resultSet.next()) {
+      final var rut = resultSet.getString(1);
+      final var medicationName = resultSet.getString(2);
+      final var estimatedDateTime = resultSet.getDate(3);
+      final var realDateTime = resultSet.getDate(4);
+      final var dosageStatus = resultSet.getShort(5);
+      final var carerRut = resultSet.getString(6);
       final var medicationAdministration = MedicationAdministration
-          .createInstance(rut, medicationName, estimatedDateTime, realDateTime, dosegeStatus,
+          .createInstance(rut, medicationName, estimatedDateTime, realDateTime, dosageStatus,
               carerRut);
+      set.add(medicationAdministration);
     }
     return set;
   }

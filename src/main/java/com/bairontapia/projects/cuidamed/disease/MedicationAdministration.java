@@ -2,7 +2,6 @@ package com.bairontapia.projects.cuidamed.disease;
 
 import com.bairontapia.projects.cuidamed.mappings.dosagestatus.DosageStatus;
 import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalDateTime;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
