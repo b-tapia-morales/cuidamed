@@ -11,15 +11,6 @@
     <plugins>
 
       <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <release>17</release>
-        </configuration>
-        <groupId>org.apache.maven.plugins</groupId>
-        <version>3.8.1</version>
-      </plugin>
-
-      <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
           <archive>
@@ -40,7 +31,26 @@
             <phase>package</phase>
           </execution>
         </executions>
+        <groupId>org.apache.maven.plugins</groupId>
         <version>3.3.0</version>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <release>17</release>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.8.1</version>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>2.22.2</version>
       </plugin>
 
       <plugin>
@@ -48,6 +58,10 @@
         <configuration>
           <mainClass>com.bairontapia.projects.cuidamed.CuidaMedApplication</mainClass>
           <runtimePathOption>CLASSPATH</runtimePathOption>
+          <options>
+            <option>--add-opens</option>
+            <option>javafx.graphics/com.sun.javafx.text=ALL-UNNAMED</option>
+          </options>
         </configuration>
         <groupId>org.openjfx</groupId>
         <version>0.0.8</version>
@@ -110,8 +124,11 @@
   <name>CuidaMed</name>
 
   <properties>
+    <encoding>${project.build.sourceEncoding}</encoding>
     <java.version>17</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>${project.build.sourceEncoding}
+    </project.reporting.outputEncoding>
     <start-class>com.bairontapia.projects.cuidamed.CuidaMedApplication</start-class>
   </properties>
 
