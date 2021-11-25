@@ -14,12 +14,21 @@ import java.util.Optional;
 
 public class ElderDAO implements CrudDAO<Elder, String> {
 
+  private static ElderDAO instance;
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "elder");
   private static final Path GET_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
   private static final Path GET_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
   private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
 
+  private ElderDAO(){}
+
+  public static ElderDAO getInstance(){
+    if (instance == null) {
+      instance = new ElderDAO();
+    }
+    return instance;
+  }
   @Override
   public Optional<Elder> get(String rut) throws IOException, SQLException {
     final var query = TextFileUtils.readString(GET_QUERY_PATH);
@@ -38,8 +47,9 @@ public class ElderDAO implements CrudDAO<Elder, String> {
       final var isActive = resultSet.getBoolean(7);
       final var admissionDate = resultSet.getDate(8);
       final var responsibleRut = resultSet.getString(9);
-      final var elder = Elder.createInstance(elderRut, firstName, lastName, secondLastName, birthDate,
-          genderCode, isActive, admissionDate, responsibleRut);
+      final var elder = Elder
+          .createInstance(elderRut, firstName, lastName, secondLastName, birthDate,
+              genderCode, isActive, admissionDate, responsibleRut);
       return Optional.of(elder);
     }
     return Optional.empty();

@@ -2,7 +2,6 @@ package com.bairontapia.projects.cuidamed.medicalrecord.surgicalintervention;
 
 import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
 import com.bairontapia.projects.cuidamed.daotemplate.ReadOnlyDAO;
-import com.bairontapia.projects.cuidamed.medicalrecord.BloodTypeStats;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -14,12 +13,21 @@ import java.util.Optional;
 
 public class SurgicalInterventionDAO implements ReadOnlyDAO<SurgicalIntervention, String> {
 
+  private static SurgicalInterventionDAO instance;
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "surgical_intervention");
   private static final Path GET_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
   private static final Path GET_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
   private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
 
+  private SurgicalInterventionDAO(){}
+
+  public static SurgicalInterventionDAO getInstance() {
+    if(instance == null) {
+      instance = new SurgicalInterventionDAO();
+    }
+    return instance;
+  }
   @Override
   public Optional<SurgicalIntervention> get(String rut) throws IOException, SQLException {
     final var query = TextFileUtils.readString(GET_QUERY_PATH);
