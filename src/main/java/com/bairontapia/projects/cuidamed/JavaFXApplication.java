@@ -9,6 +9,7 @@ public class JavaFXApplication extends Application {
     launch();
   }
 
+  @Override
   public void start(final Stage stage) {
     stage.setTitle("Cuidamed");
     stage.setResizable(false);
