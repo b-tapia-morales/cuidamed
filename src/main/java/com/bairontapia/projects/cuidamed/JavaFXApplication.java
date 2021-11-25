@@ -1,6 +1,11 @@
 package com.bairontapia.projects.cuidamed;
 
+import java.io.IOException;
+import java.util.Objects;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class JavaFXApplication extends Application {
@@ -10,8 +15,12 @@ public class JavaFXApplication extends Application {
   }
 
   @Override
-  public void start(final Stage stage) {
+  public void start(final Stage stage) throws IOException {
+    final Parent root = FXMLLoader.load(
+        Objects.requireNonNull(getClass().getResource("/fxml/root_panel.fxml")));
+    final var scene = new Scene(root);
     stage.setTitle("Cuidamed");
+    stage.setScene(scene);
     stage.setResizable(false);
     stage.show();
   }
