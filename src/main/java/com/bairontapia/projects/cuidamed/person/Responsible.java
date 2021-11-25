@@ -4,16 +4,20 @@ import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 
 public record Responsible(String rut, String firstName, String lastName, String secondLastName,
-                          LocalDate birthDate, Gender gender, Integer mobilePhone) {
+                          LocalDate birthDate, Integer age, Gender gender, Integer mobilePhone) {
 
   public static Responsible createInstance(String rut, String firstName, String lastName,
       String secondLastName, Date birthDate, short genderCode, int mobilePhone) {
+    final var then = birthDate.toLocalDate();
+    final var now = LocalDate.now();
+    final var age = Period.between(then, now).getYears();
     return new Responsible(rut, firstName, lastName, secondLastName, birthDate.toLocalDate(),
-        Gender.getValueFromCode(genderCode), mobilePhone);
+        age, Gender.getValueFromCode(genderCode), mobilePhone);
   }
 
   @Override
@@ -39,11 +43,12 @@ public record Responsible(String rut, String firstName, String lastName, String 
                 Rut:\t\t\t\t\t\t\t\t\t%s
                 Nombre completo:\t\t\t%s
                 Fecha de nacimiento:\t%s
+                Edad:\t\t\t\t\t\t\t\t\t%s
                 Sexo:\t\t\t\t\t\t\t\t\t%s
                 Teléfono móvil:\t\t\t\t+56 9 %s
                 """, RutUtils.format(rut),
-            StringUtils.joinWith(" ", firstName, lastName, secondLastName), birthDate, gender,
-            mobilePhone);
+            StringUtils.joinWith(" ", firstName, lastName, secondLastName), birthDate, age,
+            gender, mobilePhone);
   }
 
 }

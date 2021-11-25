@@ -24,12 +24,13 @@ public class ResponsibleDAO implements CrudDAO<Responsible, String> {
   Esto probablemente no un buen approach.
    */
   @Override
-  public Optional<Responsible> get(String rut) throws SQLException, IOException {
+  public Optional<Responsible> get(String key) throws SQLException, IOException {
     final var query = TextFileUtils.readString(GET_QUERY_PATH);
     final var connection = ConnectionSingleton.getInstance();
     final var statement = connection.prepareStatement(query);
-    statement.setString(1, rut);
+    statement.setString(1, key);
     final var resultSet = statement.executeQuery();
+
     if (resultSet.next()) {
       final var responsibleRut = resultSet.getString(1);
       final var firstName = resultSet.getString(2);
@@ -38,7 +39,7 @@ public class ResponsibleDAO implements CrudDAO<Responsible, String> {
       final var birthDate = resultSet.getDate(5);
       final var gender = resultSet.getShort(6);
       final var mobilePhone = resultSet.getInt(7);
-      final var responsible = Responsible.createInstance(responsibleRut, firstName,
+      final var responsible = Responsible.createInstance(rut, firstName,
           lastName, secondLastName, birthDate, gender, mobilePhone);
       return Optional.of(responsible);
     }

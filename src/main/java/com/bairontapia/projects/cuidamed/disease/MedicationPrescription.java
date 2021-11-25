@@ -14,10 +14,10 @@ public record MedicationPrescription(String rut, String diseaseName, LocalDate p
     }
     if (object instanceof final MedicationPrescription medicationPrescription) {
       return new EqualsBuilder().
-          append(rut,medicationPrescription.rut).
+          append(rut, medicationPrescription.rut).
           append(diseaseName, medicationPrescription.diseaseName).
-          append(prescriptionDate,medicationPrescription.prescriptionDate).
-          append(medicationName,medicationPrescription.medicationName).
+          append(prescriptionDate, medicationPrescription.prescriptionDate).
+          append(medicationName, medicationPrescription.medicationName).
           isEquals();
     }
     return false;

@@ -4,5 +4,6 @@ SELECT P.rut,
        Pr.disease_name,
        Pr.prescription_date,
        Pr.description
-FROM residence.person P, residence.prescription Pr
+FROM residence.person P,
+     residence.prescription Pr
 WHERE P.rut = Pr.rut;

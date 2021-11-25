@@ -13,9 +13,9 @@ public record SickElderly(String rut, String diseaseName, LocalDate diagnosisDat
     }
     if (object instanceof final SickElderly sickElderly) {
       return new EqualsBuilder().
-          append(rut,sickElderly.rut).
+          append(rut, sickElderly.rut).
           append(diseaseName, sickElderly.diseaseName).
-          append(diagnosisDate,sickElderly.diagnosisDate).
+          append(diagnosisDate, sickElderly.diagnosisDate).
           isEquals();
     }
     return false;
