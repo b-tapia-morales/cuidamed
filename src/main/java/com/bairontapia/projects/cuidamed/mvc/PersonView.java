@@ -1,9 +1,17 @@
 package com.bairontapia.projects.cuidamed.mvc;
 
+import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
+import com.bairontapia.projects.cuidamed.person.CarerDAO;
+import com.bairontapia.projects.cuidamed.person.ElderDAO;
 import com.bairontapia.projects.cuidamed.person.Person;
+import com.bairontapia.projects.cuidamed.person.ResponsibleDAO;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -13,9 +21,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import lombok.Getter;
-import org.apache.commons.lang3.StringUtils;
 
 public class PersonView {
 
@@ -34,7 +40,7 @@ public class PersonView {
   @FXML
   public TableColumn<Person, Integer> ageColumn;
   @FXML
-  public TableColumn<Person, String> genderColumn;
+  public TableColumn<Person, Gender> genderColumn;
   @FXML
   public TableView<Person> personTableView;
 
@@ -43,28 +49,27 @@ public class PersonView {
     rutColumn
         .setCellValueFactory(e -> new SimpleStringProperty(RutUtils.format(e.getValue().rut())));
     fullNameColumn
-        .setCellValueFactory(e -> new SimpleStringProperty(StringUtils.join(" ",
-            e.getValue().firstName()), e.getValue().lastName(), e.getValue().secondLastName()));
-    birthDateColumn.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
-    ageColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
-    genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        .setCellValueFactory(e -> new SimpleStringProperty(String.join(" ", e.getValue().firstName(), e.getValue().lastName(), e.getValue().secondLastName())));
+    birthDateColumn.setCellValueFactory(e -> new SimpleObjectProperty<>(e.getValue().birthDate()));
+    ageColumn.setCellValueFactory(e -> new SimpleIntegerProperty(e.getValue().age()).asObject());
+    genderColumn.setCellValueFactory(e -> new SimpleObjectProperty<>(e.getValue().gender()));
   }
 
   @FXML
-  public void onPersonChosen(ActionEvent event) {
+  public void onPersonChosen(ActionEvent event) throws SQLException, IOException {
     if (personComboBox.getSelectionModel().isEmpty()) {
       return;
     }
-    final var set = new LinkedHashSet<Person>();
+
     final var choice = personComboBox.getSelectionModel().getSelectedItem();
+    final var set = new LinkedHashSet<Person>();
     switch (choice) {
-      case ELDER:
-        break;
-      case CARER:
-        break;
-      case RESPONSIBLE:
-        break;
+      case ELDER -> set.addAll(ElderDAO.getInstance().getAll());
+      case CARER -> set.addAll(CarerDAO.getInstance().getAll());
+      case RESPONSIBLE -> set.addAll(ResponsibleDAO.getInstance().getAll());
     }
+    personTableView.getItems().clear();
+    personTableView.getItems().addAll(set);
   }
 
 
