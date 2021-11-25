@@ -14,21 +14,23 @@ import java.util.Optional;
 
 public class ElderDAO implements CrudDAO<Elder, String> {
 
-  private static ElderDAO instance;
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "elder");
   private static final Path GET_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
   private static final Path GET_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
   private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
+  private static ElderDAO instance;
 
-  private ElderDAO(){}
+  private ElderDAO() {
+  }
 
-  public static ElderDAO getInstance(){
+  public static ElderDAO getInstance() {
     if (instance == null) {
       instance = new ElderDAO();
     }
     return instance;
   }
+
   @Override
   public Optional<Elder> get(String rut) throws IOException, SQLException {
     final var query = TextFileUtils.readString(GET_QUERY_PATH);

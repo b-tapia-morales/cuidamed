@@ -10,41 +10,41 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-  prefHeight="600.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/11.0.1"
-  xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+  minWidth="-Infinity" prefHeight="600.0" prefWidth="710.0"
+  xmlns="http://javafx.com/javafx/11.0.1"
   fx:controller="com.bairontapia.projects.cuidamed.mvc.PersonView">
-  <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="600.0"
-    prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-    <BorderPane prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
-      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+  <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" layoutX="10.0"
+    layoutY="10.0" minHeight="0.0" minWidth="0.0"
+    prefHeight="600.0" prefWidth="710.0">
+    <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+      AnchorPane.topAnchor="0.0" prefHeight="180.0" prefWidth="200.0">
+      <center>
+        <TableView BorderPane.alignment="CENTER" prefHeight="200.0" prefWidth="200.0"
+          fx:id="personTableView">
+          <columns>
+            <TableColumn prefWidth="100.0" text="Rut" fx:id="rutColumn"/>
+            <TableColumn prefWidth="250.0" text="Nombre completo" fx:id="fullNameColumn"/>
+            <TableColumn prefWidth="150.0" text="Fecha de nacimiento" fx:id="birthDateColumn"/>
+            <TableColumn prefWidth="100.0" text="Edad" fx:id="ageColumn"/>
+            <TableColumn prefWidth="100.0" text="Sexo" fx:id="genderColumn"/>
+          </columns>
+        </TableView>
+      </center>
       <top>
-        <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="10.0"
-          BorderPane.alignment="CENTER">
-          <Label text="Persona"/>
-          <ComboBox fx:id="personComboBox" onAction="#onPersonChosen" prefWidth="150.0">
+        <HBox BorderPane.alignment="CENTER" alignment="CENTER" prefHeight="40.0" prefWidth="200.0"
+          spacing="10.0">
+          <Button mnemonicParsing="false" fx:id="goToButton"/>
+          <ComboBox onAction="#onPersonChosen" prefWidth="150.0" fx:id="personComboBox">
             <HBox.margin>
               <Insets right="10.0"/>
             </HBox.margin>
           </ComboBox>
           <Label text="Rut"/>
+          <Label text="Persona"/>
           <TextField fx:id="rutTextField"/>
-          <Button fx:id="goToButton" mnemonicParsing="false"/>
         </HBox>
       </top>
-      <center>
-        <TableView fx:id="personTableView" prefHeight="200.0" prefWidth="200.0"
-          BorderPane.alignment="CENTER">
-          <columns>
-            <TableColumn fx:id="rutColumn" prefWidth="100.0" text="Rut"/>
-            <TableColumn fx:id="fullNameColumn" prefWidth="250.0" text="Nombre completo"/>
-            <TableColumn fx:id="birthDateColumn" prefWidth="150.0" text="Fecha de nacimiento"/>
-            <TableColumn fx:id="ageColumn" prefWidth="100.0" text="Edad"/>
-            <TableColumn fx:id="genderColumn" prefWidth="100.0" text="Sexo"/>
-          </columns>
-        </TableView>
-      </center>
     </BorderPane>
   </AnchorPane>
 </AnchorPane>

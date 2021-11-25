@@ -1,12 +1,11 @@
 package com.bairontapia.projects.cuidamed.medicalrecord;
 
 import com.bairontapia.projects.cuidamed.mappings.bloodtype.BloodType;
-import java.util.Objects;
 
 public record BloodTypeStats(BloodType bloodType, Integer frequency) {
 
   public static BloodTypeStats createInstance(short bloodTypeCode, Integer frequency) {
-  return new BloodTypeStats(BloodType.getValueFromIndex(bloodTypeCode), frequency);
+    return new BloodTypeStats(BloodType.getValueFromIndex(bloodTypeCode), frequency);
   }
 
   @Override

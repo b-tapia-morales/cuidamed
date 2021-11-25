@@ -26,10 +26,6 @@ import lombok.Getter;
 public class PersonView {
 
   @FXML
-  private ComboBox<PersonChoice> personComboBox;
-  @FXML
-  private TextField rutTextField;
-  @FXML
   public Button goToButton;
   @FXML
   public TableColumn<Person, String> rutColumn;
@@ -43,13 +39,18 @@ public class PersonView {
   public TableColumn<Person, Gender> genderColumn;
   @FXML
   public TableView<Person> personTableView;
+  @FXML
+  private ComboBox<PersonChoice> personComboBox;
+  @FXML
+  private TextField rutTextField;
 
   public void initialize() {
     personComboBox.setItems(FXCollections.observableArrayList(PersonChoice.values()));
     rutColumn
         .setCellValueFactory(e -> new SimpleStringProperty(RutUtils.format(e.getValue().rut())));
     fullNameColumn
-        .setCellValueFactory(e -> new SimpleStringProperty(String.join(" ", e.getValue().firstName(), e.getValue().lastName(), e.getValue().secondLastName())));
+        .setCellValueFactory(e -> new SimpleStringProperty(String.join(" ",
+            e.getValue().firstName(), e.getValue().lastName(), e.getValue().secondLastName())));
     birthDateColumn.setCellValueFactory(e -> new SimpleObjectProperty<>(e.getValue().birthDate()));
     ageColumn.setCellValueFactory(e -> new SimpleIntegerProperty(e.getValue().age()).asObject());
     genderColumn.setCellValueFactory(e -> new SimpleObjectProperty<>(e.getValue().gender()));

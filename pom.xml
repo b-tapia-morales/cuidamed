@@ -57,11 +57,11 @@
         <artifactId>javafx-maven-plugin</artifactId>
         <configuration>
           <mainClass>com.bairontapia.projects.cuidamed.CuidaMedApplication</mainClass>
-          <runtimePathOption>CLASSPATH</runtimePathOption>
           <options>
             <option>--add-opens</option>
             <option>javafx.graphics/com.sun.javafx.text=ALL-UNNAMED</option>
           </options>
+          <runtimePathOption>CLASSPATH</runtimePathOption>
         </configuration>
         <groupId>org.openjfx</groupId>
         <version>0.0.8</version>

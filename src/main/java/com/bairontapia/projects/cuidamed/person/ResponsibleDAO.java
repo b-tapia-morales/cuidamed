@@ -14,12 +14,12 @@ import java.util.Optional;
 
 public class ResponsibleDAO implements CrudDAO<Responsible, String> {
 
-  private static ResponsibleDAO instance;
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "responsible");
   private static final Path GET_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
   private static final Path GET_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
   private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
+  private static ResponsibleDAO instance;
 
   public static ResponsibleDAO getInstance() {
     if (instance == null) {
