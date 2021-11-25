@@ -9,5 +9,6 @@ SELECT P.rut,
        RC.diastolic_pressure,
        RC.systolic_pressure,
        RC.body_temperature
-FROM residence.person P, residence.routine_checkup RC
+FROM residence.person P,
+     residence.routine_checkup RC
 WHERE P.rut = RC.rut;

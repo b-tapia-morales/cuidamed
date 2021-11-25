@@ -2,7 +2,6 @@ package com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup;
 
 import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
 import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
-import com.bairontapia.projects.cuidamed.medicalrecord.MedicalRecord;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;

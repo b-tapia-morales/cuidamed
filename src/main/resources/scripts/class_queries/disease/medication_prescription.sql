@@ -7,5 +7,6 @@ SELECT P.rut,
        MP.start_date,
        MP.end_date,
        Mp.frequency
-FROM residence.person P, residence.medication_prescription MP
+FROM residence.person P,
+     residence.medication_prescription MP
 WHERE P.rut = MP.rut;

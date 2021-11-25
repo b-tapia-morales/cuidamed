@@ -15,7 +15,7 @@ public record Medication(String medication, AdministrationRoute administrationRo
     }
     if (object instanceof final Medication medication) {
       return new EqualsBuilder().
-          append(medication,medication.medication).
+          append(medication, medication.medication).
           isEquals();
     }
     return false;

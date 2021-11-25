@@ -5,5 +5,6 @@ SELECT P.rut,
        SI.hospital,
        SI.severity,
        SI.description
-FROM residence.person P, residence.surgical_intervention SI
+FROM residence.person P,
+     residence.surgical_intervention SI
 WHERE P.rut = SI.rut;

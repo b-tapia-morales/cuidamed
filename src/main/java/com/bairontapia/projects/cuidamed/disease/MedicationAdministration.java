@@ -5,7 +5,8 @@ import java.time.LocalDateTime;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public record MedicationAdministration(String rut, String medicationName, LocalDateTime estimatedDateTime,
+public record MedicationAdministration(String rut, String medicationName,
+                                       LocalDateTime estimatedDateTime,
                                        LocalDateTime realDatetime, DosageStatus status) {
 
   public boolean equals(Object object) {
@@ -14,9 +15,9 @@ public record MedicationAdministration(String rut, String medicationName, LocalD
     }
     if (object instanceof final MedicationAdministration medicationAdministration) {
       return new EqualsBuilder().
-          append(rut,medicationAdministration.rut).
+          append(rut, medicationAdministration.rut).
           append(medicationName, medicationAdministration.medicationName).
-          append(estimatedDateTime,medicationAdministration.estimatedDateTime).
+          append(estimatedDateTime, medicationAdministration.estimatedDateTime).
           isEquals();
     }
     return false;

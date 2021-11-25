@@ -2,7 +2,6 @@ package com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
