@@ -1,5 +1,6 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup;
 
+import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.sql.Date;
 import java.time.LocalDate;
 import org.apache.commons.lang3.StringUtils;
@@ -52,7 +53,7 @@ public record RoutineCheckup(String rut, LocalDate checkupDate, Double height, D
                 Presión diastólica:\t\t%s
                 Presión sistólica:\t\t%s
                 Temperatura corporal:\t%s
-                """, rut,
+                """, RutUtils.format(rut),
             checkupDate, height, weight, bmi, heartRate, diastolicPressure, systolicPressure,
             bodyTemperature);
   }

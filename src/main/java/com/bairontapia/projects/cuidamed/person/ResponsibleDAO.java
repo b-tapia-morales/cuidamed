@@ -30,7 +30,7 @@ public class ResponsibleDAO implements CrudDAO<Responsible, String> {
     final var statement = connection.prepareStatement(query);
     statement.setString(1, rut);
     final var resultSet = statement.executeQuery();
-    if (resultSet.isBeforeFirst()) {
+    if (resultSet.next()) {
       final var responsibleRut = resultSet.getString(1);
       final var firstName = resultSet.getString(2);
       final var lastName = resultSet.getString(3);
