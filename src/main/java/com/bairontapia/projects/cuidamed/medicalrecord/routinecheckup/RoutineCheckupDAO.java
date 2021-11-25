@@ -20,6 +20,25 @@ public class RoutineCheckupDAO implements CrudDAO<RoutineCheckup, String> {
 
   @Override
   public Optional<RoutineCheckup> get(String rut) throws IOException, SQLException {
+    final var query = TextFileUtils.readString(GET_QUERY_PATH);
+    final var connection = ConnectionSingleton.getInstance();
+    final var statement = connection.prepareStatement(query);
+    statement.setString(1, rut);
+    final var resultSet = statement.executeQuery();
+    if (resultSet.next()) {
+      final var elderRut = resultSet.getString(1);
+      final var checkupDate = resultSet.getDate(2);
+      final var height = resultSet.getDouble(3);
+      final var weight = resultSet.getDouble(4);
+      final var bmi = resultSet.getDouble(5);
+      final var heartRate = resultSet.getShort(6);
+      final var diastolicPressure = resultSet.getDouble(7);
+      final var systolicPressure = resultSet.getDouble(8);
+      final var bodyTemperature = resultSet.getDouble(9);
+      return Optional.of(RoutineCheckup
+          .createInstance(elderRut, checkupDate, height, weight, bmi, heartRate, diastolicPressure,
+              systolicPressure, bodyTemperature));
+    }
     return Optional.empty();
   }
 
