@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public record Elder(String rut, String firstName, String lastName, String secondLastName,
                     LocalDate birthDate, Integer age, Gender gender, Boolean isActive,
-                    LocalDate admissionDate, String responsibleRut) {
+                    LocalDate admissionDate, String responsibleRut) implements Person {
 
   public static Elder createInstance(String rut, String firstName, String lastName,
       String secondLastName, Date birthDate, short genderCode, boolean isActive,
