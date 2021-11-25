@@ -6,6 +6,8 @@
 
   <build>
 
+    <finalName>${project.artifactId}</finalName>
+
     <plugins>
 
       <plugin>
@@ -18,9 +20,33 @@
       </plugin>
 
       <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.bairontapia.projects.cuidamed.CuidaMedApplication</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <id>make-assembly</id>
+            <phase>package</phase>
+          </execution>
+        </executions>
+        <version>3.3.0</version>
+      </plugin>
+
+      <plugin>
         <artifactId>javafx-maven-plugin</artifactId>
         <configuration>
-          <mainClass>main.Main</mainClass>
+          <mainClass>com.bairontapia.projects.cuidamed.CuidaMedApplication</mainClass>
         </configuration>
         <groupId>org.openjfx</groupId>
         <version>0.0.8</version>
@@ -54,9 +80,13 @@
       <version>1.18.22</version>
     </dependency>
     <dependency>
-      <artifactId>javafx</artifactId>
+      <artifactId>javafx-fxml</artifactId>
       <groupId>org.openjfx</groupId>
-      <type>pom</type>
+      <version>17.0.1</version>
+    </dependency>
+    <dependency>
+      <artifactId>javafx-controls</artifactId>
+      <groupId>org.openjfx</groupId>
       <version>17.0.1</version>
     </dependency>
     <dependency>
@@ -80,6 +110,7 @@
 
   <properties>
     <java.version>17</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <start-class>com.bairontapia.projects.cuidamed.CuidaMedApplication</start-class>
   </properties>
 
