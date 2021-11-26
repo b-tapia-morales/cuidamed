@@ -17,6 +17,7 @@ public class ElderDAO implements CrudDAO<Elder, String> {
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "elder");
   private static final Path GET_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
+  private static final Path SAVE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "save.sql");
   private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
 
   @Override
@@ -50,6 +51,19 @@ public class ElderDAO implements CrudDAO<Elder, String> {
 
   @Override
   public void save(Elder elder) throws IOException, SQLException {
+    var connection = ConnectionSingleton.getInstance();
+    var query = TextFileUtils.readString(SAVE_QUERY_PATH);
+    var statement = connection.prepareStatement(query);
+    statement.setString(1, elder.firstName());
+    statement.setString(2, elder.lastName());
+    statement.setString(3, elder.secondLastName());
+    statement.setDate(4, Date.valueOf(elder.birthDate()));
+    statement.setShort(5, (short) elder.gender().getIndex());
+    statement.setString(6, elder.rut());
+    statement.setBoolean(7, elder.isActive());
+    statement.setDate(8, Date.valueOf(elder.admissionDate()));
+    statement.setString(9, elder.rut());
+    statement.executeUpdate();
 
   }
 
