@@ -1,4 +1,4 @@
-package com.bairontapia.projects.cuidamed.mvc;
+package com.bairontapia.projects.cuidamed.mvc.person;
 
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.person.CarerDAO;
