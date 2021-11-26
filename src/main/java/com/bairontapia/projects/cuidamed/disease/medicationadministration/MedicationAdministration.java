@@ -1,4 +1,4 @@
-package com.bairontapia.projects.cuidamed.disease;
+package com.bairontapia.projects.cuidamed.disease.medicationadministration;
 
 import com.bairontapia.projects.cuidamed.mappings.dosagestatus.DosageStatus;
 import java.sql.Date;

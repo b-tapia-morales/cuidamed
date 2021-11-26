@@ -1,4 +1,4 @@
-package com.bairontapia.projects.cuidamed.disease;
+package com.bairontapia.projects.cuidamed.disease.sickelderly;
 
 import java.sql.Date;
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package com.bairontapia.projects.cuidamed.disease;
+package com.bairontapia.projects.cuidamed.disease.medication;
 
 import com.bairontapia.projects.cuidamed.mappings.administrationroute.AdministrationRoute;
 import com.bairontapia.projects.cuidamed.mappings.measureunit.MeasureUnit;

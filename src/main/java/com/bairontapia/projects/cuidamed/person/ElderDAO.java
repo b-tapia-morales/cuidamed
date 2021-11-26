@@ -9,9 +9,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.Optional;
 
 public class ElderDAO implements GenericCrudDAO<Elder, String> {
 
@@ -51,24 +48,6 @@ public class ElderDAO implements GenericCrudDAO<Elder, String> {
   @Override
   public void setKeyParameter(PreparedStatement statement, String rut) throws SQLException {
     statement.setString(1, rut);
-    final var resultSet = statement.executeQuery();
-
-    if (resultSet.next()) {
-      final var elderRut = resultSet.getString(1);
-      final var firstName = resultSet.getString(2);
-      final var lastName = resultSet.getString(3);
-      final var secondLastName = resultSet.getString(4);
-      final var birthDate = resultSet.getDate(5);
-      final var genderCode = resultSet.getShort(6);
-      final var isActive = resultSet.getBoolean(7);
-      final var admissionDate = resultSet.getDate(8);
-      final var responsibleRut = resultSet.getString(9);
-      final var elder = Elder
-          .createInstance(elderRut, firstName, lastName, secondLastName, birthDate,
-              genderCode, isActive, admissionDate, responsibleRut);
-      return Optional.of(elder);
-    }
-    return Optional.empty();
   }
 
   @Override

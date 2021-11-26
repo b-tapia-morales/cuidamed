@@ -1,4 +1,4 @@
-package com.bairontapia.projects.cuidamed.disease;
+package com.bairontapia.projects.cuidamed.disease.prescription;
 
 import java.sql.Date;
 import java.time.LocalDate;
