@@ -73,7 +73,7 @@ INSERT INTO residence.person
 VALUES ('15787461-6', 'María José', 'Pastén', 'Cordovez', '1984-01-04', 2)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.person
-VALUES ('17662625-9', 'Valentina ', 'González', 'Tapia', '1984-01-08', 2)
+VALUES ('17662625-9', 'Valentina', 'González', 'Tapia', '1984-01-08', 2)
 ON CONFLICT DO NOTHING;
 INSERT INTO residence.person
 VALUES ('15023397-6', 'Camila', 'Varas', 'Silva', '1982-03-22', 2)

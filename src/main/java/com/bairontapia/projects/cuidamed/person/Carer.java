@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public record Carer(String rut, String firstName, String lastName, String secondLastName,
                     LocalDate birthDate, Integer age, Gender gender, Integer mobilePhone,
-                    LocalDate hireDate) {
+                    LocalDate hireDate) implements Person {
 
   public static Carer createInstance(String rut, String firstName, String lastName,
       String secondLastName, Date birthDate, short genderCode, int mobilePhone, Date hireDate) {

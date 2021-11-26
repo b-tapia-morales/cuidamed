@@ -19,10 +19,15 @@ public class ResponsibleDAO implements CrudDAO<Responsible, String> {
   private static final Path GET_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
   private static final Path GET_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
   private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
+  private static ResponsibleDAO instance;
 
-  /*
-  Esto probablemente no un buen approach.
-   */
+  public static ResponsibleDAO getInstance() {
+    if (instance == null) {
+      return new ResponsibleDAO();
+    }
+    return instance;
+  }
+
   @Override
   public Optional<Responsible> get(String key) throws SQLException, IOException {
     final var query = TextFileUtils.readString(GET_QUERY_PATH);
@@ -30,7 +35,6 @@ public class ResponsibleDAO implements CrudDAO<Responsible, String> {
     final var statement = connection.prepareStatement(query);
     statement.setString(1, key);
     final var resultSet = statement.executeQuery();
-
     if (resultSet.next()) {
       final var rut = resultSet.getString(1);
       final var firstName = resultSet.getString(2);

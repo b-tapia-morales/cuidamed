@@ -4,7 +4,6 @@ import com.bairontapia.projects.cuidamed.mappings.bloodtype.BloodType;
 import com.bairontapia.projects.cuidamed.mappings.healthcaresystem.HealthCare;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.util.Objects;
-import org.apache.commons.lang3.StringUtils;
 
 public record MedicalRecord(String rut, BloodType bloodType, HealthCare healthCare) {
 

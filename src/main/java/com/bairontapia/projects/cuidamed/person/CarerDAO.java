@@ -20,6 +20,17 @@ public class CarerDAO implements CrudDAO<Carer, String> {
   private static final Path GET_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
   private static final Path SAVE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "save.sql");
   private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
+  private static CarerDAO instance;
+
+  private CarerDAO() {
+  }
+
+  public static CarerDAO getInstance() {
+    if (instance == null) {
+      instance = new CarerDAO();
+    }
+    return instance;
+  }
 
   @Override
   public Optional<Carer> get(String rut) throws IOException, SQLException {
@@ -37,10 +48,8 @@ public class CarerDAO implements CrudDAO<Carer, String> {
       final var genderCode = resultSet.getShort(6);
       final var mobilePhone = resultSet.getInt(7);
       final var hireDate = resultSet.getDate(8);
-      return Optional
-          .of(Carer
-              .createInstance(carerRut, firstName, lastName, secondLastName, birthDate, genderCode,
-                  mobilePhone, hireDate));
+      return Optional.of(Carer.createInstance(carerRut, firstName, lastName, secondLastName,
+          birthDate, genderCode, mobilePhone, hireDate));
     }
     return Optional.empty();
   }

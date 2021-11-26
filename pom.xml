@@ -6,7 +6,34 @@
 
   <build>
 
+    <finalName>${project.artifactId}</finalName>
+
     <plugins>
+
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.bairontapia.projects.cuidamed.CuidaMedApplication</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <id>make-assembly</id>
+            <phase>package</phase>
+          </execution>
+        </executions>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.3.0</version>
+      </plugin>
 
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -18,9 +45,43 @@
       </plugin>
 
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.4</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <shadedArtifactAttached>true</shadedArtifactAttached>
+              <shadedClassifierName>project-classifier</shadedClassifierName>
+              <outputFile>shade\${project.artifactId}.jar</outputFile>
+              <transformers>
+                <transformer implementation=
+                  "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>com.bairontapia.projects.cuidamed.CuidaMedApplication</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>2.22.2</version>
+      </plugin>
+
+      <plugin>
         <artifactId>javafx-maven-plugin</artifactId>
         <configuration>
-          <mainClass>main.Main</mainClass>
+          <mainClass>com.bairontapia.projects.cuidamed.CuidaMedApplication</mainClass>
         </configuration>
         <groupId>org.openjfx</groupId>
         <version>0.0.8</version>
@@ -54,15 +115,16 @@
       <version>1.18.22</version>
     </dependency>
     <dependency>
-      <artifactId>javafx</artifactId>
+      <artifactId>javafx-fxml</artifactId>
       <groupId>org.openjfx</groupId>
-      <type>pom</type>
       <version>17.0.1</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
-      <artifactId>javafx-graphics</artifactId>
+      <artifactId>javafx-controls</artifactId>
       <groupId>org.openjfx</groupId>
       <version>17.0.1</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <artifactId>postgresql</artifactId>
@@ -79,7 +141,11 @@
   <name>CuidaMed</name>
 
   <properties>
+    <encoding>${project.build.sourceEncoding}</encoding>
     <java.version>17</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>${project.build.sourceEncoding}
+    </project.reporting.outputEncoding>
     <start-class>com.bairontapia.projects.cuidamed.CuidaMedApplication</start-class>
   </properties>
 

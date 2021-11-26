@@ -9,7 +9,8 @@ import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 
 public record Responsible(String rut, String firstName, String lastName, String secondLastName,
-                          LocalDate birthDate, Integer age, Gender gender, Integer mobilePhone) {
+                          LocalDate birthDate, Integer age, Gender gender,
+                          Integer mobilePhone) implements Person {
 
   public static Responsible createInstance(String rut, String firstName, String lastName,
       String secondLastName, Date birthDate, short genderCode, int mobilePhone) {
