@@ -7,6 +7,7 @@ import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -31,30 +32,36 @@ public class ElderDAO implements CrudDAO<Elder, String> {
     return instance;
   }
 
+  private static void writeRow(final ResultSet resultSet) throws SQLException {
+    
+  }
+
+  private static Elder readRow(final ResultSet resultSet) throws SQLException {
+    final var rut = resultSet.getString(1);
+    final var firstName = resultSet.getString(2);
+    final var lastName = resultSet.getString(3);
+    final var secondLastName = resultSet.getString(4);
+    final var birthDate = resultSet.getDate(5);
+    final var genderCode = resultSet.getShort(6);
+    final var isActive = resultSet.getBoolean(7);
+    final var admissionDate = resultSet.getDate(8);
+    final var responsibleRut = resultSet.getString(9);
+    return Elder.createInstance(rut, firstName, lastName, secondLastName, birthDate, genderCode,
+        isActive, admissionDate, responsibleRut);
+  }
+
   @Override
-  public Optional<Elder> get(String rut) throws IOException, SQLException {
+  public Optional<Elder> get(String key) throws IOException, SQLException {
     final var query = TextFileUtils.readString(GET_QUERY_PATH);
     final var connection = ConnectionSingleton.getInstance();
     final var statement = connection.prepareStatement(query);
-    statement.setString(1, rut);
+    statement.setString(1, key);
     final var resultSet = statement.executeQuery();
-
-    if (resultSet.next()) {
-      final var elderRut = resultSet.getString(1);
-      final var firstName = resultSet.getString(2);
-      final var lastName = resultSet.getString(3);
-      final var secondLastName = resultSet.getString(4);
-      final var birthDate = resultSet.getDate(5);
-      final var genderCode = resultSet.getShort(6);
-      final var isActive = resultSet.getBoolean(7);
-      final var admissionDate = resultSet.getDate(8);
-      final var responsibleRut = resultSet.getString(9);
-      final var elder = Elder
-          .createInstance(elderRut, firstName, lastName, secondLastName, birthDate,
-              genderCode, isActive, admissionDate, responsibleRut);
-      return Optional.of(elder);
-    }
-    return Optional.empty();
+    final var optional =
+        resultSet.isBeforeFirst() ? Optional.of(readRow(resultSet)) : Optional.<Elder>empty();
+    resultSet.close();
+    statement.close();
+    return optional;
   }
 
   @Override
@@ -65,19 +72,11 @@ public class ElderDAO implements CrudDAO<Elder, String> {
     final var resultSet = statement.executeQuery(query);
     final var set = new LinkedHashSet<Elder>();
     while (resultSet.next()) {
-      final var rut = resultSet.getString(1);
-      final var firstName = resultSet.getString(2);
-      final var lastName = resultSet.getString(3);
-      final var secondLastName = resultSet.getString(4);
-      final var birthDate = resultSet.getDate(5);
-      final var genderCode = resultSet.getShort(6);
-      final var isActive = resultSet.getBoolean(7);
-      final var admissionDate = resultSet.getDate(8);
-      final var responsibleRut = resultSet.getString(9);
-      final var elder = Elder.createInstance(rut, firstName, lastName, secondLastName, birthDate,
-          genderCode, isActive, admissionDate, responsibleRut);
+      final var elder = readRow(resultSet);
       set.add(elder);
     }
+    resultSet.close();
+    statement.close();
     return set;
   }
 
