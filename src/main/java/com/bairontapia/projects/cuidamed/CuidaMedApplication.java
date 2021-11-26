@@ -8,8 +8,8 @@ import java.sql.SQLException;
 public class CuidaMedApplication {
 
   public static void main(String... args) throws SQLException, IOException {
-    new ElderDAO().getAll().forEach(System.out::println);
-    new CarerDAO().getAll().forEach(System.out::println);
+
+    new ElderDAO().getInstance().getAll().forEach(System.out::println);
     JavaFXApplication.main(args);
   }
 }
