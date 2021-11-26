@@ -1,42 +1,85 @@
 package com.bairontapia.projects.cuidamed.person;
 
-import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
-import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.Optional;
 
-public class ElderDAO implements CrudDAO<Elder, String> {
+public class ElderDAO implements GenericCrudDAO<Elder, String> {
+
+  private static final ElderDAO INSTANCE = new ElderDAO();
 
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "elder");
   private static final Path GET_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
   private static final Path GET_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
+  private static final Path SAVE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "save.sql");
   private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
-  private static ElderDAO instance;
-
-  private ElderDAO() {
-  }
 
   public static ElderDAO getInstance() {
-    if (instance == null) {
-      instance = new ElderDAO();
-    }
-    return instance;
+    return INSTANCE;
   }
 
-  private static void writeRow(final ResultSet resultSet) throws SQLException {
-    
+  @Override
+  public String getQuery() throws IOException {
+    return TextFileUtils.readString(GET_QUERY_PATH);
   }
 
-  private static Elder readRow(final ResultSet resultSet) throws SQLException {
+  @Override
+  public String getAllQuery() throws IOException {
+    return TextFileUtils.readString(GET_ALL_QUERY_PATH);
+  }
+
+  @Override
+  public String saveQuery() throws IOException {
+    return TextFileUtils.readString(SAVE_QUERY_PATH);
+  }
+
+  @Override
+  public String updateQuery() throws IOException {
+    return TextFileUtils.readString(UPDATE_QUERY_PATH);
+  }
+
+  @Override
+  public void setKeyParameter(PreparedStatement statement, String rut) throws SQLException {
+    statement.setString(1, rut);
+  }
+
+  @Override
+  public void saveTuple(final PreparedStatement statement, Elder elder) throws SQLException {
+    statement.setString(1, elder.rut());
+    statement.setString(2, elder.firstName());
+    statement.setString(3, elder.lastName());
+    statement.setString(4, elder.secondLastName());
+    statement.setDate(5, Date.valueOf(elder.birthDate()));
+    statement.setShort(6, (short) elder.gender().getIndex());
+    statement.setBoolean(7, elder.isActive());
+    statement.setDate(8, Date.valueOf(elder.admissionDate()));
+    statement.setString(9, elder.responsibleRut());
+    statement.executeUpdate();
+  }
+
+  @Override
+  public void updateTuple(final PreparedStatement statement, Elder elder) throws SQLException {
+    statement.setString(1, elder.firstName());
+    statement.setString(2, elder.lastName());
+    statement.setString(3, elder.secondLastName());
+    statement.setDate(4, Date.valueOf(elder.birthDate()));
+    statement.setShort(5, (short) elder.gender().getIndex());
+    statement.setString(6, elder.rut());
+    statement.setBoolean(7, elder.isActive());
+    statement.setDate(8, Date.valueOf(elder.admissionDate()));
+    statement.setString(9, elder.rut());
+    statement.executeUpdate();
+  }
+
+  @Override
+  public Elder readTuple(final ResultSet resultSet) throws SQLException {
     final var rut = resultSet.getString(1);
     final var firstName = resultSet.getString(2);
     final var lastName = resultSet.getString(3);
@@ -48,58 +91,6 @@ public class ElderDAO implements CrudDAO<Elder, String> {
     final var responsibleRut = resultSet.getString(9);
     return Elder.createInstance(rut, firstName, lastName, secondLastName, birthDate, genderCode,
         isActive, admissionDate, responsibleRut);
-  }
-
-  @Override
-  public Optional<Elder> get(String key) throws IOException, SQLException {
-    final var query = TextFileUtils.readString(GET_QUERY_PATH);
-    final var connection = ConnectionSingleton.getInstance();
-    final var statement = connection.prepareStatement(query);
-    statement.setString(1, key);
-    final var resultSet = statement.executeQuery();
-    final var optional =
-        resultSet.isBeforeFirst() ? Optional.of(readRow(resultSet)) : Optional.<Elder>empty();
-    resultSet.close();
-    statement.close();
-    return optional;
-  }
-
-  @Override
-  public Collection<Elder> getAll() throws IOException, SQLException {
-    final var query = TextFileUtils.readString(GET_ALL_QUERY_PATH);
-    final var connection = ConnectionSingleton.getInstance();
-    final var statement = connection.createStatement();
-    final var resultSet = statement.executeQuery(query);
-    final var set = new LinkedHashSet<Elder>();
-    while (resultSet.next()) {
-      final var elder = readRow(resultSet);
-      set.add(elder);
-    }
-    resultSet.close();
-    statement.close();
-    return set;
-  }
-
-  @Override
-  public void save(Elder elder) throws IOException, SQLException {
-
-  }
-
-  @Override
-  public void update(Elder elder) throws IOException, SQLException {
-    var connection = ConnectionSingleton.getInstance();
-    var query = TextFileUtils.readString(UPDATE_QUERY_PATH);
-    var statement = connection.prepareStatement(query);
-    statement.setString(1, elder.firstName());
-    statement.setString(2, elder.lastName());
-    statement.setString(3, elder.secondLastName());
-    statement.setDate(4, Date.valueOf(elder.birthDate()));
-    statement.setShort(5, (short) elder.gender().getIndex());
-    statement.setString(6, elder.rut());
-    statement.setBoolean(7, elder.isActive());
-    statement.setDate(8, Date.valueOf(elder.admissionDate()));
-    statement.setString(9, elder.rut());
-    statement.executeUpdate();
   }
 
 }
