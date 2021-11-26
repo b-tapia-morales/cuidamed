@@ -45,6 +45,31 @@
       </plugin>
 
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.4</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <shadedArtifactAttached>true</shadedArtifactAttached>
+              <shadedClassifierName>project-classifier</shadedClassifierName>
+              <outputFile>shade\${project.artifactId}.jar</outputFile>
+              <transformers>
+                <transformer implementation=
+                  "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>com.bairontapia.projects.cuidamed.CuidaMedApplication</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>
@@ -57,7 +82,6 @@
         <artifactId>javafx-maven-plugin</artifactId>
         <configuration>
           <mainClass>com.bairontapia.projects.cuidamed.CuidaMedApplication</mainClass>
-          <runtimePathOption>CLASSPATH</runtimePathOption>
         </configuration>
         <groupId>org.openjfx</groupId>
         <version>0.0.8</version>
@@ -94,16 +118,13 @@
       <artifactId>javafx-fxml</artifactId>
       <groupId>org.openjfx</groupId>
       <version>17.0.1</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <artifactId>javafx-controls</artifactId>
       <groupId>org.openjfx</groupId>
       <version>17.0.1</version>
-    </dependency>
-    <dependency>
-      <artifactId>javafx-graphics</artifactId>
-      <groupId>org.openjfx</groupId>
-      <version>17.0.1</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <artifactId>postgresql</artifactId>
