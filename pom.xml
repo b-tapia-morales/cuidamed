@@ -11,34 +11,13 @@
     <plugins>
 
       <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifest>
-              <mainClass>com.bairontapia.projects.cuidamed.CuidaMedApplication</mainClass>
-            </manifest>
-          </archive>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>single</goal>
-            </goals>
-            <id>make-assembly</id>
-            <phase>package</phase>
-          </execution>
-        </executions>
-        <groupId>org.apache.maven.plugins</groupId>
-        <version>3.3.0</version>
-      </plugin>
-
-      <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <release>17</release>
+          <compilerArgs>
+            <arg>--module-path</arg>
+            <arg>%PATH_TO_FX% --add-modules=javafx.controls, javafx.graphics, javafx.fxml</arg>
+          </compilerArgs>
         </configuration>
         <groupId>org.apache.maven.plugins</groupId>
         <version>3.8.1</version>
@@ -113,18 +92,6 @@
       <groupId>org.projectlombok</groupId>
       <scope>provided</scope>
       <version>1.18.22</version>
-    </dependency>
-    <dependency>
-      <artifactId>javafx-fxml</artifactId>
-      <groupId>org.openjfx</groupId>
-      <version>17.0.1</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <artifactId>javafx-controls</artifactId>
-      <groupId>org.openjfx</groupId>
-      <version>17.0.1</version>
-      <scope>compile</scope>
     </dependency>
     <dependency>
       <artifactId>postgresql</artifactId>
