@@ -1,54 +1,73 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.allergy;
 
-import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
-import com.bairontapia.projects.cuidamed.daotemplate.ReadOnlyDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.Optional;
 
-public class AllergyDAO implements ReadOnlyDAO<Allergy, String> {
-
-  private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
-      .relativePathString("scripts", "class_queries", "allergy");
+public class AllergyDAO implements GenericCrudDAO<Allergy, String> {
+  private static final AllergyDAO INSTANCE = new AllergyDAO();
+  private static final String RELATIVE_PATH_STRING =
+      DirectoryPathUtils.relativePathString("scripts", "class_queries", "allergy");
   private static final Path GET_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
   private static final Path GET_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
+  private static final Path SAVE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "save.sql");
+  private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
 
-  @Override
-  public Optional<Allergy> get(String rut) throws IOException, SQLException {
-    final var query = TextFileUtils.readString(GET_QUERY_PATH);
-    final var connection = ConnectionSingleton.getInstance();
-    final var statement = connection.prepareStatement(query);
-    statement.setString(1, rut);
-    final var resultSet = statement.executeQuery();
-    if (resultSet.next()) {
-      final var elderRut = resultSet.getString(1);
-      final var type = resultSet.getShort(2);
-      final var name = resultSet.getString(3);
-      final var allergy = Allergy.createInstance(elderRut, type, name);
-      return Optional.of(allergy);
-    }
-    return Optional.empty();
+  public static AllergyDAO getInstance() {
+    return INSTANCE;
   }
 
   @Override
-  public Collection<Allergy> getAll() throws IOException, SQLException {
-    final var query = TextFileUtils.readString(GET_ALL_QUERY_PATH);
-    final var set = new LinkedHashSet<Allergy>();
-    final var connection = ConnectionSingleton.getInstance();
-    final var statement = connection.createStatement();
-    final var resultSet = statement.executeQuery(query);
-    while (resultSet.next()) {
-      final var rut = resultSet.getString(1);
-      final var type = resultSet.getShort(2);
-      final var name = resultSet.getString(3);
-      final var allergy = Allergy.createInstance(rut, type, name);
-      set.add(allergy);
-    }
-    return set;
+  public String getQuery() throws IOException {
+    return TextFileUtils.readString(GET_QUERY_PATH);
+  }
+
+  @Override
+  public String getAllQuery() throws IOException {
+    return TextFileUtils.readString(GET_ALL_QUERY_PATH);
+  }
+
+  @Override
+  public String saveQuery() throws IOException {
+    return TextFileUtils.readString(SAVE_QUERY_PATH);
+  }
+
+  @Override
+  public String updateQuery() throws IOException {
+    return TextFileUtils.readString(UPDATE_QUERY_PATH);
+  }
+
+  @Override
+  public void setKeyParameter(PreparedStatement statement, String rut) throws SQLException {
+    statement.setString(1, rut);
+  }
+
+  @Override
+  public void saveTuple(PreparedStatement statement, Allergy allergy) throws SQLException {
+    statement.setString(1, allergy.rut());
+    statement.setShort(2, (short) allergy.type().getIndex());
+    statement.setString(3, allergy.name());
+    statement.executeUpdate();
+  }
+
+  @Override
+  public Allergy readTuple(ResultSet resultSet) throws SQLException {
+    final var rut = resultSet.getString(1);
+    final var allergyType = resultSet.getShort(2);
+    final var name = resultSet.getString(3);
+    return Allergy.createInstance(rut, allergyType, name);
+  }
+
+  @Override
+  public void updateTuple(PreparedStatement statement, Allergy allergy) throws SQLException {
+    statement.setShort(1, (short) allergy.type().getIndex());
+    statement.setString(2, allergy.name());
+    statement.setString(3, allergy.rut());
+    statement.executeUpdate();
   }
 }

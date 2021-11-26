@@ -26,7 +26,7 @@ public interface GenericReadOnlyDAO<T, ID> {
     setKeyParameter(statement, id);
     final var resultSet = statement.executeQuery();
     final var optional =
-        resultSet.isBeforeFirst() ? Optional.of(readTuple(resultSet)) : Optional.<T>empty();
+        resultSet.next() ? Optional.of(readTuple(resultSet)) : Optional.<T>empty();
     resultSet.close();
     statement.close();
     return optional;
