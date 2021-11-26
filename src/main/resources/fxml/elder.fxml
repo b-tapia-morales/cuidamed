@@ -1,375 +1,289 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<AnchorPane prefHeight="600.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/17"
-  xmlns:fx="http://javafx.com/fxml/1"
-  fx:controller="com.bairontapia.projects.cuidamed.mvc.person.ElderView">
-  <VBox layoutX="240.0" layoutY="29.0" prefHeight="600.0" prefWidth="710.0"
-    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-    AnchorPane.topAnchor="0.0">
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bairontapia.projects.cuidamed.mvc.person.ElderView">
+  <VBox layoutX="240.0" layoutY="29.0" prefHeight="600.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
     <AnchorPane prefHeight="375.0" prefWidth="200.0">
-      <HBox layoutX="230.0" layoutY="87.0" prefHeight="300.0" prefWidth="710.0"
-        AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-        AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox layoutX="230.0" layoutY="87.0" prefHeight="300.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <AnchorPane prefHeight="200.0" prefWidth="355.0">
-          <VBox alignment="CENTER" layoutX="110.0" layoutY="47.0"
-            prefHeight="350.0" prefWidth="355.0" AnchorPane.bottomAnchor="0.0"
-            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-            AnchorPane.topAnchor="0.0">
-            <HBox alignment="CENTER" prefHeight="35.0" prefWidth="200.0"
-              spacing="10.0">
-              <Separator prefWidth="100.0"/>
-              <Label text="Ficha del adulto mayor"/>
-              <Separator prefWidth="100.0"/>
+          <VBox alignment="CENTER" layoutX="110.0" layoutY="47.0" prefHeight="350.0" prefWidth="355.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <HBox alignment="CENTER" prefHeight="35.0" prefWidth="200.0" spacing="10.0">
+              <Separator prefWidth="100.0" />
+              <Label text="Ficha del adulto mayor" />
+              <Separator prefWidth="100.0" />
             </HBox>
             <GridPane alignment="CENTER">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-                  prefWidth="80.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-                  prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
               <opaqueInsets>
-                <Insets/>
+                <Insets />
               </opaqueInsets>
-              <Label text="Rut" GridPane.halignment="RIGHT"
-                GridPane.valignment="CENTER">
+              <Label text="Rut" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Nombre" GridPane.halignment="RIGHT"
-                GridPane.rowIndex="1">
+              <Label text="Nombre" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Apellido paterno" GridPane.halignment="RIGHT"
-                GridPane.rowIndex="2">
+              <Label text="Apellido paterno" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Apellido materno" GridPane.halignment="RIGHT"
-                GridPane.rowIndex="3">
+              <Label text="Apellido materno" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Fecha de nacimiento" GridPane.halignment="RIGHT"
-                GridPane.rowIndex="4">
+              <Label text="Fecha de nacimiento" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Sexo" GridPane.halignment="RIGHT"
-                GridPane.rowIndex="5">
+              <Label text="Sexo" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Activo" GridPane.halignment="RIGHT"
-                GridPane.rowIndex="6">
+              <Label text="Activo" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Fecha de admisión" GridPane.halignment="RIGHT"
-                GridPane.rowIndex="7">
+              <Label text="Fecha de admisión" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <TextField editable="false" GridPane.columnIndex="1">
+              <TextField fx:id="rutField" editable="false" GridPane.columnIndex="1">
                 <GridPane.margin>
-                  <Insets left="5.0" right="5.0"/>
+                  <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 <GridPane.margin>
-                  <Insets left="5.0" right="5.0"/>
+                  <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField GridPane.columnIndex="1" GridPane.rowIndex="2">
+              <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="2">
                 <GridPane.margin>
-                  <Insets left="5.0" right="5.0"/>
+                  <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField GridPane.columnIndex="1" GridPane.rowIndex="3">
+              <TextField fx:id="secondLastNameField" GridPane.columnIndex="1" GridPane.rowIndex="3">
                 <GridPane.margin>
-                  <Insets left="5.0" right="5.0"/>
+                  <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="4">
+              <DatePicker fx:id="birthDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="4">
                 <GridPane.margin>
-                  <Insets left="5.0"/>
+                  <Insets left="5.0" />
                 </GridPane.margin>
               </DatePicker>
-              <ComboBox prefWidth="160.0" GridPane.columnIndex="1"
-                GridPane.rowIndex="5">
+              <ComboBox fx:id="genderComboBox" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                 <GridPane.margin>
-                  <Insets left="5.0"/>
+                  <Insets left="5.0" />
                 </GridPane.margin>
               </ComboBox>
-              <CheckBox mnemonicParsing="false" GridPane.columnIndex="1"
-                GridPane.rowIndex="6">
+              <CheckBox fx:id="isActiveCheckBox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="6">
                 <GridPane.margin>
-                  <Insets left="5.0"/>
+                  <Insets left="5.0" />
                 </GridPane.margin>
               </CheckBox>
-              <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="7">
+              <DatePicker fx:id="admissionDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="7">
                 <GridPane.margin>
-                  <Insets left="5.0"/>
+                  <Insets left="5.0" />
                 </GridPane.margin>
               </DatePicker>
-              <Label text="Grupo sanguíneo" GridPane.halignment="RIGHT"
-                GridPane.rowIndex="8">
+              <Label text="Grupo sanguíneo" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <ComboBox prefWidth="160.0" GridPane.columnIndex="1"
-                GridPane.rowIndex="8">
+              <ComboBox fx:id="bloodTypeComboBox" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                 <GridPane.margin>
-                  <Insets left="5.0"/>
+                  <Insets left="5.0" />
                 </GridPane.margin>
               </ComboBox>
-              <Label text="Sistema de Salud" GridPane.halignment="RIGHT"
-                GridPane.rowIndex="9">
+              <Label text="Sistema de Salud" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <ComboBox prefWidth="160.0" GridPane.columnIndex="1"
-                GridPane.rowIndex="9">
+              <ComboBox fx:id="healthCareComboBox" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
                 <GridPane.margin>
-                  <Insets left="5.0"/>
+                  <Insets left="5.0" />
                 </GridPane.margin>
               </ComboBox>
             </GridPane>
           </VBox>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="355.0">
-          <VBox alignment="CENTER" layoutX="128.0" layoutY="59.0"
-            prefHeight="350.0" prefWidth="355.0" AnchorPane.bottomAnchor="0.0"
-            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-            AnchorPane.topAnchor="0.0">
-            <HBox alignment="CENTER" prefHeight="35.0" prefWidth="200.0"
-              spacing="10.0">
-              <Separator prefWidth="65.0"/>
-              <Label text="Información personal del responsable"/>
-              <Separator prefWidth="65.0"/>
+          <VBox alignment="CENTER" layoutX="128.0" layoutY="59.0" prefHeight="350.0" prefWidth="355.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <HBox alignment="CENTER" prefHeight="35.0" prefWidth="200.0" spacing="10.0">
+              <Separator prefWidth="65.0" />
+              <Label text="Información personal del responsable" />
+              <Separator prefWidth="65.0" />
             </HBox>
             <GridPane>
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-                  prefWidth="40.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-                  prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
               <Label text="Rut" GridPane.halignment="RIGHT">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Nombre completo" GridPane.halignment="RIGHT"
-                GridPane.rowIndex="1">
+              <Label text="Nombre completo" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Fecha de nacimiento" GridPane.halignment="RIGHT"
-                GridPane.rowIndex="2">
+              <Label text="Fecha de nacimiento" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Edad" GridPane.halignment="RIGHT"
-                GridPane.rowIndex="3">
+              <Label text="Edad" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Sexo" GridPane.halignment="RIGHT"
-                GridPane.rowIndex="4">
+              <Label text="Sexo" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Teléfono móvil" GridPane.halignment="RIGHT"
-                GridPane.rowIndex="5">
+              <Label text="Teléfono móvil" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
               <TextField editable="false" GridPane.columnIndex="1">
                 <GridPane.margin>
-                  <Insets left="5.0" right="5.0"/>
+                  <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField editable="false" GridPane.columnIndex="1"
-                GridPane.rowIndex="1">
+              <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 <GridPane.margin>
-                  <Insets left="5.0" right="5.0"/>
+                  <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField editable="false" GridPane.columnIndex="1"
-                GridPane.rowIndex="2">
+              <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
                 <GridPane.margin>
-                  <Insets left="5.0" right="5.0"/>
+                  <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField editable="false" GridPane.columnIndex="1"
-                GridPane.rowIndex="3">
+              <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3">
                 <GridPane.margin>
-                  <Insets left="5.0" right="5.0"/>
+                  <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField editable="false" GridPane.columnIndex="1"
-                GridPane.rowIndex="4">
+              <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
                 <GridPane.margin>
-                  <Insets left="5.0" right="5.0"/>
+                  <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField editable="false" GridPane.columnIndex="1"
-                GridPane.rowIndex="5">
+              <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5">
                 <GridPane.margin>
-                  <Insets left="5.0" right="5.0"/>
+                  <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
             </GridPane>
-            <HBox alignment="CENTER" prefHeight="35.0" prefWidth="200.0"
-              spacing="10.0">
-              <Separator prefWidth="95.0"/>
-              <Label text="Dirección del responsable"/>
-              <Separator prefWidth="95.0"/>
+            <HBox alignment="CENTER" prefHeight="35.0" prefWidth="200.0" spacing="10.0">
+              <Separator prefWidth="95.0" />
+              <Label text="Dirección del responsable" />
+              <Separator prefWidth="95.0" />
             </HBox>
             <GridPane>
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.0"
-                  minWidth="10.0" prefWidth="40.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.0"
-                  minWidth="10.0" prefWidth="200.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.0" minWidth="10.0" prefWidth="40.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.0" minWidth="10.0" prefWidth="200.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0"
-                  vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
               <Label text="Región" GridPane.halignment="RIGHT">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Provincia" GridPane.halignment="RIGHT"
-                GridPane.rowIndex="1">
+              <Label text="Provincia" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Comuna" GridPane.halignment="RIGHT"
-                GridPane.rowIndex="2">
+              <Label text="Comuna" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Calle" GridPane.halignment="RIGHT"
-                GridPane.rowIndex="3">
+              <Label text="Calle" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Número" GridPane.halignment="RIGHT"
-                GridPane.rowIndex="4">
+              <Label text="Número" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                 <GridPane.margin>
-                  <Insets right="10.0"/>
+                  <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
               <TextField editable="false" GridPane.columnIndex="1">
                 <GridPane.margin>
-                  <Insets left="5.0" right="5.0"/>
+                  <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField editable="false" GridPane.columnIndex="1"
-                GridPane.rowIndex="1">
+              <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 <GridPane.margin>
-                  <Insets left="5.0" right="5.0"/>
+                  <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField editable="false" GridPane.columnIndex="1"
-                GridPane.rowIndex="2">
+              <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
                 <GridPane.margin>
-                  <Insets left="5.0" right="5.0"/>
+                  <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
               <TextField GridPane.columnIndex="1" GridPane.rowIndex="3">
                 <GridPane.margin>
-                  <Insets left="5.0" right="5.0"/>
+                  <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField editable="false" GridPane.columnIndex="1"
-                GridPane.rowIndex="4">
+              <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
                 <GridPane.margin>
-                  <Insets left="5.0" right="5.0"/>
+                  <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
             </GridPane>
@@ -378,61 +292,41 @@
       </HBox>
     </AnchorPane>
     <AnchorPane prefHeight="225.0" prefWidth="200.0">
-      <TabPane layoutX="94.0" layoutY="7.0" prefWidth="710.0"
-        tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0"
-        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-        AnchorPane.topAnchor="0.0">
+      <TabPane layoutX="94.0" layoutY="7.0" prefWidth="710.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <Tab text="Alergias">
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-            prefWidth="200.0">
-            <TableView layoutX="47.0" layoutY="6.0" prefHeight="211.0"
-              prefWidth="710.0" AnchorPane.bottomAnchor="0.0"
-              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-              AnchorPane.topAnchor="0.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <TableView layoutX="47.0" layoutY="6.0" prefHeight="211.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
-                <TableColumn prefWidth="250.0" text="Tipo"/>
-                <TableColumn prefWidth="450.0" text="Detalles"/>
+                <TableColumn prefWidth="250.0" text="Tipo" />
+                <TableColumn prefWidth="450.0" text="Detalles" />
               </columns>
             </TableView>
           </AnchorPane>
         </Tab>
         <Tab text="Chequeos rutinarios">
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-            prefWidth="200.0">
-            <TableView layoutX="31.0" layoutY="6.0" prefHeight="211.0"
-              prefWidth="710.0" AnchorPane.bottomAnchor="0.0"
-              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-              AnchorPane.topAnchor="0.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <TableView layoutX="31.0" layoutY="6.0" prefHeight="211.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
-                <TableColumn resizable="false" text="Fecha"/>
-                <TableColumn prefWidth="70.0" resizable="false"
-                  text="Altura"/>
-                <TableColumn prefWidth="70.0" resizable="false" text="Peso"/>
-                <TableColumn prefWidth="70.0" resizable="false" text="IMC"/>
-                <TableColumn prefWidth="100.0" resizable="false"
-                  text="Ritmo cardíaco"/>
-                <TableColumn prefWidth="110.0" resizable="false"
-                  text="Presión diastólica"/>
-                <TableColumn prefWidth="110.0" resizable="false"
-                  text="Presión sistólica"/>
-                <TableColumn prefWidth="90.0" resizable="false"
-                  text="Temperatura"/>
+                <TableColumn resizable="false" text="Fecha" />
+                <TableColumn prefWidth="70.0" resizable="false" text="Altura" />
+                <TableColumn prefWidth="70.0" resizable="false" text="Peso" />
+                <TableColumn prefWidth="70.0" resizable="false" text="IMC" />
+                <TableColumn prefWidth="100.0" resizable="false" text="Ritmo cardíaco" />
+                <TableColumn prefWidth="110.0" resizable="false" text="Presión diastólica" />
+                <TableColumn prefWidth="110.0" resizable="false" text="Presión sistólica" />
+                <TableColumn prefWidth="90.0" resizable="false" text="Temperatura" />
               </columns>
             </TableView>
           </AnchorPane>
         </Tab>
         <Tab text="Intervenciones quirúrgicas">
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-            prefWidth="200.0">
-            <TableView layoutX="93.0" layoutY="11.0" prefHeight="221.0"
-              prefWidth="710.0" AnchorPane.bottomAnchor="0.0"
-              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-              AnchorPane.topAnchor="0.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <TableView layoutX="93.0" layoutY="11.0" prefHeight="221.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
-                <TableColumn prefWidth="120.0" text="Fecha"/>
-                <TableColumn prefWidth="150.0" text="Hospital"/>
-                <TableColumn prefWidth="120.0" text="Severidad"/>
-                <TableColumn prefWidth="310.0" text="Descripción"/>
+                <TableColumn prefWidth="120.0" text="Fecha" />
+                <TableColumn prefWidth="150.0" text="Hospital" />
+                <TableColumn prefWidth="120.0" text="Severidad" />
+                <TableColumn prefWidth="310.0" text="Descripción" />
               </columns>
             </TableView>
           </AnchorPane>
