@@ -59,9 +59,9 @@ public class AllergyDAO implements GenericCrudDAO<Allergy, String> {
   @Override
   public Allergy readTuple(ResultSet resultSet) throws SQLException {
     final var rut = resultSet.getString(1);
-    final var allergyType = resultSet.getShort(2);
-    final var name = resultSet.getString(3);
-    return Allergy.createInstance(rut, allergyType, name);
+    final var type = resultSet.getShort(2);
+    final var details = resultSet.getString(3);
+    return Allergy.createInstance(rut, type, details);
   }
 
   @Override
