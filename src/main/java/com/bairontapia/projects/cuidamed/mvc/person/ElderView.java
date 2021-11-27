@@ -4,8 +4,11 @@ import com.bairontapia.projects.cuidamed.mappings.bloodtype.BloodType;
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.mappings.healthcaresystem.HealthCare;
 import com.bairontapia.projects.cuidamed.medicalrecord.allergy.Allergy;
+import com.bairontapia.projects.cuidamed.medicalrecord.allergy.AllergyDAO;
 import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineCheckup;
 import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineCheckupDAO;
+import com.bairontapia.projects.cuidamed.medicalrecord.surgicalintervention.SurgicalIntervention;
+import com.bairontapia.projects.cuidamed.medicalrecord.surgicalintervention.SurgicalInterventionDAO;
 import com.bairontapia.projects.cuidamed.person.address.Address;
 import com.bairontapia.projects.cuidamed.person.address.AddressDAO;
 import com.bairontapia.projects.cuidamed.person.elder.Elder;
@@ -88,6 +91,7 @@ public class ElderView {
   private TableColumn<Allergy, String> allergyType;
   @FXML
   private TableColumn<Allergy, String> allergyDetails;
+
   @FXML
   private TableView<RoutineCheckup> checkupTableView;
   @FXML
@@ -107,19 +111,35 @@ public class ElderView {
   @FXML
   private TableColumn<RoutineCheckup, Double> bodyTemperature;
 
+  @FXML
+  private TableView<SurgicalIntervention> surgicalInterventionTable;
+  @FXML
+  private TableColumn<SurgicalIntervention, LocalDate> interventionDate;
+  @FXML
+  private TableColumn<SurgicalIntervention, String> hospital;
+  @FXML
+  private TableColumn<SurgicalIntervention, String> severity;
+  @FXML
+  private TableColumn<SurgicalIntervention, String> description;
+
   public void initialize() throws SQLException, IOException {
     initializeComboBoxes();
     initializeAllergyTable();
     initializeCheckupTable();
-    final Elder elder = ElderDAO.getInstance().find("5875397-1").get();
+    initializeSurgicalInterventionTable();
+    final Elder elder = ElderDAO.getInstance().find("5902831-6").orElseThrow();
     fillElderFields(elder);
     final var responsibleKey = elder.responsibleRut();
-    final var responsible = ResponsibleDAO.getInstance().find(responsibleKey).get();
+    final var responsible = ResponsibleDAO.getInstance().find(responsibleKey).orElseThrow();
     fillResponsibleFields(responsible);
-    final var address = AddressDAO.getInstance().find(responsibleKey).get();
+    final var address = AddressDAO.getInstance().find(responsibleKey).orElseThrow();
     fillAddressFields(address);
-    final var routineCheckup = RoutineCheckupDAO.getInstance().findAll("5875397-1");
-    fillRoutineCheckupTable(routineCheckup);
+    final var allergies = AllergyDAO.getInstance().findAll("5902831-6");
+    fillAllergyTable(allergies);
+    final var routineCheckups = RoutineCheckupDAO.getInstance().findAll("5902831-6");
+    fillRoutineCheckupTable(routineCheckups);
+    final var surgicalInterventions = SurgicalInterventionDAO.getInstance().findAll("5902831-6");
+    fillSurgicalInterventionTable(surgicalInterventions);
   }
 
   private void initializeComboBoxes() {
@@ -146,6 +166,14 @@ public class ElderView {
         e -> new SimpleDoubleProperty(e.getValue().systolicPressure()).asObject());
     bodyTemperature.setCellValueFactory(
         e -> new SimpleDoubleProperty(e.getValue().bodyTemperature()).asObject());
+  }
+
+  private void initializeSurgicalInterventionTable() {
+    interventionDate
+        .setCellValueFactory(e -> new SimpleObjectProperty<>(e.getValue().interventionDate()));
+    hospital.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().hospital()));
+    severity.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().severity().toString()));
+    description.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().description()));
   }
 
   private void fillElderFields(final Elder elder) {
@@ -179,8 +207,20 @@ public class ElderView {
     number.setText(address.number().toString());
   }
 
+  private void fillAllergyTable(final Collection<Allergy> allergies) {
+    allergyTableView.getItems().clear();
+    allergyTableView.getItems().addAll(allergies);
+  }
+
   private void fillRoutineCheckupTable(final Collection<RoutineCheckup> routineCheckups) {
+    checkupTableView.getItems().clear();
     checkupTableView.getItems().addAll(routineCheckups);
+  }
+
+  private void fillSurgicalInterventionTable(
+      final Collection<SurgicalIntervention> surgicalInterventions) {
+    surgicalInterventionTable.getItems().clear();
+    surgicalInterventionTable.getItems().addAll(surgicalInterventions);
   }
 
 }
