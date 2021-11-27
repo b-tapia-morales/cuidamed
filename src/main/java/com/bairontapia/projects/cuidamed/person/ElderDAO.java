@@ -58,9 +58,10 @@ public class ElderDAO implements GenericCrudDAO<Elder, String> {
     statement.setString(4, elder.secondLastName());
     statement.setDate(5, Date.valueOf(elder.birthDate()));
     statement.setShort(6, (short) elder.gender().getIndex());
-    statement.setBoolean(7, elder.isActive());
-    statement.setDate(8, Date.valueOf(elder.admissionDate()));
-    statement.setString(9, elder.responsibleRut());
+    statement.setString(7, elder.rut());
+    statement.setBoolean(8, elder.isActive());
+    statement.setDate(9, Date.valueOf(elder.admissionDate()));
+    statement.setString(10, elder.responsibleRut());
     statement.executeUpdate();
   }
 
