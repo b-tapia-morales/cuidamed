@@ -1,8 +1,7 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.surgicalintervention;
 
-import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
 import com.bairontapia.projects.cuidamed.daotemplate.GenericReadAndWriteDAO;
-import com.bairontapia.projects.cuidamed.daotemplate.ReadOnlyDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.OneToManyDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -13,9 +12,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SurgicalInterventionDAO
-    implements GenericReadAndWriteDAO<SurgicalIntervention, String> {
+    implements GenericReadAndWriteDAO<SurgicalIntervention, String>,
+    OneToManyDAO<SurgicalIntervention, String> {
 
-  private static SurgicalInterventionDAO INSTANCE = new SurgicalInterventionDAO();
+  private static final SurgicalInterventionDAO INSTANCE = new SurgicalInterventionDAO();
   private static final String RELATIVE_PATH_STRING =
       DirectoryPathUtils.relativePathString("scripts", "class_queries", "surgical_intervention");
   private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
@@ -55,23 +55,15 @@ public class SurgicalInterventionDAO
   @Override
   public SurgicalIntervention readTuple(ResultSet resultSet) throws SQLException {
     final var elderRut = resultSet.getString(1);
-    final var firstNames = resultSet.getString(2);
+    final var firstName = resultSet.getString(2);
     final var lastName = resultSet.getString(3);
     final var secondLastName = resultSet.getString(4);
     final var interventionDate = resultSet.getDate(5);
     final var hospital = resultSet.getString(6);
     final var severity = resultSet.getShort(7);
     final var description = resultSet.getString(8);
-
-    return SurgicalIntervention.createInstance(
-        elderRut,
-        firstNames,
-        lastName,
-        secondLastName,
-        interventionDate,
-        hospital,
-        severity,
-        description);
+    return SurgicalIntervention.createInstance(elderRut, firstName, lastName, secondLastName,
+        interventionDate, hospital, severity, description);
   }
 
   @Override

@@ -7,16 +7,17 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public record SurgicalIntervention(String rut, String firstNames, String lastName,
-                                   String secondLastName, LocalDate interventionDate,
+public record SurgicalIntervention(String rut, String fullName, LocalDate interventionDate,
                                    String hospital,
                                    Short severity, String description) {
 
-  public static SurgicalIntervention createInstance(String rut, String firstNames, String lastName,
-      String secondLastName, Date interventionDate,
-      String hospital, short severity, String description) {
-    return new SurgicalIntervention(rut, firstNames, lastName, secondLastName,
-        interventionDate.toLocalDate(), hospital, severity, description);
+  public static SurgicalIntervention createInstance(String rut, String firstName, String lastName,
+      String secondLastName, Date interventionDate, String hospital, short severity,
+      String description) {
+    return new SurgicalIntervention(rut,
+        StringUtils.joinWith(" ", firstName, lastName, secondLastName),
+        interventionDate.toLocalDate(), hospital, severity,
+        description);
   }
 
   @Override
@@ -45,14 +46,12 @@ public record SurgicalIntervention(String rut, String firstNames, String lastNam
   public String toString() {
     return
         String.format("""
-                Rut:\t\t\t\t\t\t\t\t\t\t\t%s
-                Nombre completo:\t\t\t\t\t%s
-                Fecha de intervención:\t\t%s
-                Hospital:\t\t\t\t\t\t\t\t\t%s
-                Severidad:\t\t\t\t\t\t\t\t%s
-                Descripción:\t\t\t\t\t\t\t%s
-                """, RutUtils.format(rut),
-            StringUtils.joinWith(" ", firstNames, lastName, secondLastName), interventionDate,
-            hospital, severity, description);
+            Rut:\t\t\t\t\t\t\t\t\t\t\t%s
+            Nombre completo:\t\t\t\t\t%s
+            Fecha de intervención:\t\t%s
+            Hospital:\t\t\t\t\t\t\t\t\t%s
+            Severidad:\t\t\t\t\t\t\t\t%s
+            Descripción:\t\t\t\t\t\t\t%s
+            """, RutUtils.format(rut), fullName, interventionDate, hospital, severity, description);
   }
 }

@@ -1,18 +1,17 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup;
 
 import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
-import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.GenericReadAndWriteDAO;
 import com.bairontapia.projects.cuidamed.daotemplate.OneToManyDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class RoutineCheckupDAO implements GenericCrudDAO<RoutineCheckup, String>,
+public class RoutineCheckupDAO implements GenericReadAndWriteDAO<RoutineCheckup, String>,
     OneToManyDAO<RoutineCheckup, String> {
 
   private static final RoutineCheckupDAO INSTANCE = new RoutineCheckupDAO();
@@ -73,31 +72,4 @@ public class RoutineCheckupDAO implements GenericCrudDAO<RoutineCheckup, String>
     var connection = ConnectionSingleton.getInstance();
   }
 
-  @Override
-  public String updateQuery() throws IOException {
-    return TextFileUtils.readString(UPDATE_QUERY_PATH);
-  }
-
-  @Override
-  public void updateTuple(PreparedStatement statement, RoutineCheckup routineCheckup)
-      throws SQLException {
-
-  }
-
-  @Override
-  public void update(RoutineCheckup routineCheckup) throws IOException, SQLException {
-    var connection = ConnectionSingleton.getInstance();
-    var query = TextFileUtils.readString(UPDATE_QUERY_PATH);
-    var statement = connection.prepareStatement(query);
-    statement.setString(1, routineCheckup.rut());
-    statement.setDate(2, Date.valueOf(routineCheckup.checkupDate()));
-    statement.setDouble(3, routineCheckup.height());
-    statement.setDouble(4, routineCheckup.weight());
-    statement.setDouble(5, routineCheckup.bmi());
-    statement.setShort(6, routineCheckup.heartRate());
-    statement.setDouble(7, routineCheckup.diastolicPressure());
-    statement.setDouble(8, routineCheckup.systolicPressure());
-    statement.setDouble(9, routineCheckup.bodyTemperature());
-    statement.executeUpdate();
-  }
 }
