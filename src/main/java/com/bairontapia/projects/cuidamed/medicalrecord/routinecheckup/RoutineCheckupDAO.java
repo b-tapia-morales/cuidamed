@@ -7,24 +7,16 @@ import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class RoutineCheckupDAO implements GenericCrudDAO<RoutineCheckup, String>,
     OneToManyDAO<RoutineCheckup, String> {
 
-  private static final RoutineCheckupDAO INSTANCE = new RoutineCheckupDAO();
-  private static final String RELATIVE_PATH_STRING =
-      DirectoryPathUtils.relativePathString("scripts", "class_queries", "routine_checkup");
-  private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
-  private static final Path FIND_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
-  private static final Path SAVE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "save.sql");
+  private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
+      .relativePathString("scripts", "class_queries", "routine_checkup");
+  private static final Path GET_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
+  private static final Path GET_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
   private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
-
-  public static RoutineCheckupDAO getInstance() {
-    return INSTANCE;
-  }
 
   @Override
   public String findQuery() throws IOException {
@@ -57,9 +49,9 @@ public class RoutineCheckupDAO implements GenericCrudDAO<RoutineCheckup, String>
   }
 
   @Override
-  public String saveQuery() throws IOException {
-    return TextFileUtils.readString(SAVE_QUERY_PATH);
-  }
+  public void save(RoutineCheckup routineCheckup) throws IOException, SQLException {
+    var connection = ConnectionSingleton.getInstance();
+
 
   @Override
   public String updateQuery() throws IOException {
@@ -67,8 +59,10 @@ public class RoutineCheckupDAO implements GenericCrudDAO<RoutineCheckup, String>
   }
 
   @Override
-  public void saveTuple(PreparedStatement statement, RoutineCheckup routineCheckup)
-      throws SQLException {
+  public void update(RoutineCheckup routineCheckup) throws IOException, SQLException {
+    var connection = ConnectionSingleton.getInstance();
+    var query = TextFileUtils.readString(UPDATE_QUERY_PATH);
+    var statement = connection.prepareStatement(query);
     statement.setString(1, routineCheckup.rut());
     statement.setDate(2, Date.valueOf(routineCheckup.checkupDate()));
     statement.setDouble(3, routineCheckup.height());
@@ -78,20 +72,6 @@ public class RoutineCheckupDAO implements GenericCrudDAO<RoutineCheckup, String>
     statement.setDouble(7, routineCheckup.diastolicPressure());
     statement.setDouble(8, routineCheckup.systolicPressure());
     statement.setDouble(9, routineCheckup.bodyTemperature());
-    statement.executeUpdate();
-  }
-
-  @Override
-  public void updateTuple(PreparedStatement statement, RoutineCheckup routineCheckup)
-      throws SQLException {
-    statement.setDouble(1, routineCheckup.height());
-    statement.setDouble(2, routineCheckup.weight());
-    statement.setDouble(3, routineCheckup.bmi());
-    statement.setShort(4, routineCheckup.heartRate());
-    statement.setDouble(5, routineCheckup.diastolicPressure());
-    statement.setDouble(6, routineCheckup.systolicPressure());
-    statement.setDouble(7, routineCheckup.bodyTemperature());
-    statement.setString(8, routineCheckup.rut());
     statement.executeUpdate();
   }
 }

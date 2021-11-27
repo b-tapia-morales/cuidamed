@@ -7,6 +7,11 @@ import java.util.Objects;
 
 public record Disease(String disease_name, DiseaseType diseaseType, Boolean is_chronic) {
 
+
+  public static Disease createInstance(String diseaseName, short diseaseType, boolean isChronic) {
+    return new Disease(diseaseName, DiseaseType.getValueFromIndex(diseaseType), isChronic);
+  }
+
   @Override
   public boolean equals(Object object) {
     if (this == object) {

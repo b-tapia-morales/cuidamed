@@ -1,12 +1,22 @@
-package com.bairontapia.projects.cuidamed.disease;
+package com.bairontapia.projects.cuidamed.disease.medicationprescription;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public record MedicationPrescription(String rut, String diseaseName, LocalDate prescriptionDate,
-                                     String medicationName, LocalDate startDate, LocalDate endDate,
-                                     Integer frequency, Integer quantity) {
+                                     String medicationName, LocalDate startDate,
+                                     LocalDate endDate) {
+
+  public static MedicationPrescription createInstance(String rut, String diseaseName,
+      Date prescriptionDate, String medicationName, Date startDate, Date endDate) {
+    if (endDate != null) {
+      return new MedicationPrescription(rut, diseaseName, prescriptionDate.toLocalDate(),
+          medicationName, startDate.toLocalDate(), endDate.toLocalDate());
+    }else return new MedicationPrescription(rut, diseaseName, prescriptionDate.toLocalDate(),
+        medicationName, startDate.toLocalDate(), null);
+  }
 
   public boolean equals(Object object) {
     if (this == object) {

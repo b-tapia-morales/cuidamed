@@ -1,4 +1,4 @@
-package com.bairontapia.projects.cuidamed.person;
+package com.bairontapia.projects.cuidamed.person.responsible;
 
 import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
