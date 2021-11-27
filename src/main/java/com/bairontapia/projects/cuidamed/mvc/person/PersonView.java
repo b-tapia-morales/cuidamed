@@ -66,7 +66,7 @@ public class PersonView {
     final var set = new LinkedHashSet<Person>();
     switch (choice) {
       case ELDER -> set.addAll(ElderDAO.getInstance().findAll());
-      case CARER -> set.addAll(CarerDAO.getInstance().getAll());
+      case CARER -> set.addAll(CarerDAO.getInstance().findAll());
       case RESPONSIBLE -> set.addAll(ResponsibleDAO.getInstance().findAll());
     }
     personTableView.getItems().clear();
