@@ -12,16 +12,19 @@ import java.sql.SQLException;
 
 public class CarerDAO implements GenericCrudDAO<Carer, String> {
 
+
+  private static final CarerDAO INSTANCE = new CarerDAO();
+
   private static final String RELATIVE_PATH_STRING =
       DirectoryPathUtils.relativePathString("scripts", "class_queries", "carer");
-  private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
+
   private static final Path FIND_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
+  private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
   private static final Path SAVE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "save.sql");
   private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
-  private static CarerDAO instance = new CarerDAO();
 
   public static CarerDAO getInstance() {
-    return instance;
+    return INSTANCE;
   }
 
   @Override
@@ -87,14 +90,7 @@ public class CarerDAO implements GenericCrudDAO<Carer, String> {
     final var genderCode = resultSet.getShort(6);
     final var mobilePhone = resultSet.getInt(7);
     final var hireDate = resultSet.getDate(8);
-    return Carer.createInstance(
-        carerRut,
-        firstName,
-        lastName,
-        secondLastName,
-        birthDate,
-        genderCode,
-        mobilePhone,
-        hireDate);
+    return Carer.createInstance(carerRut, firstName, lastName, secondLastName, birthDate,
+        genderCode, mobilePhone, hireDate);
   }
 }
