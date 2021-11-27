@@ -37,12 +37,12 @@
                   <Insets left="5.0" />
                 </GridPane.margin>
               </ComboBox>
-              <DatePicker fx:id="birthDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="4">
+              <DatePicker fx:id="birthDatePicker" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
                 <GridPane.margin>
                   <Insets left="5.0" />
                 </GridPane.margin>
               </DatePicker>
-              <DatePicker fx:id="admissionDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="8">
+              <DatePicker fx:id="admissionDatePicker" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="8">
                 <GridPane.margin>
                   <Insets left="5.0" />
                 </GridPane.margin>

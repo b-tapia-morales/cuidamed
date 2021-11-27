@@ -17,10 +17,10 @@ import com.bairontapia.projects.cuidamed.person.responsible.Responsible;
 import com.bairontapia.projects.cuidamed.person.responsible.ResponsibleDAO;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -159,10 +159,24 @@ public class ElderView {
   }
 
   @FXML
-  public void onUpdatedFields() {
+  public void onUpdatedFields() throws SQLException, IOException {
     if (areFieldsEmpty() || areFieldsTooShort() || areFieldsIncorrect()) {
       fillElderFields(elder);
     }
+    final var rutField = RutUtils.removeDots(rut.getText());
+    final var nameField = StringUtils.trim(name.getText());
+    final var lastNameField = StringUtils.trim(lastName.getText());
+    final var secondLastNameField = StringUtils.trim(secondLastName.getText());
+    final var birthDateField = birthDatePicker.getValue();
+    final var genderCode = (short) genderComboBox.getSelectionModel().getSelectedItem().getCode();
+    final var isActiveField = isActiveCheckBox.isSelected();
+    final var admissionDateField = admissionDatePicker.getValue();
+    final var responsibleRutField = RutUtils.removeDots(responsibleRut.getText());
+    final var elder = Elder.createInstance(rutField, nameField, lastNameField,
+        secondLastNameField, Date.valueOf(birthDateField), genderCode, isActiveField,
+        Date.valueOf(admissionDateField), responsibleRutField);
+    ElderDAO.getInstance().update(elder);
+    setElder(elder);
   }
 
   private boolean areFieldsEmpty() {
@@ -181,16 +195,11 @@ public class ElderView {
   private boolean areFieldsIncorrect() {
     final var birthDateField = birthDatePicker.getValue();
     final var admissionDateField = admissionDatePicker.getValue();
-    try {
-      LocalDate.parse(birthDateField.toString());
-      LocalDate.parse(admissionDateField.toString());
-    } catch (final DateTimeParseException exception) {
-      return true;
-    }
     final var now = LocalDate.now();
     final var age = Period.between(birthDateField, now).getYears();
     final var days = Period.between(admissionDateField, now).getDays();
-    return age < 65 || age > 120 || days < 0;
+    final var years = Period.between(admissionDateField, now).getYears();
+    return age < 65 || age > 120 || days < 0 || years > 5;
   }
 
   private void initializeComboBoxes() {
