@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-public interface OneToManyDAO<T, ID> extends GenericCrudDAO<T, ID> {
+public interface OneToManyDAO<T, ID> extends GenericReadOnlyDAO<T, ID> {
 
   default Collection<T> findAll(ID id) throws IOException, SQLException {
     final var query = findQuery();

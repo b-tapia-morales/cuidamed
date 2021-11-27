@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bairontapia.projects.cuidamed.mvc.person.ElderView">
-  <VBox layoutX="240.0" layoutY="29.0" prefHeight="600.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-    <AnchorPane prefHeight="375.0" prefWidth="200.0">
+<AnchorPane prefHeight="640.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bairontapia.projects.cuidamed.mvc.person.ElderView">
+  <VBox layoutX="240.0" layoutY="29.0" prefHeight="640.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <AnchorPane prefHeight="390.0">
       <HBox layoutX="230.0" layoutY="87.0" prefHeight="300.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <AnchorPane prefHeight="200.0" prefWidth="355.0">
           <VBox alignment="CENTER" layoutX="110.0" layoutY="47.0" prefHeight="350.0" prefWidth="355.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <HBox alignment="CENTER" prefHeight="35.0" prefWidth="200.0" spacing="10.0">
+            <HBox alignment="CENTER" prefHeight="35.0" spacing="10.0">
               <Separator prefWidth="100.0" />
               <Label text="Ficha del adulto mayor" />
               <Separator prefWidth="100.0" />
@@ -147,11 +162,14 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
+            <HBox alignment="CENTER" prefHeight="45.0">
+              <Button alignment="CENTER" mnemonicParsing="false"/>
+            </HBox>
           </VBox>
         </AnchorPane>
-        <AnchorPane prefHeight="200.0" prefWidth="355.0">
+        <AnchorPane prefWidth="355.0">
           <VBox alignment="CENTER" layoutX="128.0" layoutY="59.0" prefHeight="350.0" prefWidth="355.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <HBox alignment="CENTER" prefHeight="35.0" prefWidth="200.0" spacing="10.0">
+            <HBox alignment="CENTER" prefHeight="35.0" spacing="10.0">
               <Separator prefWidth="65.0" />
               <Label text="Información personal del responsable" />
               <Separator prefWidth="65.0" />
@@ -230,7 +248,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <HBox alignment="CENTER" prefHeight="35.0" prefWidth="200.0" spacing="10.0">
+            <HBox alignment="CENTER" prefHeight="35.0" spacing="10.0">
               <Separator prefWidth="95.0" />
               <Label text="Dirección del responsable" />
               <Separator prefWidth="95.0" />
@@ -302,47 +320,66 @@
         </AnchorPane>
       </HBox>
     </AnchorPane>
-    <AnchorPane prefHeight="225.0" prefWidth="200.0">
-      <TabPane layoutX="94.0" layoutY="7.0" prefWidth="710.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <Tab text="Alergias">
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-            <TableView fx:id="allergyTableView" layoutX="47.0" layoutY="6.0" prefHeight="211.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <columns>
-                <TableColumn fx:id="allergyType" prefWidth="250.0" text="Tipo" />
-                <TableColumn fx:id="allergyDetails" prefWidth="450.0" text="Detalles" />
-              </columns>
-            </TableView>
-          </AnchorPane>
-        </Tab>
-        <Tab text="Chequeos rutinarios">
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-            <TableView fx:id="checkupTableView" layoutX="31.0" layoutY="6.0" prefHeight="211.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <columns>
-                <TableColumn fx:id="checkupDate" resizable="false" text="Fecha" />
-                <TableColumn fx:id="height" prefWidth="70.0" resizable="false" text="Altura" />
-                <TableColumn fx:id="weight" prefWidth="70.0" resizable="false" text="Peso" />
-                <TableColumn fx:id="bmi" prefWidth="70.0" resizable="false" text="IMC" />
-                <TableColumn fx:id="heartRate" prefWidth="100.0" resizable="false" text="Ritmo cardíaco" />
-                <TableColumn fx:id="diastolicPressure" prefWidth="110.0" resizable="false" text="Presión diastólica" />
-                <TableColumn fx:id="systolicPressure" prefWidth="110.0" resizable="false" text="Presión sistólica" />
-                <TableColumn fx:id="bodyTemperature" prefWidth="90.0" resizable="false" text="Temperatura" />
-              </columns>
-            </TableView>
-          </AnchorPane>
-        </Tab>
-        <Tab text="Intervenciones quirúrgicas">
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-            <TableView layoutX="93.0" layoutY="11.0" prefHeight="221.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <columns>
-                <TableColumn prefWidth="120.0" text="Fecha" />
-                <TableColumn prefWidth="150.0" text="Hospital" />
-                <TableColumn prefWidth="120.0" text="Severidad" />
-                <TableColumn prefWidth="310.0" text="Descripción" />
-              </columns>
-            </TableView>
-          </AnchorPane>
-        </Tab>
-      </TabPane>
+    <AnchorPane prefHeight="250.0" prefWidth="200.0">
+      <VBox prefHeight="250.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0"
+        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <TabPane prefHeight="205.0" tabClosingPolicy="UNAVAILABLE">
+          <Tab text="Alergias">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <TableView fx:id="allergyTableView" layoutX="47.0" layoutY="6.0"
+                prefHeight="211.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                AnchorPane.topAnchor="0.0">
+                <columns>
+                  <TableColumn fx:id="allergyType" prefWidth="250.0" text="Tipo"/>
+                  <TableColumn fx:id="allergyDetails" prefWidth="450.0" text="Detalles"/>
+                </columns>
+              </TableView>
+            </AnchorPane>
+          </Tab>
+          <Tab text="Chequeos rutinarios">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <TableView fx:id="checkupTableView" layoutX="31.0" layoutY="6.0"
+                prefHeight="211.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                AnchorPane.topAnchor="0.0">
+                <columns>
+                  <TableColumn fx:id="checkupDate" resizable="false" text="Fecha"/>
+                  <TableColumn fx:id="height" prefWidth="70.0" resizable="false"
+                    text="Altura"/>
+                  <TableColumn fx:id="weight" prefWidth="70.0" resizable="false" text="Peso"/>
+                  <TableColumn fx:id="bmi" prefWidth="70.0" resizable="false" text="IMC"/>
+                  <TableColumn fx:id="heartRate" prefWidth="100.0" resizable="false"
+                    text="Ritmo cardíaco"/>
+                  <TableColumn fx:id="diastolicPressure" prefWidth="110.0" resizable="false"
+                    text="Presión diastólica"/>
+                  <TableColumn fx:id="systolicPressure" prefWidth="110.0" resizable="false"
+                    text="Presión sistólica"/>
+                  <TableColumn fx:id="bodyTemperature" prefWidth="90.0" resizable="false"
+                    text="Temperatura"/>
+                </columns>
+              </TableView>
+            </AnchorPane>
+          </Tab>
+          <Tab text="Intervenciones quirúrgicas">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <TableView layoutX="93.0" layoutY="11.0" prefHeight="221.0" prefWidth="710.0"
+                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <columns>
+                  <TableColumn prefWidth="120.0" text="Fecha"/>
+                  <TableColumn prefWidth="150.0" text="Hospital"/>
+                  <TableColumn prefWidth="120.0" text="Severidad"/>
+                  <TableColumn prefWidth="310.0" text="Descripción"/>
+                </columns>
+              </TableView>
+            </AnchorPane>
+          </Tab>
+        </TabPane>
+        <HBox alignment="CENTER" prefHeight="45.0">
+          <Button mnemonicParsing="false"/>
+        </HBox>
+      </VBox>
     </AnchorPane>
   </VBox>
 </AnchorPane>
