@@ -28,9 +28,10 @@
           </ComboBox>
           <Label text="Rut" />
           <TextField fx:id="rutTextField">
-                  <HBox.margin>
-                     <Insets right="10.0" />
-                  </HBox.margin></TextField>
+            <HBox.margin>
+              <Insets right="10.0" />
+            </HBox.margin>
+          </TextField>
           <Button fx:id="goToButton" mnemonicParsing="false" />
         </HBox>
       </top>

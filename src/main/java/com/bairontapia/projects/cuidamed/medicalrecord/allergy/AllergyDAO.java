@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AllergyDAO implements GenericCrudDAO<Allergy, String> {
+
   private static final AllergyDAO INSTANCE = new AllergyDAO();
   private static final String RELATIVE_PATH_STRING =
       DirectoryPathUtils.relativePathString("scripts", "class_queries", "allergy");
@@ -23,7 +24,7 @@ public class AllergyDAO implements GenericCrudDAO<Allergy, String> {
   }
 
   @Override
-  public String findQuery() throws IOException {
+  public String find() throws IOException {
     return TextFileUtils.readString(FIND_QUERY_PATH);
   }
 

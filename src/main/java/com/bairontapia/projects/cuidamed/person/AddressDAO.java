@@ -1,7 +1,6 @@
 package com.bairontapia.projects.cuidamed.person;
 
 import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
-import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineCheckupDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -11,7 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AddressDAO implements GenericCrudDAO<Address, String> {
+
   private static final AddressDAO INSTANCE = new AddressDAO();
+
   private static final String RELATIVE_PATH_STRING =
       DirectoryPathUtils.relativePathString("scripts", "class_queries", "address.");
   private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
@@ -24,7 +25,7 @@ public class AddressDAO implements GenericCrudDAO<Address, String> {
   }
 
   @Override
-  public String findQuery() throws IOException {
+  public String find() throws IOException {
     return TextFileUtils.readString(FIND_QUERY_PATH);
   }
 
@@ -49,10 +50,12 @@ public class AddressDAO implements GenericCrudDAO<Address, String> {
   }
 
   @Override
-  public void saveTuple(PreparedStatement statement, Address address) throws SQLException {}
+  public void saveTuple(PreparedStatement statement, Address address) throws SQLException {
+  }
 
   @Override
-  public void updateTuple(PreparedStatement statement, Address address) throws SQLException {}
+  public void updateTuple(PreparedStatement statement, Address address) throws SQLException {
+  }
 
   @Override
   public Address readTuple(ResultSet resultSet) throws SQLException {

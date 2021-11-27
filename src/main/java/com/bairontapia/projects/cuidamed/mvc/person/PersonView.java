@@ -67,7 +67,7 @@ public class PersonView {
     switch (choice) {
       case ELDER -> set.addAll(ElderDAO.getInstance().findAll());
       case CARER -> set.addAll(CarerDAO.getInstance().getAll());
-      case RESPONSIBLE -> set.addAll(ResponsibleDAO.getInstance().getAll());
+      case RESPONSIBLE -> set.addAll(ResponsibleDAO.getInstance().findAll());
     }
     personTableView.getItems().clear();
     personTableView.getItems().addAll(set);

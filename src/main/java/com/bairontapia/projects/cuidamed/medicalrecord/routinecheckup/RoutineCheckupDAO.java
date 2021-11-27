@@ -1,22 +1,17 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup;
 
-import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
-import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
 import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
-import com.bairontapia.projects.cuidamed.person.ElderDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.Optional;
 
 public class RoutineCheckupDAO implements GenericCrudDAO<RoutineCheckup, String> {
+
   private static final RoutineCheckupDAO INSTANCE = new RoutineCheckupDAO();
   private static final String RELATIVE_PATH_STRING =
       DirectoryPathUtils.relativePathString("scripts", "class_queries", "routine_checkup");
@@ -30,7 +25,7 @@ public class RoutineCheckupDAO implements GenericCrudDAO<RoutineCheckup, String>
   }
 
   @Override
-  public String findQuery() throws IOException {
+  public String find() throws IOException {
     return TextFileUtils.readString(FIND_QUERY_PATH);
   }
 
@@ -50,16 +45,8 @@ public class RoutineCheckupDAO implements GenericCrudDAO<RoutineCheckup, String>
     final var diastolicPressure = resultSet.getDouble(7);
     final var systolicPressure = resultSet.getDouble(8);
     final var bodyTemperature = resultSet.getDouble(9);
-    return RoutineCheckup.createInstance(
-        elderRut,
-        checkupDate,
-        height,
-        weight,
-        bmi,
-        heartRate,
-        diastolicPressure,
-        systolicPressure,
-        bodyTemperature);
+    return RoutineCheckup.createInstance(elderRut, checkupDate, height, weight, bmi, heartRate,
+        diastolicPressure, systolicPressure, bodyTemperature);
   }
 
   @Override

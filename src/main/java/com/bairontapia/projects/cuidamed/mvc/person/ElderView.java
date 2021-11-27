@@ -5,6 +5,8 @@ import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.mappings.healthcaresystem.HealthCare;
 import com.bairontapia.projects.cuidamed.medicalrecord.allergy.Allergy;
 import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineCheckup;
+import com.bairontapia.projects.cuidamed.person.Address;
+import com.bairontapia.projects.cuidamed.person.AddressDAO;
 import com.bairontapia.projects.cuidamed.person.Elder;
 import com.bairontapia.projects.cuidamed.person.ElderDAO;
 import com.bairontapia.projects.cuidamed.person.Responsible;
@@ -53,6 +55,7 @@ public class ElderView {
   private ComboBox<BloodType> bloodTypeComboBox;
   @FXML
   private ComboBox<HealthCare> healthCareComboBox;
+
   @FXML
   private TextField responsibleRut;
   @FXML
@@ -65,6 +68,18 @@ public class ElderView {
   private TextField responsibleGender;
   @FXML
   private TextField responsibleMobilePhone;
+
+  @FXML
+  private TextField region;
+  @FXML
+  private TextField province;
+  @FXML
+  private TextField commune;
+  @FXML
+  private TextField street;
+  @FXML
+  private TextField number;
+
   @FXML
   private TableView<Allergy> allergyTableView;
   @FXML
@@ -91,14 +106,22 @@ public class ElderView {
   private TableColumn<RoutineCheckup, Double> bodyTemperature;
 
   public void initialize() throws SQLException, IOException {
+    initializeComboBoxes();
+    initializeAllergyTable();
+    initializeCheckupTable();
+    final var elder = ElderDAO.getInstance().find("5875397-1").get();
+    fillElderFields(elder);
+    final var responsibleKey = elder.responsibleRut();
+    final var responsible = ResponsibleDAO.getInstance().find(responsibleKey).get();
+    fillResponsibleFields(responsible);
+    final var address = AddressDAO.getInstance().find(responsibleKey).get();
+    fillAddressFields(address);
+  }
+
+  private void initializeComboBoxes() {
     genderComboBox.setItems(FXCollections.observableArrayList(Gender.getValues()));
     bloodTypeComboBox.setItems(FXCollections.observableArrayList(BloodType.getValues()));
     healthCareComboBox.setItems(FXCollections.observableArrayList(HealthCare.getValues()));
-    final var elder = ElderDAO.getInstance().get("5875397-1").get();
-    fillElderFields(elder);
-    final var responsibleKey = elder.responsibleRut();
-    final var responsible = ResponsibleDAO.getInstance().get(responsibleKey).get();
-    fillResponsibleFields(responsible);
   }
 
   private void initializeAllergyTable() {
@@ -144,5 +167,12 @@ public class ElderView {
     responsibleMobilePhone.setText("+56 9 " + responsible.mobilePhone());
   }
 
+  private void fillAddressFields(final Address address) {
+    region.setText(address.regionName());
+    province.setText(address.provinceName());
+    commune.setText(address.communeName());
+    street.setText(address.street());
+    number.setText(address.number().toString());
+  }
 
 }
