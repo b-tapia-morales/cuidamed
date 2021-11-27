@@ -2,14 +2,15 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="640.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bairontapia.projects.cuidamed.mvc.person.ElderView">
+<AnchorPane prefHeight="680.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bairontapia.projects.cuidamed.mvc.person.ElderView">
   <VBox layoutX="240.0" layoutY="29.0" prefHeight="640.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-    <AnchorPane prefHeight="390.0">
+    <AnchorPane prefHeight="420.0">
       <HBox layoutX="230.0" layoutY="87.0" prefHeight="300.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <AnchorPane prefHeight="200.0" prefWidth="355.0">
-          <VBox alignment="CENTER" layoutX="110.0" layoutY="47.0" prefHeight="350.0" prefWidth="355.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <VBox alignment="CENTER" layoutX="110.0" layoutY="47.0" prefHeight="375.0" prefWidth="355.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <HBox alignment="CENTER" prefHeight="35.0" spacing="10.0">
               <Separator prefWidth="100.0" />
               <Label text="Ficha del adulto mayor" />
@@ -148,7 +149,14 @@
               </rowConstraints>
             </GridPane>
             <HBox alignment="CENTER" prefHeight="45.0">
-              <Button alignment="CENTER" mnemonicParsing="false" />
+              <Button alignment="CENTER" minHeight="36.0" minWidth="36.0" mnemonicParsing="false">
+                        <graphic>
+                           <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../icons/add.png" />
+                              </image>
+                           </ImageView>
+                        </graphic></Button>
             </HBox>
           </VBox>
         </AnchorPane>
@@ -305,9 +313,9 @@
         </AnchorPane>
       </HBox>
     </AnchorPane>
-    <AnchorPane prefHeight="250.0" prefWidth="200.0">
+    <AnchorPane prefHeight="260.0" prefWidth="200.0">
       <VBox prefHeight="250.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <TabPane prefHeight="205.0" tabClosingPolicy="UNAVAILABLE">
+        <TabPane prefHeight="215.0" tabClosingPolicy="UNAVAILABLE">
           <Tab text="Alergias">
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <TableView fx:id="allergyTableView" layoutX="47.0" layoutY="6.0" prefHeight="211.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -348,7 +356,14 @@
           </Tab>
         </TabPane>
         <HBox alignment="CENTER" prefHeight="45.0">
-          <Button mnemonicParsing="false" />
+          <Button minHeight="36.0" minWidth="36.0" mnemonicParsing="false">
+                  <graphic>
+                     <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../icons/add.png" />
+                        </image>
+                     </ImageView>
+                  </graphic></Button>
         </HBox>
       </VBox>
     </AnchorPane>
