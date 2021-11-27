@@ -26,7 +26,7 @@ public class ElderDAO implements GenericCrudDAO<Elder, String> {
   }
 
   @Override
-  public String find() throws IOException {
+  public String findQuery() throws IOException {
     return TextFileUtils.readString(FIND_QUERY_PATH);
   }
 

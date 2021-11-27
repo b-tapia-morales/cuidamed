@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface GenericReadOnlyDAO<T, ID> {
 
-  String find() throws IOException;
+  String findQuery() throws IOException;
 
   String findAllQuery() throws IOException;
 
@@ -20,7 +20,7 @@ public interface GenericReadOnlyDAO<T, ID> {
   void setKeyParameter(PreparedStatement statement, ID id) throws SQLException;
 
   default Optional<T> find(ID id) throws IOException, SQLException {
-    final var query = find();
+    final var query = findQuery();
     final var connection = ConnectionSingleton.getInstance();
     final var statement = connection.prepareStatement(query);
     setKeyParameter(statement, id);
