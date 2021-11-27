@@ -78,7 +78,7 @@ public class CarerDAO implements CrudDAO<Carer, String> {
 
   @Override
   public void save(Carer carer) throws IOException, SQLException {
-    final var query = TextFileUtils.readString(SAVE_QUERY_PATH);
+    final var query = TextFileUtils.readString(null);
     final var connection = ConnectionSingleton.getInstance();
     final var statement = connection.prepareStatement(query);
     statement.setString(1, carer.rut());

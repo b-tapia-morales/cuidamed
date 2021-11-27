@@ -1,11 +1,8 @@
 package com.bairontapia.projects.cuidamed;
 
-
-import com.bairontapia.projects.cuidamed.disease.DiseaseDAO;
-import com.bairontapia.projects.cuidamed.disease.medicationadministration.MedicationAdministrationDAO;
-import com.bairontapia.projects.cuidamed.disease.medicationprescription.MedicationPrescriptionDAO;
-import com.bairontapia.projects.cuidamed.disease.prescription.PrescriptionDAO;
-import com.bairontapia.projects.cuidamed.disease.sickelderly.SickElderlyDAO;
+import com.bairontapia.projects.cuidamed.person.carer.CarerDAO;
+import com.bairontapia.projects.cuidamed.person.elder.ElderDAO;
+import com.bairontapia.projects.cuidamed.person.responsible.ResponsibleDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -13,7 +10,6 @@ public class CuidaMedApplication {
 
   public static void main(String... args) throws SQLException, IOException {
     ElderDAO.getInstance().findAll().forEach(System.out::println);
-    CarerDAO.getInstance().getAll().forEach(System.out::println);
     ResponsibleDAO.getInstance().findAll().forEach(System.out::println);
     JavaFXApplication.main(args);
   }

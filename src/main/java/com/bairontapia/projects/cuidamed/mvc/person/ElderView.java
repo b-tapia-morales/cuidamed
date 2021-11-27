@@ -8,10 +8,10 @@ import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineChe
 import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineCheckupDAO;
 import com.bairontapia.projects.cuidamed.person.Address;
 import com.bairontapia.projects.cuidamed.person.AddressDAO;
-import com.bairontapia.projects.cuidamed.person.Elder;
-import com.bairontapia.projects.cuidamed.person.ElderDAO;
-import com.bairontapia.projects.cuidamed.person.Responsible;
-import com.bairontapia.projects.cuidamed.person.ResponsibleDAO;
+import com.bairontapia.projects.cuidamed.person.elder.Elder;
+import com.bairontapia.projects.cuidamed.person.elder.ElderDAO;
+import com.bairontapia.projects.cuidamed.person.responsible.Responsible;
+import com.bairontapia.projects.cuidamed.person.responsible.ResponsibleDAO;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -111,7 +111,7 @@ public class ElderView {
     initializeComboBoxes();
     initializeAllergyTable();
     initializeCheckupTable();
-    final var elder = ElderDAO.getInstance().find("5875397-1").get();
+    final Elder elder = ElderDAO.getInstance().find("5875397-1").get();
     fillElderFields(elder);
     final var responsibleKey = elder.responsibleRut();
     final var responsible = ResponsibleDAO.getInstance().find(responsibleKey).get();

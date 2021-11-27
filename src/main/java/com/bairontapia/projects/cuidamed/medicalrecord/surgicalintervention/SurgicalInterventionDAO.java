@@ -26,13 +26,13 @@ public class SurgicalInterventionDAO implements GenericReadOnlyDAO<SurgicalInter
 
 
   @Override
-  public String getQuery() throws IOException {
-    return TextFileUtils.readString(GET_QUERY_PATH);
+  public String findQuery() throws IOException {
+    return TextFileUtils.readString(FIND_QUERY_PATH);
   }
 
   @Override
-  public String getAllQuery() throws IOException {
-    return TextFileUtils.readString(GET_ALL_QUERY_PATH);
+  public String findAllQuery() throws IOException {
+    return TextFileUtils.readString(FIND_ALL_QUERY_PATH);
   }
 
   @Override
