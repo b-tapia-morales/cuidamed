@@ -322,7 +322,7 @@
                 <TableColumn fx:id="height" prefWidth="70.0" resizable="false" text="Altura" />
                 <TableColumn fx:id="weight" prefWidth="70.0" resizable="false" text="Peso" />
                 <TableColumn fx:id="bmi" prefWidth="70.0" resizable="false" text="IMC" />
-                <TableColumn fx:id="hearthRate" prefWidth="100.0" resizable="false" text="Ritmo cardíaco" />
+                <TableColumn fx:id="heartRate" prefWidth="100.0" resizable="false" text="Ritmo cardíaco" />
                 <TableColumn fx:id="diastolicPressure" prefWidth="110.0" resizable="false" text="Presión diastólica" />
                 <TableColumn fx:id="systolicPressure" prefWidth="110.0" resizable="false" text="Presión sistólica" />
                 <TableColumn fx:id="bodyTemperature" prefWidth="90.0" resizable="false" text="Temperatura" />
