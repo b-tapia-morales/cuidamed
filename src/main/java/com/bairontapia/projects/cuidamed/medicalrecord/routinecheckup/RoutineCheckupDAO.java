@@ -1,6 +1,6 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup;
 
-import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.OneToManyDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class RoutineCheckupDAO implements GenericCrudDAO<RoutineCheckup, String> {
+public class RoutineCheckupDAO implements OneToManyDAO<RoutineCheckup, String> {
 
   private static final RoutineCheckupDAO INSTANCE = new RoutineCheckupDAO();
   private static final String RELATIVE_PATH_STRING =
@@ -36,7 +36,7 @@ public class RoutineCheckupDAO implements GenericCrudDAO<RoutineCheckup, String>
 
   @Override
   public RoutineCheckup readTuple(ResultSet resultSet) throws SQLException {
-    final var elderRut = resultSet.getString(1);
+    final var rut = resultSet.getString(1);
     final var checkupDate = resultSet.getDate(2);
     final var height = resultSet.getDouble(3);
     final var weight = resultSet.getDouble(4);
@@ -45,7 +45,7 @@ public class RoutineCheckupDAO implements GenericCrudDAO<RoutineCheckup, String>
     final var diastolicPressure = resultSet.getDouble(7);
     final var systolicPressure = resultSet.getDouble(8);
     final var bodyTemperature = resultSet.getDouble(9);
-    return RoutineCheckup.createInstance(elderRut, checkupDate, height, weight, bmi, heartRate,
+    return RoutineCheckup.createInstance(rut, checkupDate, height, weight, bmi, heartRate,
         diastolicPressure, systolicPressure, bodyTemperature);
   }
 
