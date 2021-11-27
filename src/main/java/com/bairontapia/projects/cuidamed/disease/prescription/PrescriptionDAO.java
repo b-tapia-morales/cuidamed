@@ -79,9 +79,10 @@ public class PrescriptionDAO implements GenericCrudDAO<Prescription, String> {
   @Override
   public Prescription readTuple(ResultSet resultSet) throws SQLException {
     final var rut = resultSet.getString(1);
-    final var diseaseName = resultSet.getString(2);
-    final var prescriptionDate = resultSet.getDate(3);
-    final var description = resultSet.getString(4);
+    final var fullName = resultSet.getString(2);
+    final var diseaseName = resultSet.getString(3);
+    final var prescriptionDate = resultSet.getDate(4);
+    final var description = resultSet.getString(5);
     return Prescription.createInstance(rut, diseaseName, prescriptionDate, description);
   }
 }

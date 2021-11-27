@@ -13,7 +13,7 @@ public class MedicationDAO implements GenericCrudDAO<Medication, String> {
 
   private static final MedicationDAO INSTANCE = new MedicationDAO();
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
-      .relativePathString("scripts", "class_queries", "elder");
+      .relativePathString("scripts", "class_queries", "medication");
   private static final Path GET_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
   private static final Path GET_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
   private static final Path SAVE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "save.sql");

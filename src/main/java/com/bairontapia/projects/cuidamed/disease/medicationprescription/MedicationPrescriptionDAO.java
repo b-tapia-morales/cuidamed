@@ -59,8 +59,7 @@ public class MedicationPrescriptionDAO implements GenericCrudDAO<MedicationPresc
     statement.setString(4, medicationPrescription.medicationName());
     statement.setDate(5, Date.valueOf(medicationPrescription.startDate()));
     statement.setDate(6, Date.valueOf(medicationPrescription.endDate()));
-    statement.setInt(7, medicationPrescription.frequency());
-    statement.setInt(8, medicationPrescription.quantity());
+
     statement.executeUpdate();
   }
 
@@ -72,24 +71,20 @@ public class MedicationPrescriptionDAO implements GenericCrudDAO<MedicationPresc
     statement.setString(3, medicationPrescription.medicationName());
     statement.setDate(4, Date.valueOf(medicationPrescription.startDate()));
     statement.setDate(5, Date.valueOf(medicationPrescription.endDate()));
-    statement.setInt(6, medicationPrescription.frequency());
-    statement.setInt(7, medicationPrescription.quantity());
-    statement.setString(8, medicationPrescription.rut());
+    statement.setString(6, medicationPrescription.rut());
     statement.executeUpdate();
   }
 
   @Override
   public MedicationPrescription readTuple(ResultSet resultSet) throws SQLException {
     final var rut = resultSet.getString(1);
-    final var diseaseName = resultSet.getString(2);
-    final var prescriptionDate = resultSet.getDate(3);
+    final var fullName = resultSet.getString(2);
+    final var diseaseName = resultSet.getString(3);
     final var medicationName = resultSet.getString(4);
-    final var startDate = resultSet.getDate(5);
-    final var endDate = resultSet.getDate(6);
-    final var frequency = resultSet.getInt(7);
-    final var quantity = resultSet.getInt(8);
+    final var prescriptionDate = resultSet.getDate(5);
+    final var startDate = resultSet.getDate(6);
+    final var endDate = resultSet.getDate(7);
     return MedicationPrescription
-        .createInstance(rut, diseaseName, prescriptionDate, medicationName, startDate, endDate,
-            frequency, quantity);
+        .createInstance(rut, diseaseName, prescriptionDate, medicationName, startDate, endDate);
   }
 }

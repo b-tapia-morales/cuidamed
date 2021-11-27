@@ -1,4 +1,4 @@
-package com.bairontapia.projects.cuidamed.person;
+package com.bairontapia.projects.cuidamed.person.carer;
 
 import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
 import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
