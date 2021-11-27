@@ -1,5 +1,6 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup;
 
+import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
 import com.bairontapia.projects.cuidamed.daotemplate.OneToManyDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
@@ -10,7 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class RoutineCheckupDAO implements OneToManyDAO<RoutineCheckup, String> {
+public class RoutineCheckupDAO implements GenericCrudDAO<RoutineCheckup, String>,
+    OneToManyDAO<RoutineCheckup, String> {
 
   private static final RoutineCheckupDAO INSTANCE = new RoutineCheckupDAO();
   private static final String RELATIVE_PATH_STRING =
