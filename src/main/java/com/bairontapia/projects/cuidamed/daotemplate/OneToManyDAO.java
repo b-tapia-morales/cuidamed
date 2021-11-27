@@ -8,12 +8,12 @@ import java.util.LinkedHashSet;
 
 public interface OneToManyDAO<T, ID> extends GenericCrudDAO<T, ID> {
 
-  default Collection<T> get(ID id) throws IOException, SQLException {
+  default Collection<T> findAll(ID id) throws IOException, SQLException {
     final var query = findQuery();
     final var connection = ConnectionSingleton.getInstance();
     final var statement = connection.prepareStatement(query);
     setKeyParameter(statement, id);
-    final var resultSet = statement.executeQuery(query);
+    final var resultSet = statement.executeQuery();
     final var set = new LinkedHashSet<T>();
     while (resultSet.next()) {
       final T t = readTuple(resultSet);
