@@ -6,5 +6,4 @@ SET height             =?,
     diastolic_pressure = ?,
     systolic_pressure  = ?,
     body_temperature   = ?
-WHERE rut = ?
-  AND checkup_date = ?;
+WHERE rut = ?;

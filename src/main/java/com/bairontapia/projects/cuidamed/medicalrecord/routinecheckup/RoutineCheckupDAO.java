@@ -90,7 +90,6 @@ public class RoutineCheckupDAO implements OneToManyDAO<RoutineCheckup, String> {
     statement.setDouble(6, routineCheckup.systolicPressure());
     statement.setDouble(7, routineCheckup.bodyTemperature());
     statement.setString(8, routineCheckup.rut());
-    statement.setDate(9, Date.valueOf(routineCheckup.checkupDate()));
     statement.executeUpdate();
   }
 }
