@@ -1,5 +1,6 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.surgicalintervention;
 
+import com.bairontapia.projects.cuidamed.mappings.severity.Severity;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -7,12 +8,12 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public record SurgicalIntervention(String rut, LocalDate interventionDate, String hospital,
-                                   Short severity, String description) {
+                                   Severity severity, String description) {
 
   public static SurgicalIntervention createInstance(String rut, Date interventionDate,
-      String hospital, short severity, String description) {
-    return new SurgicalIntervention(rut, interventionDate.toLocalDate(), hospital, severity,
-        description);
+      String hospital, short severityCode, String description) {
+    return new SurgicalIntervention(rut, interventionDate.toLocalDate(), hospital,
+        Severity.getValueFromIndex(severityCode), description);
   }
 
   @Override

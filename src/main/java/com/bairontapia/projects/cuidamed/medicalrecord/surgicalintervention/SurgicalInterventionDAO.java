@@ -53,7 +53,7 @@ public class SurgicalInterventionDAO
     statement.setString(1, surgicalIntervention.rut());
     statement.setDate(2, Date.valueOf(surgicalIntervention.interventionDate()));
     statement.setString(3, surgicalIntervention.hospital());
-    statement.setShort(4, surgicalIntervention.severity());
+    statement.setShort(4, (short) surgicalIntervention.severity().getIndex());
     statement.setString(5, surgicalIntervention.description());
     statement.executeUpdate();
   }
