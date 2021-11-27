@@ -1,6 +1,7 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.allergy;
 
 import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.GenericReadAndWriteDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -9,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AllergyDAO implements GenericCrudDAO<Allergy, String> {
+public class AllergyDAO implements GenericReadAndWriteDAO<Allergy, String> {
 
   private static final AllergyDAO INSTANCE = new AllergyDAO();
   private static final String RELATIVE_PATH_STRING =
@@ -17,7 +18,6 @@ public class AllergyDAO implements GenericCrudDAO<Allergy, String> {
   private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
   private static final Path FIND_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
   private static final Path SAVE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "save.sql");
-  private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
 
   public static AllergyDAO getInstance() {
     return INSTANCE;
@@ -39,11 +39,6 @@ public class AllergyDAO implements GenericCrudDAO<Allergy, String> {
   }
 
   @Override
-  public String updateQuery() throws IOException {
-    return TextFileUtils.readString(UPDATE_QUERY_PATH);
-  }
-
-  @Override
   public void setKeyParameter(PreparedStatement statement, String rut) throws SQLException {
     statement.setString(1, rut);
   }
@@ -62,13 +57,5 @@ public class AllergyDAO implements GenericCrudDAO<Allergy, String> {
     final var type = resultSet.getShort(2);
     final var details = resultSet.getString(3);
     return Allergy.createInstance(rut, type, details);
-  }
-
-  @Override
-  public void updateTuple(PreparedStatement statement, Allergy allergy) throws SQLException {
-    statement.setShort(1, (short) allergy.type().getIndex());
-    statement.setString(2, allergy.details());
-    statement.setString(3, allergy.rut());
-    statement.executeUpdate();
   }
 }

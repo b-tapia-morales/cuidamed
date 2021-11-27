@@ -1,29 +1,46 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.surgicalintervention;
 
-
-import com.bairontapia.projects.cuidamed.daotemplate.GenericReadOnlyDAO;
+import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
+import com.bairontapia.projects.cuidamed.daotemplate.GenericReadAndWriteDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.ReadOnlyDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SurgicalInterventionDAO implements GenericReadOnlyDAO<SurgicalIntervention, String> {
+public class SurgicalInterventionDAO
+    implements GenericReadAndWriteDAO<SurgicalIntervention, String> {
 
-  private static final SurgicalInterventionDAO INSTANCE = new SurgicalInterventionDAO();
-  private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
-      .relativePathString("scripts", "class_queries", "surgical_intervention");
+  private static SurgicalInterventionDAO INSTANCE = new SurgicalInterventionDAO();
+  private static final String RELATIVE_PATH_STRING =
+      DirectoryPathUtils.relativePathString("scripts", "class_queries", "surgical_intervention");
   private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
   private static final Path FIND_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
-  private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
-  private static SurgicalInterventionDAO instance;
+  private static final Path SAVE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "save.sql");
 
   public static SurgicalInterventionDAO getInstance() {
     return INSTANCE;
   }
 
+  @Override
+  public String saveQuery() throws IOException {
+    return TextFileUtils.readString(SAVE_QUERY_PATH);
+  }
+
+  @Override
+  public void saveTuple(PreparedStatement statement, SurgicalIntervention surgicalIntervention)
+      throws SQLException {
+    statement.setString(1, surgicalIntervention.rut());
+    statement.setDate(2, Date.valueOf(surgicalIntervention.interventionDate()));
+    statement.setString(3, surgicalIntervention.hospital());
+    statement.setShort(4, surgicalIntervention.severity());
+    statement.setString(5, surgicalIntervention.description());
+    statement.executeUpdate();
+  }
 
   @Override
   public String findQuery() throws IOException {
@@ -37,7 +54,7 @@ public class SurgicalInterventionDAO implements GenericReadOnlyDAO<SurgicalInter
 
   @Override
   public SurgicalIntervention readTuple(ResultSet resultSet) throws SQLException {
-    final var rut = resultSet.getString(1);
+    final var elderRut = resultSet.getString(1);
     final var firstNames = resultSet.getString(2);
     final var lastName = resultSet.getString(3);
     final var secondLastName = resultSet.getString(4);
@@ -45,10 +62,16 @@ public class SurgicalInterventionDAO implements GenericReadOnlyDAO<SurgicalInter
     final var hospital = resultSet.getString(6);
     final var severity = resultSet.getShort(7);
     final var description = resultSet.getString(8);
-    return SurgicalIntervention
-        .createInstance(rut, firstNames, lastName, secondLastName, interventionDate, hospital,
-            severity, description);
 
+    return SurgicalIntervention.createInstance(
+        elderRut,
+        firstNames,
+        lastName,
+        secondLastName,
+        interventionDate,
+        hospital,
+        severity,
+        description);
   }
 
   @Override
