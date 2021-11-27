@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class CuidaMedApplication {
 
   public static void main(String... args) throws SQLException, IOException {
-    ElderDAO.getInstance().getAll().forEach(System.out::println);
+    ElderDAO.getInstance().findAll().forEach(System.out::println);
     CarerDAO.getInstance().getAll().forEach(System.out::println);
     JavaFXApplication.main(args);
   }

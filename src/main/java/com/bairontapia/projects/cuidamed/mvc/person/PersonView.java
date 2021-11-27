@@ -65,7 +65,7 @@ public class PersonView {
     final var choice = personComboBox.getSelectionModel().getSelectedItem();
     final var set = new LinkedHashSet<Person>();
     switch (choice) {
-      case ELDER -> set.addAll(ElderDAO.getInstance().getAll());
+      case ELDER -> set.addAll(ElderDAO.getInstance().findAll());
       case CARER -> set.addAll(CarerDAO.getInstance().getAll());
       case RESPONSIBLE -> set.addAll(ResponsibleDAO.getInstance().getAll());
     }

@@ -16,8 +16,8 @@ public class ResponsibleDAO implements CrudDAO<Responsible, String> {
 
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "responsible");
-  private static final Path GET_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
-  private static final Path GET_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
+  private static final Path FIND_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
+  private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
   private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
   private static ResponsibleDAO instance;
 
@@ -30,7 +30,7 @@ public class ResponsibleDAO implements CrudDAO<Responsible, String> {
 
   @Override
   public Optional<Responsible> get(String key) throws SQLException, IOException {
-    final var query = TextFileUtils.readString(GET_QUERY_PATH);
+    final var query = TextFileUtils.readString(FIND_QUERY_PATH);
     final var connection = ConnectionSingleton.getInstance();
     final var statement = connection.prepareStatement(query);
     statement.setString(1, key);
@@ -52,7 +52,7 @@ public class ResponsibleDAO implements CrudDAO<Responsible, String> {
 
   @Override
   public Collection<Responsible> getAll() throws IOException, SQLException {
-    final var query = TextFileUtils.readString(GET_ALL_QUERY_PATH);
+    final var query = TextFileUtils.readString(FIND_ALL_QUERY_PATH);
     final var connection = ConnectionSingleton.getInstance();
     final var statement = connection.createStatement();
     final var resultSet = statement.executeQuery(query);
