@@ -76,22 +76,22 @@
                   <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <TextField fx:id="rutField" editable="false" opacity="0.67" GridPane.columnIndex="1">
+              <TextField fx:id="rut" editable="false" opacity="0.67" GridPane.columnIndex="1">
                 <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <TextField fx:id="name" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="2">
+              <TextField fx:id="lastName" GridPane.columnIndex="1" GridPane.rowIndex="2">
                 <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField fx:id="secondLastNameField" GridPane.columnIndex="1" GridPane.rowIndex="3">
+              <TextField fx:id="secondLastName" GridPane.columnIndex="1" GridPane.rowIndex="3">
                 <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
@@ -141,7 +141,7 @@
                            <Insets right="10.0" />
                         </GridPane.margin>
                      </Label>
-                     <TextField fx:id="ageField" editable="false" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <TextField fx:id="age" editable="false" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="5">
                         <GridPane.margin>
                            <Insets left="5.0" right="5.0" />
                         </GridPane.margin>
@@ -199,32 +199,32 @@
                   <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <TextField fx:id="responsibleRutField" editable="false" opacity="0.67" GridPane.columnIndex="1">
+              <TextField fx:id="responsibleRut" editable="false" opacity="0.67" GridPane.columnIndex="1">
                 <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField fx:id="responsibleFullNameField" editable="false" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <TextField fx:id="responsibleFullName" editable="false" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField fx:id="responsibleBirthDateField" editable="false" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="2">
+              <TextField fx:id="responsibleBirthDate" editable="false" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="2">
                 <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField fx:id="responsibleAgeField" editable="false" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="3">
+              <TextField fx:id="responsibleAge" editable="false" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="3">
                 <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField fx:id="responsibleSexField" editable="false" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="4">
+              <TextField fx:id="responsibleGender" editable="false" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="4">
                 <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField fx:id="responsibleMobilePhoneField" editable="false" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="5">
+              <TextField fx:id="responsibleMobilePhone" editable="false" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="5">
                 <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
@@ -306,26 +306,26 @@
       <TabPane layoutX="94.0" layoutY="7.0" prefWidth="710.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <Tab text="Alergias">
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-            <TableView layoutX="47.0" layoutY="6.0" prefHeight="211.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TableView fx:id="allergyTableView" layoutX="47.0" layoutY="6.0" prefHeight="211.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
-                <TableColumn prefWidth="250.0" text="Tipo" />
-                <TableColumn prefWidth="450.0" text="Detalles" />
+                <TableColumn fx:id="allergyType" prefWidth="250.0" text="Tipo" />
+                <TableColumn fx:id="allergyDetails" prefWidth="450.0" text="Detalles" />
               </columns>
             </TableView>
           </AnchorPane>
         </Tab>
         <Tab text="Chequeos rutinarios">
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-            <TableView layoutX="31.0" layoutY="6.0" prefHeight="211.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TableView fx:id="checkupTableView" layoutX="31.0" layoutY="6.0" prefHeight="211.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
-                <TableColumn resizable="false" text="Fecha" />
-                <TableColumn prefWidth="70.0" resizable="false" text="Altura" />
-                <TableColumn prefWidth="70.0" resizable="false" text="Peso" />
-                <TableColumn prefWidth="70.0" resizable="false" text="IMC" />
-                <TableColumn prefWidth="100.0" resizable="false" text="Ritmo cardíaco" />
-                <TableColumn prefWidth="110.0" resizable="false" text="Presión diastólica" />
-                <TableColumn prefWidth="110.0" resizable="false" text="Presión sistólica" />
-                <TableColumn prefWidth="90.0" resizable="false" text="Temperatura" />
+                <TableColumn fx:id="checkupDate" resizable="false" text="Fecha" />
+                <TableColumn fx:id="height" prefWidth="70.0" resizable="false" text="Altura" />
+                <TableColumn fx:id="weight" prefWidth="70.0" resizable="false" text="Peso" />
+                <TableColumn fx:id="bmi" prefWidth="70.0" resizable="false" text="IMC" />
+                <TableColumn fx:id="hearthRate" prefWidth="100.0" resizable="false" text="Ritmo cardíaco" />
+                <TableColumn fx:id="diastolicPressure" prefWidth="110.0" resizable="false" text="Presión diastólica" />
+                <TableColumn fx:id="systolicPressure" prefWidth="110.0" resizable="false" text="Presión sistólica" />
+                <TableColumn fx:id="bodyTemperature" prefWidth="90.0" resizable="false" text="Temperatura" />
               </columns>
             </TableView>
           </AnchorPane>
