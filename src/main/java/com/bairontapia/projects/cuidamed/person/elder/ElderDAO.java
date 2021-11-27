@@ -16,8 +16,8 @@ public class ElderDAO implements GenericCrudDAO<Elder, String> {
 
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "elder");
-  private static final Path GET_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
-  private static final Path GET_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
+  private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
+  private static final Path FIND_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
   private static final Path SAVE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "save.sql");
   private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
 
@@ -26,13 +26,13 @@ public class ElderDAO implements GenericCrudDAO<Elder, String> {
   }
 
   @Override
-  public String getQuery() throws IOException {
-    return TextFileUtils.readString(GET_QUERY_PATH);
+  public String findQuery() throws IOException {
+    return TextFileUtils.readString(FIND_QUERY_PATH);
   }
 
   @Override
-  public String getAllQuery() throws IOException {
-    return TextFileUtils.readString(GET_ALL_QUERY_PATH);
+  public String findAllQuery() throws IOException {
+    return TextFileUtils.readString(FIND_ALL_QUERY_PATH);
   }
 
   @Override
@@ -58,9 +58,10 @@ public class ElderDAO implements GenericCrudDAO<Elder, String> {
     statement.setString(4, elder.secondLastName());
     statement.setDate(5, Date.valueOf(elder.birthDate()));
     statement.setShort(6, (short) elder.gender().getIndex());
-    statement.setBoolean(7, elder.isActive());
-    statement.setDate(8, Date.valueOf(elder.admissionDate()));
-    statement.setString(9, elder.responsibleRut());
+    statement.setString(7, elder.rut());
+    statement.setBoolean(8, elder.isActive());
+    statement.setDate(9, Date.valueOf(elder.admissionDate()));
+    statement.setString(10, elder.responsibleRut());
     statement.executeUpdate();
   }
 

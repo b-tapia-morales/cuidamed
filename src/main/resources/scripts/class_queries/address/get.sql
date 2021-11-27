@@ -12,4 +12,5 @@ FROM residence.region R,
      residence.address A
 WHERE R.id = P.region_id
   AND P.id = C.province_id
-  AND C.id = A.commune_id;
+  AND C.id = A.commune_id
+  AND A.rut = ?;

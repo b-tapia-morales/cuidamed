@@ -5,10 +5,10 @@ import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public record Allergy(String rut, AllergyType type, String name) {
+public record Allergy(String rut, AllergyType type, String details) {
 
-  public static Allergy createInstance(String rut, short allergyTypeCode, String name) {
-    return new Allergy(rut, AllergyType.getValueFromIndex(allergyTypeCode), name);
+  public static Allergy createInstance(String rut, short allergyTypeCode, String details) {
+    return new Allergy(rut, AllergyType.getValueFromIndex(allergyTypeCode), details);
   }
 
   @Override
@@ -19,7 +19,7 @@ public record Allergy(String rut, AllergyType type, String name) {
     if (object instanceof final Allergy allergy) {
       return new EqualsBuilder()
           .append(rut, allergy.rut)
-          .append(name, allergy.name)
+          .append(details, allergy.details)
           .isEquals();
     }
     return false;
@@ -29,7 +29,7 @@ public record Allergy(String rut, AllergyType type, String name) {
   public int hashCode() {
     return new HashCodeBuilder()
         .append(rut)
-        .append(name)
+        .append(details)
         .toHashCode();
   }
 
@@ -41,7 +41,7 @@ public record Allergy(String rut, AllergyType type, String name) {
                 Tipo de alergia:\t\t\t%s
                 Nombre de la alergia:\t%s
                 """, RutUtils.format(rut),
-            type, name);
+            type, details);
   }
 }
 

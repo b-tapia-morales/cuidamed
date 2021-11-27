@@ -15,13 +15,13 @@ public class BloodTypeStatsDAO implements ReadOnlyDAO<BloodTypeStats, Short> {
 
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "blood_type_stats");
-  private static final Path GET_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
-  private static final Path GET_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
+  private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
+  private static final Path FIND_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
 
 
   @Override
   public Optional<BloodTypeStats> get(Short bloodTypeCode) throws IOException, SQLException {
-    final var query = TextFileUtils.readString(GET_QUERY_PATH);
+    final var query = TextFileUtils.readString(FIND_QUERY_PATH);
     final var connection = ConnectionSingleton.getInstance();
     final var statement = connection.prepareStatement(query);
     statement.setShort(1, bloodTypeCode);
@@ -36,7 +36,7 @@ public class BloodTypeStatsDAO implements ReadOnlyDAO<BloodTypeStats, Short> {
 
   @Override
   public Collection<BloodTypeStats> getAll() throws IOException, SQLException {
-    final var query = TextFileUtils.readString(GET_ALL_QUERY_PATH);
+    final var query = TextFileUtils.readString(FIND_ALL_QUERY_PATH);
     final var set = new LinkedHashSet<BloodTypeStats>();
     final var connection = ConnectionSingleton.getInstance();
     final var statement = connection.createStatement();
