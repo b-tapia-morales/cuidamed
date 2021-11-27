@@ -1,27 +1,22 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup;
 
-import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
-import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
-import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
-import com.bairontapia.projects.cuidamed.person.ElderDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.OneToManyDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.Optional;
 
-public class RoutineCheckupDAO implements GenericCrudDAO<RoutineCheckup, String> {
+public class RoutineCheckupDAO implements OneToManyDAO<RoutineCheckup, String> {
+
   private static final RoutineCheckupDAO INSTANCE = new RoutineCheckupDAO();
   private static final String RELATIVE_PATH_STRING =
       DirectoryPathUtils.relativePathString("scripts", "class_queries", "routine_checkup");
-  private static final Path GET_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
-  private static final Path GET_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
+  private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
+  private static final Path FIND_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
   private static final Path SAVE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "save.sql");
   private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
 
@@ -30,18 +25,18 @@ public class RoutineCheckupDAO implements GenericCrudDAO<RoutineCheckup, String>
   }
 
   @Override
-  public String getQuery() throws IOException {
-    return TextFileUtils.readString(GET_QUERY_PATH);
+  public String findQuery() throws IOException {
+    return TextFileUtils.readString(FIND_QUERY_PATH);
   }
 
   @Override
-  public String getAllQuery() throws IOException {
-    return TextFileUtils.readString(GET_ALL_QUERY_PATH);
+  public String findAllQuery() throws IOException {
+    return TextFileUtils.readString(FIND_ALL_QUERY_PATH);
   }
 
   @Override
   public RoutineCheckup readTuple(ResultSet resultSet) throws SQLException {
-    final var elderRut = resultSet.getString(1);
+    final var rut = resultSet.getString(1);
     final var checkupDate = resultSet.getDate(2);
     final var height = resultSet.getDouble(3);
     final var weight = resultSet.getDouble(4);
@@ -50,16 +45,8 @@ public class RoutineCheckupDAO implements GenericCrudDAO<RoutineCheckup, String>
     final var diastolicPressure = resultSet.getDouble(7);
     final var systolicPressure = resultSet.getDouble(8);
     final var bodyTemperature = resultSet.getDouble(9);
-    return RoutineCheckup.createInstance(
-        elderRut,
-        checkupDate,
-        height,
-        weight,
-        bmi,
-        heartRate,
-        diastolicPressure,
-        systolicPressure,
-        bodyTemperature);
+    return RoutineCheckup.createInstance(rut, checkupDate, height, weight, bmi, heartRate,
+        diastolicPressure, systolicPressure, bodyTemperature);
   }
 
   @Override
@@ -103,7 +90,6 @@ public class RoutineCheckupDAO implements GenericCrudDAO<RoutineCheckup, String>
     statement.setDouble(6, routineCheckup.systolicPressure());
     statement.setDouble(7, routineCheckup.bodyTemperature());
     statement.setString(8, routineCheckup.rut());
-    statement.setDate(9, Date.valueOf(routineCheckup.checkupDate()));
     statement.executeUpdate();
   }
 }

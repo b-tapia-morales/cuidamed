@@ -10,11 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AllergyDAO implements GenericCrudDAO<Allergy, String> {
+
   private static final AllergyDAO INSTANCE = new AllergyDAO();
   private static final String RELATIVE_PATH_STRING =
       DirectoryPathUtils.relativePathString("scripts", "class_queries", "allergy");
-  private static final Path GET_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
-  private static final Path GET_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
+  private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
+  private static final Path FIND_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
   private static final Path SAVE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "save.sql");
   private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
 
@@ -23,13 +24,13 @@ public class AllergyDAO implements GenericCrudDAO<Allergy, String> {
   }
 
   @Override
-  public String getQuery() throws IOException {
-    return TextFileUtils.readString(GET_QUERY_PATH);
+  public String findQuery() throws IOException {
+    return TextFileUtils.readString(FIND_QUERY_PATH);
   }
 
   @Override
-  public String getAllQuery() throws IOException {
-    return TextFileUtils.readString(GET_ALL_QUERY_PATH);
+  public String findAllQuery() throws IOException {
+    return TextFileUtils.readString(FIND_ALL_QUERY_PATH);
   }
 
   @Override
@@ -51,22 +52,22 @@ public class AllergyDAO implements GenericCrudDAO<Allergy, String> {
   public void saveTuple(PreparedStatement statement, Allergy allergy) throws SQLException {
     statement.setString(1, allergy.rut());
     statement.setShort(2, (short) allergy.type().getIndex());
-    statement.setString(3, allergy.name());
+    statement.setString(3, allergy.details());
     statement.executeUpdate();
   }
 
   @Override
   public Allergy readTuple(ResultSet resultSet) throws SQLException {
     final var rut = resultSet.getString(1);
-    final var allergyType = resultSet.getShort(2);
-    final var name = resultSet.getString(3);
-    return Allergy.createInstance(rut, allergyType, name);
+    final var type = resultSet.getShort(2);
+    final var details = resultSet.getString(3);
+    return Allergy.createInstance(rut, type, details);
   }
 
   @Override
   public void updateTuple(PreparedStatement statement, Allergy allergy) throws SQLException {
     statement.setShort(1, (short) allergy.type().getIndex());
-    statement.setString(2, allergy.name());
+    statement.setString(2, allergy.details());
     statement.setString(3, allergy.rut());
     statement.executeUpdate();
   }

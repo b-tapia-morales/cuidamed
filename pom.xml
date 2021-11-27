@@ -11,33 +11,12 @@
     <plugins>
 
       <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifest>
-              <mainClass>com.bairontapia.projects.cuidamed.CuidaMedApplication</mainClass>
-            </manifest>
-          </archive>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>single</goal>
-            </goals>
-            <id>make-assembly</id>
-            <phase>package</phase>
-          </execution>
-        </executions>
-        <groupId>org.apache.maven.plugins</groupId>
-        <version>3.3.0</version>
-      </plugin>
-
-      <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
+          <compilerArgs>
+            <arg>--module-path</arg>
+            <arg>%PATH_TO_FX% --add-modules=javafx.controls, javafx.graphics, javafx.fxml</arg>
+          </compilerArgs>
           <release>17</release>
         </configuration>
         <groupId>org.apache.maven.plugins</groupId>
@@ -45,19 +24,13 @@
       </plugin>
 
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.2.4</version>
         <executions>
           <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
             <configuration>
+              <outputFile>shade\${project.artifactId}.jar</outputFile>
               <shadedArtifactAttached>true</shadedArtifactAttached>
               <shadedClassifierName>project-classifier</shadedClassifierName>
-              <outputFile>shade\${project.artifactId}.jar</outputFile>
               <transformers>
                 <transformer implementation=
                   "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
@@ -65,8 +38,14 @@
                 </transformer>
               </transformers>
             </configuration>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <phase>package</phase>
           </execution>
         </executions>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.2.4</version>
       </plugin>
 
       <plugin>
@@ -109,22 +88,36 @@
       <version>1.7</version>
     </dependency>
     <dependency>
-      <artifactId>lombok</artifactId>
-      <groupId>org.projectlombok</groupId>
-      <scope>provided</scope>
-      <version>1.18.22</version>
+      <artifactId>javafx-fxml</artifactId>
+      <groupId>org.openjfx</groupId>
+      <scope>compile</scope>
+      <version>17.0.1</version>
     </dependency>
     <dependency>
       <artifactId>javafx-fxml</artifactId>
+      <classifier>win</classifier>
       <groupId>org.openjfx</groupId>
-      <version>17.0.1</version>
       <scope>compile</scope>
+      <version>17.0.1</version>
     </dependency>
     <dependency>
       <artifactId>javafx-controls</artifactId>
       <groupId>org.openjfx</groupId>
-      <version>17.0.1</version>
       <scope>compile</scope>
+      <version>17.0.1</version>
+    </dependency>
+    <dependency>
+      <artifactId>javafx-controls</artifactId>
+      <classifier>win</classifier>
+      <groupId>org.openjfx</groupId>
+      <scope>compile</scope>
+      <version>17.0.1</version>
+    </dependency>
+    <dependency>
+      <artifactId>lombok</artifactId>
+      <groupId>org.projectlombok</groupId>
+      <scope>provided</scope>
+      <version>1.18.22</version>
     </dependency>
     <dependency>
       <artifactId>postgresql</artifactId>

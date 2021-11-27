@@ -11,16 +11,16 @@ import java.util.Optional;
 
 public interface GenericReadOnlyDAO<T, ID> {
 
-  String getQuery() throws IOException;
+  String findQuery() throws IOException;
 
-  String getAllQuery() throws IOException;
+  String findAllQuery() throws IOException;
 
   T readTuple(ResultSet resultSet) throws SQLException;
 
   void setKeyParameter(PreparedStatement statement, ID id) throws SQLException;
 
-  default Optional<T> get(ID id) throws IOException, SQLException {
-    final var query = getQuery();
+  default Optional<T> find(ID id) throws IOException, SQLException {
+    final var query = findQuery();
     final var connection = ConnectionSingleton.getInstance();
     final var statement = connection.prepareStatement(query);
     setKeyParameter(statement, id);
@@ -32,8 +32,8 @@ public interface GenericReadOnlyDAO<T, ID> {
     return optional;
   }
 
-  default Collection<T> getAll() throws IOException, SQLException {
-    final var query = getAllQuery();
+  default Collection<T> findAll() throws IOException, SQLException {
+    final var query = findAllQuery();
     final var connection = ConnectionSingleton.getInstance();
     final var statement = connection.createStatement();
     final var resultSet = statement.executeQuery(query);
