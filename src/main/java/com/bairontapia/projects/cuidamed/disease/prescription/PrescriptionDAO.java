@@ -1,9 +1,6 @@
 package com.bairontapia.projects.cuidamed.disease.prescription;
 
-import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
-import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
 import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
-import com.bairontapia.projects.cuidamed.disease.prescription.Prescription;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -12,9 +9,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.Optional;
 
 public class PrescriptionDAO implements GenericCrudDAO<Prescription, String> {
 

@@ -63,7 +63,7 @@ public class MedicationDAO implements GenericCrudDAO<Medication, String> {
     statement.setShort(1, (short) medication.administrationRoute().getIndex());
     statement.setShort(2, (short) medication.pharmaceuticalForm().getIndex());
     statement.setShort(3, (short) medication.measureUnit().getIndex());
-    statement.setString(4,medication.nameMedication());
+    statement.setString(4, medication.nameMedication());
   }
 
   @Override

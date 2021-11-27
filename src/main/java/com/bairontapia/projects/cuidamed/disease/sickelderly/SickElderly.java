@@ -8,7 +8,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 public record SickElderly(String rut, String diseaseName, LocalDate diagnosisDate) {
 
   public static SickElderly createInstance(String rut, String diseaseName, Date diagnosisDate) {
-    return new SickElderly(rut,diseaseName,diagnosisDate.toLocalDate());
+    return new SickElderly(rut, diseaseName, diagnosisDate.toLocalDate());
   }
 
   @Override

@@ -1,6 +1,5 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.allergy;
 
-import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
 import com.bairontapia.projects.cuidamed.daotemplate.GenericReadAndWriteDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;

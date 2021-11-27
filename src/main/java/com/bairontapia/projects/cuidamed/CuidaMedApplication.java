@@ -1,6 +1,5 @@
 package com.bairontapia.projects.cuidamed;
 
-import com.bairontapia.projects.cuidamed.person.carer.CarerDAO;
 import com.bairontapia.projects.cuidamed.person.elder.ElderDAO;
 import com.bairontapia.projects.cuidamed.person.responsible.ResponsibleDAO;
 import java.io.IOException;

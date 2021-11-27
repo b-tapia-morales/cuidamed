@@ -1,11 +1,6 @@
 package com.bairontapia.projects.cuidamed.medicalrecord;
 
-import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
 import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
-import com.bairontapia.projects.cuidamed.daotemplate.GenericReadAndWriteDAO;
-import com.bairontapia.projects.cuidamed.daotemplate.GenericReadOnlyDAO;
-import com.bairontapia.projects.cuidamed.daotemplate.ReadOnlyDAO;
-import com.bairontapia.projects.cuidamed.medicalrecord.surgicalintervention.SurgicalInterventionDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -13,9 +8,6 @@ import java.nio.file.Path;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.Optional;
 
 public class MedicalRecordDAO implements GenericCrudDAO<MedicalRecord, String> {
 

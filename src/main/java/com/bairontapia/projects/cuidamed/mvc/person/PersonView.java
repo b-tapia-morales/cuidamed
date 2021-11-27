@@ -1,9 +1,9 @@
 package com.bairontapia.projects.cuidamed.mvc.person;
 
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
+import com.bairontapia.projects.cuidamed.person.Person;
 import com.bairontapia.projects.cuidamed.person.carer.CarerDAO;
 import com.bairontapia.projects.cuidamed.person.elder.ElderDAO;
-import com.bairontapia.projects.cuidamed.person.Person;
 import com.bairontapia.projects.cuidamed.person.responsible.ResponsibleDAO;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.io.IOException;

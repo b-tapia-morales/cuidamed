@@ -8,7 +8,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 public record Prescription(String rut, String diseaseName, LocalDate prescriptionDate,
                            String description) {
 
-  public static Prescription createInstance(String rut, String diseaseName, Date prescriptionDate, String description) {
+  public static Prescription createInstance(String rut, String diseaseName, Date prescriptionDate,
+      String description) {
     return new Prescription(rut, diseaseName, prescriptionDate.toLocalDate(), description);
   }
 

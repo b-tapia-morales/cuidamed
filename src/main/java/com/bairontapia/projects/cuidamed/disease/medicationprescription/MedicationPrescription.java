@@ -14,8 +14,10 @@ public record MedicationPrescription(String rut, String diseaseName, LocalDate p
     if (endDate != null) {
       return new MedicationPrescription(rut, diseaseName, prescriptionDate.toLocalDate(),
           medicationName, startDate.toLocalDate(), endDate.toLocalDate());
-    }else return new MedicationPrescription(rut, diseaseName, prescriptionDate.toLocalDate(),
-        medicationName, startDate.toLocalDate(), null);
+    } else {
+      return new MedicationPrescription(rut, diseaseName, prescriptionDate.toLocalDate(),
+          medicationName, startDate.toLocalDate(), null);
+    }
   }
 
   public boolean equals(Object object) {

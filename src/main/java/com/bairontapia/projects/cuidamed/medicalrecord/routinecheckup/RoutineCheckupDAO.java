@@ -1,6 +1,5 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup;
 
-import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
 import com.bairontapia.projects.cuidamed.daotemplate.GenericReadAndWriteDAO;
 import com.bairontapia.projects.cuidamed.daotemplate.OneToManyDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
