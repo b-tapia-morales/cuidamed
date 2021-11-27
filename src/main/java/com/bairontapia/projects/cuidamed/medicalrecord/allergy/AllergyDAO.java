@@ -1,6 +1,7 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.allergy;
 
 import com.bairontapia.projects.cuidamed.daotemplate.GenericReadAndWriteDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.OneToManyDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -9,7 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AllergyDAO implements GenericReadAndWriteDAO<Allergy, String> {
+public class AllergyDAO implements GenericReadAndWriteDAO<Allergy, String>,
+    OneToManyDAO<Allergy, String> {
 
   private static final AllergyDAO INSTANCE = new AllergyDAO();
 
