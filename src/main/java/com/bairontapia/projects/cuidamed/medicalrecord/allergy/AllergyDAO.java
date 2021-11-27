@@ -13,6 +13,7 @@ import java.sql.SQLException;
 public class AllergyDAO implements GenericReadAndWriteDAO<Allergy, String> {
 
   private static final AllergyDAO INSTANCE = new AllergyDAO();
+
   private static final String RELATIVE_PATH_STRING =
       DirectoryPathUtils.relativePathString("scripts", "class_queries", "allergy");
   private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");

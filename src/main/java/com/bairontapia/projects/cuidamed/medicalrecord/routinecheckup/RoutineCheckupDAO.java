@@ -20,7 +20,6 @@ public class RoutineCheckupDAO implements GenericReadAndWriteDAO<RoutineCheckup,
       .relativePathString("scripts", "class_queries", "routine_checkup");
   private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
   private static final Path FIND_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
-  private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
 
   public static RoutineCheckupDAO getInstance() {
     return INSTANCE;
@@ -34,6 +33,16 @@ public class RoutineCheckupDAO implements GenericReadAndWriteDAO<RoutineCheckup,
   @Override
   public String findAllQuery() throws IOException {
     return TextFileUtils.readString(FIND_ALL_QUERY_PATH);
+  }
+
+  @Override
+  public String saveQuery() throws IOException {
+    return null;
+  }
+
+  @Override
+  public void setKeyParameter(PreparedStatement statement, String rut) throws SQLException {
+    statement.setString(1, rut);
   }
 
   @Override
@@ -52,24 +61,9 @@ public class RoutineCheckupDAO implements GenericReadAndWriteDAO<RoutineCheckup,
   }
 
   @Override
-  public void setKeyParameter(PreparedStatement statement, String rut) throws SQLException {
-    statement.setString(1, rut);
-  }
-
-  @Override
-  public String saveQuery() throws IOException {
-    return null;
-  }
-
-  @Override
   public void saveTuple(PreparedStatement statement, RoutineCheckup routineCheckup)
       throws SQLException {
 
-  }
-
-  @Override
-  public void save(RoutineCheckup routineCheckup) throws IOException, SQLException {
-    var connection = ConnectionSingleton.getInstance();
   }
 
 }

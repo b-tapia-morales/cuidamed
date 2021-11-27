@@ -16,6 +16,7 @@ public class SurgicalInterventionDAO
     OneToManyDAO<SurgicalIntervention, String> {
 
   private static final SurgicalInterventionDAO INSTANCE = new SurgicalInterventionDAO();
+
   private static final String RELATIVE_PATH_STRING =
       DirectoryPathUtils.relativePathString("scripts", "class_queries", "surgical_intervention");
   private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
@@ -27,8 +28,23 @@ public class SurgicalInterventionDAO
   }
 
   @Override
+  public String findQuery() throws IOException {
+    return TextFileUtils.readString(FIND_QUERY_PATH);
+  }
+
+  @Override
+  public String findAllQuery() throws IOException {
+    return TextFileUtils.readString(FIND_ALL_QUERY_PATH);
+  }
+
+  @Override
   public String saveQuery() throws IOException {
     return TextFileUtils.readString(SAVE_QUERY_PATH);
+  }
+
+  @Override
+  public void setKeyParameter(PreparedStatement statement, String rut) throws SQLException {
+    statement.setString(1, rut);
   }
 
   @Override
@@ -43,31 +59,14 @@ public class SurgicalInterventionDAO
   }
 
   @Override
-  public String findQuery() throws IOException {
-    return TextFileUtils.readString(FIND_QUERY_PATH);
-  }
-
-  @Override
-  public String findAllQuery() throws IOException {
-    return TextFileUtils.readString(FIND_ALL_QUERY_PATH);
-  }
-
-  @Override
   public SurgicalIntervention readTuple(ResultSet resultSet) throws SQLException {
     final var elderRut = resultSet.getString(1);
-    final var firstName = resultSet.getString(2);
-    final var lastName = resultSet.getString(3);
-    final var secondLastName = resultSet.getString(4);
-    final var interventionDate = resultSet.getDate(5);
-    final var hospital = resultSet.getString(6);
-    final var severity = resultSet.getShort(7);
-    final var description = resultSet.getString(8);
-    return SurgicalIntervention.createInstance(elderRut, firstName, lastName, secondLastName,
-        interventionDate, hospital, severity, description);
+    final var interventionDate = resultSet.getDate(2);
+    final var hospital = resultSet.getString(3);
+    final var severity = resultSet.getShort(4);
+    final var description = resultSet.getString(5);
+    return SurgicalIntervention.createInstance(elderRut, interventionDate, hospital, severity,
+        description);
   }
 
-  @Override
-  public void setKeyParameter(PreparedStatement statement, String rut) throws SQLException {
-    statement.setString(1, rut);
-  }
 }
