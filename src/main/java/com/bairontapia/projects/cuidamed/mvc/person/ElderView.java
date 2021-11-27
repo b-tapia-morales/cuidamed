@@ -5,6 +5,7 @@ import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.mappings.healthcaresystem.HealthCare;
 import com.bairontapia.projects.cuidamed.medicalrecord.allergy.Allergy;
 import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineCheckup;
+import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineCheckupDAO;
 import com.bairontapia.projects.cuidamed.person.Address;
 import com.bairontapia.projects.cuidamed.person.AddressDAO;
 import com.bairontapia.projects.cuidamed.person.Elder;
@@ -15,6 +16,7 @@ import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Collection;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -97,7 +99,7 @@ public class ElderView {
   @FXML
   private TableColumn<RoutineCheckup, Double> bmi;
   @FXML
-  private TableColumn<RoutineCheckup, Integer> hearthRate;
+  private TableColumn<RoutineCheckup, Integer> heartRate;
   @FXML
   private TableColumn<RoutineCheckup, Double> diastolicPressure;
   @FXML
@@ -116,6 +118,8 @@ public class ElderView {
     fillResponsibleFields(responsible);
     final var address = AddressDAO.getInstance().find(responsibleKey).get();
     fillAddressFields(address);
+    final var routineCheckup = RoutineCheckupDAO.getInstance().findAll("5875397-1");
+    fillRoutineCheckupTable(routineCheckup);
   }
 
   private void initializeComboBoxes() {
@@ -134,7 +138,7 @@ public class ElderView {
     height.setCellValueFactory(e -> new SimpleDoubleProperty(e.getValue().height()).asObject());
     weight.setCellValueFactory(e -> new SimpleDoubleProperty(e.getValue().weight()).asObject());
     bmi.setCellValueFactory(e -> new SimpleDoubleProperty(e.getValue().bmi()).asObject());
-    hearthRate.setCellValueFactory(
+    heartRate.setCellValueFactory(
         e -> new SimpleIntegerProperty(e.getValue().heartRate()).asObject());
     diastolicPressure.setCellValueFactory(
         e -> new SimpleDoubleProperty(e.getValue().diastolicPressure()).asObject());
@@ -173,6 +177,10 @@ public class ElderView {
     commune.setText(address.communeName());
     street.setText(address.street());
     number.setText(address.number().toString());
+  }
+
+  private void fillRoutineCheckupTable(final Collection<RoutineCheckup> routineCheckups) {
+    checkupTableView.getItems().addAll(routineCheckups);
   }
 
 }
