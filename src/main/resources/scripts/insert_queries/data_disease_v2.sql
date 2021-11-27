@@ -75,33 +75,33 @@ VALUES ('Kaopectate', 1, 4, 2);
 
 
 
-INSERT INTO residence.elder_suffers_disease
+INSERT INTO residence.sick_elderly
 VALUES ('8768514-4', 'Artritis', '2020-05-08');
-INSERT INTO residence.elder_suffers_disease
+INSERT INTO residence.sick_elderly
 VALUES ('5595642-1', 'Alzheimer', '2018-07-14');
-INSERT INTO residence.elder_suffers_disease
+INSERT INTO residence.sick_elderly
 VALUES ('10031785-0', 'Neumonia', '2019-06-15');
-INSERT INTO residence.elder_suffers_disease
+INSERT INTO residence.sick_elderly
 VALUES ('8742099-k', 'Demencia senil', '2018-05-14');
-INSERT INTO residence.elder_suffers_disease
+INSERT INTO residence.sick_elderly
 VALUES ('8768514-4', 'Artrosis', '2020-03-19');
-INSERT INTO residence.elder_suffers_disease
+INSERT INTO residence.sick_elderly
 VALUES ('5595642-1', 'Diabetes', '2017-07-02');
-INSERT INTO residence.elder_suffers_disease
+INSERT INTO residence.sick_elderly
 VALUES ('5875397-1', 'Nauseas y vómitos', '2018-11-08');
-INSERT INTO residence.elder_suffers_disease
+INSERT INTO residence.sick_elderly
 VALUES ('8820206-6', 'Osteoporosis', '2020-09-30');
-INSERT INTO residence.elder_suffers_disease
+INSERT INTO residence.sick_elderly
 VALUES ('8346739-8', 'Infarto', '2021-02-14');
-INSERT INTO residence.elder_suffers_disease
+INSERT INTO residence.sick_elderly
 VALUES ('8358513-7', 'Estreñimiento', '2018-05-14');
-INSERT INTO residence.elder_suffers_disease
+INSERT INTO residence.sick_elderly
 VALUES ('8358513-7', 'Diabetes', '2017-12-20');
-INSERT INTO residence.elder_suffers_disease
+INSERT INTO residence.sick_elderly
 VALUES ('5902831-6', 'Parkinson', '2019-10-18');
-INSERT INTO residence.elder_suffers_disease
+INSERT INTO residence.sick_elderly
 VALUES ('5968347-0', 'Ictus', '2016-12-20');
-INSERT INTO residence.elder_suffers_disease
+INSERT INTO residence.sick_elderly
 VALUES ('5875397-1', 'Hipertensión', '2018-09-25');
 
 
