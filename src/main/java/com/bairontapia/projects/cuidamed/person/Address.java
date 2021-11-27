@@ -24,9 +24,9 @@ public record Address(String regionName, String provinceName, String communeName
                 Comuna:\t\t\t\t\t\t\t\t%s
                 Calle:\t\t\t\t\t\t\t\t%s
                 Número:\t\t\t\t\t\t\t\t%s
-                Código Postal:\t\t\t\t\t%s
-                Teléfono Fijo:\t\t\t\t\t%s
-                Rut:\t\t\t\t\t\t\t\t\t\t%s
+                Código Postal:\t\t\t\t%s
+                Teléfono Fijo:\t\t\t\t%s
+                Rut:\t\t\t\t\t\t\t\t\t%s
                 """, regionName, provinceName, communeName, street, number, postalCode, fixedPhone,
             RutUtils.format(rut));
   }
