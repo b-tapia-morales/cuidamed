@@ -149,19 +149,17 @@
               </rowConstraints>
             </GridPane>
             <HBox alignment="CENTER" prefHeight="45.0">
-              <Button alignment="CENTER" minHeight="36.0" minWidth="36.0" mnemonicParsing="false">
+              <Button fx:id="updateData" alignment="CENTER" minHeight="36.0" minWidth="36.0" mnemonicParsing="false" onAction="#onUpdatedFields">
                         <graphic>
-                           <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                 <Image url="@../icons/add.png" />
-                              </image>
-                           </ImageView>
+                          <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../icons/update.png" />
+                          </ImageView>
                         </graphic></Button>
             </HBox>
           </VBox>
         </AnchorPane>
         <AnchorPane prefWidth="355.0">
-          <VBox alignment="CENTER" layoutX="128.0" layoutY="59.0" prefHeight="350.0" prefWidth="355.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <VBox alignment="CENTER" layoutX="128.0" layoutY="59.0" prefHeight="420.0" prefWidth="355.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <HBox alignment="CENTER" prefHeight="35.0" spacing="10.0">
               <Separator prefWidth="65.0" />
               <Label text="Información personal del responsable" />
@@ -315,7 +313,7 @@
     </AnchorPane>
     <AnchorPane prefHeight="260.0" prefWidth="200.0">
       <VBox prefHeight="250.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <TabPane prefHeight="215.0" tabClosingPolicy="UNAVAILABLE">
+        <TabPane fx:id="tabPane" prefHeight="215.0" tabClosingPolicy="UNAVAILABLE">
           <Tab text="Alergias">
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <TableView fx:id="allergyTableView" layoutX="47.0" layoutY="6.0" prefHeight="211.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -356,13 +354,11 @@
           </Tab>
         </TabPane>
         <HBox alignment="CENTER" prefHeight="45.0">
-          <Button minHeight="36.0" minWidth="36.0" mnemonicParsing="false">
+          <Button fx:id="addData" minHeight="36.0" minWidth="36.0" mnemonicParsing="false">
                   <graphic>
-                     <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                           <Image url="@../icons/add.png" />
-                        </image>
-                     </ImageView>
+                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                      <Image url="@../icons/add.png" />
+                    </ImageView>
                   </graphic></Button>
         </HBox>
       </VBox>
