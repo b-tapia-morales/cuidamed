@@ -1,4 +1,4 @@
-package com.bairontapia.projects.cuidamed.person;
+package com.bairontapia.projects.cuidamed.person.address;
 
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
