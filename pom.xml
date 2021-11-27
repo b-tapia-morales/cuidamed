@@ -13,10 +13,6 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <compilerArgs>
-            <arg>--module-path</arg>
-            <arg>%PATH_TO_FX% --add-modules=javafx.controls, javafx.graphics, javafx.fxml</arg>
-          </compilerArgs>
           <release>17</release>
         </configuration>
         <groupId>org.apache.maven.plugins</groupId>
