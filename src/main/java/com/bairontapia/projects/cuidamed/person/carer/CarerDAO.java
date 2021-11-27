@@ -1,4 +1,4 @@
-package com.bairontapia.projects.cuidamed.person;
+package com.bairontapia.projects.cuidamed.person.carer;
 
 import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
 import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
@@ -6,6 +6,7 @@ import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -77,11 +78,33 @@ public class CarerDAO implements CrudDAO<Carer, String> {
 
   @Override
   public void save(Carer carer) throws IOException, SQLException {
-
+    final var query = TextFileUtils.readString(null);
+    final var connection = ConnectionSingleton.getInstance();
+    final var statement = connection.prepareStatement(query);
+    statement.setString(1, carer.rut());
+    statement.setString(2, carer.firstName());
+    statement.setString(3, carer.lastName());
+    statement.setString(4, carer.secondLastName());
+    statement.setDate(5, Date.valueOf(carer.birthDate()));
+    statement.setShort(6, (short) carer.gender().getIndex());
+    statement.setInt(7, carer.mobilePhone());
+    statement.setDate(8, Date.valueOf(carer.hireDate()));
+    statement.executeUpdate();
   }
 
   @Override
   public void update(Carer carer) throws IOException, SQLException {
-
+    var connection = ConnectionSingleton.getInstance();
+    var query = TextFileUtils.readString(UPDATE_QUERY_PATH);
+    var statement = connection.prepareStatement(query);
+    statement.setString(1, carer.rut());
+    statement.setString(2, carer.firstName());
+    statement.setString(3, carer.lastName());
+    statement.setString(4, carer.secondLastName());
+    statement.setDate(5, Date.valueOf(carer.birthDate()));
+    statement.setShort(6, (short) carer.gender().getIndex());
+    statement.setInt(7, carer.mobilePhone());
+    statement.setDate(8, Date.valueOf(carer.hireDate()));
+    statement.executeUpdate();
   }
 }

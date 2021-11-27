@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS residence.carer;
 DROP TABLE IF EXISTS residence.elder;
 DROP TABLE IF EXISTS residence.responsible;
 DROP TABLE IF EXISTS residence.person;
-DROP TABLE IF EXISTS residence.elder_suffers_disease;
+DROP TABLE IF EXISTS residence.sick_elderly;
 DROP TABLE IF EXISTS residence.commune;
 DROP TABLE IF EXISTS residence.province;
 DROP TABLE IF EXISTS residence.region;

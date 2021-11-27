@@ -1,6 +1,7 @@
-package com.bairontapia.projects.cuidamed.person;
+package com.bairontapia.projects.cuidamed.person.elder;
 
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
+import com.bairontapia.projects.cuidamed.person.Person;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.sql.Date;
 import java.time.LocalDate;

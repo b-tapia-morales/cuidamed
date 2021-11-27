@@ -11,9 +11,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.Optional;
 
 public class SurgicalInterventionDAO
     implements GenericReadAndWriteDAO<SurgicalIntervention, String> {
@@ -65,6 +62,7 @@ public class SurgicalInterventionDAO
     final var hospital = resultSet.getString(6);
     final var severity = resultSet.getShort(7);
     final var description = resultSet.getString(8);
+
     return SurgicalIntervention.createInstance(
         elderRut,
         firstNames,

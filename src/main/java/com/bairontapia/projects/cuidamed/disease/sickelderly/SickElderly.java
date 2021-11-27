@@ -1,10 +1,15 @@
-package com.bairontapia.projects.cuidamed.disease;
+package com.bairontapia.projects.cuidamed.disease.sickelderly;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public record SickElderly(String rut, String diseaseName, LocalDate diagnosisDate) {
+
+  public static SickElderly createInstance(String rut, String diseaseName, Date diagnosisDate) {
+    return new SickElderly(rut,diseaseName,diagnosisDate.toLocalDate());
+  }
 
   @Override
   public boolean equals(Object object) {

@@ -1,3 +1,3 @@
 SELECT *
-FROM medical_record
+FROM residence.medical_record
 WHERE rut = ?;
