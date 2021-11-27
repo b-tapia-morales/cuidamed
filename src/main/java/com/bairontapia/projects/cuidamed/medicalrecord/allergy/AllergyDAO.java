@@ -51,7 +51,7 @@ public class AllergyDAO implements GenericCrudDAO<Allergy, String> {
   public void saveTuple(PreparedStatement statement, Allergy allergy) throws SQLException {
     statement.setString(1, allergy.rut());
     statement.setShort(2, (short) allergy.type().getIndex());
-    statement.setString(3, allergy.name());
+    statement.setString(3, allergy.details());
     statement.executeUpdate();
   }
 
@@ -66,7 +66,7 @@ public class AllergyDAO implements GenericCrudDAO<Allergy, String> {
   @Override
   public void updateTuple(PreparedStatement statement, Allergy allergy) throws SQLException {
     statement.setShort(1, (short) allergy.type().getIndex());
-    statement.setString(2, allergy.name());
+    statement.setString(2, allergy.details());
     statement.setString(3, allergy.rut());
     statement.executeUpdate();
   }
