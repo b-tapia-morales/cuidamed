@@ -2,7 +2,7 @@ package com.bairontapia.projects.cuidamed.localization;
 
 import java.util.Objects;
 
-public record Commune(String regionName, String provinceName, Short id, String name) {
+public record Commune(Short id, String name, Short provinceId) {
 
   @Override
   public boolean equals(Object object) {

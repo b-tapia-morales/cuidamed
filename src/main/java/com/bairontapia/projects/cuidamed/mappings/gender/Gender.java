@@ -1,43 +1,31 @@
 package com.bairontapia.projects.cuidamed.mappings.gender;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import lombok.Getter;
 
 @Getter
 public enum Gender {
-  NOT_KNOWN(0, "Desconocido"),
-  MALE(1, "Hombre"),
-  FEMALE(2, "Mujer"),
-  NOT_APPLICABLE(9, "No aplica");
+  MALE("Hombre"),
+  FEMALE("Mujer"),
+  NOT_KNOWN("Desconocido"),
+  NOT_APPLICABLE("No aplica");
 
   private static final Gender[] VALUES = values();
-  private static final Map<Integer, Gender> VALUES_MAP =
-      Stream.of(VALUES)
-          .collect(
-              Collectors.toMap(
-                  Gender::getCode, Function.identity(), (a, b) -> a, LinkedHashMap::new));
 
-  private final int code;
   private final String name;
 
-  Gender(final int code, final String name) {
-    this.code = code;
+  Gender(final String name) {
     this.name = name;
+  }
+
+  public static Gender getValueFromIndex(final int index) {
+    if (index < 1 || index > VALUES.length) {
+      throw new IllegalArgumentException();
+    }
+    return VALUES[index - 1];
   }
 
   public static Gender[] getValues() {
     return VALUES;
-  }
-
-  public static Gender getValueFromCode(final int code) {
-    if (!VALUES_MAP.containsKey(code)) {
-      throw new IllegalArgumentException();
-    }
-    return VALUES_MAP.get(code);
   }
 
   @Override

@@ -17,8 +17,10 @@ import com.bairontapia.projects.cuidamed.person.responsible.Responsible;
 import com.bairontapia.projects.cuidamed.person.responsible.ResponsibleDAO;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Collection;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -26,18 +28,23 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
 @Getter
 public class ElderView {
 
+  @Setter
+  private Elder elder;
   @FXML
   private TextField rut;
   @FXML
@@ -60,6 +67,8 @@ public class ElderView {
   private ComboBox<BloodType> bloodTypeComboBox;
   @FXML
   private ComboBox<HealthCare> healthCareComboBox;
+  @FXML
+  private Button updateData;
 
   @FXML
   private TextField responsibleRut;
@@ -84,6 +93,9 @@ public class ElderView {
   private TextField street;
   @FXML
   private TextField number;
+
+  @FXML
+  private TabPane tabPane;
 
   @FXML
   private TableView<Allergy> allergyTableView;
@@ -122,12 +134,16 @@ public class ElderView {
   @FXML
   private TableColumn<SurgicalIntervention, String> description;
 
+  @FXML
+  private Button addData;
+
   public void initialize() throws SQLException, IOException {
     initializeComboBoxes();
     initializeAllergyTable();
     initializeCheckupTable();
     initializeSurgicalInterventionTable();
     final Elder elder = ElderDAO.getInstance().find("5902831-6").orElseThrow();
+    setElder(elder);
     fillElderFields(elder);
     final var responsibleKey = elder.responsibleRut();
     final var responsible = ResponsibleDAO.getInstance().find(responsibleKey).orElseThrow();
@@ -140,6 +156,50 @@ public class ElderView {
     fillRoutineCheckupTable(routineCheckups);
     final var surgicalInterventions = SurgicalInterventionDAO.getInstance().findAll("5902831-6");
     fillSurgicalInterventionTable(surgicalInterventions);
+  }
+
+  @FXML
+  public void onUpdatedFields() throws SQLException, IOException {
+    if (areFieldsEmpty() || areFieldsTooShort() || areFieldsIncorrect()) {
+      fillElderFields(elder);
+    }
+    final var rutField = RutUtils.removeDots(rut.getText());
+    final var nameField = StringUtils.trim(name.getText());
+    final var lastNameField = StringUtils.trim(lastName.getText());
+    final var secondLastNameField = StringUtils.trim(secondLastName.getText());
+    final var birthDateField = birthDatePicker.getValue();
+    final var genderCode = genderComboBox.getSelectionModel().getSelectedItem().getIndex();
+    final var isActiveField = isActiveCheckBox.isSelected();
+    final var admissionDateField = admissionDatePicker.getValue();
+    final var responsibleRutField = RutUtils.removeDots(responsibleRut.getText());
+    final var elder = Elder.createInstance(rutField, nameField, lastNameField,
+        secondLastNameField, Date.valueOf(birthDateField), (short) genderCode, isActiveField,
+        Date.valueOf(admissionDateField), responsibleRutField);
+    ElderDAO.getInstance().update(elder);
+    setElder(elder);
+  }
+
+  private boolean areFieldsEmpty() {
+    return name.getText().isEmpty() || lastName.getText().isEmpty() ||
+        secondLastName.getText().isEmpty() || birthDatePicker.getValue() == null ||
+        admissionDatePicker.getValue() == null || genderComboBox.getSelectionModel().isEmpty();
+  }
+
+  private boolean areFieldsTooShort() {
+    final var nameField = StringUtils.trim(name.getText());
+    final var lastNameField = StringUtils.trim(lastName.getText());
+    final var secondLastNameField = StringUtils.trim(secondLastName.getText());
+    return nameField.length() < 4 || lastNameField.length() < 4 || secondLastNameField.length() < 4;
+  }
+
+  private boolean areFieldsIncorrect() {
+    final var birthDateField = birthDatePicker.getValue();
+    final var admissionDateField = admissionDatePicker.getValue();
+    final var now = LocalDate.now();
+    final var age = Period.between(birthDateField, now).getYears();
+    final var days = Period.between(admissionDateField, now).getDays();
+    final var years = Period.between(admissionDateField, now).getYears();
+    return age < 65 || age > 120 || days < 0 || years > 5;
   }
 
   private void initializeComboBoxes() {

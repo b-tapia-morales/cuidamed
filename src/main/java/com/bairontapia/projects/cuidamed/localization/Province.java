@@ -2,7 +2,7 @@ package com.bairontapia.projects.cuidamed.localization;
 
 import java.util.Objects;
 
-public record Province(String regionName, Short id, String name) {
+public record Province(Short id, String name, Short regionId) {
 
   @Override
   public boolean equals(Object object) {

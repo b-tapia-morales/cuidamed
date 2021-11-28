@@ -11,11 +11,11 @@ import java.sql.SQLException;
 
 public class BloodTypeStatsDAO implements GenericReadOnlyDAO<BloodTypeStats, Short> {
 
+  private static final BloodTypeStatsDAO INSTANCE = new BloodTypeStatsDAO();
+
   private static final String RELATIVE_PATH_STRING =
       DirectoryPathUtils.relativePathString("scripts", "class_queries", "blood_type_stats");
-  private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
-  private static final Path FIND_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
-  private static BloodTypeStatsDAO INSTANCE = new BloodTypeStatsDAO();
+  private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "blood_type.sql");
 
   public static BloodTypeStatsDAO getInstance() {
     return INSTANCE;
@@ -23,12 +23,16 @@ public class BloodTypeStatsDAO implements GenericReadOnlyDAO<BloodTypeStats, Sho
 
   @Override
   public String findQuery() throws IOException {
-    return TextFileUtils.readString(FIND_QUERY_PATH);
+    return null;
   }
 
   @Override
   public String findAllQuery() throws IOException {
     return TextFileUtils.readString(FIND_ALL_QUERY_PATH);
+  }
+
+  @Override
+  public void setKeyParameter(PreparedStatement statement, Short id) throws SQLException {
   }
 
   @Override
@@ -38,7 +42,4 @@ public class BloodTypeStatsDAO implements GenericReadOnlyDAO<BloodTypeStats, Sho
     return BloodTypeStats.createInstance(bloodType, frequency);
   }
 
-  @Override
-  public void setKeyParameter(PreparedStatement statement, Short aShort) throws SQLException {
-  }
 }
