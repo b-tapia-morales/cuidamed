@@ -5,8 +5,8 @@ import com.bairontapia.projects.cuidamed.medicalrecord.stats.BloodTypeStats;
 import com.bairontapia.projects.cuidamed.medicalrecord.stats.BloodTypeStatsDAO;
 import com.bairontapia.projects.cuidamed.medicalrecord.stats.DiseaseStats;
 import com.bairontapia.projects.cuidamed.medicalrecord.stats.DiseaseStatsDAO;
-import com.bairontapia.projects.cuidamed.medicalrecord.stats.HealthySystemTypeStats;
-import com.bairontapia.projects.cuidamed.medicalrecord.stats.HealthySystemTypeStatsDAO;
+import com.bairontapia.projects.cuidamed.medicalrecord.stats.HealthSystemStats;
+import com.bairontapia.projects.cuidamed.medicalrecord.stats.HealthSystemStatsDAO;
 import com.bairontapia.projects.cuidamed.medicalrecord.stats.MedicationStats;
 import com.bairontapia.projects.cuidamed.medicalrecord.stats.MedicationStatsDAO;
 import java.io.IOException;
@@ -83,8 +83,8 @@ public class GraphicsView {
   }
 
   private void loadDataHealthySystem() throws SQLException, IOException {
-    final var data = HealthySystemTypeStatsDAO.getInstance().findAll();
-    for (HealthySystemTypeStats healthy : data) {
+    final var data = HealthSystemStatsDAO.getInstance().findAll();
+    for (HealthSystemStats healthy : data) {
       healthySystem.getData().add(new Data(healthy.healthCare().getName(), healthy.frequency()));
     }
     healthySystem.setVisible(false);

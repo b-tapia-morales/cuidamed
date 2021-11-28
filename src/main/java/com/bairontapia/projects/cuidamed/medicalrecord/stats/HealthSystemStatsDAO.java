@@ -9,16 +9,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class HealthySystemTypeStatsDAO implements
-    GenericReadOnlyDAO<HealthySystemTypeStats, Short> {
+public class HealthSystemStatsDAO implements
+    GenericReadOnlyDAO<HealthSystemStats, Short> {
 
-  private static final HealthySystemTypeStatsDAO INSTANCE = new HealthySystemTypeStatsDAO();
+  private static final HealthSystemStatsDAO INSTANCE = new HealthSystemStatsDAO();
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "stats");
   private static final Path FIND_ALL_QUERY_PATH = Path
       .of(RELATIVE_PATH_STRING, "healthy_system.sql");
 
-  public static HealthySystemTypeStatsDAO getInstance() {
+  public static HealthSystemStatsDAO getInstance() {
     return INSTANCE;
   }
 
@@ -33,10 +33,10 @@ public class HealthySystemTypeStatsDAO implements
   }
 
   @Override
-  public HealthySystemTypeStats readTuple(ResultSet resultSet) throws SQLException {
+  public HealthSystemStats readTuple(ResultSet resultSet) throws SQLException {
     final var healthSystem = resultSet.getShort(1);
     final var frequency = resultSet.getInt(2);
-    return HealthySystemTypeStats.createInstance(healthSystem, frequency);
+    return HealthSystemStats.createInstance(healthSystem, frequency);
   }
 
   @Override
