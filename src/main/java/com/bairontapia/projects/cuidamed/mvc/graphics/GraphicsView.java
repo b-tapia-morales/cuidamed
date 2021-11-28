@@ -18,7 +18,7 @@ import lombok.Getter;
 public class GraphicsView {
 
   @FXML
-  private ComboBox<GraphicSelection> typeGraphicsCombo;
+  private ComboBox<DataSelection> dataComboBox;
   @FXML
   private PieChart bloodTypes;
   @FXML
@@ -30,53 +30,46 @@ public class GraphicsView {
 
 
   public void initialize() throws SQLException, IOException {
-    typeGraphicsCombo.setItems(FXCollections.observableArrayList(GraphicSelection.values()));
-    loadDataBloodType();
-    loadDataHealthySystem();
-    loadDataDisease();
-    loadDataMedication();
+    dataComboBox.setItems(FXCollections.observableArrayList(DataSelection.values()));
+    initializeBloodTypesChart();
+    initializeHealthSystemsChart();
+    initializeDiseasesChart();
+    initializeMedicationsChart();
   }
 
   @FXML
   public void onGraphicChoice() {
-    if (typeGraphicsCombo.getSelectionModel().isSelected(0)) {
-      bloodTypes.setVisible(true);
-      healthSystems.setVisible(false);
-      diseases.setVisible(false);
-      medications.setVisible(false);
-    } else {
-      if (typeGraphicsCombo.getSelectionModel().isSelected(1)) {
-        healthSystems.setVisible(true);
-        bloodTypes.setVisible(false);
-        diseases.setVisible(false);
-        medications.setVisible(false);
-      } else {
-        if (typeGraphicsCombo.getSelectionModel().isSelected(2)) {
-          diseases.setVisible(true);
-          bloodTypes.setVisible(false);
-          healthSystems.setVisible(false);
-          medications.setVisible(false);
-        } else {
-          if (typeGraphicsCombo.getSelectionModel().isSelected(3)) {
-            medications.setVisible(true);
-            diseases.setVisible(false);
-            healthSystems.setVisible(false);
-            bloodTypes.setVisible(false);
-          }
-        }
-      }
+    if (dataComboBox.getSelectionModel().isSelected(0)) {
+      setChartVisibility(bloodTypes, healthSystems, diseases, medications);
+      return;
     }
-
+    if (dataComboBox.getSelectionModel().isSelected(1)) {
+      setChartVisibility(healthSystems, bloodTypes, diseases, medications);
+      return;
+    }
+    if (dataComboBox.getSelectionModel().isSelected(2)) {
+      setChartVisibility(diseases, bloodTypes, healthSystems, medications);
+      return;
+    }
+    setChartVisibility(medications, bloodTypes, healthSystems, diseases);
   }
 
-  private void loadDataBloodType() throws SQLException, IOException {
+  private static void setChartVisibility(final PieChart firstChart, final PieChart secondChart,
+      final PieChart thirdChart, final PieChart fourthChart) {
+    firstChart.setVisible(true);
+    secondChart.setVisible(false);
+    thirdChart.setVisible(false);
+    fourthChart.setVisible(false);
+  }
+
+  private void initializeBloodTypesChart() throws SQLException, IOException {
     final var data = BloodTypeStatsDAO.getInstance().findAll();
     data.forEach(e -> bloodTypes.getData().add(new Data(e.bloodType().getName(), e.frequency())));
     bloodTypes.setVisible(false);
     bloodTypes.setTitle("Tipos de Sangre");
   }
 
-  private void loadDataHealthySystem() throws SQLException, IOException {
+  private void initializeHealthSystemsChart() throws SQLException, IOException {
     final var data = HealthSystemStatsDAO.getInstance().findAll();
     data.forEach(
         e -> healthSystems.getData().add(new Data(e.healthCare().getName(), e.frequency())));
@@ -84,14 +77,14 @@ public class GraphicsView {
     healthSystems.setTitle("Sistemas de Salud");
   }
 
-  private void loadDataDisease() throws SQLException, IOException {
+  private void initializeDiseasesChart() throws SQLException, IOException {
     final var data = DiseaseStatsDAO.getInstance().findAll();
     data.forEach(e -> diseases.getData().add(new Data(e.diseaseName(), e.frequency())));
     diseases.setVisible(false);
     diseases.setTitle("Enfermedades");
   }
 
-  private void loadDataMedication() throws SQLException, IOException {
+  private void initializeMedicationsChart() throws SQLException, IOException {
     final var data = MedicationStatsDAO.getInstance().findAll();
     data.forEach(e -> medications.getData().add(new Data(e.name(), e.frequency())));
     medications.setVisible(false);
@@ -99,7 +92,7 @@ public class GraphicsView {
   }
 
   @Getter
-  enum GraphicSelection {
+  private enum DataSelection {
     BLOOD_TYPE("Tipo de sangre"),
     HEALTH_SYSTEM("Sistema de Salud"),
     DISEASE("Enfermedades"),
@@ -107,7 +100,7 @@ public class GraphicsView {
 
     private final String name;
 
-    GraphicSelection(String name) {
+    DataSelection(String name) {
       this.name = name;
     }
 
