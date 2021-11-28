@@ -355,7 +355,7 @@
           </Tab>
         </TabPane>
         <HBox alignment="CENTER" prefHeight="45.0">
-          <Button fx:id="addData" minHeight="36.0" minWidth="36.0" mnemonicParsing="false">
+          <Button fx:id="addData" minHeight="36.0" minWidth="36.0" mnemonicParsing="false" onAction="#addColumn">
                   <graphic>
                     <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                       <Image url="@../icons/add.png" />

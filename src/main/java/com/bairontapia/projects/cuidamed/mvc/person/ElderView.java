@@ -27,6 +27,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -177,6 +178,31 @@ public class ElderView {
         Date.valueOf(admissionDateField), responsibleRutField);
     ElderDAO.getInstance().update(elder);
     setElder(elder);
+  }
+
+  @FXML
+  public void addColumn() {
+    if (tabPane.getSelectionModel().isEmpty()) {
+      return;
+    }
+    final var tabSelectionIndex = tabPane.getSelectionModel().getSelectedIndex();
+    switch(tabSelectionIndex) {
+      case 0 -> addToAllergyTable();
+      case 1 -> addToRoutineCheckupTable();
+      case 2 -> addToSurgicalInterventionTable();
+    }
+  }
+
+  private void addToAllergyTable() {
+
+  }
+
+  private void addToSurgicalInterventionTable() {
+
+  }
+
+  private void addToRoutineCheckupTable() {
+
   }
 
   private boolean areFieldsEmpty() {
