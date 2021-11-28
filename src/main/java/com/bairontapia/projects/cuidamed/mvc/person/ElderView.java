@@ -168,12 +168,12 @@ public class ElderView {
     final var lastNameField = StringUtils.trim(lastName.getText());
     final var secondLastNameField = StringUtils.trim(secondLastName.getText());
     final var birthDateField = birthDatePicker.getValue();
-    final var genderCode = (short) genderComboBox.getSelectionModel().getSelectedItem().getCode();
+    final var genderCode = genderComboBox.getSelectionModel().getSelectedItem().getIndex();
     final var isActiveField = isActiveCheckBox.isSelected();
     final var admissionDateField = admissionDatePicker.getValue();
     final var responsibleRutField = RutUtils.removeDots(responsibleRut.getText());
     final var elder = Elder.createInstance(rutField, nameField, lastNameField,
-        secondLastNameField, Date.valueOf(birthDateField), genderCode, isActiveField,
+        secondLastNameField, Date.valueOf(birthDateField), (short) genderCode, isActiveField,
         Date.valueOf(admissionDateField), responsibleRutField);
     ElderDAO.getInstance().update(elder);
     setElder(elder);
