@@ -24,9 +24,9 @@
             </HBox>
          </children>
       </VBox>
-      <PieChart fx:id="bloodType"  layoutX="103.0" layoutY="84.0" prefHeight="400.0" prefWidth="500.0" title="Tipo de Sangre" />
-      <PieChart fx:id="healthySystem"  layoutX="103.0" layoutY="84.0" title="Sistema de Salud" />
-      <PieChart fx:id="disease" layoutX="103.0" layoutY="84.0" title="Enfermedades" />
-      <PieChart fx:id="medication"  layoutX="103.0" layoutY="84.0" prefHeight="419.0" prefWidth="500.0" title="Medicamentos" />
+      <PieChart fx:id="bloodTypes"  layoutX="103.0" layoutY="84.0" prefHeight="400.0" prefWidth="500.0" title="Tipo de Sangre" />
+      <PieChart fx:id="healthSystems"  layoutX="103.0" layoutY="84.0" title="Sistema de Salud" />
+      <PieChart fx:id="diseases" layoutX="103.0" layoutY="84.0" title="Enfermedades" />
+      <PieChart fx:id="medications"  layoutX="103.0" layoutY="84.0" prefHeight="419.0" prefWidth="500.0" title="Medicamentos" />
    </children>
 </AnchorPane>
