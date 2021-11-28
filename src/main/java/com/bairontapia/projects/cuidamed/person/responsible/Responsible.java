@@ -19,7 +19,7 @@ public record Responsible(String rut, String firstName, String lastName, String 
     final var now = LocalDate.now();
     final var age = Period.between(then, now).getYears();
     return new Responsible(rut, firstName, lastName, secondLastName, birthDate.toLocalDate(),
-        age, Gender.getValueFromCode(genderCode), mobilePhone);
+        age, Gender.getValueFromIndex(genderCode), mobilePhone);
   }
 
   @Override

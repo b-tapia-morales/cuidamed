@@ -37,12 +37,12 @@
                   <Insets left="5.0" />
                 </GridPane.margin>
               </ComboBox>
-              <DatePicker fx:id="birthDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="4">
+              <DatePicker fx:id="birthDatePicker" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
                 <GridPane.margin>
                   <Insets left="5.0" />
                 </GridPane.margin>
               </DatePicker>
-              <DatePicker fx:id="admissionDatePicker" GridPane.columnIndex="1" GridPane.rowIndex="8">
+              <DatePicker fx:id="admissionDatePicker" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="8">
                 <GridPane.margin>
                   <Insets left="5.0" />
                 </GridPane.margin>
@@ -158,6 +158,7 @@
             </HBox>
           </VBox>
         </AnchorPane>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
         <AnchorPane prefWidth="355.0">
           <VBox alignment="CENTER" layoutX="128.0" layoutY="59.0" prefHeight="420.0" prefWidth="355.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <HBox alignment="CENTER" prefHeight="35.0" spacing="10.0">
@@ -354,7 +355,7 @@
           </Tab>
         </TabPane>
         <HBox alignment="CENTER" prefHeight="45.0">
-          <Button fx:id="addData" minHeight="36.0" minWidth="36.0" mnemonicParsing="false">
+          <Button fx:id="addData" minHeight="36.0" minWidth="36.0" mnemonicParsing="false" onAction="#addColumn">
                   <graphic>
                     <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                       <Image url="@../icons/add.png" />

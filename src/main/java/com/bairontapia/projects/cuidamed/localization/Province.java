@@ -2,7 +2,11 @@ package com.bairontapia.projects.cuidamed.localization;
 
 import java.util.Objects;
 
-public record Province(String regionName, Short id, String name) {
+public record Province(Short id, String name, Short regionId) {
+
+  public static Province createInstance(short id, String name, short regionId){
+    return new Province(id, name, regionId);
+  }
 
   @Override
   public boolean equals(Object object) {
@@ -22,6 +26,10 @@ public record Province(String regionName, Short id, String name) {
 
   @Override
   public String toString() {
-    return name;
+    return "Province{" +
+        "id=" + id +
+        ", name='" + name + '\'' +
+        ", regionId=" + regionId +
+        '}';
   }
 }

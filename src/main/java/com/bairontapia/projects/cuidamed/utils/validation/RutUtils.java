@@ -49,6 +49,10 @@ public final class RutUtils {
     return builder.reverse().toString();
   }
 
+  public static String removeDots(final String rut) {
+    return StringUtils.replace(rut, ".", "");
+  }
+
   public static boolean isLastDigitValid(final String rut) {
     if (!isValid(rut)) {
       throw new IllegalArgumentException();

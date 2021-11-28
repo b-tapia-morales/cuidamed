@@ -19,7 +19,7 @@ public record Carer(String rut, String firstName, String lastName, String second
     final var now = LocalDate.now();
     final var age = Period.between(then, now).getYears();
     return new Carer(rut, firstName, lastName, secondLastName, birthDate.toLocalDate(),
-        age, Gender.getValueFromCode(genderCode), mobilePhone, hireDate.toLocalDate());
+        age, Gender.getValueFromIndex(genderCode), mobilePhone, hireDate.toLocalDate());
   }
 
   @Override

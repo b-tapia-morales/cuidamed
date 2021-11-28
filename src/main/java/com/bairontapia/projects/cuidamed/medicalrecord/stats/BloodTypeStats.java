@@ -1,6 +1,7 @@
-package com.bairontapia.projects.cuidamed.medicalrecord;
+package com.bairontapia.projects.cuidamed.medicalrecord.stats;
 
 import com.bairontapia.projects.cuidamed.mappings.bloodtype.BloodType;
+import java.util.Objects;
 
 public record BloodTypeStats(BloodType bloodType, Integer frequency) {
 
