@@ -4,6 +4,10 @@ import java.util.Objects;
 
 public record Province(Short id, String name, Short regionId) {
 
+  public static Province createInstance(short id, String name, short regionId){
+    return new Province(id, name, regionId);
+  }
+
   @Override
   public boolean equals(Object object) {
     if (this == object) {
@@ -22,6 +26,10 @@ public record Province(Short id, String name, Short regionId) {
 
   @Override
   public String toString() {
-    return name;
+    return "Province{" +
+        "id=" + id +
+        ", name='" + name + '\'' +
+        ", regionId=" + regionId +
+        '}';
   }
 }
