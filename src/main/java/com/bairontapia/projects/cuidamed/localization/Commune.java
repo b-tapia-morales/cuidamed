@@ -25,10 +25,6 @@ public record Commune(Short id, String name, Short provinceId) {
 
   @Override
   public String toString() {
-    return "Commune{" +
-        "id=" + id +
-        ", name='" + name + '\'' +
-        ", provinceId=" + provinceId +
-        '}';
+    return name;
   }
 }

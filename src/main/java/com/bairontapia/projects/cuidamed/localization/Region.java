@@ -26,11 +26,6 @@ public record Region(Short id, String name, String abbreviation, String capital)
 
   @Override
   public String toString() {
-    return "Region{" +
-        "id=" + id +
-        ", name='" + name + '\'' +
-        ", abbreviation='" + abbreviation + '\'' +
-        ", capital='" + capital + '\'' +
-        '}';
+    return name;
   }
 }

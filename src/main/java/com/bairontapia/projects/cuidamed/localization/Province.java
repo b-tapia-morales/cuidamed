@@ -26,10 +26,6 @@ public record Province(Short id, String name, Short regionId) {
 
   @Override
   public String toString() {
-    return "Province{" +
-        "id=" + id +
-        ", name='" + name + '\'' +
-        ", regionId=" + regionId +
-        '}';
+    return name;
   }
 }
