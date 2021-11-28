@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bairontapia.projects.cuidamed.mvc.graphics.GraphicsView">
+   <children>
+      <VBox prefHeight="84.0" prefWidth="720.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="90.0" prefWidth="720.0">
+               <children>
+                  <Label text="Grafico">
+                     <padding>
+                        <Insets right="20.0" />
+                     </padding>
+                  </Label>
+                  <ComboBox fx:id = "typeGraphicsCombo" onAction="#onGraphicChoice" prefHeight="9.0" prefWidth="214.0" />
+               </children>
+               <opaqueInsets>
+                  <Insets top="40.0" />
+               </opaqueInsets>
+            </HBox>
+         </children>
+      </VBox>
+      <PieChart fx:id="bloodType"  layoutX="103.0" layoutY="84.0" prefHeight="400.0" prefWidth="500.0" title="Tipo de Sangre" />
+      <PieChart fx:id="healthySystem"  layoutX="103.0" layoutY="84.0" title="Sistema de Salud" />
+      <PieChart fx:id="disease" layoutX="103.0" layoutY="84.0" title="Enfermedades" />
+      <PieChart fx:id="medication"  layoutX="103.0" layoutY="84.0" prefHeight="419.0" prefWidth="500.0" title="Medicamentos" />
+   </children>
+</AnchorPane>
