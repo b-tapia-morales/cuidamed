@@ -158,6 +158,7 @@
             </HBox>
           </VBox>
         </AnchorPane>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
         <AnchorPane prefWidth="355.0">
           <VBox alignment="CENTER" layoutX="128.0" layoutY="59.0" prefHeight="420.0" prefWidth="355.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <HBox alignment="CENTER" prefHeight="35.0" spacing="10.0">
