@@ -1,3 +1,4 @@
-SELECT medication_name, count(*)
+SELECT medication_name, count(*) as frequency
 FROM residence.medication_prescription
-GROUP BY medication_name;
+GROUP BY medication_name
+ORDER BY frequency;
