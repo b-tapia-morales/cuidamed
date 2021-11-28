@@ -1,7 +1,16 @@
 package com.bairontapia.projects.cuidamed.mvc.graphics;
 
 
-
+import com.bairontapia.projects.cuidamed.medicalrecord.stats.BloodTypeStats;
+import com.bairontapia.projects.cuidamed.medicalrecord.stats.BloodTypeStatsDAO;
+import com.bairontapia.projects.cuidamed.medicalrecord.stats.DiseaseStats;
+import com.bairontapia.projects.cuidamed.medicalrecord.stats.DiseaseStatsDAO;
+import com.bairontapia.projects.cuidamed.medicalrecord.stats.HealthySystemTypeStats;
+import com.bairontapia.projects.cuidamed.medicalrecord.stats.HealthySystemTypeStatsDAO;
+import com.bairontapia.projects.cuidamed.medicalrecord.stats.MedicationStats;
+import com.bairontapia.projects.cuidamed.medicalrecord.stats.MedicationStatsDAO;
+import java.io.IOException;
+import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
@@ -24,38 +33,35 @@ public class GraphicsView {
   private PieChart medication;
 
 
-  public void initialize() {
+  public void initialize() throws SQLException, IOException {
     typeGraphicsCombo.setItems(FXCollections.observableArrayList(TypeGraphic.values()));
     loadDataBloodType();
     loadDataHealthySystem();
     loadDataDisease();
     loadDataMedication();
-    healthySystem.setTitle("");
-    disease.setTitle("");
-    medication.setTitle("");
   }
 
   @FXML
   public void onGraphicChoice(javafx.event.ActionEvent actionEvent) {
-    if(typeGraphicsCombo.getSelectionModel().isSelected(0)){
+    if (typeGraphicsCombo.getSelectionModel().isSelected(0)) {
       bloodType.setVisible(true);
       healthySystem.setVisible(false);
       disease.setVisible(false);
       medication.setVisible(false);
-    }else{
-      if(typeGraphicsCombo.getSelectionModel().isSelected(1)){
+    } else {
+      if (typeGraphicsCombo.getSelectionModel().isSelected(1)) {
         healthySystem.setVisible(true);
         bloodType.setVisible(false);
         disease.setVisible(false);
         medication.setVisible(false);
-      }else {
-        if(typeGraphicsCombo.getSelectionModel().isSelected(2)){
+      } else {
+        if (typeGraphicsCombo.getSelectionModel().isSelected(2)) {
           disease.setVisible(true);
           bloodType.setVisible(false);
           healthySystem.setVisible(false);
           medication.setVisible(false);
-        }else{
-          if(typeGraphicsCombo.getSelectionModel().isSelected(3)){
+        } else {
+          if (typeGraphicsCombo.getSelectionModel().isSelected(3)) {
             medication.setVisible(true);
             disease.setVisible(false);
             healthySystem.setVisible(false);
@@ -67,35 +73,40 @@ public class GraphicsView {
 
   }
 
-  private void loadDataBloodType(){
-    bloodType.getData().add(new PieChart.Data("Iphone 5S", 13));
-    bloodType.getData().add(new PieChart.Data("Samsung Grand", 25));
-    bloodType.getData().add(new PieChart.Data("MOTO G", 10));
-    bloodType.getData().add(new PieChart.Data("Nokia Lumia", 22));
+  private void loadDataBloodType() throws SQLException, IOException {
+    final var data = BloodTypeStatsDAO.getInstance().findAll();
+    for (BloodTypeStats blood : data) {
+      bloodType.getData().add(new Data(blood.bloodType().getName(), blood.frequency()));
+    }
     bloodType.setVisible(false);
-    bloodType.setTitle("");
+    bloodType.setTitle("Tipos de Sangre");
   }
 
-  private void loadDataHealthySystem(){
-    healthySystem.getData().add(new PieChart.Data("perros", 4));
-    healthySystem.getData().add(new PieChart.Data("gatos",6));
-    healthySystem.getData().add(new PieChart.Data("tortuga", 5));
+  private void loadDataHealthySystem() throws SQLException, IOException {
+    final var data = HealthySystemTypeStatsDAO.getInstance().findAll();
+    for (HealthySystemTypeStats healthy : data) {
+      healthySystem.getData().add(new Data(healthy.healthCare().getName(), healthy.frequency()));
+    }
     healthySystem.setVisible(false);
-    healthySystem.setTitle("");
+    healthySystem.setTitle("Sistemas de Salud");
   }
 
-  private void loadDataDisease(){
-    disease.getData().add(new PieChart.Data("grandes",3));
-    disease.getData().add(new PieChart.Data("pequeños",4));
+  private void loadDataDisease() throws SQLException, IOException {
+    final var data = DiseaseStatsDAO.getInstance().findAll();
+    for (DiseaseStats diseaseStats : data) {
+      disease.getData().add(new Data(diseaseStats.diseaseName(), diseaseStats.frequency()));
+    }
     disease.setVisible(false);
-    disease.setTitle("");
+    disease.setTitle("Enfermedades");
   }
-  private void loadDataMedication(){
-    medication.getData().add(new PieChart.Data("blancos",5));
-    medication.getData().add(new PieChart.Data("negros",5));
-    medication.getData().add(new PieChart.Data("verdes", 9));
+
+  private void loadDataMedication() throws SQLException, IOException {
+    final var data = MedicationStatsDAO.getInstance().findAll();
+    for (MedicationStats medicationStats : data) {
+      medication.getData().add(new Data(medicationStats.name(), medicationStats.frequency()));
+    }
     medication.setVisible(false);
-    medication.setTitle("");
+    medication.setTitle("Medicamentos");
   }
 
   @Getter

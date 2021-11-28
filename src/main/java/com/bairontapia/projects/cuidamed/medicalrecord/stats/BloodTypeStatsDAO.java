@@ -1,4 +1,4 @@
-package com.bairontapia.projects.cuidamed.medicalrecord;
+package com.bairontapia.projects.cuidamed.medicalrecord.stats;
 
 import com.bairontapia.projects.cuidamed.daotemplate.GenericReadOnlyDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
@@ -14,7 +14,7 @@ public class BloodTypeStatsDAO implements GenericReadOnlyDAO<BloodTypeStats, Sho
   private static final BloodTypeStatsDAO INSTANCE = new BloodTypeStatsDAO();
 
   private static final String RELATIVE_PATH_STRING =
-      DirectoryPathUtils.relativePathString("scripts", "class_queries", "blood_type_stats");
+      DirectoryPathUtils.relativePathString("scripts", "class_queries", "stats");
   private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "blood_type.sql");
 
   public static BloodTypeStatsDAO getInstance() {
