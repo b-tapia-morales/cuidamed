@@ -12,11 +12,13 @@ import java.sql.SQLException;
 
 public class RegionDAO implements GenericReadOnlyDAO<Region, Short>, OneToManyDAO<Region, Short> {
 
+
+  private static final RegionDAO INSTANCE = new RegionDAO();
+
   private static final String RELATIVE_PATH_STRING =
       DirectoryPathUtils.relativePathString("scripts", "class_queries", "region");
   private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
   private static final Path FIND_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
-  private static RegionDAO INSTANCE = new RegionDAO();
 
   public static RegionDAO getInstance(){
     return INSTANCE;

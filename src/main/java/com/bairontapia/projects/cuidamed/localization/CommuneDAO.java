@@ -13,12 +13,13 @@ import java.sql.SQLException;
 public class CommuneDAO
     implements GenericReadOnlyDAO<Commune, Short>, OneToManyDAO<Commune, Short> {
 
+  private static final CommuneDAO INSTANCE = new CommuneDAO();
+
   private static final String RELATIVE_PATH_STRING =
       DirectoryPathUtils.relativePathString("scripts", "class_queries", "commune");
   private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
   private static final Path FIND_ALL_BY_PROVINCE_QUERY_PATH =
       Path.of(RELATIVE_PATH_STRING, "get_all_by_province.sql");
-  public static CommuneDAO INSTANCE = new CommuneDAO();
 
   public static CommuneDAO getInstance() {
     return INSTANCE;
