@@ -40,9 +40,9 @@ public class CarerView {
   @FXML public TextField numberTextField;
   @FXML public TextField lastNameTextField;
   @FXML public TextField secondLastNameTextField;
-  @FXML public ComboBox<Region> regionComboBox;
   @FXML public ComboBox<Province> provinceComboBox;
   @FXML public ComboBox<Commune> communeComboBox;
+  @FXML public TextField regionTextField;
   @Setter private Carer carer;
   @Setter private Address address;
   @Setter private Commune commune;
@@ -57,13 +57,14 @@ public class CarerView {
 
     final Address address = AddressDAO.getInstance().find("16213821-9").orElseThrow();
     setAddress(address);
-    fillAddressFields(address);
-
-    final Region region =
-        RegionDAO.getInstance().find((short) 1).orElseThrow(); // arica y parinacota
+    final Region region = RegionDAO.getInstance().find((short) 5).orElseThrow(); // coquimbo
+    setRegion(region);
+    fillAddressFields(region, address);
     initializeProvinceComboBox(region.id());
-    initializeCommuneComboBox((short) 2); // parinacota
+    initializeCommuneComboBox((short) 11); // Elqui
   }
+
+
 
   private void initializeProvinceComboBox(short idRegion) throws SQLException, IOException {
     provinceComboBox.setItems(
@@ -77,7 +78,10 @@ public class CarerView {
 
   private void initializeComboBoxes() throws SQLException, IOException {
     genderComboBox.setItems(FXCollections.observableArrayList(Gender.getValues()));
-    regionComboBox.setItems(FXCollections.observableArrayList(RegionDAO.getInstance().findAll()));
+  }
+
+  public void onUpdatedFields() {
+
   }
 
   private void fillCarerFields(final Carer carer) {
@@ -92,7 +96,8 @@ public class CarerView {
     hireDatePicker.setValue(carer.hireDate());
   }
 
-  private void fillAddressFields(final Address address) {
+  private void fillAddressFields(final Region region, final Address address) {
+    regionTextField.setText(region.name());
     streetTextField.setText(address.street());
     numberTextField.setText(address.number().toString());
   }
