@@ -27,11 +27,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lombok.Getter;
 
 public class PersonView {
-
+  @FXML
+  public AnchorPane anchor;
   @FXML
   public Button goToButton;
   @FXML
@@ -87,27 +89,24 @@ public class PersonView {
     FXMLLoader fxml = new FXMLLoader();
     Scene scene;
     Stage stage = new Stage();
+    //anchor.setDisable(true);
     if (personComboBox.getSelectionModel().getSelectedIndex() == 0) {
       fxml.setLocation(getClass().getResource("/fxml/elder.fxml"));
       scene = new Scene(fxml.load());
       Elder elder = (Elder) personTableView.getSelectionModel().getSelectedItem();
       ElderView elderView = (ElderView) fxml.getController();
       elderView.recoveryData(elder);
-      stage.setScene(scene);
-      stage.show();
     }else{
       if(personComboBox.getSelectionModel().getSelectedIndex() == 1){
         fxml.setLocation(getClass().getResource("/fxml/elder.fxml"));
         scene = new Scene(fxml.load());
-        stage.setScene(scene);
-        stage.show();
       }else{
         fxml.setLocation(getClass().getResource("/fxml/responsible.fxml"));
         scene = new Scene(fxml.load());
-        stage.setScene(scene);
-        stage.show();
       }
     }
+    stage.setScene(scene);
+    stage.show();
   }
 
   public void addedElder(MouseEvent mouseEvent) throws IOException {

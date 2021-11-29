@@ -29,6 +29,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -166,6 +168,7 @@ public class ElderView {
 
      */
   }
+
   @FXML
   public void recoveryData(Elder e) throws SQLException, IOException {
     setElder(e);
@@ -183,6 +186,7 @@ public class ElderView {
     final var surgicalInterventions = SurgicalInterventionDAO.getInstance().findAll(e.rut());
     fillSurgicalInterventionTable(surgicalInterventions);
   }
+
   @FXML
   public void onUpdatedFields() throws SQLException, IOException {
     if (areFieldsEmpty() || areFieldsTooShort() || areFieldsIncorrect()) {
@@ -205,16 +209,29 @@ public class ElderView {
   }
 
   @FXML
-  public void addColumn() {
+  public void addColumn() throws IOException {
     if (tabPane.getSelectionModel().isEmpty()) {
       return;
     }
+
+    FXMLLoader fxml = new FXMLLoader();
+    Scene scene;
+    Stage stage = new Stage();
+
     final var tabSelectionIndex = tabPane.getSelectionModel().getSelectedIndex();
-    switch (tabSelectionIndex) {
-      case 0 -> addToAllergyTable();
-      case 1 -> addToRoutineCheckupTable();
-      case 2 -> addToSurgicalInterventionTable();
+    if (tabSelectionIndex == 1) {
+      fxml.setLocation(getClass().getResource("/fxml/allergy_dialog.fxml"));
+      scene = new Scene(fxml.load());
+    } else {
+      if (tabSelectionIndex == 2) {
+        fxml.setLocation(getClass().getResource("/fxml/surgical_intervention_dialog.fxml"));
+      } else {
+        fxml.setLocation(getClass().getResource("/fxml/allergy_dialog.fxml"));
+      }
+      scene = new Scene(fxml.load());
     }
+    stage.setScene(scene);
+    stage.show();
   }
 
   private void addToAllergyTable() {
