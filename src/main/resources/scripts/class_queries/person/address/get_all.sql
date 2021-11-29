@@ -1,1 +1,2 @@
-SELECT * FROM residence.address;
+SELECT *
+FROM residence.address;
