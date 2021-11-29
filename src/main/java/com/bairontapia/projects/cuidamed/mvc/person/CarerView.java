@@ -33,6 +33,7 @@ import org.apache.commons.lang3.StringUtils;
 @Getter
 public class CarerView {
 
+
   @Setter private Carer carer;
   @Setter private Address address;
   @FXML private DatePicker birthDatePicker;
@@ -50,6 +51,8 @@ public class CarerView {
   @FXML private TextField commune;
   @FXML private TextField street;
   @FXML private TextField number;
+  @FXML private TextField postalCode;
+  @FXML private TextField fixedPhone;
 
   public void initialize() throws SQLException, IOException {
     initializeComboBoxes();
@@ -62,7 +65,7 @@ public class CarerView {
     fillAddressFields(address);
   }
 
-  private void initializeComboBoxes(){
+  private void initializeComboBoxes() {
     genderComboBox.setItems(FXCollections.observableArrayList(Gender.getValues()));
   }
 
@@ -75,9 +78,16 @@ public class CarerView {
     final var genderCode = genderComboBox.getSelectionModel().getSelectedItem().getIndex();
     final var mobilePhoneField = mobilePhone.getText();
     final var hireDateField = hireDatePicker.getValue();
-    final var carer = Carer.createInstance(rutField, nameField, lastNameField,
-        secondLastNameField, Date.valueOf(birthDateField), (short) genderCode, Integer.parseInt(mobilePhoneField),
-        Date.valueOf(hireDateField));
+    final var carer =
+        Carer.createInstance(
+            rutField,
+            nameField,
+            lastNameField,
+            secondLastNameField,
+            Date.valueOf(birthDateField),
+            (short) genderCode,
+            Integer.parseInt(mobilePhoneField),
+            Date.valueOf(hireDateField));
     CarerDAO.getInstance().update(carer);
     setCarer(carer);
   }
@@ -90,7 +100,7 @@ public class CarerView {
     birthDatePicker.setValue(carer.birthDate());
     age.setText(carer.age().toString());
     genderComboBox.getSelectionModel().select(carer.gender().ordinal());
-    //mobilePhone.setText("+56 9 " + carer.mobilePhone().toString());
+    // mobilePhone.setText("+56 9 " + carer.mobilePhone().toString());
     mobilePhone.setText(carer.mobilePhone().toString());
     hireDatePicker.setValue(carer.hireDate());
   }
@@ -101,5 +111,7 @@ public class CarerView {
     commune.setText(address.communeName());
     street.setText(address.street());
     number.setText(address.number().toString());
+    postalCode.setText(address.postalCode().toString());
+    fixedPhone.setText(address.fixedPhone().toString());
   }
 }
