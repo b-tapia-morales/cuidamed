@@ -1,5 +1,11 @@
 package com.bairontapia.projects.cuidamed.mvc.person;
 
+import com.bairontapia.projects.cuidamed.localization.Commune;
+import com.bairontapia.projects.cuidamed.localization.CommuneDAO;
+import com.bairontapia.projects.cuidamed.localization.Province;
+import com.bairontapia.projects.cuidamed.localization.ProvinceDAO;
+import com.bairontapia.projects.cuidamed.localization.Region;
+import com.bairontapia.projects.cuidamed.localization.RegionDAO;
 import com.bairontapia.projects.cuidamed.mappings.bloodtype.BloodType;
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.mappings.healthcaresystem.HealthCare;
@@ -27,7 +33,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -178,7 +183,10 @@ public class ElderView {
     final var responsible = ResponsibleDAO.getInstance().find(responsibleKey).orElseThrow();
     fillResponsibleFields(responsible);
     final var address = AddressDAO.getInstance().find(responsibleKey).orElseThrow();
-    fillAddressFields(address);
+    final var communeField = CommuneDAO.getInstance().find(address.communeId()).orElseThrow();
+    final var provinceField = ProvinceDAO.getInstance().find(communeField.id()).orElseThrow();
+    final var regionField = RegionDAO.getInstance().find(provinceField.id()).orElseThrow();
+    fillAddressFields(address, regionField, provinceField, communeField);
     final var allergies = AllergyDAO.getInstance().findAll(e.rut());
     fillAllergyTable(allergies);
     final var routineCheckups = RoutineCheckupDAO.getInstance().findAll(e.rut());
@@ -326,10 +334,11 @@ public class ElderView {
     responsibleMobilePhone.setText("+56 9 " + responsible.mobilePhone());
   }
 
-  private void fillAddressFields(final Address address) {
-    region.setText(address.regionName());
-    province.setText(address.provinceName());
-    commune.setText(address.communeName());
+  private void fillAddressFields(final Address address, final Region regionField,
+      final Province provinceField, final Commune communeField) {
+    region.setText(regionField.toString());
+    province.setText(provinceField.toString());
+    commune.setText(communeField.toString());
     street.setText(address.street());
     number.setText(address.number().toString());
   }
