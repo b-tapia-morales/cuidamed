@@ -175,11 +175,11 @@ public class ElderView {
   }
 
   @FXML
-  public void recoveryData(Elder e) throws SQLException, IOException {
-    setElder(e);
+  public void recoveryData(Elder elder) throws SQLException, IOException {
+    setElder(elder);
     onUpdatedFields();
-    fillElderFields(e);
-    final var responsibleKey = e.responsibleRut();
+    fillElderFields(elder);
+    final var responsibleKey = elder.responsibleRut();
     final var responsible = ResponsibleDAO.getInstance().find(responsibleKey).orElseThrow();
     fillResponsibleFields(responsible);
     final var address = AddressDAO.getInstance().find(responsibleKey).orElseThrow();
@@ -187,11 +187,11 @@ public class ElderView {
     final var provinceField = ProvinceDAO.getInstance().find(communeField.id()).orElseThrow();
     final var regionField = RegionDAO.getInstance().find(provinceField.id()).orElseThrow();
     fillAddressFields(address, regionField, provinceField, communeField);
-    final var allergies = AllergyDAO.getInstance().findAll(e.rut());
+    final var allergies = AllergyDAO.getInstance().findAll(elder.rut());
     fillAllergyTable(allergies);
-    final var routineCheckups = RoutineCheckupDAO.getInstance().findAll(e.rut());
+    final var routineCheckups = RoutineCheckupDAO.getInstance().findAll(elder.rut());
     fillRoutineCheckupTable(routineCheckups);
-    final var surgicalInterventions = SurgicalInterventionDAO.getInstance().findAll(e.rut());
+    final var surgicalInterventions = SurgicalInterventionDAO.getInstance().findAll(elder.rut());
     fillSurgicalInterventionTable(surgicalInterventions);
   }
 
@@ -221,23 +221,16 @@ public class ElderView {
     if (tabPane.getSelectionModel().isEmpty()) {
       return;
     }
-
-    FXMLLoader fxml = new FXMLLoader();
-    Scene scene;
-    Stage stage = new Stage();
-
+    final var fxmlLoader = new FXMLLoader();
     final var tabSelectionIndex = tabPane.getSelectionModel().getSelectedIndex();
-    if (tabSelectionIndex == 1) {
-      fxml.setLocation(getClass().getResource("/fxml/allergy_dialog.fxml"));
-      scene = new Scene(fxml.load());
-    } else {
-      if (tabSelectionIndex == 2) {
-        fxml.setLocation(getClass().getResource("/fxml/surgical_intervention_dialog.fxml"));
-      } else {
-        fxml.setLocation(getClass().getResource("/fxml/allergy_dialog.fxml"));
-      }
-      scene = new Scene(fxml.load());
-    }
+    final var panelPath = switch (tabSelectionIndex) {
+      case 1 -> "/fxml/allergy_dialog.fxml";
+      case 2 -> "/fxml/surgical_intervention_dialog.fxml";
+      default -> throw new IllegalStateException("Unexpected value: " + tabSelectionIndex);
+    };
+    fxmlLoader.setLocation(getClass().getResource(panelPath));
+    final var scene = new Scene(fxmlLoader.load());
+    final var stage = new Stage();
     stage.setScene(scene);
     stage.show();
   }
