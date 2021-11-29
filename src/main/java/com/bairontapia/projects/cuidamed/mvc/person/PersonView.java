@@ -98,7 +98,7 @@ public class PersonView {
       elderView.recoveryData(elder);
     }else{
       if(personComboBox.getSelectionModel().getSelectedIndex() == 1){
-        fxml.setLocation(getClass().getResource("/fxml/elder.fxml"));
+        fxml.setLocation(getClass().getResource("/fxml/carer.fxml"));
         scene = new Scene(fxml.load());
       }else{
         fxml.setLocation(getClass().getResource("/fxml/responsible.fxml"));
