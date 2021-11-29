@@ -40,17 +40,17 @@ public class ElderInsert {
   @FXML
   private TextField secondLastName;
   @FXML
-  private DatePicker birthDatePicker;
+  private DatePicker birthDate;
   @FXML
-  private ComboBox<Gender> genderComboBox;
+  private ComboBox<Gender> gender;
   @FXML
-  private CheckBox isActiveCheckBox;
+  private CheckBox isActive;
   @FXML
-  private DatePicker admissionDatePicker;
+  private DatePicker admissionDate;
   @FXML
-  private ComboBox<BloodType> bloodTypeComboBox;
+  private ComboBox<BloodType> bloodType;
   @FXML
-  private ComboBox<HealthCare> healthCareComboBox;
+  private ComboBox<HealthCare> healthCare;
 
   @FXML
   private TextField responsibleRut;
@@ -83,9 +83,9 @@ public class ElderInsert {
 
   private void initializeComboBoxes() throws SQLException, IOException {
     final var regions = RegionDAO.getInstance().findAll();
-    genderComboBox.setItems(FXCollections.observableArrayList(Gender.getValues()));
-    bloodTypeComboBox.setItems(FXCollections.observableArrayList(BloodType.getValues()));
-    healthCareComboBox.setItems(FXCollections.observableArrayList(HealthCare.getValues()));
+    gender.setItems(FXCollections.observableArrayList(Gender.getValues()));
+    bloodType.setItems(FXCollections.observableArrayList(BloodType.getValues()));
+    healthCare.setItems(FXCollections.observableArrayList(HealthCare.getValues()));
     responsibleGender.setItems(FXCollections.observableArrayList(Gender.getValues()));
     regionComboBox.setItems(FXCollections.observableArrayList(regions));
   }
@@ -133,8 +133,8 @@ public class ElderInsert {
   private boolean areElderFieldsEmpty() {
     return StringUtils.isBlank(rut.getText()) || StringUtils.isBlank(name.getText()) ||
         StringUtils.isBlank(lastName.getText()) || StringUtils.isBlank(secondLastName.getText()) ||
-        birthDatePicker.getValue() == null || genderComboBox.getSelectionModel().isEmpty() ||
-        admissionDatePicker.getValue() == null;
+        birthDate.getValue() == null || gender.getSelectionModel().isEmpty() ||
+        admissionDate.getValue() == null;
   }
 
   private boolean areElderFieldsTooShort() {
@@ -148,8 +148,8 @@ public class ElderInsert {
 
   private boolean areElderFieldsIncorrect() {
     final var rutField = rut.getText();
-    final var birthDateField = birthDatePicker.getValue();
-    final var admissionDateField = admissionDatePicker.getValue();
+    final var birthDateField = birthDate.getValue();
+    final var admissionDateField = admissionDate.getValue();
     final var now = LocalDate.now();
     final var age = Period.between(birthDateField, now).getYears();
     final var days = Period.between(admissionDateField, now).getDays();
@@ -162,7 +162,7 @@ public class ElderInsert {
         StringUtils.isBlank(responsibleName.getText()) ||
         StringUtils.isBlank(responsibleLastName.getText()) ||
         StringUtils.isBlank(responsibleSecondLastName.getText()) ||
-        responsibleBirthDate.getValue() == null || genderComboBox.getSelectionModel().isEmpty() ||
+        responsibleBirthDate.getValue() == null || gender.getSelectionModel().isEmpty() ||
         StringUtils.isBlank(responsibleMobilePhone.getText());
   }
 
