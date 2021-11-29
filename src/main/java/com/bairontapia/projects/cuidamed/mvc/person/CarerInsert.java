@@ -40,6 +40,8 @@ public class CarerInsert {
   @FXML private DatePicker hireDatePicker;
   @FXML private TextField street;
   @FXML private TextField number;
+  @FXML private TextField postalCode;
+  @FXML private TextField fixedPhone;
   @FXML private Button addData;
 
   public void initialize() throws SQLException, IOException {
