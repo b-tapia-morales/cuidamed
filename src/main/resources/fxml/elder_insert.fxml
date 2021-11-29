@@ -286,7 +286,7 @@
                 <Insets right="10.0" />
               </GridPane.margin>
             </Label>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <TextField fx:id="street" GridPane.columnIndex="1" GridPane.rowIndex="3">
               <GridPane.margin>
                 <Insets left="5.0" right="5.0" />
               </GridPane.margin>
@@ -296,17 +296,17 @@
                 <Insets right="10.0" />
               </GridPane.margin>
             </Label>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <TextField fx:id="fixedPhone" GridPane.columnIndex="1" GridPane.rowIndex="6">
               <GridPane.margin>
                 <Insets left="5.0" right="5.0" />
               </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <TextField fx:id="postalCode" GridPane.columnIndex="1" GridPane.rowIndex="5">
               <GridPane.margin>
                 <Insets left="5.0" right="5.0" />
               </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <TextField fx:id="number" GridPane.columnIndex="1" GridPane.rowIndex="4">
               <GridPane.margin>
                 <Insets left="5.0" right="5.0" />
               </GridPane.margin>
@@ -331,7 +331,7 @@
       </AnchorPane>
     </HBox>
     <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
-      <Button fx:id="addData" maxHeight="-Infinity" mnemonicParsing="false" prefHeight="36.0">
+      <Button fx:id="addData" maxHeight="-Infinity" mnemonicParsing="false" onAction="#onButtonPressed" prefHeight="36.0">
         <graphic>
           <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../icons/add.png" />
