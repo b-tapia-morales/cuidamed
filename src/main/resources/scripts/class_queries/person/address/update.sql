@@ -1,4 +1,7 @@
 UPDATE residence.address
-SET postal_code = ?,
+SET commune_id  = ?,
+    street      = ?,
+    number      = ?,
+    postal_code = ?,
     fixed_phone = ?
 WHERE rut = ?;
