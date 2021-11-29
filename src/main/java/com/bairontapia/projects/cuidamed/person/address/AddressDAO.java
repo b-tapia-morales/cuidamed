@@ -1,6 +1,6 @@
 package com.bairontapia.projects.cuidamed.person.address;
 
-import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AddressDAO implements GenericCrudDAO<Address, String> {
+public class AddressDAO implements CrudDAO<Address, String> {
 
   private static final AddressDAO INSTANCE = new AddressDAO();
 

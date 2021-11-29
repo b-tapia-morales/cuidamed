@@ -1,7 +1,7 @@
 package com.bairontapia.projects.cuidamed.disease.medicationadministration;
 
 
-import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 
 public class MedicationAdministrationDAO implements
-    GenericCrudDAO<MedicationAdministration, String> {
+    CrudDAO<MedicationAdministration, String> {
 
   private static final MedicationAdministrationDAO INSTANCE = new MedicationAdministrationDAO();
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils

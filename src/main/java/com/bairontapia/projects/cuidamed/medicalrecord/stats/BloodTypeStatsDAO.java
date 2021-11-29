@@ -1,6 +1,6 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.stats;
 
-import com.bairontapia.projects.cuidamed.daotemplate.GenericReadOnlyDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.ReadOnlyDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class BloodTypeStatsDAO implements GenericReadOnlyDAO<BloodTypeStats, Short> {
+public class BloodTypeStatsDAO implements ReadOnlyDAO<BloodTypeStats, Short> {
 
   private static final BloodTypeStatsDAO INSTANCE = new BloodTypeStatsDAO();
 

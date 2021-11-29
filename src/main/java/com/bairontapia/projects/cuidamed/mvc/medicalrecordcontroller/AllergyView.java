@@ -4,9 +4,7 @@ import com.bairontapia.projects.cuidamed.mappings.allergytype.AllergyType;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class AllergyView {
@@ -17,7 +15,7 @@ public class AllergyView {
   private TextField labelDetails;
 
 
-  public void initialize(){
+  public void initialize() {
     comboBoxType.setItems(FXCollections.observableArrayList(AllergyType.getValues()));
   }
 

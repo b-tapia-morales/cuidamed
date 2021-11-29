@@ -1,7 +1,7 @@
 package com.bairontapia.projects.cuidamed.disease.sickelderly;
 
 
-import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class SickElderlyDAO implements GenericCrudDAO<SickElderly, String> {
+public class SickElderlyDAO implements CrudDAO<SickElderly, String> {
 
   private static final SickElderlyDAO INSTANCE = new SickElderlyDAO();
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils

@@ -184,8 +184,9 @@ public class ElderView {
     fillResponsibleFields(responsible);
     final var address = AddressDAO.getInstance().find(responsibleKey).orElseThrow();
     final var communeField = CommuneDAO.getInstance().find(address.communeId()).orElseThrow();
-    final var provinceField = ProvinceDAO.getInstance().find(communeField.id()).orElseThrow();
-    final var regionField = RegionDAO.getInstance().find(provinceField.id()).orElseThrow();
+    final var provinceField = ProvinceDAO.getInstance().find(communeField.provinceId())
+        .orElseThrow();
+    final var regionField = RegionDAO.getInstance().find(provinceField.regionId()).orElseThrow();
     fillAddressFields(address, regionField, provinceField, communeField);
     final var allergies = AllergyDAO.getInstance().findAll(elder.rut());
     fillAllergyTable(allergies);

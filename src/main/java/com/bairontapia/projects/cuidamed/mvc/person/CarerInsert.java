@@ -26,23 +26,40 @@ import org.apache.commons.lang3.StringUtils;
 @Getter
 public class CarerInsert {
 
-  @Setter private Carer carer;
-  @FXML private ComboBox<Region> regionComboBox;
-  @FXML private ComboBox<Province> provinceComboBox;
-  @FXML private ComboBox<Commune> communeComboBox;
-  @FXML private ComboBox<Gender> genderComboBox;
-  @FXML private DatePicker birthDatePicker;
-  @FXML private TextField rut;
-  @FXML private TextField name;
-  @FXML private TextField lastName;
-  @FXML private TextField secondLastName;
-  @FXML private TextField mobilePhone;
-  @FXML private DatePicker hireDatePicker;
-  @FXML private TextField street;
-  @FXML private TextField number;
-  @FXML private TextField postalCode;
-  @FXML private TextField fixedPhone;
-  @FXML private Button addData;
+  @Setter
+  private Carer carer;
+  @FXML
+  private ComboBox<Region> regionComboBox;
+  @FXML
+  private ComboBox<Province> provinceComboBox;
+  @FXML
+  private ComboBox<Commune> communeComboBox;
+  @FXML
+  private ComboBox<Gender> genderComboBox;
+  @FXML
+  private DatePicker birthDatePicker;
+  @FXML
+  private TextField rut;
+  @FXML
+  private TextField name;
+  @FXML
+  private TextField lastName;
+  @FXML
+  private TextField secondLastName;
+  @FXML
+  private TextField mobilePhone;
+  @FXML
+  private DatePicker hireDatePicker;
+  @FXML
+  private TextField street;
+  @FXML
+  private TextField number;
+  @FXML
+  private TextField postalCode;
+  @FXML
+  private TextField fixedPhone;
+  @FXML
+  private Button addData;
 
   public void initialize() throws SQLException, IOException {
     initializeComboBoxes();
