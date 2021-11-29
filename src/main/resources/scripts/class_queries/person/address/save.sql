@@ -1,0 +1,2 @@
+INSERT INTO residence.address
+VALUES (?, ?, ?, ?, ?, ?);

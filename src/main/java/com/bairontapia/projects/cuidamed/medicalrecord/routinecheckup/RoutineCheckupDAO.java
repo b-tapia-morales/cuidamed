@@ -1,7 +1,7 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup;
 
-import com.bairontapia.projects.cuidamed.daotemplate.GenericReadAndWriteDAO;
 import com.bairontapia.projects.cuidamed.daotemplate.OneToManyDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.ReadAndWriteDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class RoutineCheckupDAO implements GenericReadAndWriteDAO<RoutineCheckup, String>,
+public class RoutineCheckupDAO implements ReadAndWriteDAO<RoutineCheckup, String>,
     OneToManyDAO<RoutineCheckup, String> {
 
   private static final RoutineCheckupDAO INSTANCE = new RoutineCheckupDAO();

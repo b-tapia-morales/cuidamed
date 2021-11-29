@@ -1,5 +1,11 @@
 package com.bairontapia.projects.cuidamed.mvc.person;
 
+import com.bairontapia.projects.cuidamed.localization.Commune;
+import com.bairontapia.projects.cuidamed.localization.CommuneDAO;
+import com.bairontapia.projects.cuidamed.localization.Province;
+import com.bairontapia.projects.cuidamed.localization.ProvinceDAO;
+import com.bairontapia.projects.cuidamed.localization.Region;
+import com.bairontapia.projects.cuidamed.localization.RegionDAO;
 import com.bairontapia.projects.cuidamed.mappings.bloodtype.BloodType;
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.mappings.healthcaresystem.HealthCare;
@@ -27,8 +33,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -37,6 +44,8 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
@@ -44,6 +53,9 @@ import org.apache.commons.lang3.StringUtils;
 @Getter
 public class ElderView {
 
+
+  @FXML
+  private AnchorPane anchor;
   @Setter
   private Elder elder;
   @FXML
@@ -143,6 +155,7 @@ public class ElderView {
     initializeAllergyTable();
     initializeCheckupTable();
     initializeSurgicalInterventionTable();
+    /*
     final Elder elder = ElderDAO.getInstance().find("5902831-6").orElseThrow();
     setElder(elder);
     fillElderFields(elder);
@@ -156,6 +169,30 @@ public class ElderView {
     final var routineCheckups = RoutineCheckupDAO.getInstance().findAll("5902831-6");
     fillRoutineCheckupTable(routineCheckups);
     final var surgicalInterventions = SurgicalInterventionDAO.getInstance().findAll("5902831-6");
+    fillSurgicalInterventionTable(surgicalInterventions);
+
+     */
+  }
+
+  @FXML
+  public void recoveryData(Elder elder) throws SQLException, IOException {
+    setElder(elder);
+    onUpdatedFields();
+    fillElderFields(elder);
+    final var responsibleKey = elder.responsibleRut();
+    final var responsible = ResponsibleDAO.getInstance().find(responsibleKey).orElseThrow();
+    fillResponsibleFields(responsible);
+    final var address = AddressDAO.getInstance().find(responsibleKey).orElseThrow();
+    final var communeField = CommuneDAO.getInstance().find(address.communeId()).orElseThrow();
+    final var provinceField = ProvinceDAO.getInstance().find(communeField.provinceId())
+        .orElseThrow();
+    final var regionField = RegionDAO.getInstance().find(provinceField.regionId()).orElseThrow();
+    fillAddressFields(address, regionField, provinceField, communeField);
+    final var allergies = AllergyDAO.getInstance().findAll(elder.rut());
+    fillAllergyTable(allergies);
+    final var routineCheckups = RoutineCheckupDAO.getInstance().findAll(elder.rut());
+    fillRoutineCheckupTable(routineCheckups);
+    final var surgicalInterventions = SurgicalInterventionDAO.getInstance().findAll(elder.rut());
     fillSurgicalInterventionTable(surgicalInterventions);
   }
 
@@ -181,16 +218,22 @@ public class ElderView {
   }
 
   @FXML
-  public void addColumn() {
+  public void addColumn() throws IOException {
     if (tabPane.getSelectionModel().isEmpty()) {
       return;
     }
+    final var fxmlLoader = new FXMLLoader();
     final var tabSelectionIndex = tabPane.getSelectionModel().getSelectedIndex();
-    switch(tabSelectionIndex) {
-      case 0 -> addToAllergyTable();
-      case 1 -> addToRoutineCheckupTable();
-      case 2 -> addToSurgicalInterventionTable();
-    }
+    final var panelPath = switch (tabSelectionIndex) {
+      case 1 -> "/fxml/allergy_dialog.fxml";
+      case 2 -> "/fxml/surgical_intervention_dialog.fxml";
+      default -> throw new IllegalStateException("Unexpected value: " + tabSelectionIndex);
+    };
+    fxmlLoader.setLocation(getClass().getResource(panelPath));
+    final var scene = new Scene(fxmlLoader.load());
+    final var stage = new Stage();
+    stage.setScene(scene);
+    stage.show();
   }
 
   private void addToAllergyTable() {
@@ -285,10 +328,11 @@ public class ElderView {
     responsibleMobilePhone.setText("+56 9 " + responsible.mobilePhone());
   }
 
-  private void fillAddressFields(final Address address) {
-    region.setText(address.regionName());
-    province.setText(address.provinceName());
-    commune.setText(address.communeName());
+  private void fillAddressFields(final Address address, final Region regionField,
+      final Province provinceField, final Commune communeField) {
+    region.setText(regionField.toString());
+    province.setText(provinceField.toString());
+    commune.setText(communeField.toString());
     street.setText(address.street());
     number.setText(address.number().toString());
   }

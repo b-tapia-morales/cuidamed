@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public interface GenericCrudDAO<T, ID> extends GenericReadAndWriteDAO<T, ID> {
+public interface CrudDAO<T, ID> extends ReadAndWriteDAO<T, ID> {
 
   String updateQuery() throws IOException;
 

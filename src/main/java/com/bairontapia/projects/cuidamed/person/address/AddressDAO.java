@@ -1,6 +1,6 @@
 package com.bairontapia.projects.cuidamed.person.address;
 
-import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AddressDAO implements GenericCrudDAO<Address, String> {
+public class AddressDAO implements CrudDAO<Address, String> {
 
   private static final AddressDAO INSTANCE = new AddressDAO();
 
@@ -51,23 +51,29 @@ public class AddressDAO implements GenericCrudDAO<Address, String> {
 
   @Override
   public void saveTuple(PreparedStatement statement, Address address) throws SQLException {
+    statement.setShort(1, address.communeId());
+    statement.setString(2, address.street());
+    statement.setShort(3, address.number());
+    statement.setInt(4, address.postalCode());
+    statement.setInt(5, address.fixedPhone());
+    statement.setString(6, address.rut());
   }
 
   @Override
   public void updateTuple(PreparedStatement statement, Address address) throws SQLException {
+    statement.setInt(1, address.postalCode());
+    statement.setInt(2, address.fixedPhone());
+    statement.setString(3, address.rut());
   }
 
   @Override
   public Address readTuple(ResultSet resultSet) throws SQLException {
-    final var regionName = resultSet.getString(1);
-    final var provinceName = resultSet.getString(2);
-    final var communeName = resultSet.getString(3);
-    final var street = resultSet.getString(4);
-    final var number = resultSet.getInt(5);
-    final var postalCode = resultSet.getInt(6);
-    final var fixedPhone = resultSet.getInt(7);
-    final var rut = resultSet.getString(8);
-    return Address.createInstance(
-        regionName, provinceName, communeName, street, number, postalCode, fixedPhone, rut);
+    final var communeId = resultSet.getShort(1);
+    final var street = resultSet.getString(2);
+    final var number = resultSet.getShort(3);
+    final var postalCode = resultSet.getInt(4);
+    final var fixedPhone = resultSet.getInt(5);
+    final var rut = resultSet.getString(6);
+    return Address.createInstance(communeId, street, number, postalCode, fixedPhone, rut);
   }
 }

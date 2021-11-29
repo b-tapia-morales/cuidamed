@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public interface GenericReadAndWriteDAO<T, ID> extends GenericReadOnlyDAO<T, ID> {
+public interface ReadAndWriteDAO<T, ID> extends ReadOnlyDAO<T, ID> {
 
   String saveQuery() throws IOException;
 

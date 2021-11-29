@@ -1,6 +1,6 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.stats;
 
-import com.bairontapia.projects.cuidamed.daotemplate.GenericReadOnlyDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.ReadOnlyDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class MedicationStatsDAO implements GenericReadOnlyDAO<MedicationStats, String> {
+public class MedicationStatsDAO implements ReadOnlyDAO<MedicationStats, String> {
 
   private static final MedicationStatsDAO INSTANCE = new MedicationStatsDAO();
 
@@ -17,9 +17,10 @@ public class MedicationStatsDAO implements GenericReadOnlyDAO<MedicationStats, S
       DirectoryPathUtils.relativePathString("scripts", "class_queries", "stats");
   private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "medication.sql");
 
-  public static MedicationStatsDAO getInstance(){
+  public static MedicationStatsDAO getInstance() {
     return INSTANCE;
   }
+
   @Override
   public String findQuery() throws IOException {
     return null;

@@ -28,6 +28,13 @@ public class GraphicsView {
   @FXML
   private PieChart medications;
 
+  private static void setChartVisibility(final PieChart firstChart, final PieChart secondChart,
+      final PieChart thirdChart, final PieChart fourthChart) {
+    firstChart.setVisible(true);
+    secondChart.setVisible(false);
+    thirdChart.setVisible(false);
+    fourthChart.setVisible(false);
+  }
 
   public void initialize() throws SQLException, IOException {
     dataComboBox.setItems(FXCollections.observableArrayList(DataSelection.values()));
@@ -52,14 +59,6 @@ public class GraphicsView {
       return;
     }
     setChartVisibility(medications, bloodTypes, healthSystems, diseases);
-  }
-
-  private static void setChartVisibility(final PieChart firstChart, final PieChart secondChart,
-      final PieChart thirdChart, final PieChart fourthChart) {
-    firstChart.setVisible(true);
-    secondChart.setVisible(false);
-    thirdChart.setVisible(false);
-    fourthChart.setVisible(false);
   }
 
   private void initializeBloodTypesChart() throws SQLException, IOException {

@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public record Region(Short id, String name, String abbreviation, String capital) {
 
-  public static Region createInstance(short id, String name, String abbreviation, String capital){
-    return new Region(id,name,abbreviation,capital);
+  public static Region createInstance(short id, String name, String abbreviation, String capital) {
+    return new Region(id, name, abbreviation, capital);
   }
 
   @Override

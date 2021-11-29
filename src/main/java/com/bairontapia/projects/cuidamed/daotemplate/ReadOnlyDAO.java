@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Optional;
 
-public interface GenericReadOnlyDAO<T, ID> {
+public interface ReadOnlyDAO<T, ID> {
 
   String findQuery() throws IOException;
 

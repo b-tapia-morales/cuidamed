@@ -1,6 +1,6 @@
 package com.bairontapia.projects.cuidamed.medicalrecord;
 
-import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class MedicalRecordDAO implements GenericCrudDAO<MedicalRecord, String> {
+public class MedicalRecordDAO implements CrudDAO<MedicalRecord, String> {
 
   private static final MedicalRecordDAO INSTANCE = new MedicalRecordDAO();
 

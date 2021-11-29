@@ -1,6 +1,6 @@
 package com.bairontapia.projects.cuidamed.disease.prescription;
 
-import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PrescriptionDAO implements GenericCrudDAO<Prescription, String> {
+public class PrescriptionDAO implements CrudDAO<Prescription, String> {
 
   private static final PrescriptionDAO INSTANCE = new PrescriptionDAO();
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
