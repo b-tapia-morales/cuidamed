@@ -37,6 +37,8 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
@@ -44,6 +46,9 @@ import org.apache.commons.lang3.StringUtils;
 @Getter
 public class ElderView {
 
+
+  @FXML
+  private AnchorPane anchor;
   @Setter
   private Elder elder;
   @FXML
@@ -143,6 +148,7 @@ public class ElderView {
     initializeAllergyTable();
     initializeCheckupTable();
     initializeSurgicalInterventionTable();
+    /*
     final Elder elder = ElderDAO.getInstance().find("5902831-6").orElseThrow();
     setElder(elder);
     fillElderFields(elder);
@@ -157,8 +163,26 @@ public class ElderView {
     fillRoutineCheckupTable(routineCheckups);
     final var surgicalInterventions = SurgicalInterventionDAO.getInstance().findAll("5902831-6");
     fillSurgicalInterventionTable(surgicalInterventions);
-  }
 
+     */
+  }
+  @FXML
+  public void recoveryData(Elder e) throws SQLException, IOException {
+    setElder(e);
+    onUpdatedFields();
+    fillElderFields(e);
+    final var responsibleKey = e.responsibleRut();
+    final var responsible = ResponsibleDAO.getInstance().find(responsibleKey).orElseThrow();
+    fillResponsibleFields(responsible);
+    final var address = AddressDAO.getInstance().find(responsibleKey).orElseThrow();
+    fillAddressFields(address);
+    final var allergies = AllergyDAO.getInstance().findAll(e.rut());
+    fillAllergyTable(allergies);
+    final var routineCheckups = RoutineCheckupDAO.getInstance().findAll(e.rut());
+    fillRoutineCheckupTable(routineCheckups);
+    final var surgicalInterventions = SurgicalInterventionDAO.getInstance().findAll(e.rut());
+    fillSurgicalInterventionTable(surgicalInterventions);
+  }
   @FXML
   public void onUpdatedFields() throws SQLException, IOException {
     if (areFieldsEmpty() || areFieldsTooShort() || areFieldsIncorrect()) {
@@ -186,7 +210,7 @@ public class ElderView {
       return;
     }
     final var tabSelectionIndex = tabPane.getSelectionModel().getSelectedIndex();
-    switch(tabSelectionIndex) {
+    switch (tabSelectionIndex) {
       case 0 -> addToAllergyTable();
       case 1 -> addToRoutineCheckupTable();
       case 2 -> addToSurgicalInterventionTable();
