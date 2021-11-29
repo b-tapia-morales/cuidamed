@@ -7,6 +7,7 @@ public record Commune(Short id, String name, Short provinceId) {
   public static Commune createInstance(short id, String name, short provinceId) {
     return new Commune(id, name, provinceId);
   }
+
   @Override
   public boolean equals(Object object) {
     if (this == object) {

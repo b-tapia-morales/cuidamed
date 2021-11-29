@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public record Province(Short id, String name, Short regionId) {
 
-  public static Province createInstance(short id, String name, short regionId){
+  public static Province createInstance(short id, String name, short regionId) {
     return new Province(id, name, regionId);
   }
 
