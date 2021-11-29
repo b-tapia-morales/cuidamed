@@ -168,7 +168,7 @@
                 <Insets left="5.0" />
               </GridPane.margin>
             </ComboBox>
-            <DatePicker editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <DatePicker fx:id="responsibleBirthDate" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
               <GridPane.margin>
                 <Insets left="5.0" />
               </GridPane.margin>
@@ -203,22 +203,22 @@
                 <Insets right="10.0" />
               </GridPane.margin>
             </Label>
-            <TextField GridPane.columnIndex="1">
+            <TextField fx:id="responsibleRut" GridPane.columnIndex="1">
               <GridPane.margin>
                 <Insets left="5.0" right="5.0" />
               </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="responsibleName" GridPane.columnIndex="1" GridPane.rowIndex="1">
               <GridPane.margin>
                 <Insets left="5.0" right="5.0" />
               </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="responsibleLastName" GridPane.columnIndex="1" GridPane.rowIndex="2">
               <GridPane.margin>
                 <Insets left="5.0" right="5.0" />
               </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <TextField fx:id="responsibleSecondLastName" GridPane.columnIndex="1" GridPane.rowIndex="3">
               <GridPane.margin>
                 <Insets left="5.0" right="5.0" />
               </GridPane.margin>
@@ -228,7 +228,7 @@
                 <Insets right="10.0" />
               </GridPane.margin>
             </Label>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <TextField fx:id="responsibleMobilePhone" GridPane.columnIndex="1" GridPane.rowIndex="6">
               <GridPane.margin>
                 <Insets left="5.0" right="5.0" />
               </GridPane.margin>
