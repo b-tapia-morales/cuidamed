@@ -9,8 +9,14 @@ import com.bairontapia.projects.cuidamed.localization.RegionDAO;
 import com.bairontapia.projects.cuidamed.mappings.bloodtype.BloodType;
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.mappings.healthcaresystem.HealthCare;
+import com.bairontapia.projects.cuidamed.person.address.Address;
+import com.bairontapia.projects.cuidamed.person.elder.Elder;
+import com.bairontapia.projects.cuidamed.person.elder.ElderDAO;
+import com.bairontapia.projects.cuidamed.person.responsible.Responsible;
+import com.bairontapia.projects.cuidamed.person.responsible.ResponsibleDAO;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Period;
@@ -120,7 +126,10 @@ public class ElderInsert {
   }
 
   @FXML
-  public void onButtonPressed() {
+  public void onButtonPressed() throws SQLException, IOException {
+    trimElderFields();
+    trimResponsibleFields();
+    trimAddressFields();
     if (areElderFieldsEmpty()) {
       System.out.println("MALO: Datos del adulto mayor aún sin rellenar");
       return;
@@ -132,6 +141,91 @@ public class ElderInsert {
     if (areElderFieldsIncorrect()) {
       System.out.println("MALO: Datos del adulto mayor son incorrectos");
     }
+    if (areResponsibleFieldsEmpty()) {
+      System.out.println("MALO: Datos del responsable aún sin rellenar");
+      return;
+    }
+    if (areResponsibleFieldsTooShort()) {
+      System.out.println("MALO: Datos del responsable son muy cortos");
+      return;
+    }
+    if (areResponsibleFieldsIncorrect()) {
+      System.out.println("MALO: Datos del responsable son incorrectos");
+    }
+    if (areAddressFieldsEmpty()) {
+      System.out.println("MALO: Datos de la dirección del responsable aún sin rellenar");
+      return;
+    }
+    if (areAddressFieldsTooShort()) {
+      System.out.println("MALO: Datos de la dirección del responsable son muy cortos");
+      return;
+    }
+    if (areAddressFieldsIncorrect()) {
+      System.out.println("MALO: Datos de la dirección del responsable son incorrectos");
+      return;
+    }
+    final var rutField = rut.getText();
+    if (ElderDAO.getInstance().find(rutField).isPresent()) {
+      System.out.println("Adulto mayor ya está en la base de datos");
+      return;
+    }
+    final var responsibleRutField = responsibleRut.getText();
+    if (ResponsibleDAO.getInstance().find(responsibleRutField).isPresent()) {
+      System.out.println("Responsable ya está en la base de datos");
+      return;
+    }
+    final var nameField = name.getText();
+    final var lastNameField = lastName.getText();
+    final var secondLastNameField = secondLastName.getText();
+    final var birthDateField = birthDate.getValue();
+    final var genderCode = gender.getSelectionModel().getSelectedItem().getIndex();
+    final var isActiveField = isActive.isSelected();
+    final var admissionDateField = admissionDate.getValue();
+    final var elder = Elder.createInstance(rutField, nameField, lastNameField,
+        secondLastNameField, Date.valueOf(birthDateField), (short) genderCode, isActiveField,
+        Date.valueOf(admissionDateField), responsibleRutField);
+
+  }
+
+  private Elder createElder() {
+    final var rutField = rut.getText();
+    final var nameField = name.getText();
+    final var lastNameField = lastName.getText();
+    final var secondLastNameField = secondLastName.getText();
+    final var birthDateField = birthDate.getValue();
+    final var genderCode = gender.getSelectionModel().getSelectedItem().getIndex();
+    final var isActiveField = isActive.isSelected();
+    final var admissionDateField = admissionDate.getValue();
+    final var responsibleRutField = responsibleRut.getText();
+    return Elder.createInstance(rutField, nameField, lastNameField, secondLastNameField,
+        Date.valueOf(birthDateField), (short) genderCode, isActiveField,
+        Date.valueOf(admissionDateField), responsibleRutField);
+  }
+
+  private Responsible createResponsible() {
+    final var rutField = responsibleRut.getText();
+    final var nameField = responsibleName.getText();
+    final var lastNameField = responsibleLastName.getText();
+    final var secondLastNameField = responsibleSecondLastName.getText();
+    final var birthDateField = responsibleBirthDate.getValue();
+    final var genderCode = responsibleGender.getSelectionModel().getSelectedItem().getIndex();
+    final var mobilePhoneField = Integer.parseInt(responsibleMobilePhone.getText());
+    return Responsible.createInstance(rutField, nameField, lastNameField, secondLastNameField,
+        Date.valueOf(birthDateField), (short) genderCode, mobilePhoneField);
+  }
+
+  private Address createAddress() {
+    final var rutField = responsibleRut.getText();
+    final var regionField = regionComboBox.getSelectionModel().getSelectedItem().id();
+    final var provinceField = provinceComboBox.getSelectionModel().getSelectedItem().id();
+    final var communeField = communeComboBox.getSelectionModel().getSelectedItem().id();
+    final var streetField = street.getText();
+    final var numberField = number.getText();
+    final var postalCodeField =
+        postalCode.getText().isEmpty() ? null : Integer.parseInt(postalCode.getText());
+    final var fixedPhoneField =
+        fixedPhone.getText().isEmpty() ? null : Integer.parseInt(fixedPhone.getText());
+    return null;
   }
 
   private void trimElderFields() {
@@ -199,8 +293,8 @@ public class ElderInsert {
     final var nameField = responsibleName.getText();
     final var lastNameField = responsibleLastName.getText();
     final var secondLastNameField = responsibleSecondLastName.getText();
-    return rutField.length() < 9 || nameField.length() < 4 || lastNameField.length() < 4
-        || secondLastNameField.length() < 4;
+    return rutField.length() < 9 || nameField.length() < 4 || lastNameField.length() < 4 ||
+        secondLastNameField.length() < 4;
   }
 
   private boolean areResponsibleFieldsIncorrect() {
@@ -214,7 +308,10 @@ public class ElderInsert {
   }
 
   private boolean areAddressFieldsEmpty() {
-    return StringUtils.isBlank(street.getText()) || StringUtils.isBlank(number.getText());
+    return regionComboBox.getSelectionModel().isEmpty() ||
+        provinceComboBox.getSelectionModel().isEmpty() ||
+        communeComboBox.getSelectionModel().isEmpty() ||
+        StringUtils.isBlank(street.getText()) || StringUtils.isBlank(number.getText());
   }
 
   private boolean areAddressFieldsTooShort() {
@@ -225,7 +322,7 @@ public class ElderInsert {
     final var numberField = number.getText();
     final var postalCodeField = postalCode.getText();
     final var fixedPhoneField = fixedPhone.getText();
-    return !numberField.matches("[1-9][0-9]?") ||
+    return !numberField.matches("[1-9][0-9]{0,4}") ||
         (!StringUtils.isBlank(postalCodeField) && !postalCodeField.matches("[1-9][0-9]{6}")) ||
         (!StringUtils.isBlank(fixedPhoneField) && !fixedPhoneField.matches("[1-9][0-9]{5}"));
   }
