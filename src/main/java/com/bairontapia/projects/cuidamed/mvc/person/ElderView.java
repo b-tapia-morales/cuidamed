@@ -15,6 +15,9 @@ import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineChe
 import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineCheckupDAO;
 import com.bairontapia.projects.cuidamed.medicalrecord.surgicalintervention.SurgicalIntervention;
 import com.bairontapia.projects.cuidamed.medicalrecord.surgicalintervention.SurgicalInterventionDAO;
+import com.bairontapia.projects.cuidamed.mvc.medical_record.RoutineCheckupView;
+import com.bairontapia.projects.cuidamed.mvc.medicalrecordcontroller.AllergyView;
+import com.bairontapia.projects.cuidamed.mvc.medicalrecordcontroller.SurgicalInterventionView;
 import com.bairontapia.projects.cuidamed.person.address.Address;
 import com.bairontapia.projects.cuidamed.person.address.AddressDAO;
 import com.bairontapia.projects.cuidamed.person.elder.Elder;
@@ -33,6 +36,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -45,6 +49,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
@@ -150,11 +155,18 @@ public class ElderView {
   @FXML
   private Button addData;
 
+  private Allergy allergy;
+  private SurgicalIntervention surgicalIntervention;
+  private RoutineCheckup routineCheckup;
+
   public void initialize() throws SQLException, IOException {
     initializeComboBoxes();
     initializeAllergyTable();
     initializeCheckupTable();
     initializeSurgicalInterventionTable();
+    allergy = null;
+    surgicalIntervention = null;
+    routineCheckup = null;
     /*
     final Elder elder = ElderDAO.getInstance().find("5902831-6").orElseThrow();
     setElder(elder);
@@ -218,34 +230,94 @@ public class ElderView {
   }
 
   @FXML
-  public void addColumn() throws IOException {
+  public void addColumn() throws IOException, SQLException {
     if (tabPane.getSelectionModel().isEmpty()) {
       return;
     }
-    final var fxmlLoader = new FXMLLoader();
+
+    FXMLLoader fxml = new FXMLLoader();
+    Scene scene;
+    Stage stage = new Stage();
+
     final var tabSelectionIndex = tabPane.getSelectionModel().getSelectedIndex();
-    final var panelPath = switch (tabSelectionIndex) {
-      case 1 -> "/fxml/allergy_dialog.fxml";
-      case 2 -> "/fxml/surgical_intervention_dialog.fxml";
-      default -> throw new IllegalStateException("Unexpected value: " + tabSelectionIndex);
-    };
-    fxmlLoader.setLocation(getClass().getResource(panelPath));
-    final var scene = new Scene(fxmlLoader.load());
-    final var stage = new Stage();
+    if (tabSelectionIndex == 1) {
+      fxml.setLocation(getClass().getResource("/fxml/routine_checkup.fxml"));
+      scene = new Scene(fxml.load());
+      RoutineCheckupView routineCheckupView = fxml.getController();
+      routineCheckupView.changes(rut.getText());
+    } else {
+      if (tabSelectionIndex == 2) {
+        fxml.setLocation(getClass().getResource("/fxml/surgical_intervention_dialog.fxml"));
+        scene = new Scene(fxml.load());
+        SurgicalInterventionView surgicalInterventionView = fxml.getController();
+        surgicalInterventionView.changes(rut.getText());
+      } else {
+        fxml.setLocation(getClass().getResource("/fxml/allergy_dialog.fxml"));
+        scene = new Scene(fxml.load());
+        AllergyView allergyView = (AllergyView) fxml.getController();
+        allergyView.changes(rut.getText());
+      }
+    }
     stage.setScene(scene);
-    stage.show();
+    stage.initModality(Modality.APPLICATION_MODAL);
+    stage.showAndWait();
+    tabSelectsetObject(fxml);
   }
 
-  private void addToAllergyTable() {
-
+  private void tabSelectsetObject(FXMLLoader fxml) throws SQLException, IOException {
+    final var tabSelectionIndex = tabPane.getSelectionModel().getSelectedIndex();
+    if (tabSelectionIndex == 1) {
+      setObjectRoutine(fxml);
+    } else {
+      if (tabSelectionIndex == 2) {
+        setObjectSurgical(fxml);
+      } else {
+        setObjectAllergy(fxml);
+      }
+    }
   }
 
-  private void addToSurgicalInterventionTable() {
-
+  private void setObjectAllergy(FXMLLoader fxml) throws SQLException, IOException {
+    AllergyView allergyView = fxml.getController();
+    this.allergy = allergyView.getAllergy();
+    addToAllergyTable();
   }
 
-  private void addToRoutineCheckupTable() {
+  private void setObjectSurgical(FXMLLoader fxml) throws SQLException, IOException {
+    SurgicalInterventionView surgicalInterventionView = fxml.getController();
+    this.surgicalIntervention = surgicalInterventionView.getSurgicalIntervention();
+    addToSurgicalInterventionTable();
+  }
 
+  private void setObjectRoutine(FXMLLoader fxml) throws SQLException, IOException {
+    RoutineCheckupView routineCheckupView = fxml.getController();
+    this.routineCheckup = routineCheckupView.getRoutineCheckup();
+    addToRoutineCheckupTable();
+  }
+
+  @FXML
+  public void addToAllergyTable() throws SQLException, IOException {
+    if (this.allergy != null) {
+      final var daoAllergy = AllergyDAO.getInstance();
+      daoAllergy.save(this.allergy);
+      fillAllergyTable(daoAllergy.findAll(this.elder.rut()));
+    }
+  }
+
+  public void addToSurgicalInterventionTable() throws SQLException, IOException {
+    if (this.surgicalIntervention != null) {
+      final var daoSurgicalIntervention = SurgicalInterventionDAO.getInstance();
+      daoSurgicalIntervention.save(this.surgicalIntervention);
+      fillSurgicalInterventionTable(daoSurgicalIntervention.findAll(this.elder.rut()));
+    }
+  }
+
+  public void addToRoutineCheckupTable() throws SQLException, IOException {
+    if (this.routineCheckup != null) {
+      final var daoRoutineCheckup = RoutineCheckupDAO.getInstance();
+      daoRoutineCheckup.save(this.routineCheckup);
+      fillRoutineCheckupTable(daoRoutineCheckup.findAll(this.elder.rut()));
+    }
   }
 
   private boolean areFieldsEmpty() {

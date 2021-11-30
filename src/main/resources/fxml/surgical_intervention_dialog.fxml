@@ -1,80 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ButtonType?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.DialogPane?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bairontapia.projects.cuidamed.mvc.medicalrecordcontroller.SurgicalInterventionView">
    <children>
-      <DialogPane expanded="true" layoutX="60.0" layoutY="192.0" AnchorPane.bottomAnchor="0.0"
-        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <DialogPane expanded="true" layoutX="60.0" layoutY="192.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
             <VBox alignment="CENTER" prefWidth="100.0">
                <GridPane>
                   <columnConstraints>
-                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="35.0"/>
-                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="35.0" />
+                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   </columnConstraints>
                   <rowConstraints>
-                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                     <RowConstraints minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES"/>
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     <RowConstraints minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
                   </rowConstraints>
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <TextField fx:id="textHospital" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
-                        <Insets left="5.0" right="5.0"/>
+                        <Insets left="5.0" right="5.0" />
                      </GridPane.margin>
                   </TextField>
                   <Label text="Fecha de intervención" GridPane.halignment="RIGHT">
                      <GridPane.margin>
-                        <Insets right="10.0"/>
+                        <Insets right="10.0" />
                      </GridPane.margin>
                   </Label>
                   <Label text="Hospital" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                      <GridPane.margin>
-                        <Insets right="10.0"/>
+                        <Insets right="10.0" />
                      </GridPane.margin>
                   </Label>
                   <Label text="Severidad" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                      <GridPane.margin>
-                        <Insets right="10.0"/>
+                        <Insets right="10.0" />
                      </GridPane.margin>
                   </Label>
                   <Label text="Descripción" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                      <GridPane.margin>
-                        <Insets right="10.0"/>
+                        <Insets right="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <DatePicker editable="false" GridPane.columnIndex="1"
-                    GridPane.halignment="LEFT">
+                  <DatePicker fx:id="datePicker" editable="false" GridPane.columnIndex="1" GridPane.halignment="LEFT">
                      <GridPane.margin>
-                        <Insets left="5.0"/>
+                        <Insets left="5.0" />
                      </GridPane.margin>
                   </DatePicker>
-                  <ComboBox prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <ComboBox fx:id="severityComboBox" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <GridPane.margin>
-                        <Insets left="5.0"/>
+                        <Insets left="5.0" />
                      </GridPane.margin>
                   </ComboBox>
-                  <TextArea prefHeight="200.0" prefWidth="200.0" wrapText="true"
-                    GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <TextArea fx:id="textDescription" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <GridPane.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                   </TextArea>
                </GridPane>
@@ -82,19 +67,18 @@
          </content>
          <header>
             <HBox alignment="CENTER" prefHeight="80.0" spacing="25.0">
-               <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true"
-                 preserveRatio="true">
-                  <Image url="@../icons/surgery.png"/>
+               <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                  <Image url="@../icons/surgery.png" />
                </ImageView>
                <Label text="Intervención quirúrgica" textAlignment="CENTER">
                   <font>
-                     <Font size="14.0"/>
+                     <Font size="14.0" />
                   </font>
                </Label>
             </HBox>
          </header>
-         <ButtonType fx:constant="OK"/>
-         <ButtonType fx:constant="CANCEL"/>
       </DialogPane>
+      <Button layoutX="213.0" layoutY="311.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="62.0" text="Aceptar" onAction="#addSurgicalIntervention"/>
+      <Button layoutX="310.0" layoutY="311.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="62.0" text="Cancelar" onAction="#cancelSurgicalIntervention"/>
    </children>
 </AnchorPane>

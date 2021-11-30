@@ -29,6 +29,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Getter;
 
@@ -110,7 +111,8 @@ public class PersonView {
       }
     }
     stage.setScene(scene);
-    stage.show();
+    stage.initModality(Modality.APPLICATION_MODAL);
+    stage.showAndWait();
   }
 
   public void addedElder(MouseEvent mouseEvent) throws IOException {

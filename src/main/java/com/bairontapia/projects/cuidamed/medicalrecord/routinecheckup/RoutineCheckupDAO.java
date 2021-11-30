@@ -6,6 +6,7 @@ import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,6 +20,7 @@ public class RoutineCheckupDAO implements ReadAndWriteDAO<RoutineCheckup, String
       .relativePathString("scripts", "class_queries", "medical_record", "routine_checkup");
   private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
   private static final Path FIND_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
+  private static final Path SAVE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "save.sql");
 
   public static RoutineCheckupDAO getInstance() {
     return INSTANCE;
@@ -36,7 +38,7 @@ public class RoutineCheckupDAO implements ReadAndWriteDAO<RoutineCheckup, String
 
   @Override
   public String saveQuery() throws IOException {
-    return null;
+    return TextFileUtils.readString(SAVE_QUERY_PATH);
   }
 
   @Override
@@ -62,7 +64,16 @@ public class RoutineCheckupDAO implements ReadAndWriteDAO<RoutineCheckup, String
   @Override
   public void saveTuple(PreparedStatement statement, RoutineCheckup routineCheckup)
       throws SQLException {
-
+    statement.setString(1, routineCheckup.rut());
+    statement.setDate(2, Date.valueOf(routineCheckup.checkupDate()));
+    statement.setDouble(3, routineCheckup.height());
+    statement.setDouble(4, routineCheckup.weight());
+    statement.setDouble(5, routineCheckup.bmi());
+    statement.setShort(6, routineCheckup.heartRate());
+    statement.setDouble(7, routineCheckup.diastolicPressure());
+    statement.setDouble(8, routineCheckup.systolicPressure());
+    statement.setDouble(9, routineCheckup.bodyTemperature());
+    statement.executeUpdate();
   }
 
 }
