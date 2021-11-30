@@ -3,21 +3,26 @@ package com.bairontapia.projects.cuidamed.disease.medication;
 import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
+import com.bairontapia.projects.cuidamed.utils.paths.FilePathUtils;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
+import org.apache.commons.io.IOUtils;
 
 public class MedicationDAO implements CrudDAO<Medication, String> {
 
   private static final MedicationDAO INSTANCE = new MedicationDAO();
-  private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
-      .relativePathString("scripts", "class_queries", "medication");
-  private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
-  private static final Path FIND_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
-  private static final Path SAVE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "save.sql");
-  private static final Path UPDATE_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "update.sql");
+  private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
+
+  private static final String RELATIVE_PATH_STRING = DirectoryPathUtils.pathBuilder("scripts", "class_queries", "medication");
+  private static final String FIND_ALL_QUERY_PATH = RELATIVE_PATH_STRING + "get_all.sql";
+  private static final String FIND_QUERY_PATH = RELATIVE_PATH_STRING + "get.sql";
+  private static final String SAVE_QUERY_PATH = RELATIVE_PATH_STRING + "save.sql";
+  private static final String UPDATE_QUERY_PATH = RELATIVE_PATH_STRING + "update.sql";
 
   public static MedicationDAO getInstance() {
     return INSTANCE;
@@ -25,22 +30,26 @@ public class MedicationDAO implements CrudDAO<Medication, String> {
 
   @Override
   public String findQuery() throws IOException {
-    return TextFileUtils.readString(FIND_QUERY_PATH);
+    final var inputStream = CLASS_LOADER.getResourceAsStream(FIND_QUERY_PATH);
+    return IOUtils.toString(Objects.requireNonNull(inputStream), Charset.defaultCharset());
   }
 
   @Override
   public String findAllQuery() throws IOException {
-    return TextFileUtils.readString(FIND_ALL_QUERY_PATH);
+    final var inputStream = CLASS_LOADER.getResourceAsStream(FIND_ALL_QUERY_PATH);
+    return IOUtils.toString(Objects.requireNonNull(inputStream), Charset.defaultCharset());
   }
 
   @Override
   public String saveQuery() throws IOException {
-    return TextFileUtils.readString(SAVE_QUERY_PATH);
+    final var inputStream = CLASS_LOADER.getResourceAsStream(SAVE_QUERY_PATH);
+    return IOUtils.toString(Objects.requireNonNull(inputStream), Charset.defaultCharset());
   }
 
   @Override
   public String updateQuery() throws IOException {
-    return TextFileUtils.readString(UPDATE_QUERY_PATH);
+    final var inputStream = CLASS_LOADER.getResourceAsStream(UPDATE_QUERY_PATH);
+    return IOUtils.toString(Objects.requireNonNull(inputStream), Charset.defaultCharset());
   }
 
   @Override

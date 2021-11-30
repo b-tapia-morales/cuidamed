@@ -30,25 +30,44 @@ import org.apache.commons.lang3.StringUtils;
 @Getter
 public class CarerView {
 
-  @Setter private Carer carer;
-  @Setter private Address address;
-  @FXML private DatePicker birthDatePicker;
-  @FXML private ComboBox<Gender> genderComboBox;
-  @FXML private DatePicker hireDatePicker;
-  @FXML private Button updateData;
-  @FXML private TextField rut;
-  @FXML private TextField name;
-  @FXML private TextField lastName;
-  @FXML private TextField secondLastName;
-  @FXML private TextField age;
-  @FXML private TextField mobilePhone;
-  @FXML private TextField region;
-  @FXML private TextField province;
-  @FXML private TextField commune;
-  @FXML private TextField street;
-  @FXML private TextField number;
-  @FXML private TextField postalCode;
-  @FXML private TextField fixedPhone;
+  @Setter
+  private Carer carer;
+  @Setter
+  private Address address;
+  @FXML
+  private DatePicker birthDatePicker;
+  @FXML
+  private ComboBox<Gender> genderComboBox;
+  @FXML
+  private DatePicker hireDatePicker;
+  @FXML
+  private Button updateData;
+  @FXML
+  private TextField rut;
+  @FXML
+  private TextField name;
+  @FXML
+  private TextField lastName;
+  @FXML
+  private TextField secondLastName;
+  @FXML
+  private TextField age;
+  @FXML
+  private TextField mobilePhone;
+  @FXML
+  private TextField region;
+  @FXML
+  private TextField province;
+  @FXML
+  private TextField commune;
+  @FXML
+  private TextField street;
+  @FXML
+  private TextField number;
+  @FXML
+  private TextField postalCode;
+  @FXML
+  private TextField fixedPhone;
 
   public void initialize() throws SQLException, IOException {
     initializeComboBoxes();

@@ -2,7 +2,6 @@ package com.bairontapia.projects.cuidamed.mvc.medicalrecordcontroller;
 
 import com.bairontapia.projects.cuidamed.mappings.severity.Severity;
 import com.bairontapia.projects.cuidamed.medicalrecord.surgicalintervention.SurgicalIntervention;
-import com.bairontapia.projects.cuidamed.medicalrecord.surgicalintervention.SurgicalInterventionDAO;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.sql.Date;
 import javafx.collections.FXCollections;
