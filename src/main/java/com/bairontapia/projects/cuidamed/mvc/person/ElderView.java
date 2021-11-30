@@ -175,20 +175,24 @@ public class ElderView {
   }
 
   @FXML
-  public void recoveryData(Elder e) throws SQLException, IOException {
-    setElder(e);
+  public void recoveryData(Elder elder) throws SQLException, IOException {
+    setElder(elder);
     onUpdatedFields();
-    fillElderFields(e);
-    final var responsibleKey = e.responsibleRut();
+    fillElderFields(elder);
+    final var responsibleKey = elder.responsibleRut();
     final var responsible = ResponsibleDAO.getInstance().find(responsibleKey).orElseThrow();
     fillResponsibleFields(responsible);
     final var address = AddressDAO.getInstance().find(responsibleKey).orElseThrow();
-    fillAddressFields(address);
-    final var allergies = AllergyDAO.getInstance().findAll(e.rut());
+    final var communeField = CommuneDAO.getInstance().find(address.communeId()).orElseThrow();
+    final var provinceField = ProvinceDAO.getInstance().find(communeField.provinceId())
+        .orElseThrow();
+    final var regionField = RegionDAO.getInstance().find(provinceField.regionId()).orElseThrow();
+    fillAddressFields(address, regionField, provinceField, communeField);
+    final var allergies = AllergyDAO.getInstance().findAll(elder.rut());
     fillAllergyTable(allergies);
-    final var routineCheckups = RoutineCheckupDAO.getInstance().findAll(e.rut());
+    final var routineCheckups = RoutineCheckupDAO.getInstance().findAll(elder.rut());
     fillRoutineCheckupTable(routineCheckups);
-    final var surgicalInterventions = SurgicalInterventionDAO.getInstance().findAll(e.rut());
+    final var surgicalInterventions = SurgicalInterventionDAO.getInstance().findAll(elder.rut());
     fillSurgicalInterventionTable(surgicalInterventions);
   }
 
@@ -339,10 +343,11 @@ public class ElderView {
     responsibleMobilePhone.setText("+56 9 " + responsible.mobilePhone());
   }
 
-  private void fillAddressFields(final Address address) {
-    region.setText(address.regionName());
-    province.setText(address.provinceName());
-    commune.setText(address.communeName());
+  private void fillAddressFields(final Address address, final Region regionField,
+      final Province provinceField, final Commune communeField) {
+    region.setText(regionField.toString());
+    province.setText(provinceField.toString());
+    commune.setText(communeField.toString());
     street.setText(address.street());
     number.setText(address.number().toString());
   }

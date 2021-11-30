@@ -43,6 +43,7 @@ public class AllergyView {
     System.out.println(comboBoxType.getSelectionModel().getSelectedIndex());
     this.allergy = Allergy.createInstance(rut,(short) (comboBoxType.getSelectionModel().getSelectedIndex()+1),labelDetails.getText());
 
+  public void addedAllergy(ActionEvent actionEvent) {
   }
 
   public void cancelAllergy(ActionEvent actionEvent) {

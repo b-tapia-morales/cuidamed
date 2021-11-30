@@ -1,6 +1,6 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.stats;
 
-import com.bairontapia.projects.cuidamed.daotemplate.GenericReadOnlyDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.ReadOnlyDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class HealthSystemStatsDAO implements
-    GenericReadOnlyDAO<HealthSystemStats, Short> {
+    ReadOnlyDAO<HealthSystemStats, Short> {
 
   private static final HealthSystemStatsDAO INSTANCE = new HealthSystemStatsDAO();
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils

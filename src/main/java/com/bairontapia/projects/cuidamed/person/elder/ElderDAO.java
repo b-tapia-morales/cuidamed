@@ -1,6 +1,6 @@
 package com.bairontapia.projects.cuidamed.person.elder;
 
-import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ElderDAO implements GenericCrudDAO<Elder, String> {
+public class ElderDAO implements CrudDAO<Elder, String> {
 
   private static final ElderDAO INSTANCE = new ElderDAO();
 

@@ -1,7 +1,6 @@
 package com.bairontapia.projects.cuidamed.localization;
 
-import com.bairontapia.projects.cuidamed.daotemplate.GenericReadOnlyDAO;
-import com.bairontapia.projects.cuidamed.daotemplate.OneToManyDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.ReadOnlyDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -10,17 +9,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class RegionDAO implements GenericReadOnlyDAO<Region, Short>, OneToManyDAO<Region, Short> {
+public class RegionDAO implements ReadOnlyDAO<Region, Short> {
 
 
   private static final RegionDAO INSTANCE = new RegionDAO();
 
   private static final String RELATIVE_PATH_STRING =
-      DirectoryPathUtils.relativePathString("scripts", "class_queries", "region");
+      DirectoryPathUtils.relativePathString("scripts", "class_queries", "localization", "region");
   private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
   private static final Path FIND_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
 
-  public static RegionDAO getInstance(){
+  public static RegionDAO getInstance() {
     return INSTANCE;
   }
 

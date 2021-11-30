@@ -5,6 +5,7 @@ import com.bairontapia.projects.cuidamed.person.Person;
 import com.bairontapia.projects.cuidamed.person.carer.CarerDAO;
 import com.bairontapia.projects.cuidamed.person.elder.Elder;
 import com.bairontapia.projects.cuidamed.person.elder.ElderDAO;
+import com.bairontapia.projects.cuidamed.person.responsible.Responsible;
 import com.bairontapia.projects.cuidamed.person.responsible.ResponsibleDAO;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.io.IOException;
@@ -33,6 +34,7 @@ import javafx.stage.Stage;
 import lombok.Getter;
 
 public class PersonView {
+
   @FXML
   public AnchorPane anchor;
   @FXML
@@ -72,7 +74,7 @@ public class PersonView {
     if (personComboBox.getSelectionModel().isEmpty()) {
       return;
     }
-
+    personTableView.getItems().clear();
     final var choice = personComboBox.getSelectionModel().getSelectedItem();
     final var set = new LinkedHashSet<Person>();
     switch (choice) {
@@ -80,7 +82,6 @@ public class PersonView {
       case CARER -> set.addAll(CarerDAO.getInstance().findAll());
       case RESPONSIBLE -> set.addAll(ResponsibleDAO.getInstance().findAll());
     }
-    personTableView.getItems().clear();
     personTableView.getItems().addAll(set);
   }
 
@@ -97,13 +98,16 @@ public class PersonView {
       Elder elder = (Elder) personTableView.getSelectionModel().getSelectedItem();
       ElderView elderView = (ElderView) fxml.getController();
       elderView.recoveryData(elder);
-    }else{
-      if(personComboBox.getSelectionModel().getSelectedIndex() == 1){
+    } else {
+      if (personComboBox.getSelectionModel().getSelectedIndex() == 1) {
         fxml.setLocation(getClass().getResource("/fxml/carer.fxml"));
         scene = new Scene(fxml.load());
-      }else{
+      } else {
         fxml.setLocation(getClass().getResource("/fxml/responsible.fxml"));
         scene = new Scene(fxml.load());
+        Responsible responsible = (Responsible) personTableView.getSelectionModel().getSelectedItem();
+        ResponsibleView responsibleView = (ResponsibleView) fxml.getController();
+        responsibleView.recoveryData(responsible);
       }
     }
     stage.setScene(scene);
@@ -113,7 +117,8 @@ public class PersonView {
 
   public void addedElder(MouseEvent mouseEvent) throws IOException {
     final var stage = new Stage();
-    final Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/elder_insert.fxml")));
+    final Parent root = FXMLLoader
+        .load(Objects.requireNonNull(getClass().getResource("/fxml/elder_insert.fxml")));
     final Scene scene = new Scene(root);
     stage.setScene(scene);
     stage.show();

@@ -1,6 +1,6 @@
 package com.bairontapia.projects.cuidamed.person.responsible;
 
-import com.bairontapia.projects.cuidamed.daotemplate.GenericCrudDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ResponsibleDAO implements GenericCrudDAO<Responsible, String> {
+public class ResponsibleDAO implements CrudDAO<Responsible, String> {
 
   private static final ResponsibleDAO INSTANCE = new ResponsibleDAO();
 
