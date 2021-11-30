@@ -10,7 +10,7 @@ public final class FilePathUtils {
   }
 
   public static String relativePathString(final String fileName) {
-    return (DirectoryPathUtils.relativePathString() + fileName);
+    return (DirectoryPathUtils.pathBuilder() + fileName);
   }
 
   public static String absolutePathString(final String fileName) {
@@ -27,7 +27,7 @@ public final class FilePathUtils {
 
   public static String relativePathString(final String fileName,
       final String... folderNames) {
-    return (DirectoryPathUtils.relativePathString(folderNames) + fileName);
+    return (DirectoryPathUtils.pathBuilder(folderNames) + fileName);
   }
 
   public static String absolutePathString(final String fileName,
@@ -37,7 +37,7 @@ public final class FilePathUtils {
 
   public static Path relativePath(final String fileName,
       final String... folderNames) {
-    final String relativePath = DirectoryPathUtils.relativePathString(folderNames);
+    final String relativePath = DirectoryPathUtils.pathBuilder(folderNames);
     return (Paths.get(relativePath, fileName));
   }
 

@@ -9,6 +9,7 @@ public final class PropertyUtils {
 
   private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
 
+
   private PropertyUtils() {
     throw new UnsupportedOperationException();
   }
