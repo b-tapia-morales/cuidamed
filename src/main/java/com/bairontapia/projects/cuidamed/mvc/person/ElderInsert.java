@@ -33,6 +33,8 @@ import org.apache.commons.lang3.StringUtils;
 @Getter
 public class ElderInsert {
 
+  private final StringBuilder stringBuilder = new StringBuilder();
+
   @FXML
   private TextField rut;
   @FXML
@@ -87,6 +89,18 @@ public class ElderInsert {
   @FXML
   private Button addData;
 
+  private static void appendEmptyFieldError(final StringBuilder stringBuilder, String panelName) {
+    stringBuilder.append("Hay campos vacíos o sin selección en panel de ")
+        .append(panelName).append(".\n");
+  }
+
+  private static void appendFieldTooShortError(final StringBuilder stringBuilder,
+      String panelName) {
+    stringBuilder
+        .append("Hay campos de texto cuyos valores ingresados no son de largo suficiente ")
+        .append("(largo mínimo: 3 caracteres) en panel de ").append(panelName).append(".\n");
+  }
+
   public void initialize() throws SQLException, IOException {
     initializeComboBoxes();
   }
@@ -127,41 +141,19 @@ public class ElderInsert {
 
   @FXML
   public void onButtonPressed() throws SQLException, IOException {
-    trimElderFields();
-    trimResponsibleFields();
-    trimAddressFields();
-    if (areElderFieldsEmpty()) {
-      System.out.println("MALO: Datos del adulto mayor aún sin rellenar");
+    stringBuilder.setLength(0);
+    trimFields();
+    appendEmptyFieldErrors();
+    if (anyFieldIsEmpty()) {
+      System.out.println(stringBuilder);
       return;
     }
-    if (areElderFieldsTooShort()) {
-      System.out.println("MALO: Datos del adulto mayor son muy cortos");
+    appendFieldTooShortErrors();
+    if (anyFieldIsTooShort()) {
+      System.out.println(stringBuilder);
       return;
     }
-    if (areElderFieldsIncorrect()) {
-      System.out.println("MALO: Datos del adulto mayor son incorrectos");
-    }
-    if (areResponsibleFieldsEmpty()) {
-      System.out.println("MALO: Datos del responsable aún sin rellenar");
-      return;
-    }
-    if (areResponsibleFieldsTooShort()) {
-      System.out.println("MALO: Datos del responsable son muy cortos");
-      return;
-    }
-    if (areResponsibleFieldsIncorrect()) {
-      System.out.println("MALO: Datos del responsable son incorrectos");
-    }
-    if (areAddressFieldsEmpty()) {
-      System.out.println("MALO: Datos de la dirección del responsable aún sin rellenar");
-      return;
-    }
-    if (areAddressFieldsTooShort()) {
-      System.out.println("MALO: Datos de la dirección del responsable son muy cortos");
-      return;
-    }
-    if (areAddressFieldsIncorrect()) {
-      System.out.println("MALO: Datos de la dirección del responsable son incorrectos");
+    if (!areFieldsValid()) {
       return;
     }
     final var rutField = rut.getText();
@@ -184,7 +176,7 @@ public class ElderInsert {
     final var elder = Elder.createInstance(rutField, nameField, lastNameField,
         secondLastNameField, Date.valueOf(birthDateField), (short) genderCode, isActiveField,
         Date.valueOf(admissionDateField), responsibleRutField);
-
+    System.out.println(stringBuilder);
   }
 
   private Elder createElder() {
@@ -228,6 +220,12 @@ public class ElderInsert {
     return null;
   }
 
+  private void trimFields() {
+    trimElderFields();
+    trimResponsibleFields();
+    trimAddressFields();
+  }
+
   private void trimElderFields() {
     rut.setText(StringUtils.replace(StringUtils.trim(rut.getText()), ".", ""));
     name.setText(StringUtils.trim(name.getText()));
@@ -250,6 +248,94 @@ public class ElderInsert {
     number.setText(StringUtils.stripStart(StringUtils.trim(number.getText()), "0"));
     postalCode.setText(StringUtils.stripStart(StringUtils.trim(postalCode.getText()), "0"));
     fixedPhone.setText(StringUtils.stripStart(StringUtils.trim(fixedPhone.getText()), "0"));
+  }
+
+  private void appendEmptyFieldErrors() {
+    appendElderEmptyFieldErrors();
+    appendResponsibleEmptyFieldErrors();
+    appendAddressEmptyFieldErrors();
+  }
+
+  private void appendFieldTooShortErrors() {
+    appendElderFieldsTooShort();
+    appendResponsibleFieldsTooShort();
+    areAddressFieldsTooShort();
+  }
+
+  private void appendElderEmptyFieldErrors() {
+    if (StringUtils.isBlank(rut.getText()) ||
+        StringUtils.isBlank(name.getText()) ||
+        StringUtils.isBlank(lastName.getText()) ||
+        StringUtils.isBlank(secondLastName.getText()) ||
+        birthDate.getValue() == null ||
+        gender.getSelectionModel().isEmpty() ||
+        admissionDate.getValue() == null) {
+      appendEmptyFieldError(stringBuilder, "Adulto mayor");
+    }
+  }
+
+  private void appendResponsibleEmptyFieldErrors() {
+    if (StringUtils.isBlank(responsibleRut.getText()) ||
+        StringUtils.isBlank(responsibleName.getText()) ||
+        StringUtils.isBlank(responsibleLastName.getText()) ||
+        StringUtils.isBlank(responsibleSecondLastName.getText()) ||
+        responsibleBirthDate.getValue() == null ||
+        responsibleGender.getSelectionModel().isEmpty() ||
+        StringUtils.isBlank(responsibleMobilePhone.getText())) {
+      appendEmptyFieldError(stringBuilder, "Responsable");
+    }
+  }
+
+  private void appendAddressEmptyFieldErrors() {
+    if (regionComboBox.getSelectionModel().isEmpty() ||
+        provinceComboBox.getSelectionModel().isEmpty() ||
+        communeComboBox.getSelectionModel().isEmpty() ||
+        StringUtils.isBlank(street.getText()) ||
+        StringUtils.isBlank(number.getText())) {
+      appendEmptyFieldError(stringBuilder, "Dirección");
+    }
+  }
+
+  private void appendElderFieldsTooShort() {
+    if (rut.getText().length() < 9 ||
+        name.getText().length() < 4 ||
+        lastName.getText().length() < 4 ||
+        secondLastName.getText().length() < 4) {
+      appendFieldTooShortError(stringBuilder, "Adulto mayor");
+    }
+  }
+
+  private void appendResponsibleFieldsTooShort() {
+    if (responsibleRut.getText().length() < 9 ||
+        responsibleName.getText().length() < 4 ||
+        responsibleLastName.getText().length() < 4 ||
+        responsibleSecondLastName.getText().length() < 4) {
+      appendFieldTooShortError(stringBuilder, "Responsable");
+    }
+  }
+
+  private void appendAddressFieldsTooShort() {
+    if (street.getText().length() < 4) {
+      appendFieldTooShortError(stringBuilder, "Dirección");
+    }
+  }
+
+  private boolean areFieldsValid() {
+    return !(anyFieldIsEmpty() || anyFieldIsTooShort() || anyFieldIsIncorrect());
+  }
+
+  private boolean anyFieldIsEmpty() {
+    return areElderFieldsEmpty() || areResponsibleFieldsEmpty() || areAddressFieldsEmpty();
+  }
+
+  private boolean anyFieldIsTooShort() {
+    return areElderFieldsTooShort() || areResponsibleFieldsTooShort()
+        || areAddressFieldsTooShort();
+  }
+
+  private boolean anyFieldIsIncorrect() {
+    return areElderFieldsIncorrect() || areResponsibleFieldsIncorrect() ||
+        areAddressFieldsIncorrect();
   }
 
   private boolean areElderFieldsEmpty() {
