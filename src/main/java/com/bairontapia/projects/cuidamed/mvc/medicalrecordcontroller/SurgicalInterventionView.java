@@ -50,7 +50,7 @@ public class SurgicalInterventionView {
     if (datePicker.getValue() == null || textHospital.getText().equals("") || severityComboBox
         .getSelectionModel().isEmpty() || textDescription.getText().equals("")) {
       Alert a = new Alert(AlertType.WARNING);
-      a.setContentText("¡¡Valores vacios!!");
+      a.setContentText("¡¡Valores vacíos!!");
       a.show();
     } else {
       this.surgicalIntervention = SurgicalIntervention

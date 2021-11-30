@@ -8,6 +8,8 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -37,7 +39,7 @@ public class AllergyView {
     stage.close();
     if (comboBoxType.getSelectionModel().isEmpty() || labelDetails.getText().equals("")) {
       Alert a = new Alert(AlertType.WARNING);
-      a.setContentText("¡¡Valores vacios!!");
+      a.setContentText("¡¡Valores vacíos!!");
       a.show();
     } else {
       this.allergy = Allergy

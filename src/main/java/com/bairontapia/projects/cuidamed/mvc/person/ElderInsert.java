@@ -23,6 +23,8 @@ import java.time.LocalDate;
 import java.time.Period;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -153,27 +155,28 @@ public class ElderInsert {
     trimFields();
     appendEmptyFieldErrors();
     if (anyFieldIsEmpty()) {
-      System.out.println(stringBuilder);
+      createErrorAlert().show();
       return;
     }
     appendFieldTooShortErrors();
     if (anyFieldIsTooShort()) {
-      System.out.println(stringBuilder);
+      createErrorAlert().show();
       return;
     }
     appendFieldIncorrectErrors();
     if (anyFieldIsIncorrect()) {
-      System.out.println(stringBuilder);
+      createErrorAlert().show();
       return;
     }
     final var rutField = rut.getText();
     if (ElderDAO.getInstance().find(rutField).isPresent()) {
-      System.out.println("Adulto mayor ya está en la base de datos");
+      stringBuilder.append("Ya existe un adulto mayor con el rut especificado en la base de datos");
+      createErrorAlert().show();
       return;
     }
     final var responsibleRutField = responsibleRut.getText();
     if (ResponsibleDAO.getInstance().find(responsibleRutField).isPresent()) {
-      System.out.println("Responsable ya está en la base de datos");
+      stringBuilder.append("Ya existe un responsable con el rut especificado en la base de datos");
       return;
     }
     final var elder = createElder();
@@ -182,7 +185,20 @@ public class ElderInsert {
     ResponsibleDAO.getInstance().save(responsible);
     AddressDAO.getInstance().save(address);
     ElderDAO.getInstance().save(elder);
-    System.out.println(stringBuilder);
+    createConfirmationAlert().show();
+  }
+
+  private Alert createErrorAlert() {
+    final var alert = new Alert(AlertType.ERROR);
+    alert.setHeaderText("Error en el llenado de campos");
+    alert.setContentText(stringBuilder.toString());
+    return alert;
+  }
+
+  private Alert createConfirmationAlert() {
+    final var alert = new Alert(AlertType.CONFIRMATION);
+    alert.setHeaderText("Datos añadidos con éxito");
+    return alert;
   }
 
   private Elder createElder() {
