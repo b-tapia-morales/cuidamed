@@ -35,10 +35,16 @@ public class AllergyView {
     Node source = (Node) actionEvent.getSource();
     Stage stage = (Stage) source.getScene().getWindow();
     stage.close();
-    this.allergy = Allergy
-        .createInstance(RutUtils.removeDots(rut.toLowerCase()),
-            (short) (comboBoxType.getSelectionModel().getSelectedIndex() + 1),
-            labelDetails.getText());
+    if (comboBoxType.getSelectionModel().isEmpty() || labelDetails.getText().equals("")) {
+      Alert a = new Alert(AlertType.WARNING);
+      a.setContentText("¡¡Valores vacios!!");
+      a.show();
+    } else {
+      this.allergy = Allergy
+          .createInstance(RutUtils.removeDots(rut.toLowerCase()),
+              (short) (comboBoxType.getSelectionModel().getSelectedIndex() + 1),
+              labelDetails.getText());
+    }
   }
 
 
