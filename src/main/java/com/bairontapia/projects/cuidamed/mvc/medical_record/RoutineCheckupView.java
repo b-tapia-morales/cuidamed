@@ -6,6 +6,8 @@ import java.sql.Date;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -36,7 +38,7 @@ public class RoutineCheckupView {
   private String rut;
 
 
-  public void initialize(){
+  public void initialize() {
     routineCheckup = null;
   }
 
@@ -48,11 +50,21 @@ public class RoutineCheckupView {
     Node source = (Node) actionEvent.getSource();
     Stage stage = (Stage) source.getScene().getWindow();
     stage.close();
-    this.routineCheckup = RoutineCheckup
-        .createInstance(RutUtils.removeDots(rut.toLowerCase()), Date.valueOf(checkupDatePicker.getValue()), Double.parseDouble(height.getText()),
-            Double.parseDouble(weight.getText()), Double.parseDouble(bmi.getText()),
-            Short.parseShort(height.getText()), Double.parseDouble(diastolicPressure.getText()),
-            Double.parseDouble(systolicPressure.getText()), Double.parseDouble(bodyTemperature.getText()));
+    if (checkupDatePicker.getValue() == null || weight.getText().equals("") || height.getText()
+        .equals("") || bmi.getText().equals("") || height.getText().equals("") || diastolicPressure
+        .getText().equals("") || systolicPressure.getText().equals("") || bodyTemperature.getText().equals("")) {
+      Alert a = new Alert(AlertType.WARNING);
+      a.setContentText("¡¡Valores vacios!!");
+      a.show();
+    } else {
+      this.routineCheckup = RoutineCheckup
+          .createInstance(RutUtils.removeDots(rut.toLowerCase()),
+              Date.valueOf(checkupDatePicker.getValue()), Double.parseDouble(height.getText()),
+              Double.parseDouble(weight.getText()), Double.parseDouble(bmi.getText()),
+              Short.parseShort(height.getText()), Double.parseDouble(diastolicPressure.getText()),
+              Double.parseDouble(systolicPressure.getText()),
+              Double.parseDouble(bodyTemperature.getText()));
+    }
   }
 
   public void cancelRoutineCheckup(ActionEvent actionEvent) {

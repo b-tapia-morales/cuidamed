@@ -24,5 +24,4 @@ public class JavaFXApplication extends Application {
     stage.setResizable(false);
     stage.show();
   }
-
 }

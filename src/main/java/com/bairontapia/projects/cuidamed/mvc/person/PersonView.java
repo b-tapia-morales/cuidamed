@@ -92,7 +92,6 @@ public class PersonView {
     FXMLLoader fxml = new FXMLLoader();
     Scene scene;
     Stage stage = new Stage();
-    //anchor.setDisable(true);
     if (personComboBox.getSelectionModel().getSelectedIndex() == 0) {
       fxml.setLocation(getClass().getResource("/fxml/elder.fxml"));
       scene = new Scene(fxml.load());
