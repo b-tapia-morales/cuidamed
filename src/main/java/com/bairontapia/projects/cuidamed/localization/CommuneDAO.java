@@ -39,7 +39,6 @@ public class CommuneDAO implements ReadOnlyDAO<Commune, Short> {
 
   public Collection<Commune> findAll(Short id) throws IOException, SQLException {
     final var query = TextFileUtils.readString(FIND_ALL_BY_PROVINCE_PATH);
-    System.out.println(query);
     final var connection = ConnectionSingleton.getInstance();
     final var statement = connection.prepareStatement(query);
     setKeyParameter(statement, id);
