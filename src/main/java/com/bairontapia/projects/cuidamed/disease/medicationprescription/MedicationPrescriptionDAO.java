@@ -85,6 +85,7 @@ public class MedicationPrescriptionDAO implements CrudDAO<MedicationPrescription
     final var startDate = resultSet.getDate(6);
     final var endDate = resultSet.getDate(7);
     return MedicationPrescription
-        .createInstance(rut, diseaseName, prescriptionDate, medicationName, startDate, endDate);
+        .createInstance(rut, fullName, diseaseName, prescriptionDate, medicationName, startDate,
+            endDate);
   }
 }
