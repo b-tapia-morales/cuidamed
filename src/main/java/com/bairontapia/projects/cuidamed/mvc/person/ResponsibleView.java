@@ -16,6 +16,8 @@ import java.awt.Checkbox;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Period;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -91,9 +93,9 @@ public class ResponsibleView {
 
   @FXML
   public void onUpdatedFields() throws SQLException, IOException {
-    /*
-    validation methods missing
-     */
+    if (areFieldsEmpty() || areFieldsTooShort() || areFieldsIncorrect()) {
+      fillResponsibleFields(responsible);
+    }
     final var rutField = RutUtils.removeDots(rut.getText());
     final var nameField = StringUtils.trim(name.getText());
     final var lastNameField = StringUtils.trim(lastName.getText());
@@ -112,6 +114,28 @@ public class ResponsibleView {
             mobilePhoneField);
     ResponsibleDAO.getInstance().update(responsible);
     setResponsible(responsible);
+  }
+
+  private boolean areFieldsTooShort() {
+    final var nameField = StringUtils.trim(name.getText());
+    final var lastNameField = StringUtils.trim(lastName.getText());
+    final var secondLastNameField = StringUtils.trim(secondLastName.getText());
+    return nameField.length() < 4 || lastNameField.length() < 4 || secondLastNameField.length() < 4;
+  }
+
+  private boolean areFieldsIncorrect() {
+    final var birthDateField = birthDatePicker.getValue();
+    final var now = LocalDate.now();
+    final var age = Period.between(birthDateField, now).getYears();
+    return age < 18 || age > 65;
+  }
+
+  private boolean areFieldsEmpty() {
+    return name.getText().isEmpty()
+        || lastName.getText().isEmpty()
+        || secondLastName.getText().isEmpty()
+        || birthDatePicker.getValue() == null
+        || genderComboBox.getSelectionModel().isEmpty();
   }
 
   private void fillResponsibleFields(final Responsible responsible) {

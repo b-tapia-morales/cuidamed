@@ -2,6 +2,7 @@ package com.bairontapia.projects.cuidamed.mvc.person;
 
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.person.Person;
+import com.bairontapia.projects.cuidamed.person.carer.Carer;
 import com.bairontapia.projects.cuidamed.person.carer.CarerDAO;
 import com.bairontapia.projects.cuidamed.person.elder.Elder;
 import com.bairontapia.projects.cuidamed.person.elder.ElderDAO;
@@ -102,6 +103,9 @@ public class PersonView {
       if (personComboBox.getSelectionModel().getSelectedIndex() == 1) {
         fxml.setLocation(getClass().getResource("/fxml/carer.fxml"));
         scene = new Scene(fxml.load());
+        Carer carer = (Carer) personTableView.getSelectionModel().getSelectedItem();
+        CarerView carerView = (CarerView) fxml.getController();
+        carerView.recoveryData(carer);
       } else {
         fxml.setLocation(getClass().getResource("/fxml/responsible.fxml"));
         scene = new Scene(fxml.load());

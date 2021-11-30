@@ -1,5 +1,11 @@
 package com.bairontapia.projects.cuidamed.mvc.person;
 
+import com.bairontapia.projects.cuidamed.localization.Commune;
+import com.bairontapia.projects.cuidamed.localization.CommuneDAO;
+import com.bairontapia.projects.cuidamed.localization.Province;
+import com.bairontapia.projects.cuidamed.localization.ProvinceDAO;
+import com.bairontapia.projects.cuidamed.localization.Region;
+import com.bairontapia.projects.cuidamed.localization.RegionDAO;
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.person.address.Address;
 import com.bairontapia.projects.cuidamed.person.address.AddressDAO;
@@ -9,6 +15,8 @@ import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Period;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,62 +30,64 @@ import org.apache.commons.lang3.StringUtils;
 @Getter
 public class CarerView {
 
-
-  @Setter
-  private Carer carer;
-  @Setter
-  private Address address;
-  @FXML
-  private DatePicker birthDatePicker;
-  @FXML
-  private ComboBox<Gender> genderComboBox;
-  @FXML
-  private DatePicker hireDatePicker;
-  @FXML
-  private Button updateData;
-  @FXML
-  private TextField rut;
-  @FXML
-  private TextField name;
-  @FXML
-  private TextField lastName;
-  @FXML
-  private TextField secondLastName;
-  @FXML
-  private TextField age;
-  @FXML
-  private TextField mobilePhone;
-  @FXML
-  private TextField region;
-  @FXML
-  private TextField province;
-  @FXML
-  private TextField commune;
-  @FXML
-  private TextField street;
-  @FXML
-  private TextField number;
-  @FXML
-  private TextField postalCode;
-  @FXML
-  private TextField fixedPhone;
+  @Setter private Carer carer;
+  @Setter private Address address;
+  @FXML private DatePicker birthDatePicker;
+  @FXML private ComboBox<Gender> genderComboBox;
+  @FXML private DatePicker hireDatePicker;
+  @FXML private Button updateData;
+  @FXML private TextField rut;
+  @FXML private TextField name;
+  @FXML private TextField lastName;
+  @FXML private TextField secondLastName;
+  @FXML private TextField age;
+  @FXML private TextField mobilePhone;
+  @FXML private TextField region;
+  @FXML private TextField province;
+  @FXML private TextField commune;
+  @FXML private TextField street;
+  @FXML private TextField number;
+  @FXML private TextField postalCode;
+  @FXML private TextField fixedPhone;
 
   public void initialize() throws SQLException, IOException {
     initializeComboBoxes();
-    final Carer carer = CarerDAO.getInstance().find("16213821-9").orElseThrow();
-    setCarer(carer);
-    fillCarerFields(carer);
-
-    final Address address = AddressDAO.getInstance().find("16213821-9").orElseThrow();
-    setAddress(address);
-    fillAddressFields(address);
   }
 
   private void initializeComboBoxes() {
     genderComboBox.setItems(FXCollections.observableArrayList(Gender.getValues()));
   }
 
+  private boolean areFieldsTooShort() {
+    final var nameField = StringUtils.trim(name.getText());
+    final var lastNameField = StringUtils.trim(lastName.getText());
+    final var secondLastNameField = StringUtils.trim(secondLastName.getText());
+    return nameField.length() < 4 || lastNameField.length() < 4 || secondLastNameField.length() < 4;
+  }
+
+  private boolean areFieldsIncorrect() {
+    final var birthDateField = birthDatePicker.getValue();
+    final var hireDateField = hireDatePicker.getValue();
+    final var now = LocalDate.now();
+    final var age = Period.between(birthDateField, now).getYears();
+    final var days = Period.between(hireDateField, now).getDays();
+    final var years = Period.between(hireDateField, now).getYears();
+    return age < 18 || age > 65 || days < 0 || years > 5;
+  }
+
+  private boolean areFieldsEmpty() {
+    return name.getText().isEmpty()
+        || lastName.getText().isEmpty()
+        || secondLastName.getText().isEmpty()
+        || birthDatePicker.getValue() == null
+        || hireDatePicker.getValue() == null
+        || genderComboBox.getSelectionModel().isEmpty();
+  }
+
   public void onUpdatedFields() throws SQLException, IOException {
+    if (areFieldsEmpty() || areFieldsTooShort() || areFieldsIncorrect()) {
+      fillCarerFields(carer);
+    }
     final var rutField = RutUtils.removeDots(rut.getText());
     final var nameField = StringUtils.trim(name.getText());
     final var lastNameField = StringUtils.trim(lastName.getText());
@@ -100,6 +110,17 @@ public class CarerView {
     setCarer(carer);
   }
 
+  public void recoveryData(Carer carer) throws SQLException, IOException {
+    setCarer(carer);
+    fillCarerFields(carer);
+    final var address = AddressDAO.getInstance().find(carer.rut()).orElseThrow();
+    final var communeField = CommuneDAO.getInstance().find(address.communeId()).orElseThrow();
+    final var provinceField =
+        ProvinceDAO.getInstance().find(communeField.provinceId()).orElseThrow();
+    final var regionField = RegionDAO.getInstance().find(provinceField.regionId()).orElseThrow();
+    fillAddressFields(address, regionField, provinceField, communeField);
+  }
+
   private void fillCarerFields(final Carer carer) {
     rut.setText(RutUtils.format(carer.rut()));
     name.setText(carer.firstName());
@@ -113,7 +134,14 @@ public class CarerView {
     hireDatePicker.setValue(carer.hireDate());
   }
 
-  private void fillAddressFields(final Address address) {
+  private void fillAddressFields(
+      final Address address,
+      final Region regionField,
+      final Province provinceField,
+      final Commune communeField) {
+    region.setText(regionField.toString());
+    province.setText(provinceField.toString());
+    commune.setText(communeField.toString());
     street.setText(address.street());
     number.setText(address.number().toString());
     postalCode.setText(address.postalCode().toString());
