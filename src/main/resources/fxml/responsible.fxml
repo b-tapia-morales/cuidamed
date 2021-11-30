@@ -300,5 +300,5 @@
     </VBox>
   </HBox>
   <Button fx:id="updateButton" layoutX="176.0" layoutY="520.0" mnemonicParsing="false"
-    text="Realizar cambios"/>
+    text="Realizar cambios" onAction="#onUpdatedFields"/>
 </AnchorPane>

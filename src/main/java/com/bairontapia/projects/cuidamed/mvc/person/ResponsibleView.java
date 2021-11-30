@@ -1,16 +1,20 @@
 package com.bairontapia.projects.cuidamed.mvc.person;
 
-import com.bairontapia.projects.cuidamed.mappings.bloodtype.BloodType;
+import com.bairontapia.projects.cuidamed.localization.Commune;
+import com.bairontapia.projects.cuidamed.localization.CommuneDAO;
+import com.bairontapia.projects.cuidamed.localization.Province;
+import com.bairontapia.projects.cuidamed.localization.ProvinceDAO;
+import com.bairontapia.projects.cuidamed.localization.Region;
+import com.bairontapia.projects.cuidamed.localization.RegionDAO;
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
-import com.bairontapia.projects.cuidamed.mappings.healthcaresystem.HealthCare;
 import com.bairontapia.projects.cuidamed.person.address.Address;
-import com.bairontapia.projects.cuidamed.person.elder.Elder;
-import com.bairontapia.projects.cuidamed.person.elder.ElderDAO;
+import com.bairontapia.projects.cuidamed.person.address.AddressDAO;
 import com.bairontapia.projects.cuidamed.person.responsible.Responsible;
 import com.bairontapia.projects.cuidamed.person.responsible.ResponsibleDAO;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.awt.Checkbox;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -54,15 +58,61 @@ public class ResponsibleView {
   @FXML private CheckBox isActiveCheckBox;
   @FXML private TextField admissionDate;
 
-  public void initialize() throws SQLException, IOException {
+  public void initialize() {
     initializeComboBoxes();
-    final Responsible responsible = ResponsibleDAO.getInstance().find("13371799-4").orElseThrow();
+    /*
+        final Responsible responsible = ResponsibleDAO.getInstance().find("13371799-4").orElseThrow();
+        setResponsible(responsible);
+        fillResponsibleFields(responsible);
+        final var address = AddressDAO.getInstance().find(responsible.rut()).orElseThrow();
+        final var communeField = CommuneDAO.getInstance().find(address.communeId()).orElseThrow();
+        final var provinceField = ProvinceDAO.getInstance().find(communeField.provinceId())
+            .orElseThrow();
+        final var regionField = RegionDAO.getInstance().find(provinceField.regionId()).orElseThrow();
+        fillAddressFields(address, regionField, provinceField, communeField);
+    */
+  }
+
+  @FXML
+  public void recoveryData(Responsible responsible) throws SQLException, IOException {
     setResponsible(responsible);
+    onUpdatedFields();
     fillResponsibleFields(responsible);
+    final var address = AddressDAO.getInstance().find(responsible.rut()).orElseThrow();
+    final var communeField = CommuneDAO.getInstance().find(address.communeId()).orElseThrow();
+    final var provinceField =
+        ProvinceDAO.getInstance().find(communeField.provinceId()).orElseThrow();
+    final var regionField = RegionDAO.getInstance().find(provinceField.regionId()).orElseThrow();
+    fillAddressFields(address, regionField, provinceField, communeField);
   }
 
   private void initializeComboBoxes() {
     genderComboBox.setItems(FXCollections.observableArrayList(Gender.getValues()));
+  }
+
+  @FXML
+  public void onUpdatedFields() throws SQLException, IOException {
+    /*
+    validation methods missing
+     */
+    final var rutField = RutUtils.removeDots(rut.getText());
+    final var nameField = StringUtils.trim(name.getText());
+    final var lastNameField = StringUtils.trim(lastName.getText());
+    final var secondLastNameField = StringUtils.trim(secondLastName.getText());
+    final var birthDateField = birthDatePicker.getValue();
+    final var genderCode = genderComboBox.getSelectionModel().getSelectedItem().getIndex();
+    final var mobilePhoneField = Integer.parseInt(mobilePhone.getText());
+    final var responsible =
+        Responsible.createInstance(
+            rutField,
+            nameField,
+            lastNameField,
+            secondLastNameField,
+            Date.valueOf(birthDateField),
+            (short) genderCode,
+            mobilePhoneField);
+    ResponsibleDAO.getInstance().update(responsible);
+    setResponsible(responsible);
   }
 
   private void fillResponsibleFields(final Responsible responsible) {
@@ -72,9 +122,22 @@ public class ResponsibleView {
     secondLastName.setText(responsible.secondLastName());
     birthDatePicker.setValue(responsible.birthDate());
     age.setText(responsible.age().toString());
-    genderComboBox.getSelectionModel().select(responsible.gender());
-    mobilePhone.setText("+56 9 " + responsible.mobilePhone());
+    genderComboBox.getSelectionModel().select(responsible.gender().ordinal());
+    // mobilePhone.setText("+56 9 " + responsible.mobilePhone());
+    mobilePhone.setText(responsible.mobilePhone().toString());
   }
 
-  private void fillAddressFields(final Address address) {}
+  private void fillAddressFields(
+      final Address address,
+      final Region regionField,
+      final Province provinceField,
+      final Commune communeField) {
+    region.setText(regionField.toString());
+    province.setText(provinceField.toString());
+    commune.setText(communeField.toString());
+    street.setText(address.street());
+    number.setText(address.number().toString());
+    postalCode.setText(address.postalCode().toString());
+    fixedPhone.setText(address.fixedPhone().toString());
+  }
 }

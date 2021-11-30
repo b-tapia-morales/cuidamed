@@ -5,6 +5,7 @@ import com.bairontapia.projects.cuidamed.person.Person;
 import com.bairontapia.projects.cuidamed.person.carer.CarerDAO;
 import com.bairontapia.projects.cuidamed.person.elder.Elder;
 import com.bairontapia.projects.cuidamed.person.elder.ElderDAO;
+import com.bairontapia.projects.cuidamed.person.responsible.Responsible;
 import com.bairontapia.projects.cuidamed.person.responsible.ResponsibleDAO;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.io.IOException;
@@ -103,6 +104,9 @@ public class PersonView {
       } else {
         fxml.setLocation(getClass().getResource("/fxml/responsible.fxml"));
         scene = new Scene(fxml.load());
+        Responsible responsible = (Responsible) personTableView.getSelectionModel().getSelectedItem();
+        ResponsibleView responsibleView = (ResponsibleView) fxml.getController();
+        responsibleView.recoveryData(responsible);
       }
     }
     stage.setScene(scene);
