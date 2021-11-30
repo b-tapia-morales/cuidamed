@@ -3,11 +3,15 @@ package com.bairontapia.projects.cuidamed.medicalrecord.stats;
 import com.bairontapia.projects.cuidamed.daotemplate.ReadOnlyDAO;
 import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
+import com.bairontapia.projects.cuidamed.utils.paths.FilePathUtils;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
+import org.apache.commons.io.IOUtils;
 
 public class HealthSystemStatsDAO implements
     ReadOnlyDAO<HealthSystemStats, Short> {
@@ -15,10 +19,8 @@ public class HealthSystemStatsDAO implements
   private static final HealthSystemStatsDAO INSTANCE = new HealthSystemStatsDAO();
   private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
 
-  private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
-      .relativePathString("scripts", "class_queries", "stats");
-  private static final Path FIND_ALL_QUERY_PATH = Path
-      .of(RELATIVE_PATH_STRING, "healthy_system.sql");
+  private static final String RELATIVE_PATH_STRING = DirectoryPathUtils.pathBuilder("scripts", "class_queries", "stats");
+  private static final String FIND_ALL_QUERY_PATH = RELATIVE_PATH_STRING + "health_system.sql";
 
   public static HealthSystemStatsDAO getInstance() {
     return INSTANCE;
@@ -31,7 +33,8 @@ public class HealthSystemStatsDAO implements
 
   @Override
   public String findAllQuery() throws IOException {
-    return TextFileUtils.readString(FIND_ALL_QUERY_PATH);
+    final var inputStream = CLASS_LOADER.getResourceAsStream(FIND_ALL_QUERY_PATH);
+    return IOUtils.toString(Objects.requireNonNull(inputStream), Charset.defaultCharset());
   }
 
   @Override

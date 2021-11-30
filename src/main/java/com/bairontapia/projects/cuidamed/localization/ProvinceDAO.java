@@ -2,15 +2,17 @@ package com.bairontapia.projects.cuidamed.localization;
 
 import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
 import com.bairontapia.projects.cuidamed.daotemplate.ReadOnlyDAO;
-import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
+import com.bairontapia.projects.cuidamed.utils.paths.FilePathUtils;
 import java.io.IOException;
-import java.nio.file.Path;
+import java.nio.charset.Charset;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedHashSet;
+import java.util.Objects;
+import org.apache.commons.io.IOUtils;
 
 public class ProvinceDAO implements ReadOnlyDAO<Province, Short> {
 
@@ -20,18 +22,19 @@ public class ProvinceDAO implements ReadOnlyDAO<Province, Short> {
   private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
 
   private static final String RELATIVE_PATH_STRING =
-      DirectoryPathUtils.relativePathString("scripts", "class_queries", "localization", "province");
-  private static final Path FIND_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");
-  private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
-  private static final Path FIND_ALL_BY_REGION_PATH = Path
-      .of(RELATIVE_PATH_STRING, "get_all_by_region.sql");
+      DirectoryPathUtils.pathBuilder("scripts", "class_queries", "localization", "province");
+  private static final String FIND_QUERY_PATH = RELATIVE_PATH_STRING + "get.sql";
+  private static final String FIND_ALL_QUERY_PATH = RELATIVE_PATH_STRING + "get_all.sql";
+  private static final String FIND_ALL_BY_REGION_PATH = RELATIVE_PATH_STRING + "get_all_by_region.sql";
 
   public static ProvinceDAO getInstance() {
     return INSTANCE;
   }
 
   public Collection<Province> findAll(Short id) throws IOException, SQLException {
-    final var query = TextFileUtils.readString(FIND_ALL_BY_REGION_PATH);
+    final var inputStream = CLASS_LOADER.getResourceAsStream(FIND_ALL_BY_REGION_PATH);
+    final var query = IOUtils
+        .toString(Objects.requireNonNull(inputStream), Charset.defaultCharset());
     final var connection = ConnectionSingleton.getInstance();
     final var statement = connection.prepareStatement(query);
     setKeyParameter(statement, id);
@@ -48,12 +51,14 @@ public class ProvinceDAO implements ReadOnlyDAO<Province, Short> {
 
   @Override
   public String findQuery() throws IOException {
-    return TextFileUtils.readString(FIND_QUERY_PATH);
+    final var inputStream = CLASS_LOADER.getResourceAsStream(FIND_QUERY_PATH);
+    return IOUtils.toString(Objects.requireNonNull(inputStream), Charset.defaultCharset());
   }
 
   @Override
   public String findAllQuery() throws IOException {
-    return TextFileUtils.readString(FIND_ALL_QUERY_PATH);
+    final var inputStream = CLASS_LOADER.getResourceAsStream(FIND_ALL_QUERY_PATH);
+    return IOUtils.toString(Objects.requireNonNull(inputStream), Charset.defaultCharset());
   }
 
   @Override

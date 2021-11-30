@@ -93,6 +93,19 @@ public final class DirectoryPathUtils {
     return (true);
   }
 
+  public static String pathBuilder(final String... folderNames) {
+    if (folderNames.length == 0) {
+      return ("");
+    }
+    final var pathBuilder = new StringBuilder();
+    Arrays.stream(folderNames)
+        .filter(str -> !str.isEmpty())
+        .forEach(str -> pathBuilder.append(str).append(SEPARATOR));
+    final var stringPath = pathBuilder.toString();
+    assert isDirectoryPathValid(stringPath);
+    return (stringPath);
+  }
+
   private static String pathBuilder(final boolean absoluteReference, final String... folderNames) {
     final var string = absoluteReference ? absolutePathString() : relativePathString();
     if (folderNames.length == 0) {
