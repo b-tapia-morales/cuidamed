@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum Severity {
+  MILD("Leve"),
   NORMAL("Normal"),
   SEVERE("Severa");
 

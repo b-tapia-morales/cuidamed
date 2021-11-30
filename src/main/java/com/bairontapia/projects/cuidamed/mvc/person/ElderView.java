@@ -9,6 +9,8 @@ import com.bairontapia.projects.cuidamed.localization.RegionDAO;
 import com.bairontapia.projects.cuidamed.mappings.bloodtype.BloodType;
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.mappings.healthcaresystem.HealthCare;
+import com.bairontapia.projects.cuidamed.medicalrecord.MedicalRecord;
+import com.bairontapia.projects.cuidamed.medicalrecord.MedicalRecordDAO;
 import com.bairontapia.projects.cuidamed.medicalrecord.allergy.Allergy;
 import com.bairontapia.projects.cuidamed.medicalrecord.allergy.AllergyDAO;
 import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineCheckup;
@@ -206,6 +208,8 @@ public class ElderView {
     fillRoutineCheckupTable(routineCheckups);
     final var surgicalInterventions = SurgicalInterventionDAO.getInstance().findAll(elder.rut());
     fillSurgicalInterventionTable(surgicalInterventions);
+    final var medicalRecord = MedicalRecordDAO.getInstance().find(elder.rut()).orElseThrow();
+    fillMedicalRecord(medicalRecord);
   }
 
   @FXML
@@ -425,4 +429,8 @@ public class ElderView {
     surgicalInterventionTable.getItems().addAll(surgicalInterventions);
   }
 
+  private void fillMedicalRecord(final MedicalRecord medicalRecord){
+    bloodTypeComboBox.getSelectionModel().select(medicalRecord.bloodType().ordinal());
+    healthCareComboBox.getSelectionModel().select(medicalRecord.healthCare().ordinal());
+  }
 }
