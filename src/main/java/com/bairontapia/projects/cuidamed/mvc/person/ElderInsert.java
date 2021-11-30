@@ -214,8 +214,6 @@ public class ElderInsert {
 
   private Address createAddress() {
     final var rutField = responsibleRut.getText();
-    final var regionField = regionComboBox.getSelectionModel().getSelectedItem().id();
-    final var provinceField = provinceComboBox.getSelectionModel().getSelectedItem().id();
     final var communeField = communeComboBox.getSelectionModel().getSelectedItem().id();
     final var streetField = street.getText();
     final var numberField = (short) Integer.parseInt(number.getText());
@@ -391,10 +389,6 @@ public class ElderInsert {
       appendFieldIncorrect(stringBuilder, panelName, "Teléfono fijo",
           "El teléfono fijo debe tener 6 dígitos.");
     }
-  }
-
-  private boolean areFieldsValid() {
-    return !(anyFieldIsEmpty() || anyFieldIsTooShort() || anyFieldIsIncorrect());
   }
 
   private boolean anyFieldIsEmpty() {
