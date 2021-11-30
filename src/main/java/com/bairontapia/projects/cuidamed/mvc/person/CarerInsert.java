@@ -127,6 +127,7 @@ public class CarerInsert {
     final var carer = createCarer();
     CarerDAO.getInstance().save(carer);
     AddressDAO.getInstance().save(address);
+    createConfirmationAlert().show();
   }
 
   private Carer createCarer() {
