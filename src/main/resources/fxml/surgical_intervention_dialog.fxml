@@ -77,8 +77,8 @@
                </Label>
             </HBox>
          </header>
-         <ButtonType fx:constant="OK" />
-         <ButtonType fx:constant="CANCEL" />
       </DialogPane>
+      <Button layoutX="213.0" layoutY="311.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="62.0" text="Aceptar" onAction="#addSurgicalIntervention"/>
+      <Button layoutX="310.0" layoutY="311.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="62.0" text="Cancelar" onAction="#cancelSurgicalIntervention"/>
    </children>
 </AnchorPane>
