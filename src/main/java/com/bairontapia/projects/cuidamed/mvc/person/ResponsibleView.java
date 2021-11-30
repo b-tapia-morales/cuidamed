@@ -76,7 +76,6 @@ public class ResponsibleView {
   @FXML
   public void recoveryData(Responsible responsible) throws SQLException, IOException {
     setResponsible(responsible);
-    onUpdatedFields();
     fillResponsibleFields(responsible);
     final var address = AddressDAO.getInstance().find(responsible.rut()).orElseThrow();
     final var communeField = CommuneDAO.getInstance().find(address.communeId()).orElseThrow();
