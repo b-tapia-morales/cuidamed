@@ -6,63 +6,68 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="680.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bairontapia.projects.cuidamed.mvc.person.CarerInsert">
-  <VBox layoutX="240.0" layoutY="29.0" prefHeight="640.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-    <AnchorPane prefHeight="420.0">
+  <VBox layoutX="240.0" layoutY="29.0" prefHeight="680.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <AnchorPane prefHeight="635.0">
       <HBox layoutX="230.0" layoutY="87.0" prefHeight="300.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <AnchorPane prefHeight="200.0" prefWidth="355.0">
-          <VBox alignment="CENTER" layoutX="110.0" layoutY="47.0" prefHeight="375.0" prefWidth="355.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane prefWidth="355.0">
+          <VBox alignment="CENTER" layoutX="110.0" layoutY="47.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <HBox alignment="CENTER" prefHeight="35.0" spacing="10.0">
               <Separator prefWidth="100.0" />
               <Label text="Información del cuidador" />
               <Separator prefWidth="100.0" />
             </HBox>
             <GridPane alignment="CENTER">
-              <ComboBox fx:id="genderComboBox" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+              <ComboBox fx:id="gender" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                 <GridPane.margin>
                   <Insets left="5.0" />
                 </GridPane.margin>
               </ComboBox>
-              <DatePicker fx:id="birthDatePicker" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
+              <DatePicker fx:id="birthDate" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
                 <GridPane.margin>
                   <Insets left="5.0" />
                 </GridPane.margin>
               </DatePicker>
-              <Label text="Rut:" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+              <DatePicker fx:id="hireDate" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                <GridPane.margin>
+                  <Insets left="5.0" right="5.0" />
+                </GridPane.margin>
+              </DatePicker>
+              <Label text="Rut" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                 <GridPane.margin>
                   <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Nombres:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+              <Label text="Nombres" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                 <GridPane.margin>
                   <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Apellido paterno:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+              <Label text="Apellido paterno" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                 <GridPane.margin>
                   <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Apellido materno:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+              <Label text="Apellido materno" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                 <GridPane.margin>
                   <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Fecha de nacimiento:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+              <Label text="Fecha de nacimiento" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                 <GridPane.margin>
                   <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Sexo:" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+              <Label text="Sexo" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
                 <GridPane.margin>
                   <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Teléfono móvil: " GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+              <Label text="Teléfono móvil:" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                 <GridPane.margin>
                   <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Fecha de contrato: " GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+              <Label text="Fecha de contrato" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
                 <GridPane.margin>
                   <Insets right="10.0" />
                 </GridPane.margin>
@@ -90,12 +95,8 @@
               <TextField fx:id="mobilePhone" prefHeight="25.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                 <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
-                </GridPane.margin></TextField>
-              <DatePicker fx:id="hireDatePicker" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                <GridPane.margin>
-                  <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
-              </DatePicker>
+              </TextField>
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -114,19 +115,20 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <HBox alignment="CENTER" prefHeight="45.0" />
           </VBox>
         </AnchorPane>
-        <Separator orientation="VERTICAL" prefHeight="200.0" />
         <AnchorPane prefWidth="355.0">
-          <VBox alignment="CENTER" layoutX="128.0" layoutY="59.0" prefHeight="420.0" prefWidth="355.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <VBox alignment="CENTER" layoutX="128.0" layoutY="59.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <HBox alignment="CENTER" prefHeight="35.0" spacing="10.0">
               <Separator prefWidth="65.0" />
               <Label text="Dirección del cuidador" />
               <Separator prefWidth="65.0" />
             </HBox>
             <GridPane>
-              <Label text="Región: " GridPane.halignment="RIGHT">
+              <ComboBox fx:id="regionComboBox" onAction="#onRegionSelection" prefWidth="150.0" GridPane.columnIndex="1" />
+              <ComboBox fx:id="provinceComboBox" onAction="#onProvinceSelection" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+              <ComboBox fx:id="communeComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+              <Label text="Región" GridPane.halignment="RIGHT">
                 <GridPane.margin>
                   <Insets right="10.0" />
                 </GridPane.margin>
@@ -136,21 +138,29 @@
                   <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Comuna: " GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+              <Label text="Comuna" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                 <GridPane.margin>
                   <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Calle: " GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+              <Label text="Calle" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                 <GridPane.margin>
                   <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <Label text="Número: " GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+              <Label text="Número" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                 <GridPane.margin>
                   <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
+              <Label text="Código postal" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                        <GridPane.margin>
+                           <Insets right="10.0" />
+                        </GridPane.margin></Label>
+              <Label text="Teléfono fijo" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                        <GridPane.margin>
+                           <Insets right="10.0" />
+                        </GridPane.margin></Label>
               <TextField fx:id="street" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="3">
                 <GridPane.margin>
                   <Insets right="5.0" />
@@ -161,19 +171,16 @@
                   <Insets right="5.0" />
                 </GridPane.margin>
               </TextField>
-                     <ComboBox fx:id="regionComboBox" onAction="#onRegionSelection" prefWidth="150.0" GridPane.columnIndex="1" />
-                     <ComboBox fx:id="provinceComboBox" onAction="#onProvinceSelection" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                     <ComboBox fx:id="communeComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                     <Label text="Código postal: " GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
-                     <Label text="Teléfono fijo: " GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
-                     <TextField fx:id="postalCode" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                        <GridPane.margin>
-                           <Insets right="5.0" />
-                        </GridPane.margin></TextField>
-                     <TextField fx:id="fixedPhone" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                        <GridPane.margin>
-                           <Insets right="5.0" />
-                        </GridPane.margin></TextField>
+              <TextField fx:id="postalCode" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                <GridPane.margin>
+                  <Insets right="5.0" />
+                </GridPane.margin>
+              </TextField>
+              <TextField fx:id="fixedPhone" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                <GridPane.margin>
+                  <Insets right="5.0" />
+                </GridPane.margin>
+              </TextField>
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.0" minWidth="10.0" prefWidth="40.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.0" minWidth="10.0" prefWidth="200.0" />
@@ -184,23 +191,25 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
           </VBox>
         </AnchorPane>
+        <Separator orientation="VERTICAL" prefHeight="200.0" />
       </HBox>
     </AnchorPane>
-    <AnchorPane prefHeight="260.0" prefWidth="200.0">
-      <VBox prefHeight="250.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <AnchorPane prefHeight="45.0">
+      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <HBox alignment="CENTER" prefHeight="45.0">
           <Button fx:id="addData" minHeight="36.0" minWidth="36.0" mnemonicParsing="false" onAction="#onButtonPressed">
             <graphic>
               <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                 <Image url="@../icons/add.png" />
               </ImageView>
-            </graphic></Button>
+            </graphic>
+          </Button>
         </HBox>
       </VBox>
     </AnchorPane>
