@@ -16,6 +16,8 @@ public class RoutineCheckupDAO implements ReadAndWriteDAO<RoutineCheckup, String
 
   private static final RoutineCheckupDAO INSTANCE = new RoutineCheckupDAO();
 
+  private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
+
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "medical_record", "routine_checkup");
   private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");

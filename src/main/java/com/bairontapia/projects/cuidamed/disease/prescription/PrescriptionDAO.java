@@ -13,6 +13,8 @@ import java.sql.SQLException;
 public class PrescriptionDAO implements CrudDAO<Prescription, String> {
 
   private static final PrescriptionDAO INSTANCE = new PrescriptionDAO();
+  private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
+
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "prescription");
   private static final Path FIND_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");

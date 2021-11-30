@@ -13,6 +13,8 @@ public class MedicationStatsDAO implements ReadOnlyDAO<MedicationStats, String> 
 
   private static final MedicationStatsDAO INSTANCE = new MedicationStatsDAO();
 
+  private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
+
   private static final String RELATIVE_PATH_STRING =
       DirectoryPathUtils.relativePathString("scripts", "class_queries", "stats");
   private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "medication.sql");

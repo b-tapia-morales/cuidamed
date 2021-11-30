@@ -13,6 +13,8 @@ public class HealthSystemStatsDAO implements
     ReadOnlyDAO<HealthSystemStats, Short> {
 
   private static final HealthSystemStatsDAO INSTANCE = new HealthSystemStatsDAO();
+  private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
+
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "stats");
   private static final Path FIND_ALL_QUERY_PATH = Path

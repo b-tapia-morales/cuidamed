@@ -14,6 +14,8 @@ public class ResponsibleDAO implements CrudDAO<Responsible, String> {
 
   private static final ResponsibleDAO INSTANCE = new ResponsibleDAO();
 
+  private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
+
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "person", "responsible");
   private static final Path FIND_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");

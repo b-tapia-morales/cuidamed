@@ -15,6 +15,8 @@ import java.sql.SQLException;
 public class SickElderlyDAO implements CrudDAO<SickElderly, String> {
 
   private static final SickElderlyDAO INSTANCE = new SickElderlyDAO();
+  private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
+
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "sick_elderly");
   private static final Path FIND_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get.sql");

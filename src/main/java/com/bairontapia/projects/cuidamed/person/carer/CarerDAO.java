@@ -15,6 +15,8 @@ public class CarerDAO implements CrudDAO<Carer, String> {
 
   private static final CarerDAO INSTANCE = new CarerDAO();
 
+  private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
+
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .relativePathString("scripts", "class_queries", "person", "carer");
 

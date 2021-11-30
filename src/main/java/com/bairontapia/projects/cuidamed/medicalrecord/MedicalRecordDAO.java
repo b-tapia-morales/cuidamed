@@ -13,6 +13,8 @@ public class MedicalRecordDAO implements CrudDAO<MedicalRecord, String> {
 
   private static final MedicalRecordDAO INSTANCE = new MedicalRecordDAO();
 
+  private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
+
   private static final String RELATIVE_PATH_STRING =
       DirectoryPathUtils.relativePathString("scripts", "class_queries", "medical_record");
   private static final Path FIND_ALL_QUERY_PATH = Path.of(RELATIVE_PATH_STRING, "get_all.sql");
