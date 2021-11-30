@@ -9,6 +9,7 @@ import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineChe
 import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineCheckupDAO;
 import com.bairontapia.projects.cuidamed.medicalrecord.surgicalintervention.SurgicalIntervention;
 import com.bairontapia.projects.cuidamed.medicalrecord.surgicalintervention.SurgicalInterventionDAO;
+import com.bairontapia.projects.cuidamed.mvc.medicalrecordcontroller.AllergyView;
 import com.bairontapia.projects.cuidamed.person.address.Address;
 import com.bairontapia.projects.cuidamed.person.address.AddressDAO;
 import com.bairontapia.projects.cuidamed.person.elder.Elder;
@@ -40,6 +41,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
@@ -145,11 +147,14 @@ public class ElderView {
   @FXML
   private Button addData;
 
+  private Allergy a;
+
   public void initialize() throws SQLException, IOException {
     initializeComboBoxes();
     initializeAllergyTable();
     initializeCheckupTable();
     initializeSurgicalInterventionTable();
+    a = null;
     /*
     final Elder elder = ElderDAO.getInstance().find("5902831-6").orElseThrow();
     setElder(elder);
@@ -220,29 +225,37 @@ public class ElderView {
 
     final var tabSelectionIndex = tabPane.getSelectionModel().getSelectedIndex();
     if (tabSelectionIndex == 1) {
-      fxml.setLocation(getClass().getResource("/fxml/allergy_dialog.fxml"));
+      fxml.setLocation(getClass().getResource("/fxml/carer.fxml"));
       scene = new Scene(fxml.load());
     } else {
       if (tabSelectionIndex == 2) {
         fxml.setLocation(getClass().getResource("/fxml/surgical_intervention_dialog.fxml"));
+        scene = new Scene(fxml.load());
       } else {
         fxml.setLocation(getClass().getResource("/fxml/allergy_dialog.fxml"));
+        scene = new Scene(fxml.load());
+        AllergyView allergyView = (AllergyView) fxml.getController();
+        allergyView.pruebaCambios(rut.getText());
       }
-      scene = new Scene(fxml.load());
     }
     stage.setScene(scene);
-    stage.show();
+    stage.initModality(Modality.APPLICATION_MODAL);
+    stage.showAndWait();
+    AllergyView allergyView = fxml.getController();
+    this.a = allergyView.getAllergy();
+    addToAllergyTable();
   }
 
-  private void addToAllergyTable() {
+  @FXML
+  public void addToAllergyTable() {
 
   }
 
-  private void addToSurgicalInterventionTable() {
+  public void addToSurgicalInterventionTable() {
 
   }
 
-  private void addToRoutineCheckupTable() {
+  public void addToRoutineCheckupTable() {
 
   }
 
