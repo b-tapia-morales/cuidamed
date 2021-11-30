@@ -196,7 +196,7 @@ public class ElderInsert {
   }
 
   private Alert createConfirmationAlert() {
-    final var alert = new Alert(AlertType.CONFIRMATION);
+    final var alert = new Alert(AlertType.INFORMATION);
     alert.setHeaderText("Datos añadidos con éxito");
     return alert;
   }
