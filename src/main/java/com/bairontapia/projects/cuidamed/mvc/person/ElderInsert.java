@@ -10,6 +10,7 @@ import com.bairontapia.projects.cuidamed.mappings.bloodtype.BloodType;
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.mappings.healthcaresystem.HealthCare;
 import com.bairontapia.projects.cuidamed.person.address.Address;
+import com.bairontapia.projects.cuidamed.person.address.AddressDAO;
 import com.bairontapia.projects.cuidamed.person.elder.Elder;
 import com.bairontapia.projects.cuidamed.person.elder.ElderDAO;
 import com.bairontapia.projects.cuidamed.person.responsible.Responsible;
@@ -89,16 +90,23 @@ public class ElderInsert {
   @FXML
   private Button addData;
 
-  private static void appendEmptyFieldError(final StringBuilder stringBuilder, String panelName) {
+  private static void appendEmptyField(final StringBuilder stringBuilder, String panelName) {
     stringBuilder.append("Hay campos vacíos o sin selección en panel de ")
         .append(panelName).append(".\n");
   }
 
-  private static void appendFieldTooShortError(final StringBuilder stringBuilder,
+  private static void appendFieldTooShort(final StringBuilder stringBuilder,
       String panelName) {
     stringBuilder
         .append("Hay campos de texto cuyos valores ingresados no son de largo suficiente ")
         .append("(largo mínimo: 3 caracteres) en panel de ").append(panelName).append(".\n");
+  }
+
+  private static void appendFieldIncorrect(final StringBuilder stringBuilder,
+      String panelName, String fieldName, String motive) {
+    stringBuilder
+        .append("El valor ingresado en el campo ").append(fieldName).append(" en panel de ")
+        .append(panelName).append(" está incorrecto. La razón: ").append(motive).append("\n");
   }
 
   public void initialize() throws SQLException, IOException {
@@ -153,7 +161,9 @@ public class ElderInsert {
       System.out.println(stringBuilder);
       return;
     }
-    if (!areFieldsValid()) {
+    appendFieldIncorrectErrors();
+    if (anyFieldIsIncorrect()) {
+      System.out.println(stringBuilder);
       return;
     }
     final var rutField = rut.getText();
@@ -166,16 +176,12 @@ public class ElderInsert {
       System.out.println("Responsable ya está en la base de datos");
       return;
     }
-    final var nameField = name.getText();
-    final var lastNameField = lastName.getText();
-    final var secondLastNameField = secondLastName.getText();
-    final var birthDateField = birthDate.getValue();
-    final var genderCode = gender.getSelectionModel().getSelectedItem().getIndex();
-    final var isActiveField = isActive.isSelected();
-    final var admissionDateField = admissionDate.getValue();
-    final var elder = Elder.createInstance(rutField, nameField, lastNameField,
-        secondLastNameField, Date.valueOf(birthDateField), (short) genderCode, isActiveField,
-        Date.valueOf(admissionDateField), responsibleRutField);
+    final var elder = createElder();
+    final var responsible = createResponsible();
+    final var address = createAddress();
+    ResponsibleDAO.getInstance().save(responsible);
+    AddressDAO.getInstance().save(address);
+    ElderDAO.getInstance().save(elder);
     System.out.println(stringBuilder);
   }
 
@@ -212,12 +218,13 @@ public class ElderInsert {
     final var provinceField = provinceComboBox.getSelectionModel().getSelectedItem().id();
     final var communeField = communeComboBox.getSelectionModel().getSelectedItem().id();
     final var streetField = street.getText();
-    final var numberField = number.getText();
+    final var numberField = (short) Integer.parseInt(number.getText());
     final var postalCodeField =
         postalCode.getText().isEmpty() ? null : Integer.parseInt(postalCode.getText());
     final var fixedPhoneField =
         fixedPhone.getText().isEmpty() ? null : Integer.parseInt(fixedPhone.getText());
-    return null;
+    return Address.createInstance(communeField, streetField, numberField, postalCodeField,
+        fixedPhoneField, rutField);
   }
 
   private void trimFields() {
@@ -259,7 +266,13 @@ public class ElderInsert {
   private void appendFieldTooShortErrors() {
     appendElderFieldsTooShort();
     appendResponsibleFieldsTooShort();
-    areAddressFieldsTooShort();
+    appendAddressFieldsTooShort();
+  }
+
+  private void appendFieldIncorrectErrors() {
+    appendElderFieldsIncorrect();
+    appendResponsibleFieldsIncorrect();
+    appendAddressFieldsIncorrect();
   }
 
   private void appendElderEmptyFieldErrors() {
@@ -270,7 +283,7 @@ public class ElderInsert {
         birthDate.getValue() == null ||
         gender.getSelectionModel().isEmpty() ||
         admissionDate.getValue() == null) {
-      appendEmptyFieldError(stringBuilder, "Adulto mayor");
+      appendEmptyField(stringBuilder, "Adulto mayor");
     }
   }
 
@@ -282,7 +295,7 @@ public class ElderInsert {
         responsibleBirthDate.getValue() == null ||
         responsibleGender.getSelectionModel().isEmpty() ||
         StringUtils.isBlank(responsibleMobilePhone.getText())) {
-      appendEmptyFieldError(stringBuilder, "Responsable");
+      appendEmptyField(stringBuilder, "Responsable");
     }
   }
 
@@ -292,7 +305,7 @@ public class ElderInsert {
         communeComboBox.getSelectionModel().isEmpty() ||
         StringUtils.isBlank(street.getText()) ||
         StringUtils.isBlank(number.getText())) {
-      appendEmptyFieldError(stringBuilder, "Dirección");
+      appendEmptyField(stringBuilder, "Dirección");
     }
   }
 
@@ -301,7 +314,7 @@ public class ElderInsert {
         name.getText().length() < 4 ||
         lastName.getText().length() < 4 ||
         secondLastName.getText().length() < 4) {
-      appendFieldTooShortError(stringBuilder, "Adulto mayor");
+      appendFieldTooShort(stringBuilder, "Adulto mayor");
     }
   }
 
@@ -310,13 +323,73 @@ public class ElderInsert {
         responsibleName.getText().length() < 4 ||
         responsibleLastName.getText().length() < 4 ||
         responsibleSecondLastName.getText().length() < 4) {
-      appendFieldTooShortError(stringBuilder, "Responsable");
+      appendFieldTooShort(stringBuilder, "Responsable");
     }
   }
 
   private void appendAddressFieldsTooShort() {
     if (street.getText().length() < 4) {
-      appendFieldTooShortError(stringBuilder, "Dirección");
+      appendFieldTooShort(stringBuilder, "Dirección");
+    }
+  }
+
+  private void appendElderFieldsIncorrect() {
+    final var panelName = "Adulto mayor";
+    final var rutField = rut.getText();
+    final var birthDateField = birthDate.getValue();
+    final var admissionDateField = admissionDate.getValue();
+    if (!RutUtils.isValid(rutField)) {
+      appendFieldIncorrect(stringBuilder, panelName, "Rut", "el formato del Rut es inválido.");
+    }
+    final var now = LocalDate.now();
+    final var age = Period.between(birthDateField, now).getYears();
+    if (age < 65) {
+      appendFieldIncorrect(stringBuilder, panelName, "Fecha de nacimiento",
+          "la edad del adulto mayor debe ser de 65 años o más.");
+    }
+    final var years = Period.between(admissionDateField, now).getYears();
+    if (years > 5) {
+      appendFieldIncorrect(stringBuilder, panelName, "Fecha de admisión",
+          "la fecha de admisión no puede superar los 5 años de antigüedad.");
+    }
+  }
+
+  private void appendResponsibleFieldsIncorrect() {
+    final var panelName = "Responsable";
+    final var rutField = responsibleRut.getText();
+    final var birthDateField = responsibleBirthDate.getValue();
+    final var mobilePhoneField = responsibleMobilePhone.getText();
+    final var now = LocalDate.now();
+    if (!RutUtils.isValid(rutField)) {
+      appendFieldIncorrect(stringBuilder, panelName, "Rut", "el formato del Rut es inválido");
+    }
+    final var age = Period.between(birthDateField, now).getYears();
+    if (age < 18 || age > 65) {
+      appendFieldIncorrect(stringBuilder, panelName, "Fecha de nacimiento",
+          "la edad del responsable debe estar entre 18 y 65 años");
+    }
+    if (!mobilePhoneField.matches("[1-9][0-9]{7}")) {
+      appendFieldIncorrect(stringBuilder, panelName, "Teléfono móvil",
+          "el teléfono móvil debe tener 8 dígitos");
+    }
+  }
+
+  private void appendAddressFieldsIncorrect() {
+    final var panelName = "Dirección";
+    final var numberField = number.getText();
+    final var postalCodeField = postalCode.getText();
+    final var fixedPhoneField = fixedPhone.getText();
+    if (!numberField.matches("[1-9][0-9]{0,4}")) {
+      appendFieldIncorrect(stringBuilder, panelName, "Número",
+          "El número de residencia debe tener a lo menos 1 dígito.");
+    }
+    if ((!StringUtils.isBlank(postalCodeField) && !postalCodeField.matches("[1-9][0-9]{6}"))) {
+      appendFieldIncorrect(stringBuilder, panelName, "Código postal",
+          "El código postal debe tener 9 dígitos.");
+    }
+    if (!StringUtils.isBlank(fixedPhoneField) && !fixedPhoneField.matches("[1-9][0-9]{5}")) {
+      appendFieldIncorrect(stringBuilder, panelName, "Teléfono fijo",
+          "El teléfono fijo debe tener 6 dígitos.");
     }
   }
 
