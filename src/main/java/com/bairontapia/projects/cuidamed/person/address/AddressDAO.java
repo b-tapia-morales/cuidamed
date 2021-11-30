@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 public class AddressDAO implements CrudDAO<Address, String> {
 
@@ -54,8 +55,16 @@ public class AddressDAO implements CrudDAO<Address, String> {
     statement.setShort(1, address.communeId());
     statement.setString(2, address.street());
     statement.setShort(3, address.number());
-    statement.setInt(4, address.postalCode());
-    statement.setInt(5, address.fixedPhone());
+    if (address.postalCode() == null) {
+      statement.setNull(4, Types.INTEGER);
+    } else {
+      statement.setInt(4, address.postalCode());
+    }
+    if (address.fixedPhone() == null) {
+      statement.setNull(5, Types.INTEGER);
+    } else {
+      statement.setInt(5, address.fixedPhone());
+    }
     statement.setString(6, address.rut());
   }
 
