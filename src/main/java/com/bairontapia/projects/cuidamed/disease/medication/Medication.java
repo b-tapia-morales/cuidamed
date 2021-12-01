@@ -35,4 +35,9 @@ public record Medication(String nameMedication, AdministrationRoute administrati
         append(nameMedication).
         toHashCode();
   }
+
+  @Override
+  public String toString() {
+    return nameMedication;
+  }
 }
