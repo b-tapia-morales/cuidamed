@@ -184,7 +184,7 @@
                   <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField fx:id="street" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="3">
+              <TextField fx:id="street" editable="false" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="3">
                 <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
@@ -202,12 +202,12 @@
                         <GridPane.margin>
                            <Insets right="10.0" />
                         </GridPane.margin></Label>
-                     <TextField fx:id="postalCode" editable="false" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <TextField fx:id="postalCode" GridPane.columnIndex="1" GridPane.rowIndex="5">
                         <GridPane.margin>
                            <Insets left="5.0" right="5.0" />
                         </GridPane.margin>
                      </TextField>
-                     <TextField fx:id="fixedPhone" editable="false" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <TextField fx:id="fixedPhone" GridPane.columnIndex="1" GridPane.rowIndex="6">
                         <GridPane.margin>
                            <Insets left="5.0" right="5.0" />
                         </GridPane.margin>
