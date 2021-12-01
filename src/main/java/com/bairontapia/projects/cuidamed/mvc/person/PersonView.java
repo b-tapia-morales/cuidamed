@@ -28,6 +28,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -39,7 +40,7 @@ public class PersonView {
   @FXML
   public AnchorPane anchor;
   @FXML
-  public Button goToButton;
+  public Button addElderButton;
   @FXML
   public TableColumn<Person, String> rutColumn;
   @FXML
@@ -67,7 +68,6 @@ public class PersonView {
     birthDateColumn.setCellValueFactory(e -> new SimpleObjectProperty<>(e.getValue().birthDate()));
     ageColumn.setCellValueFactory(e -> new SimpleIntegerProperty(e.getValue().age()).asObject());
     genderColumn.setCellValueFactory(e -> new SimpleObjectProperty<>(e.getValue().gender()));
-    goToButton.setText("Ingresar Adulto Mayor");
   }
 
   @FXML
@@ -87,8 +87,11 @@ public class PersonView {
   }
 
   @FXML
-  public void evento(MouseEvent mouseEvent) throws IOException, SQLException {
-
+  public void loadPanel(MouseEvent event) throws IOException, SQLException {
+    if (!event.getButton().equals(MouseButton.PRIMARY) || event.getClickCount() != 2
+        || personComboBox.getSelectionModel().isEmpty()) {
+      return;
+    }
     FXMLLoader fxml = new FXMLLoader();
     Scene scene;
     Stage stage = new Stage();
@@ -119,7 +122,8 @@ public class PersonView {
     stage.showAndWait();
   }
 
-  public void addedElder(MouseEvent mouseEvent) throws IOException {
+  @FXML
+  public void onElderButtonClicked() throws IOException {
     final var stage = new Stage();
     final Parent root = FXMLLoader
         .load(Objects.requireNonNull(getClass().getResource("/fxml/elder_insert.fxml")));
