@@ -82,10 +82,9 @@ public class PrescriptionDAO implements CrudDAO<Prescription, String> {
   @Override
   public Prescription readTuple(ResultSet resultSet) throws SQLException {
     final var rut = resultSet.getString(1);
-    final var fullName = resultSet.getString(2);
-    final var diseaseName = resultSet.getString(3);
-    final var prescriptionDate = resultSet.getDate(4);
-    final var description = resultSet.getString(5);
+    final var diseaseName = resultSet.getString(2);
+    final var prescriptionDate = resultSet.getDate(3);
+    final var description = resultSet.getString(4);
     return Prescription.createInstance(rut, diseaseName, prescriptionDate, description);
   }
 }
