@@ -12,9 +12,9 @@
         <AnchorPane prefWidth="355.0">
           <VBox alignment="CENTER" layoutX="110.0" layoutY="47.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <HBox alignment="CENTER" prefHeight="35.0" spacing="10.0">
-              <Separator prefWidth="100.0" />
+              <Separator prefWidth="90.0" />
               <Label text="Información del cuidador" />
-              <Separator prefWidth="100.0" />
+              <Separator prefWidth="90.0" />
             </HBox>
             <GridPane alignment="CENTER">
               <ComboBox fx:id="gender" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
@@ -72,7 +72,7 @@
                   <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <TextField fx:id="rut" opacity="0.67" GridPane.columnIndex="1">
+              <TextField fx:id="rut" GridPane.columnIndex="1">
                 <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
@@ -117,12 +117,13 @@
             </GridPane>
           </VBox>
         </AnchorPane>
+        <Separator orientation="VERTICAL" prefHeight="200.0" />
         <AnchorPane prefWidth="355.0">
           <VBox alignment="CENTER" layoutX="128.0" layoutY="59.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <HBox alignment="CENTER" prefHeight="35.0" spacing="10.0">
-              <Separator prefWidth="65.0" />
+              <Separator prefWidth="80.0" />
               <Label text="Dirección del cuidador" />
-              <Separator prefWidth="65.0" />
+              <Separator prefWidth="80.0" />
             </HBox>
             <GridPane>
               <ComboBox fx:id="regionComboBox" onAction="#onRegionSelection" prefWidth="150.0" GridPane.columnIndex="1" />
@@ -161,12 +162,12 @@
                         <GridPane.margin>
                            <Insets right="10.0" />
                         </GridPane.margin></Label>
-              <TextField fx:id="street" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="3">
+              <TextField fx:id="street" GridPane.columnIndex="1" GridPane.rowIndex="3">
                 <GridPane.margin>
                   <Insets right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField fx:id="number" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="4">
+              <TextField fx:id="number" GridPane.columnIndex="1" GridPane.rowIndex="4">
                 <GridPane.margin>
                   <Insets right="5.0" />
                 </GridPane.margin>
@@ -197,7 +198,6 @@
             </GridPane>
           </VBox>
         </AnchorPane>
-        <Separator orientation="VERTICAL" prefHeight="200.0" />
       </HBox>
     </AnchorPane>
     <AnchorPane prefHeight="45.0">

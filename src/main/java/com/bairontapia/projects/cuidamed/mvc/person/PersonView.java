@@ -28,6 +28,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -37,21 +38,23 @@ import lombok.Getter;
 public class PersonView {
 
   @FXML
-  public AnchorPane anchor;
+  private AnchorPane anchor;
   @FXML
-  public Button goToButton;
+  private Button addElderButton;
   @FXML
-  public TableColumn<Person, String> rutColumn;
+  private TableColumn<Person, String> rutColumn;
   @FXML
-  public TableColumn<Person, String> fullNameColumn;
+  private TableColumn<Person, String> fullNameColumn;
   @FXML
-  public TableColumn<Person, LocalDate> birthDateColumn;
+  private TableColumn<Person, LocalDate> birthDateColumn;
   @FXML
-  public TableColumn<Person, Integer> ageColumn;
+  private TableColumn<Person, Integer> ageColumn;
   @FXML
-  public TableColumn<Person, Gender> genderColumn;
+  private TableColumn<Person, Gender> genderColumn;
   @FXML
-  public TableView<Person> personTableView;
+  private TableView<Person> personTableView;
+  @FXML
+  private Button addCarerButton;
   @FXML
   private ComboBox<PersonChoice> personComboBox;
   @FXML
@@ -67,7 +70,6 @@ public class PersonView {
     birthDateColumn.setCellValueFactory(e -> new SimpleObjectProperty<>(e.getValue().birthDate()));
     ageColumn.setCellValueFactory(e -> new SimpleIntegerProperty(e.getValue().age()).asObject());
     genderColumn.setCellValueFactory(e -> new SimpleObjectProperty<>(e.getValue().gender()));
-    goToButton.setText("Ingresar Adulto Mayor");
   }
 
   @FXML
@@ -87,8 +89,11 @@ public class PersonView {
   }
 
   @FXML
-  public void evento(MouseEvent mouseEvent) throws IOException, SQLException {
-
+  public void loadPanel(MouseEvent event) throws IOException, SQLException {
+    if (!event.getButton().equals(MouseButton.PRIMARY) || event.getClickCount() != 2
+        || personComboBox.getSelectionModel().isEmpty()) {
+      return;
+    }
     FXMLLoader fxml = new FXMLLoader();
     Scene scene;
     Stage stage = new Stage();
@@ -96,21 +101,21 @@ public class PersonView {
       fxml.setLocation(getClass().getResource("/fxml/elder.fxml"));
       scene = new Scene(fxml.load());
       Elder elder = (Elder) personTableView.getSelectionModel().getSelectedItem();
-      ElderView elderView = (ElderView) fxml.getController();
+      ElderView elderView = fxml.getController();
       elderView.recoveryData(elder);
     } else {
       if (personComboBox.getSelectionModel().getSelectedIndex() == 1) {
         fxml.setLocation(getClass().getResource("/fxml/carer.fxml"));
         scene = new Scene(fxml.load());
         Carer carer = (Carer) personTableView.getSelectionModel().getSelectedItem();
-        CarerView carerView = (CarerView) fxml.getController();
+        CarerView carerView = fxml.getController();
         carerView.recoveryData(carer);
       } else {
         fxml.setLocation(getClass().getResource("/fxml/responsible.fxml"));
         scene = new Scene(fxml.load());
         Responsible responsible = (Responsible) personTableView.getSelectionModel()
             .getSelectedItem();
-        ResponsibleView responsibleView = (ResponsibleView) fxml.getController();
+        ResponsibleView responsibleView = fxml.getController();
         responsibleView.recoveryData(responsible);
       }
     }
@@ -119,10 +124,21 @@ public class PersonView {
     stage.showAndWait();
   }
 
-  public void addedElder(MouseEvent mouseEvent) throws IOException {
+  @FXML
+  public void onElderButtonClicked() throws IOException {
     final var stage = new Stage();
     final Parent root = FXMLLoader
         .load(Objects.requireNonNull(getClass().getResource("/fxml/elder_insert.fxml")));
+    final Scene scene = new Scene(root);
+    stage.setScene(scene);
+    stage.show();
+  }
+
+  @FXML
+  public void onCarerButtonClicked() throws IOException {
+    final var stage = new Stage();
+    final Parent root = FXMLLoader
+        .load(Objects.requireNonNull(getClass().getResource("/fxml/carer_insert.fxml")));
     final Scene scene = new Scene(root);
     stage.setScene(scene);
     stage.show();

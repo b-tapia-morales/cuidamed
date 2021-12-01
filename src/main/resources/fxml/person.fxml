@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bairontapia.projects.cuidamed.mvc.person.PersonView">
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bairontapia.projects.cuidamed.mvc.person.PersonView">
   <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
     <BorderPane prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <center>
-        <TableView fx:id="personTableView" onMouseClicked="#evento" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <TableView fx:id="personTableView" onMousePressed="#loadPanel" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
           <columns>
             <TableColumn fx:id="rutColumn" prefWidth="100.0" text="Rut" />
             <TableColumn fx:id="fullNameColumn" prefWidth="250.0" text="Nombre completo" />
@@ -40,17 +33,16 @@
               <Insets right="10.0" />
             </HBox.margin>
           </TextField>
-          <Button fx:id="goToButton" mnemonicParsing="false" onMouseClicked="#addedElder" />
         </HBox>
       </top>
          <bottom>
            <HBox alignment="CENTER" prefHeight="45.0" spacing="25.0" BorderPane.alignment="CENTER">
-             <Button alignment="CENTER" mnemonicParsing="false" text="Ingresar adulto mayor">
+             <Button fx:id="addElderButton" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#onElderButtonClicked" text="Ingresar adulto mayor">
                <font>
                  <Font name="System Bold" size="12.0" />
                </font>
              </Button>
-             <Button mnemonicParsing="false" text="Ingresar cuidador">
+             <Button fx:id="addCarerButton" mnemonicParsing="false" onAction="#onCarerButtonClicked" text="Ingresar cuidador">
                <font>
                  <Font name="System Bold" size="12.0" />
                </font>

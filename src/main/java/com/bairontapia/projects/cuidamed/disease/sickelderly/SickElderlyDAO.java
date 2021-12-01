@@ -80,9 +80,8 @@ public class SickElderlyDAO implements CrudDAO<SickElderly, String> {
   @Override
   public SickElderly readTuple(ResultSet resultSet) throws SQLException {
     final var rut = resultSet.getString(1);
-    final var fullName = resultSet.getString(2);
-    final var diseaseName = resultSet.getString(3);
-    final var diagnosisDate = resultSet.getDate(4);
+    final var diseaseName = resultSet.getString(2);
+    final var diagnosisDate = resultSet.getDate(3);
     return SickElderly.createInstance(rut, diseaseName, diagnosisDate);
   }
 }
