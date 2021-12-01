@@ -42,7 +42,7 @@
                  <Font name="System Bold" size="12.0" />
                </font>
              </Button>
-             <Button mnemonicParsing="false" text="Ingresar cuidador">
+             <Button fx:id="addCarerButton" mnemonicParsing="false" onAction="#onCarerButtonClicked" text="Ingresar cuidador">
                <font>
                  <Font name="System Bold" size="12.0" />
                </font>
