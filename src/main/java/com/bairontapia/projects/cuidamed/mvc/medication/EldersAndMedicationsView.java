@@ -11,6 +11,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
@@ -47,9 +49,25 @@ public class EldersAndMedicationsView {
     medicationPrescriptionTableView.getItems().addAll(set);
   }
 
-  public void inEvento(ActionEvent actionEvent) {
+  public void addedPreciption(ActionEvent actionEvent) throws IOException {
+    FXMLLoader fxml = new FXMLLoader();
+    Scene scene;
+    Stage stage = new Stage();
+    fxml.setLocation(getClass().getResource("/fxml/window_prescription.fxml"));
+    scene = new Scene(fxml.load());
+    stage.setScene(scene);
+    stage.initModality(Modality.APPLICATION_MODAL);
+    stage.showAndWait();
   }
 
-  public void inEvento2(ActionEvent actionEvent) {
+  public void addedPrescriptionMedication(ActionEvent actionEvent) throws IOException {
+    FXMLLoader fxml = new FXMLLoader();
+    Scene scene;
+    Stage stage = new Stage();
+    fxml.setLocation(getClass().getResource("/fxml/medication_prescription.fxml"));
+    scene = new Scene(fxml.load());
+    stage.setScene(scene);
+    stage.initModality(Modality.APPLICATION_MODAL);
+    stage.showAndWait();
   }
 }
