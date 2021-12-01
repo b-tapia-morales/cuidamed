@@ -6,6 +6,7 @@ import java.sql.Date;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -14,6 +15,10 @@ import lombok.Getter;
 @Getter
 public class RoutineCheckupView {
 
+  @FXML
+  private Button add;
+  @FXML
+  private Button cancel;
   @FXML
   private DatePicker checkupDatePicker;
   @FXML
