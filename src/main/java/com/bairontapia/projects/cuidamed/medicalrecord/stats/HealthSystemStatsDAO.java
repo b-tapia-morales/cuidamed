@@ -1,12 +1,9 @@
 package com.bairontapia.projects.cuidamed.medicalrecord.stats;
 
 import com.bairontapia.projects.cuidamed.daotemplate.ReadOnlyDAO;
-import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
-import com.bairontapia.projects.cuidamed.utils.paths.FilePathUtils;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.file.Path;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +16,8 @@ public class HealthSystemStatsDAO implements
   private static final HealthSystemStatsDAO INSTANCE = new HealthSystemStatsDAO();
   private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
 
-  private static final String RELATIVE_PATH_STRING = DirectoryPathUtils.pathBuilder("scripts", "class_queries", "stats");
+  private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
+      .pathBuilder("scripts", "class_queries", "stats");
   private static final String FIND_ALL_QUERY_PATH = RELATIVE_PATH_STRING + "health_system.sql";
 
   public static HealthSystemStatsDAO getInstance() {

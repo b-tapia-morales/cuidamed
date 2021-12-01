@@ -103,9 +103,11 @@ public class CarerView {
         || genderComboBox.getSelectionModel().isEmpty();
   }
 
+  @FXML
   public void onUpdatedFields() throws SQLException, IOException {
     if (areFieldsEmpty() || areFieldsTooShort() || areFieldsIncorrect()) {
       fillCarerFields(carer);
+      return;
     }
     final var rutField = RutUtils.removeDots(rut.getText());
     final var nameField = StringUtils.trim(name.getText());
@@ -130,6 +132,8 @@ public class CarerView {
   }
 
   public void recoveryData(Carer carer) throws SQLException, IOException {
+    System.out.println(carer);
+    System.out.println(carer.rut());
     setCarer(carer);
     fillCarerFields(carer);
     final var address = AddressDAO.getInstance().find(carer.rut()).orElseThrow();

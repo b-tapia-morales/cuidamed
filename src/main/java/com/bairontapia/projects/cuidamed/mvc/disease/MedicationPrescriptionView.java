@@ -1,6 +1,5 @@
 package com.bairontapia.projects.cuidamed.mvc.disease;
 
-import com.bairontapia.projects.cuidamed.disease.DiseaseDAO;
 import com.bairontapia.projects.cuidamed.disease.medication.Medication;
 import com.bairontapia.projects.cuidamed.disease.medication.MedicationDAO;
 import java.io.IOException;
@@ -13,11 +12,16 @@ import javafx.scene.control.TextField;
 
 public class MedicationPrescriptionView {
 
-  @FXML private DatePicker startDatePicker;
-  @FXML private DatePicker endDatePicker;
-  @FXML private TextField rut;
-  @FXML private DatePicker prescriptionDatePicker;
-  @FXML private ComboBox<Medication> medicationComboBox;
+  @FXML
+  private DatePicker startDatePicker;
+  @FXML
+  private DatePicker endDatePicker;
+  @FXML
+  private TextField rut;
+  @FXML
+  private DatePicker prescriptionDatePicker;
+  @FXML
+  private ComboBox<Medication> medicationComboBox;
 
   public void initialize() throws SQLException, IOException {
     initializeComboBoxes();

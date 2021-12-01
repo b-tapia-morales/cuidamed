@@ -57,6 +57,7 @@
         <artifactId>javafx-maven-plugin</artifactId>
         <configuration>
           <mainClass>com.bairontapia.projects.cuidamed.CuidaMedApplication</mainClass>
+          <runtimePathOption>CLASSPATH</runtimePathOption>
         </configuration>
         <groupId>org.openjfx</groupId>
         <version>0.0.8</version>
@@ -69,8 +70,8 @@
   <dependencies>
 
     <dependency>
-      <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
+      <groupId>commons-io</groupId>
       <version>2.11.0</version>
     </dependency>
     <dependency>

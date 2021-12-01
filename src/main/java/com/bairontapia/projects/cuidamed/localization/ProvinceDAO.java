@@ -3,7 +3,6 @@ package com.bairontapia.projects.cuidamed.localization;
 import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
 import com.bairontapia.projects.cuidamed.daotemplate.ReadOnlyDAO;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
-import com.bairontapia.projects.cuidamed.utils.paths.FilePathUtils;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.sql.PreparedStatement;
@@ -25,7 +24,8 @@ public class ProvinceDAO implements ReadOnlyDAO<Province, Short> {
       DirectoryPathUtils.pathBuilder("scripts", "class_queries", "localization", "province");
   private static final String FIND_QUERY_PATH = RELATIVE_PATH_STRING + "get.sql";
   private static final String FIND_ALL_QUERY_PATH = RELATIVE_PATH_STRING + "get_all.sql";
-  private static final String FIND_ALL_BY_REGION_PATH = RELATIVE_PATH_STRING + "get_all_by_region.sql";
+  private static final String FIND_ALL_BY_REGION_PATH =
+      RELATIVE_PATH_STRING + "get_all_by_region.sql";
 
   public static ProvinceDAO getInstance() {
     return INSTANCE;

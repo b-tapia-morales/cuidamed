@@ -7,8 +7,6 @@ import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.LinkedHashSet;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -17,9 +15,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javax.swing.text.TabableView;
 
 public class EldersAndMedicationsView {
 

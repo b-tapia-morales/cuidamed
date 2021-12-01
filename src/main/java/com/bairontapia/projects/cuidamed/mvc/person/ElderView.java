@@ -190,7 +190,6 @@ public class ElderView {
   @FXML
   public void recoveryData(Elder elder) throws SQLException, IOException {
     setElder(elder);
-    onUpdatedFields();
     fillElderFields(elder);
     final var responsibleKey = elder.responsibleRut();
     final var responsible = ResponsibleDAO.getInstance().find(responsibleKey).orElseThrow();
