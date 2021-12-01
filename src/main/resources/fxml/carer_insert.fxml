@@ -72,7 +72,7 @@
                   <Insets right="10.0" />
                 </GridPane.margin>
               </Label>
-              <TextField fx:id="rut" opacity="0.67" GridPane.columnIndex="1">
+              <TextField fx:id="rut" GridPane.columnIndex="1">
                 <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                 </GridPane.margin>
@@ -162,12 +162,12 @@
                         <GridPane.margin>
                            <Insets right="10.0" />
                         </GridPane.margin></Label>
-              <TextField fx:id="street" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="3">
+              <TextField fx:id="street" GridPane.columnIndex="1" GridPane.rowIndex="3">
                 <GridPane.margin>
                   <Insets right="5.0" />
                 </GridPane.margin>
               </TextField>
-              <TextField fx:id="number" opacity="0.67" GridPane.columnIndex="1" GridPane.rowIndex="4">
+              <TextField fx:id="number" GridPane.columnIndex="1" GridPane.rowIndex="4">
                 <GridPane.margin>
                   <Insets right="5.0" />
                 </GridPane.margin>
