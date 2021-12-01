@@ -19,12 +19,9 @@ public record Elder(String rut, String firstName, String lastName, String second
     final var then = birthDate.toLocalDate();
     final var now = LocalDate.now();
     final var age = Period.between(then, now).getYears();
-    System.out.println(genderIndex);
-    final var elder = new Elder(rut, firstName, lastName, secondLastName, birthDate.toLocalDate(),
+    return new Elder(rut, firstName, lastName, secondLastName, birthDate.toLocalDate(),
         age, Gender.getValueFromIndex(genderIndex), isActive, admissionDate.toLocalDate(),
         responsibleRut);
-    System.out.println(elder);
-    return elder;
   }
 
   @Override

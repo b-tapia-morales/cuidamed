@@ -132,8 +132,6 @@ public class CarerView {
   }
 
   public void recoveryData(Carer carer) throws SQLException, IOException {
-    System.out.println(carer);
-    System.out.println(carer.rut());
     setCarer(carer);
     fillCarerFields(carer);
     final var address = AddressDAO.getInstance().find(carer.rut()).orElseThrow();

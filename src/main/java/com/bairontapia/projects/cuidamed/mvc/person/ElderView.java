@@ -191,8 +191,8 @@ public class ElderView {
   public void recoveryData(Elder elder) throws SQLException, IOException {
     setElder(elder);
     fillElderFields(elder);
-    final var responsibleKey = elder.responsibleRut();
-    final var responsible = ResponsibleDAO.getInstance().find(responsibleKey).orElseThrow();
+    final var responsibleKey = elder.responsibleRut().trim();
+    final var responsible =  ResponsibleDAO.getInstance().find(responsibleKey).orElseThrow();
     fillResponsibleFields(responsible);
     final var address = AddressDAO.getInstance().find(responsibleKey).orElseThrow();
     final var communeField = CommuneDAO.getInstance().find(address.communeId()).orElseThrow();
@@ -263,10 +263,10 @@ public class ElderView {
     stage.setScene(scene);
     stage.initModality(Modality.APPLICATION_MODAL);
     stage.showAndWait();
-    tabSelectsetObject(fxml);
+    tabSelectObject(fxml);
   }
 
-  private void tabSelectsetObject(FXMLLoader fxml) throws SQLException, IOException {
+  private void tabSelectObject(FXMLLoader fxml) throws SQLException, IOException {
     final var tabSelectionIndex = tabPane.getSelectionModel().getSelectedIndex();
     if (tabSelectionIndex == 1) {
       setObjectRoutine(fxml);
