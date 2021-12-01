@@ -7,17 +7,15 @@ import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.LinkedHashSet;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javax.swing.text.TabableView;
 
 public class EldersAndMedicationsView {
+
   @FXML
   private TableView<MedicationPrescription> medicationPrescriptionTableView;
   @FXML
@@ -34,10 +32,13 @@ public class EldersAndMedicationsView {
   private TableColumn<MedicationPrescription, LocalDate> dateEnd;
 
   public void initialize() throws SQLException, IOException {
-    rutColumn.setCellValueFactory(e -> new SimpleStringProperty(RutUtils.format(e.getValue().rut())));
-    fullnameColumn.setCellValueFactory(e-> new SimpleStringProperty(e.getValue().fullName()));
-    nameDiseaseColumn.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().diseaseName()));
-    fullMedicationName.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().medicationName()));
+    rutColumn
+        .setCellValueFactory(e -> new SimpleStringProperty(RutUtils.format(e.getValue().rut())));
+    fullnameColumn.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().fullName()));
+    nameDiseaseColumn
+        .setCellValueFactory(e -> new SimpleStringProperty(e.getValue().diseaseName()));
+    fullMedicationName
+        .setCellValueFactory(e -> new SimpleStringProperty(e.getValue().medicationName()));
     dateStart.setCellValueFactory(e -> new SimpleObjectProperty<>(e.getValue().startDate()));
     dateEnd.setCellValueFactory(e -> new SimpleObjectProperty<>(e.getValue().endDate()));
     final var set = MedicationPrescriptionDAO.getInstance().findAll();

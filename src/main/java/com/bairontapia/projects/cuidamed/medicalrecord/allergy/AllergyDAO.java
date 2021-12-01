@@ -2,12 +2,9 @@ package com.bairontapia.projects.cuidamed.medicalrecord.allergy;
 
 import com.bairontapia.projects.cuidamed.daotemplate.OneToManyDAO;
 import com.bairontapia.projects.cuidamed.daotemplate.ReadAndWriteDAO;
-import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
-import com.bairontapia.projects.cuidamed.utils.paths.FilePathUtils;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.file.Path;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +18,8 @@ public class AllergyDAO implements ReadAndWriteDAO<Allergy, String>,
 
   private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
 
-  private static final String RELATIVE_PATH_STRING = DirectoryPathUtils.pathBuilder("scripts", "class_queries", "medical_record", "allergy");
+  private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
+      .pathBuilder("scripts", "class_queries", "medical_record", "allergy");
   private static final String FIND_ALL_QUERY_PATH = RELATIVE_PATH_STRING + "get_all.sql";
   private static final String FIND_QUERY_PATH = RELATIVE_PATH_STRING + "get.sql";
   private static final String SAVE_QUERY_PATH = RELATIVE_PATH_STRING + "save.sql";

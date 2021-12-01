@@ -2,11 +2,8 @@ package com.bairontapia.projects.cuidamed.medicalrecord.stats;
 
 import com.bairontapia.projects.cuidamed.daotemplate.ReadOnlyDAO;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
-import com.bairontapia.projects.cuidamed.utils.paths.FilePathUtils;
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.file.Path;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

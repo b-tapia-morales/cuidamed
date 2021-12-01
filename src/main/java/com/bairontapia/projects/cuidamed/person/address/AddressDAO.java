@@ -1,12 +1,9 @@
 package com.bairontapia.projects.cuidamed.person.address;
 
 import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
-import com.bairontapia.projects.cuidamed.utils.files.TextFileUtils;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
-import com.bairontapia.projects.cuidamed.utils.paths.FilePathUtils;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.file.Path;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +17,8 @@ public class AddressDAO implements CrudDAO<Address, String> {
 
   private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
 
-  private static final String RELATIVE_PATH_STRING = DirectoryPathUtils.pathBuilder("scripts", "class_queries", "person", "address");
+  private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
+      .pathBuilder("scripts", "class_queries", "person", "address");
   private static final String FIND_ALL_QUERY_PATH = RELATIVE_PATH_STRING + "get_all.sql";
   private static final String FIND_QUERY_PATH = RELATIVE_PATH_STRING + "get.sql";
   private static final String SAVE_QUERY_PATH = RELATIVE_PATH_STRING + "save.sql";
