@@ -2,21 +2,16 @@ package com.bairontapia.projects.cuidamed.mvc.medicalrecordcontroller;
 
 import com.bairontapia.projects.cuidamed.mappings.allergytype.AllergyType;
 import com.bairontapia.projects.cuidamed.medicalrecord.allergy.Allergy;
-import com.bairontapia.projects.cuidamed.mvc.person.ElderView;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.io.IOException;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Getter;
 
@@ -42,10 +37,16 @@ public class AllergyView {
     Node source = (Node) actionEvent.getSource();
     Stage stage = (Stage) source.getScene().getWindow();
     stage.close();
-    this.allergy = Allergy
-        .createInstance(RutUtils.removeDots(rut.toLowerCase()),
-            (short) (comboBoxType.getSelectionModel().getSelectedIndex() + 1),
-            labelDetails.getText());
+    if (comboBoxType.getSelectionModel().isEmpty() || labelDetails.getText().equals("")) {
+      Alert a = new Alert(AlertType.WARNING);
+      a.setContentText("¡¡Valores vacíos!!");
+      a.show();
+    } else {
+      this.allergy = Allergy
+          .createInstance(RutUtils.removeDots(rut.toLowerCase()),
+              (short) (comboBoxType.getSelectionModel().getSelectedIndex() + 1),
+              labelDetails.getText());
+    }
   }
 
 

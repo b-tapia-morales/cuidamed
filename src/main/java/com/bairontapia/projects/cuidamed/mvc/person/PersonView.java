@@ -92,7 +92,6 @@ public class PersonView {
     FXMLLoader fxml = new FXMLLoader();
     Scene scene;
     Stage stage = new Stage();
-    //anchor.setDisable(true);
     if (personComboBox.getSelectionModel().getSelectedIndex() == 0) {
       fxml.setLocation(getClass().getResource("/fxml/elder.fxml"));
       scene = new Scene(fxml.load());
@@ -109,7 +108,8 @@ public class PersonView {
       } else {
         fxml.setLocation(getClass().getResource("/fxml/responsible.fxml"));
         scene = new Scene(fxml.load());
-        Responsible responsible = (Responsible) personTableView.getSelectionModel().getSelectedItem();
+        Responsible responsible = (Responsible) personTableView.getSelectionModel()
+            .getSelectedItem();
         ResponsibleView responsibleView = (ResponsibleView) fxml.getController();
         responsibleView.recoveryData(responsible);
       }

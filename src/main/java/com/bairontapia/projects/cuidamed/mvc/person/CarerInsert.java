@@ -11,6 +11,7 @@ import com.bairontapia.projects.cuidamed.person.address.Address;
 import com.bairontapia.projects.cuidamed.person.address.AddressDAO;
 import com.bairontapia.projects.cuidamed.person.carer.Carer;
 import com.bairontapia.projects.cuidamed.person.carer.CarerDAO;
+import com.bairontapia.projects.cuidamed.person.elder.ElderDAO;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import java.io.IOException;
 import java.sql.Date;
@@ -19,6 +20,8 @@ import java.time.LocalDate;
 import java.time.Period;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -101,28 +104,30 @@ public class CarerInsert {
     trimFields();
     appendEmptyFieldErrors();
     if (anyFieldIsEmpty()) {
-      System.out.println(stringBuilder);
+      createErrorAlert().show();
       return;
     }
     appendFieldTooShortErrors();
     if (anyFieldIsTooShort()) {
-      System.out.println(stringBuilder);
+      createErrorAlert().show();
       return;
     }
     appendFieldIncorrectErrors();
     if (anyFieldIsIncorrect()) {
-      System.out.println(stringBuilder);
+      createErrorAlert().show();
       return;
     }
     final var rutField = rut.getText();
-    if (CarerDAO.getInstance().find(rutField).isPresent()) {
-      System.out.println("Cuidador ya está en la base de datos");
+    if (ElderDAO.getInstance().find(rutField).isPresent()) {
+      stringBuilder.append("Ya existe un cuidador con el rut especificado en la base de datos");
+      createErrorAlert().show();
       return;
     }
     final var address = createAddress();
     final var carer = createCarer();
     CarerDAO.getInstance().save(carer);
     AddressDAO.getInstance().save(address);
+    createConfirmationAlert().show();
   }
 
   private Carer createCarer() {
@@ -150,6 +155,19 @@ public class CarerInsert {
         fixedPhone.getText().isEmpty() ? null : Integer.parseInt(fixedPhone.getText());
     return Address.createInstance(communeField, streetField, numberField, postalCodeField,
         fixedPhoneField, rutField);
+  }
+
+  private Alert createErrorAlert() {
+    final var alert = new Alert(AlertType.ERROR);
+    alert.setHeaderText("Error en el llenado de campos");
+    alert.setContentText(stringBuilder.toString());
+    return alert;
+  }
+
+  private Alert createConfirmationAlert() {
+    final var alert = new Alert(AlertType.INFORMATION);
+    alert.setHeaderText("Datos añadidos con éxito");
+    return alert;
   }
 
   @FXML

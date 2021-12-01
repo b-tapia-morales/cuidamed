@@ -15,5 +15,10 @@
         <fx:include source="graphics.fxml" />
       </content>
     </Tab>
+      <Tab text="Pestaña 3">
+        <content>
+          <fx:include source="elders_and_medications_view.fxml"></fx:include>
+        </content>
+      </Tab>
   </tabs>
 </TabPane>

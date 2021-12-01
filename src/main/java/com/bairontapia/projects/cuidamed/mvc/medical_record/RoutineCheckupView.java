@@ -6,7 +6,6 @@ import java.sql.Date;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -36,7 +35,7 @@ public class RoutineCheckupView {
   private String rut;
 
 
-  public void initialize(){
+  public void initialize() {
     routineCheckup = null;
   }
 
@@ -49,10 +48,12 @@ public class RoutineCheckupView {
     Stage stage = (Stage) source.getScene().getWindow();
     stage.close();
     this.routineCheckup = RoutineCheckup
-        .createInstance(RutUtils.removeDots(rut.toLowerCase()), Date.valueOf(checkupDatePicker.getValue()), Double.parseDouble(height.getText()),
+        .createInstance(RutUtils.removeDots(rut.toLowerCase()),
+            Date.valueOf(checkupDatePicker.getValue()), Double.parseDouble(height.getText()),
             Double.parseDouble(weight.getText()), Double.parseDouble(bmi.getText()),
             Short.parseShort(height.getText()), Double.parseDouble(diastolicPressure.getText()),
-            Double.parseDouble(systolicPressure.getText()), Double.parseDouble(bodyTemperature.getText()));
+            Double.parseDouble(systolicPressure.getText()),
+            Double.parseDouble(bodyTemperature.getText()));
   }
 
   public void cancelRoutineCheckup(ActionEvent actionEvent) {
