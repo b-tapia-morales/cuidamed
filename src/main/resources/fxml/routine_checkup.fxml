@@ -4,13 +4,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bairontapia.projects.cuidamed.mvc.medical_record.RoutineCheckupView">
   <DialogPane prefHeight="400.0" prefWidth="425.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
   <VBox layoutY="86.0" prefHeight="218.0" prefWidth="425.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
     <GridPane>
       <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="75.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       </columnConstraints>
       <rowConstraints>
@@ -23,60 +24,88 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
-      <Label text="Fecha: " GridPane.halignment="RIGHT" />
-      <Label text="Altura: " GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-      <Label text="Peso: " GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-      <Label text="IMC: " GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-      <Label text="Ritmo cardíaco: " GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-      <Label text="Presión diastólica: " GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
-      <Label text="Presión sistólica: " GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
-      <Label text="Temperatura corporal: " GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
-      <DatePicker fx:id="checkupDatePicker" editable="false" GridPane.columnIndex="1" />
+      <Label text="Fecha" GridPane.halignment="RIGHT">
+            <GridPane.margin>
+               <Insets right="10.0" />
+            </GridPane.margin></Label>
+      <Label text="Altura" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <GridPane.margin>
+               <Insets right="10.0" />
+            </GridPane.margin></Label>
+      <Label text="Peso" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+            <GridPane.margin>
+               <Insets right="10.0" />
+            </GridPane.margin></Label>
+      <Label text="IMC" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+            <GridPane.margin>
+               <Insets right="10.0" />
+            </GridPane.margin></Label>
+      <Label text="Ritmo cardíaco" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+            <GridPane.margin>
+               <Insets right="10.0" />
+            </GridPane.margin></Label>
+      <Label text="Presión diastólica" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+            <GridPane.margin>
+               <Insets right="10.0" />
+            </GridPane.margin></Label>
+      <Label text="Presión sistólica" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+            <GridPane.margin>
+               <Insets right="10.0" />
+            </GridPane.margin></Label>
+      <Label text="Temperatura corporal" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+            <GridPane.margin>
+               <Insets right="10.0" />
+            </GridPane.margin></Label>
+      <DatePicker fx:id="checkupDatePicker" editable="false" GridPane.columnIndex="1">
+            <GridPane.margin>
+               <Insets left="5.0" />
+            </GridPane.margin></DatePicker>
       <TextField fx:id="height" prefHeight="25.0" prefWidth="142.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <GridPane.margin>
-          <Insets right="100.0" />
+          <Insets left="5.0" right="15.0" />
         </GridPane.margin>
       </TextField>
       <TextField fx:id="weight" GridPane.columnIndex="1" GridPane.rowIndex="2">
         <GridPane.margin>
-          <Insets right="100.0" />
+          <Insets left="5.0" right="15.0" />
         </GridPane.margin>
       </TextField>
       <TextField fx:id="bmi" GridPane.columnIndex="1" GridPane.rowIndex="3">
         <GridPane.margin>
-          <Insets right="100.0" />
+          <Insets left="5.0" right="15.0" />
         </GridPane.margin>
       </TextField>
       <TextField fx:id="heartRate" GridPane.columnIndex="1" GridPane.rowIndex="4">
         <GridPane.margin>
-          <Insets right="100.0" />
+          <Insets left="5.0" right="15.0" />
         </GridPane.margin>
       </TextField>
       <TextField fx:id="diastolicPressure" GridPane.columnIndex="1" GridPane.rowIndex="5">
         <GridPane.margin>
-          <Insets right="100.0" />
+          <Insets left="5.0" right="15.0" />
         </GridPane.margin>
       </TextField>
       <TextField fx:id="systolicPressure" GridPane.columnIndex="1" GridPane.rowIndex="6">
         <GridPane.margin>
-          <Insets right="100.0" />
+          <Insets left="5.0" right="15.0" />
         </GridPane.margin>
       </TextField>
       <TextField fx:id="bodyTemperature" GridPane.columnIndex="1" GridPane.rowIndex="7">
         <GridPane.margin>
-          <Insets right="100.0" />
+          <Insets left="5.0" right="15.0" />
         </GridPane.margin>
       </TextField>
     </GridPane>
   </VBox>
   <Button fx:id="add" layoutX="253.0" layoutY="350.0" mnemonicParsing="false" onAction="#addRoutineCheckup" text="Aceptar" />
   <Button fx:id="cancel" layoutX="332.0" layoutY="350.0" mnemonicParsing="false" onAction="#cancelRoutineCheckup" text="Cancelar" />
-  <HBox alignment="CENTER" layoutX="-1.0" layoutY="2.0" prefHeight="72.0" prefWidth="425.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <ImageView fitHeight="69.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../icons/routineCheckup.png" />
-         </image>
-      </ImageView>
-    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="72.0" prefWidth="107.0" text="Chequeo rutinario" textAlignment="CENTER" />
+  <HBox alignment="CENTER" layoutX="-1.0" layoutY="2.0" prefHeight="75.0" spacing="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@../icons/checkup.png"/>
+    </ImageView>
+    <Label alignment="CENTER" contentDisplay="CENTER" text="Chequeo rutinario" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
   </HBox>
 </AnchorPane>
