@@ -8,44 +8,40 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bairontapia.projects.cuidamed.mvc.graphics.GraphicsView">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="665.0" prefWidth="705.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bairontapia.projects.cuidamed.mvc.graphics.GraphicsView">
    <VBox alignment="CENTER" prefHeight="680.0" prefWidth="720.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <HBox alignment="CENTER" prefHeight="90.0" prefWidth="720.0">
          <opaqueInsets>
             <Insets top="40.0" />
          </opaqueInsets>
-         <children>
-            <Label text="Gráfico">
-               <HBox.margin>
-                  <Insets right="25.0" />
-               </HBox.margin>
-            </Label>
-            <ComboBox fx:id="dataComboBox" onAction="#onGraphicChoice" prefWidth="160.0" />
-         </children>
+         <Label text="Gráfico">
+            <HBox.margin>
+               <Insets right="25.0" />
+            </HBox.margin>
+         </Label>
+         <ComboBox fx:id="dataComboBox" onAction="#onGraphicChoice" prefWidth="160.0" />
       </HBox>
       <AnchorPane prefHeight="680.0" prefWidth="720.0">
-         <children>
-            <PieChart fx:id="bloodTypes" labelsVisible="false" prefHeight="635.0" prefWidth="720.0" title="Tipo de Sangre" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
-            </PieChart>
-            <PieChart fx:id="healthSystems" labelsVisible="false" prefHeight="635.0" prefWidth="720.0" title="Sistema de Salud" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
-            </PieChart>
-            <PieChart fx:id="diseases" labelsVisible="false" prefHeight="635.0" prefWidth="720.0" title="Enfermedades" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
-            </PieChart>
-            <PieChart fx:id="medications" labelsVisible="false" prefHeight="635.0" prefWidth="720.0" title="Medicamentos" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
-            </PieChart>
-         </children>
+         <PieChart fx:id="bloodTypes" labelsVisible="false" prefHeight="635.0" prefWidth="720.0" title="Tipo de Sangre" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding>
+               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+         </PieChart>
+         <PieChart fx:id="healthSystems" labelsVisible="false" prefHeight="635.0" prefWidth="720.0" title="Sistema de Salud" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding>
+               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+         </PieChart>
+         <PieChart fx:id="diseases" labelsVisible="false" prefHeight="635.0" prefWidth="720.0" title="Enfermedades" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding>
+               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+         </PieChart>
+         <PieChart fx:id="medications" labelsVisible="false" prefHeight="635.0" prefWidth="720.0" title="Medicamentos" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding>
+               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+         </PieChart>
       </AnchorPane>
    </VBox>
 </AnchorPane>

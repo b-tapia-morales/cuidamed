@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.*?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="780.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-  <tabs>
-    <Tab text="Pestaña 1">
-      <content>
-        <fx:include source="person.fxml" />
-      </content>
-    </Tab>
-    <Tab text="Pestaña 2">
-      <content>
-        <fx:include source="graphics.fxml" />
-      </content>
-    </Tab>
-      <Tab text="Pestaña 3">
-        <content>
-          <fx:include source="elders_and_medications_view.fxml"></fx:include>
-        </content>
-      </Tab>
-  </tabs>
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="720.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <Tab text="Pestaña 1">
+    <fx:include source="person.fxml" />
+  </Tab>
+  <Tab text="Pestaña 2">
+    <fx:include source="graphics.fxml" />
+  </Tab>
+  <Tab text="Pestaña 3">
+    <fx:include source="elders_and_medications_view.fxml" />
+  </Tab>
 </TabPane>
