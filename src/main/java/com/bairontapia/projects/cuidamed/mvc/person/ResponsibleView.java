@@ -9,6 +9,8 @@ import com.bairontapia.projects.cuidamed.localization.RegionDAO;
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.person.address.Address;
 import com.bairontapia.projects.cuidamed.person.address.AddressDAO;
+import com.bairontapia.projects.cuidamed.person.elder.Elder;
+import com.bairontapia.projects.cuidamed.person.elder.ElderDAO;
 import com.bairontapia.projects.cuidamed.person.responsible.Responsible;
 import com.bairontapia.projects.cuidamed.person.responsible.ResponsibleDAO;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
@@ -68,7 +70,7 @@ public class ResponsibleView {
   @FXML
   private TextField elderRut;
   @FXML
-  private TextField elderFirstName;
+  private TextField elderName;
   @FXML
   private TextField elderLastName;
   @FXML
@@ -80,9 +82,9 @@ public class ResponsibleView {
   @FXML
   private TextField elderGender;
   @FXML
-  private CheckBox isActiveCheckBox;
+  private CheckBox elderIsActive;
   @FXML
-  private TextField admissionDate;
+  private TextField elderAdmissionDate;
 
   public void initialize() {
     initializeComboBoxes();
@@ -109,6 +111,21 @@ public class ResponsibleView {
         ProvinceDAO.getInstance().find(communeField.provinceId()).orElseThrow();
     final var regionField = RegionDAO.getInstance().find(provinceField.regionId()).orElseThrow();
     fillAddressFields(address, regionField, provinceField, communeField);
+    final var rutField = responsible.rut();
+    final var elder = ElderDAO.getInstance().findByResponsibleId(rutField).orElseThrow();
+    fillElderFields(elder);
+  }
+
+  private void fillElderFields(final Elder elder) {
+    elderRut.setText(RutUtils.format(elder.rut()));
+    elderName.setText(elder.firstName());
+    elderLastName.setText(elder.lastName());
+    elderSecondLastName.setText(elder.secondLastName());
+    elderBirthDate.setText(elder.birthDate().toString());
+    elderAge.setText(elder.age().toString());
+    elderGender.setText(elder.gender().toString());
+    elderIsActive.setSelected(elder.isActive());
+    elderAdmissionDate.setText(elder.admissionDate().toString());
   }
 
   private void initializeComboBoxes() {

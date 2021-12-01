@@ -1,6 +1,8 @@
 package com.bairontapia.projects.cuidamed.person.elder;
 
+import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
 import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
+import com.bairontapia.projects.cuidamed.person.responsible.Responsible;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -9,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.Optional;
 import org.apache.commons.io.IOUtils;
 
 public class ElderDAO implements CrudDAO<Elder, String> {
@@ -19,13 +22,30 @@ public class ElderDAO implements CrudDAO<Elder, String> {
 
   private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
       .pathBuilder("scripts", "class_queries", "person", "elder");
+
+  private static final String FIND_BY_RESPONSIBLE_PATH = RELATIVE_PATH_STRING + "get_by_responsible.sql";
   private static final String FIND_ALL_QUERY_PATH = RELATIVE_PATH_STRING + "get_all.sql";
   private static final String FIND_QUERY_PATH = RELATIVE_PATH_STRING + "get.sql";
   private static final String SAVE_QUERY_PATH = RELATIVE_PATH_STRING + "save.sql";
   private static final String UPDATE_QUERY_PATH = RELATIVE_PATH_STRING + "update.sql";
 
+
   public static ElderDAO getInstance() {
     return INSTANCE;
+  }
+
+  public Optional<Elder> findByResponsibleId(String rut) throws IOException, SQLException {
+    final var inputStream = CLASS_LOADER.getResourceAsStream(FIND_BY_RESPONSIBLE_PATH);
+    final var query = IOUtils.toString(Objects.requireNonNull(inputStream), Charset.defaultCharset());
+    final var connection = ConnectionSingleton.getInstance();
+    final var statement = connection.prepareStatement(query);
+    setKeyParameter(statement, rut);
+    final var resultSet = statement.executeQuery();
+    final var optional =
+        resultSet.next() ? Optional.of(readTuple(resultSet)) : Optional.<Elder>empty();
+    resultSet.close();
+    statement.close();
+    return optional;
   }
 
   @Override
