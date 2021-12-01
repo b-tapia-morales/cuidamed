@@ -14,7 +14,7 @@
     <TableView fx:id="medicationPrescriptionTableView" prefHeight="420.0" prefWidth="846.0">
       <columns>
         <TableColumn fx:id="rutColumn" prefWidth="85.0" text="RUT" />
-        <TableColumn fx:id="fullnameColumn" prefWidth="150.0" text="Nombre completo" />
+        <TableColumn fx:id="fullNameColumn" prefWidth="150.0" text="Nombre completo" />
         <TableColumn fx:id="nameDiseaseColumn" prefWidth="163.0" text="Nombre de enfermedad" />
         <TableColumn fx:id="fullMedicationName" prefWidth="132.0" text="Medicamentos" />
         <TableColumn fx:id="dateStart" minWidth="0.0" prefWidth="101.0" text="Fecha de inicio" />

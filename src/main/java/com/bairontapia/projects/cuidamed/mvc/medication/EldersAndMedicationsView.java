@@ -13,6 +13,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class EldersAndMedicationsView {
 
@@ -21,7 +23,7 @@ public class EldersAndMedicationsView {
   @FXML
   private TableColumn<MedicationPrescription, String> rutColumn;
   @FXML
-  private TableColumn<MedicationPrescription, String> fullnameColumn;
+  private TableColumn<MedicationPrescription, String> fullNameColumn;
   @FXML
   private TableColumn<MedicationPrescription, String> nameDiseaseColumn;
   @FXML
@@ -34,7 +36,7 @@ public class EldersAndMedicationsView {
   public void initialize() throws SQLException, IOException {
     rutColumn
         .setCellValueFactory(e -> new SimpleStringProperty(RutUtils.format(e.getValue().rut())));
-    fullnameColumn.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().fullName()));
+    fullNameColumn.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().fullName()));
     nameDiseaseColumn
         .setCellValueFactory(e -> new SimpleStringProperty(e.getValue().diseaseName()));
     fullMedicationName
