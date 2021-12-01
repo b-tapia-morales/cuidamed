@@ -37,6 +37,8 @@ import lombok.Getter;
 
 public class PersonView {
 
+  private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
+
   @FXML
   public AnchorPane anchor;
   @FXML
@@ -96,24 +98,24 @@ public class PersonView {
     Scene scene;
     Stage stage = new Stage();
     if (personComboBox.getSelectionModel().getSelectedIndex() == 0) {
-      fxml.setLocation(getClass().getResource("/fxml/elder.fxml"));
+      fxml.setLocation(CLASS_LOADER.getResource("/fxml/elder.fxml"));
       scene = new Scene(fxml.load());
       Elder elder = (Elder) personTableView.getSelectionModel().getSelectedItem();
-      ElderView elderView = (ElderView) fxml.getController();
+      ElderView elderView = fxml.getController();
       elderView.recoveryData(elder);
     } else {
       if (personComboBox.getSelectionModel().getSelectedIndex() == 1) {
-        fxml.setLocation(getClass().getResource("/fxml/carer.fxml"));
+        fxml.setLocation(CLASS_LOADER.getResource("/fxml/carer.fxml"));
         scene = new Scene(fxml.load());
         Carer carer = (Carer) personTableView.getSelectionModel().getSelectedItem();
-        CarerView carerView = (CarerView) fxml.getController();
+        CarerView carerView = fxml.getController();
         carerView.recoveryData(carer);
       } else {
-        fxml.setLocation(getClass().getResource("/fxml/responsible.fxml"));
+        fxml.setLocation(CLASS_LOADER.getResource("/fxml/responsible.fxml"));
         scene = new Scene(fxml.load());
         Responsible responsible = (Responsible) personTableView.getSelectionModel()
             .getSelectedItem();
-        ResponsibleView responsibleView = (ResponsibleView) fxml.getController();
+        ResponsibleView responsibleView = fxml.getController();
         responsibleView.recoveryData(responsible);
       }
     }
@@ -131,7 +133,6 @@ public class PersonView {
     stage.setScene(scene);
     stage.show();
   }
-
 
   @Getter
   enum PersonChoice {
