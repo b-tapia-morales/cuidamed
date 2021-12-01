@@ -103,9 +103,11 @@ public class CarerView {
         || genderComboBox.getSelectionModel().isEmpty();
   }
 
+  @FXML
   public void onUpdatedFields() throws SQLException, IOException {
     if (areFieldsEmpty() || areFieldsTooShort() || areFieldsIncorrect()) {
       fillCarerFields(carer);
+      return;
     }
     final var rutField = RutUtils.removeDots(rut.getText());
     final var nameField = StringUtils.trim(name.getText());

@@ -9,6 +9,8 @@ import com.bairontapia.projects.cuidamed.localization.RegionDAO;
 import com.bairontapia.projects.cuidamed.mappings.bloodtype.BloodType;
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.mappings.healthcaresystem.HealthCare;
+import com.bairontapia.projects.cuidamed.medicalrecord.MedicalRecord;
+import com.bairontapia.projects.cuidamed.medicalrecord.MedicalRecordDAO;
 import com.bairontapia.projects.cuidamed.person.address.Address;
 import com.bairontapia.projects.cuidamed.person.address.AddressDAO;
 import com.bairontapia.projects.cuidamed.person.elder.Elder;
@@ -182,9 +184,11 @@ public class ElderInsert {
     final var elder = createElder();
     final var responsible = createResponsible();
     final var address = createAddress();
+    final var medicalRecord = createMedicalRecord();
     ResponsibleDAO.getInstance().save(responsible);
     AddressDAO.getInstance().save(address);
     ElderDAO.getInstance().save(elder);
+    MedicalRecordDAO.getInstance().save(medicalRecord);
     createConfirmationAlert().show();
   }
 
@@ -239,6 +243,14 @@ public class ElderInsert {
         fixedPhone.getText().isEmpty() ? null : Integer.parseInt(fixedPhone.getText());
     return Address.createInstance(communeField, streetField, numberField, postalCodeField,
         fixedPhoneField, rutField);
+  }
+
+  private MedicalRecord createMedicalRecord() {
+    final var rutField = rut.getText();
+    final var bloodTypeCode = (short) bloodType.getSelectionModel().getSelectedItem().getIndex();
+    final var healthSystemCode = (short) healthCare.getSelectionModel().getSelectedItem()
+        .getIndex();
+    return MedicalRecord.createInstance(rutField, bloodTypeCode, healthSystemCode);
   }
 
   private void trimFields() {
@@ -296,7 +308,9 @@ public class ElderInsert {
         StringUtils.isBlank(secondLastName.getText()) ||
         birthDate.getValue() == null ||
         gender.getSelectionModel().isEmpty() ||
-        admissionDate.getValue() == null) {
+        admissionDate.getValue() == null ||
+        bloodType.getSelectionModel().isEmpty() ||
+        healthCare.getSelectionModel().isEmpty()) {
       appendEmptyField(stringBuilder, "Adulto mayor");
     }
   }
