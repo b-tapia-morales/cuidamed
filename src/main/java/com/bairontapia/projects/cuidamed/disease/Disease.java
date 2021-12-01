@@ -27,4 +27,9 @@ public record Disease(String disease_name, DiseaseType diseaseType, Boolean is_c
   public int hashCode() {
     return Objects.hashCode(disease_name);
   }
+
+  @Override
+  public String toString() {
+    return disease_name;
+  }
 }
