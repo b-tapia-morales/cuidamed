@@ -29,11 +29,6 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
       <Label text="Rut del adulto mayor: " GridPane.halignment="RIGHT" />
-      <TextField fx:id="rut" prefHeight="25.0" prefWidth="144.0" GridPane.columnIndex="1">
-        <GridPane.margin>
-          <Insets left="5.0" right="40.0" />
-        </GridPane.margin>
-      </TextField>
       <Label text="Nombre de la enfermedad: " GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
       <ComboBox fx:id="diseaseNameComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <GridPane.margin>
@@ -46,6 +41,11 @@
           <Insets left="5.0" />
         </GridPane.margin>
       </DatePicker>
+         <ComboBox fx:id="rut" prefWidth="150.0" GridPane.columnIndex="1">
+            <GridPane.margin>
+               <Insets left="5.0" right="40.0" />
+            </GridPane.margin>
+         </ComboBox>
     </GridPane>
     <Separator prefHeight="27.0" prefWidth="413.0">
       <VBox.margin>
@@ -84,5 +84,5 @@
       </CheckBox>
     </GridPane>
   </VBox>
-  <Button layoutX="181.0" layoutY="341.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="71.0" text="Button" />
+  <Button layoutX="128.0" layoutY="339.0" mnemonicParsing="false" onAction="#addedPrescription" prefHeight="34.0" prefWidth="133.0" text="Ingresar Prescripción" />
 </AnchorPane>
