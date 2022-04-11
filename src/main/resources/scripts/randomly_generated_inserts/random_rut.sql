@@ -2,10 +2,15 @@ CREATE OR REPLACE FUNCTION generate_rut(l INTEGER, u INTEGER)
     RETURNS TEXT AS
 $func$
 DECLARE
-    rut TEXT;
-    lower      INTEGER DEFAULT l * 1000000;
-    upper      INTEGER DEFAULT u * 1000000;
+    rut        TEXT;
+    multiplier INTEGER DEFAULT 1000000;
+    lower      INTEGER DEFAULT l * multiplier;
+    upper      INTEGER DEFAULT u * multiplier;
 BEGIN
+    IF (l < 1 OR u > 99) THEN
+        RAISE EXCEPTION $$'Lower and upper boundary values must be greater than % and
+        lesser than % respectively (values given: [%, %])'$$, 1, 99, l, u;
+    end if;
     rut = floor(random() * (upper - lower + 1) + lower)::int::text;
     RETURN concat(rut, '-', generate_last_digit(rut));
 END
@@ -42,4 +47,4 @@ END
 $func$ LANGUAGE plpgsql;
 
 SELECT *
-FROM generate_rut(17, 23);
+FROM generate_rut(-1, 23);
