@@ -8,8 +8,8 @@ DECLARE
     upper      INTEGER DEFAULT u * multiplier;
 BEGIN
     IF (l < 1 OR u > 99) THEN
-        RAISE EXCEPTION $$'Lower and upper boundary values must be greater than % and
-        lesser than % respectively (values given: [%, %])'$$, 1, 99, l, u;
+        RAISE EXCEPTION $$Lower and upper boundary values must be greater than % and
+        lesser than % respectively (values given: [%, %])$$, 1, 99, l, u;
     end if;
     rut = floor(random() * (upper - lower + 1) + lower)::int::text;
     RETURN concat(rut, '-', generate_last_digit(rut));
