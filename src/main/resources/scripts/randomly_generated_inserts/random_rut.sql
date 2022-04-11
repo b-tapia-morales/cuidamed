@@ -1,9 +1,13 @@
-CREATE OR REPLACE FUNCTION generate_rut(n INTEGER) RETURNS TEXT AS
+CREATE OR REPLACE FUNCTION generate_rut(l INTEGER, u INTEGER)
+    RETURNS TEXT AS
 $func$
 DECLARE
-    last_digit_arr CHAR ARRAY DEFAULT ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'K'];
+    rut_as_int INTEGER;
+    lower      INTEGER DEFAULT l * 1000000;
+    upper      INTEGER DEFAULT u * 1000000;
 BEGIN
-    RETURN '';
+    rut_as_int = floor(random() * (upper - lower + 1) + lower)::int;
+    RETURN concat(rut_as_int, '-', generate_last_digit(rut_as_int::text));
 END
 $func$ LANGUAGE plpgsql;
 
@@ -38,4 +42,4 @@ END
 $func$ LANGUAGE plpgsql;
 
 SELECT *
-FROM generate_last_digit('4646744');
+FROM generate_rut(17, 23);
