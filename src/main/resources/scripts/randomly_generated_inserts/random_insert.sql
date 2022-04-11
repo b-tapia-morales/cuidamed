@@ -13,3 +13,8 @@
 'Patricio', 'Iván', 'Guillermo', 'Mathías', 'Marcelo', 'Mauricio', 'Josué', 'Jesús', 'Lukas',
 'Isaías', 'César', 'Axel', 'Alfonso', 'Alex', 'Baltazar'
  */
+
+--Nombres femeninos
+/*
+'Sofía', 'Emilia', 'Florencia', 'Antonella', 'Martina', 'Isidora', 'Maite', 'Josefa', 'Amanda', 'Agustina', 'Catalina', 'Antonia', 'Trinidad', 'Fernanda', 'María', 'Valentina', 'Javiera', 'Isabella', 'Ignacia', 'Constanza', 'Julieta', 'Francisca', 'Emily', 'Renata', 'Mia', 'Camila', 'Victoria', 'Matilda', 'Rafaela', 'Belén', 'Pascal', 'Monserrat', 'Laura', 'Magdalena', 'Paz', 'Anaís', 'Josefina', 'Pía', 'Violeta', 'Matilde', 'Dominique', 'Colomba', 'Rocío', 'Amalia', 'Leonor', 'Daniela', 'Pascale', 'Emma', 'Amparo', 'Samantha', 'Gabriela', 'Ámbar', 'Rafaella', 'Amelia', 'Mayra', 'Sophia', 'Génesis', 'Ema', 'Alondra', 'Mariana', 'Dominga', 'Mayte', 'Michelle', 'Rayén', 'Danae', 'Elena', 'Lucía', 'Millaray', 'Paula', 'Elizabeth', 'Anahís', 'Carolina', 'Elisa', 'Amy', 'Bárbara', 'Isabel', 'Ashley', 'Thiare', 'Noemí', 'Aylin', 'Luciana', 'Krishna', 'Ángela', 'Esperanza', 'Sara', 'Carla', 'Noelia', 'Kiara', 'Katalina', 'Celeste', 'Montserrat', 'Denisse', 'Dafne', 'Abigail', 'Antonela', 'Olivia', 'Maura', 'Alejandra', 'Alexandra', 'Consuelo
+ */
