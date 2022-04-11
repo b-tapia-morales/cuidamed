@@ -35,7 +35,7 @@ BEGIN
     CASE choice
         WHEN 'M' THEN names = male_names;
         WHEN 'F' THEN names = female_names;
-        ELSE names = NULL;
+        ELSE RAISE EXCEPTION 'The only recognized choices are ''M'', ''m'', ''F'', ''f''';
         END CASE;
     RETURN names;
 END
@@ -44,19 +44,15 @@ $func$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION generate_concatenated_names(code TEXT, n INTEGER) RETURNS TEXT ARRAY AS
 $func$
 DECLARE
-    names              TEXT ARRAY;
-    concatenated_names TEXT ARRAY;
+    names           TEXT ARRAY;
+    generated_names TEXT ARRAY;
 BEGIN
     names = generate_names(code);
-    IF names IS NULL THEN
-        RETURN NULL;
-    END IF;
     FOR i IN 1..n
         LOOP
-            concatenated_names =
-                    array_append(concatenated_names, concatenate_name(names));
+            generated_names = array_append(generated_names, concatenate_name(names));
         END LOOP;
-    RETURN concatenated_names;
+    RETURN generated_names;
 END
 $func$ LANGUAGE plpgsql;
 
