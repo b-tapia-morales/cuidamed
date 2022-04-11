@@ -2,12 +2,12 @@ CREATE OR REPLACE FUNCTION generate_rut(l INTEGER, u INTEGER)
     RETURNS TEXT AS
 $func$
 DECLARE
-    rut_as_int INTEGER;
+    rut TEXT;
     lower      INTEGER DEFAULT l * 1000000;
     upper      INTEGER DEFAULT u * 1000000;
 BEGIN
-    rut_as_int = floor(random() * (upper - lower + 1) + lower)::int;
-    RETURN concat(rut_as_int, '-', generate_last_digit(rut_as_int::text));
+    rut = floor(random() * (upper - lower + 1) + lower)::int::text;
+    RETURN concat(rut, '-', generate_last_digit(rut));
 END
 $func$ LANGUAGE plpgsql;
 
