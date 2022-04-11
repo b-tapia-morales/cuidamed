@@ -35,7 +35,8 @@ BEGIN
     CASE choice
         WHEN 'M' THEN names = male_names;
         WHEN 'F' THEN names = female_names;
-        ELSE RAISE EXCEPTION 'The only recognized choices are ''M'', ''m'', ''F'', ''f''';
+        ELSE RAISE EXCEPTION $$'The only recognized choices are ''M'', ''m'', ''F'', ''f'''
+        (value given was: %'$$, code;
         END CASE;
     RETURN names;
 END
