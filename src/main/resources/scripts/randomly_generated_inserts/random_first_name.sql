@@ -37,6 +37,7 @@ BEGIN
         WHEN 'F' THEN names = female_names;
         ELSE names = NULL;
         END CASE;
+    RETURN names;
 END
 $func$ LANGUAGE plpgsql;
 
@@ -50,12 +51,12 @@ BEGIN
     IF names IS NULL THEN
         RETURN NULL;
     END IF;
-    n = cardinality(names);
     FOR i IN 1..n
         LOOP
             concatenated_names =
                     array_append(concatenated_names, concatenate_name(names));
         END LOOP;
+    RETURN concatenated_names;
 END
 $func$ LANGUAGE plpgsql;
 
@@ -92,3 +93,5 @@ BEGIN
     RETURN concat(names[i], ' ', names[j]);
 END
 $func$ LANGUAGE plpgsql;
+
+SELECT * from unnest(generate_concatenated_male_names(5));
