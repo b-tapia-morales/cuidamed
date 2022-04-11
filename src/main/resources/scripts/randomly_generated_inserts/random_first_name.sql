@@ -40,8 +40,7 @@ BEGIN
 END
 $func$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION generate_concatenated_names(code TEXT, n INTEGER)
-    RETURNS TEXT ARRAY AS
+CREATE OR REPLACE FUNCTION generate_concatenated_names(code TEXT, n INTEGER) RETURNS TEXT ARRAY AS
 $func$
 DECLARE
     names              TEXT ARRAY;
@@ -67,10 +66,7 @@ BEGIN
 END
 $func$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION generate_concatenated_female_names(n INTEGER)
-    RETURNS TEXT
-        ARRAY
-AS
+CREATE OR REPLACE FUNCTION generate_concatenated_female_names(n INTEGER) RETURNS TEXT ARRAY AS
 $func$
 BEGIN
     RETURN generate_concatenated_names('F', n);
