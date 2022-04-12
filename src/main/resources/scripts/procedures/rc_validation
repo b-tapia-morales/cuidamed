@@ -2,7 +2,7 @@ DROP FUNCTION check_if_RC_is_valid() CASCADE;
 drop trigger rc_validation_trg on residence.routine_checkup;
 /*
 * Estaba probando nomás, probablemente no tenga mucho sentido implementar esto.
-* (faltaría agregar más excepciones, en caso de)
+* (faltaría agregar más excepciones)
 */
 CREATE OR REPLACE FUNCTION check_if_RC_is_valid()
     RETURNS TRIGGER AS

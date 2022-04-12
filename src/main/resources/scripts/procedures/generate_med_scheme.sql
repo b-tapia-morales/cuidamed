@@ -3,7 +3,7 @@
  (asumiendo que '0' significa' incompleto o 'pendiente'), sin la fecha real
  de administración y que se generan en intervalos de 8 horitas.
 
- Para usarlo, escribir call insert_med_scheme(rut del viejujo, medicamento, rut del cuidador);
+ Para usarlo, escribir call insert_med_scheme(rut del tata, medicamento, rut del cuidador);
  */
 CREATE OR REPLACE PROCEDURE insert_med_scheme(patient_rut varchar, med_name varchar,
                                               car_rut varchar)
