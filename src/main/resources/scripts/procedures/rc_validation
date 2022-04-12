@@ -1,0 +1,29 @@
+DROP FUNCTION check_if_RC_is_valid() CASCADE;
+drop trigger rc_validation_trg on residence.routine_checkup;
+/*
+* Estaba probando nomás, probablemente no tenga mucho sentido implementar esto.
+* (faltaría agregar más excepciones, en caso de)
+*/
+CREATE OR REPLACE FUNCTION check_if_RC_is_valid()
+    RETURNS TRIGGER AS
+$$
+BEGIN
+    IF (SELECT exists(SELECT rut from residence.elder where rut = new.rut) IS FALSE) THEN
+        RAISE EXCEPTION 'Person is probably not an elder or has not been added, check again.';
+    end if;
+
+    IF (SELECT is_active from residence.elder where rut = new.rut) IS FALSE THEN
+        RAISE EXCEPTION 'Elderly person is inactive, check again.';
+    ELSE
+        RETURN NEW;
+    END IF;
+
+END
+$$ LANGUAGE plpgsql;
+/**/
+CREATE TRIGGER rc_validation_trg
+    BEFORE INSERT OR UPDATE
+    ON residence.routine_checkup
+    FOR EACH ROW
+EXECUTE FUNCTION check_if_RC_is_valid();
+/**/
