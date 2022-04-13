@@ -46,5 +46,24 @@ BEGIN
 END
 $func$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION generate_rut_arr(n INTEGER, l INTEGER, u INTEGER) RETURNS TEXT ARRAY AS
+$func$
+DECLARE
+    arr TEXT ARRAY;
+BEGIN
+    IF (l < 1 OR u > 99) THEN
+        RAISE EXCEPTION $$Lower and upper boundary values must be greater than % and
+        lesser than % respectively (values given: [%, %])$$, 1, 99, l, u;
+    END IF;
+    FOR i IN 1..n
+        LOOP
+            arr = array_append(arr, generate_rut(l, u));
+        END LOOP;
+    RETURN arr;
+END
+$func$ LANGUAGE plpgsql;
+
 SELECT *
 FROM generate_rut(-1, 23);
+
+SELECT * FROM unnest(generate_rut_arr(100, 10, 16));
