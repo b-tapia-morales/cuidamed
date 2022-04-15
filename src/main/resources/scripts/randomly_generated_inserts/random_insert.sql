@@ -1,18 +1,47 @@
 SET search_path = "residence";
 
+DROP PROCEDURE IF EXISTS batch_insert_people(INTEGER);
 DROP PROCEDURE IF EXISTS batch_insert_people(INTEGER, INTEGER, INTEGER, INTEGER, INTEGER);
 DROP PROCEDURE IF EXISTS batch_insert_elders(INTEGER);
 DROP PROCEDURE IF EXISTS batch_insert_responsibles(INTEGER);
 
-CREATE or replace PROCEDURE batch_insert_people(size INTEGER, starting_digit INTEGER, ending_digit INTEGER,
-                                                starting_timeframe INTEGER, ending_timeframe INTEGER)
-    LANGUAGE plpgsql
-AS
-$$
+CREATE OR REPLACE PROCEDURE batch_insert_people(size INTEGER)
+    LANGUAGE plpgsql AS
+$func$
 DECLARE
-    ruts              TEXT ARRAY DEFAULT generate_rut_arr(size, starting_digit, ending_digit);
+    responsible_mobile_phones INTEGER ARRAY DEFAULT ARRAY(SELECT (floor(random() * (70000000) + 30000000))
+                                                          FROM generate_series(1, size));
+    elder_admission_dates     DATE ARRAY DEFAULT generate_random_date_arr(size, 1, 12);
+    people_rut_arr            TEXT ARRAY;
+    elder_rut_arr             TEXT ARRAY;
+    responsible_rut_arr       TEXT ARRAY;
+BEGIN
+    TRUNCATE residence.elder CASCADE;
+    TRUNCATE residence.responsible CASCADE;
+    TRUNCATE residence.person CASCADE;
+    CALL batch_insert_responsibles(size);
+    CALL batch_insert_elders(size);
+    people_rut_arr = ARRAY(SELECT rut FROM residence.person);
+    responsible_rut_arr = people_rut_arr[:size];
+    elder_rut_arr = people_rut_arr[size + 1:];
+    FOR i in 1..size
+        LOOP
+            INSERT INTO residence.responsible (rut, mobile_phone)
+            VALUES (responsible_rut_arr[i], responsible_mobile_phones[i]);
+            INSERT INTO residence.elder (rut, is_active, admission_date, responsible_rut)
+            VALUES (elder_rut_arr[i], true, elder_admission_dates[i], responsible_rut_arr[i]);
+        END LOOP;
+END;
+$func$;
+
+CREATE OR REPLACE PROCEDURE batch_insert_people(size INTEGER, starting_digit INTEGER, ending_digit INTEGER,
+                                                starting_timeframe INTEGER, ending_timeframe INTEGER)
+    LANGUAGE plpgsql AS
+$func$
+DECLARE
     n                 INTEGER DEFAULT 1 + floor(random() * size)::int;
     m                 INTEGER DEFAULT size - n;
+    ruts              TEXT ARRAY DEFAULT generate_rut_arr(size, starting_digit, ending_digit);
     male_names        TEXT ARRAY DEFAULT generate_male_first_names_arr(n);
     female_names      TEXT ARRAY DEFAULT generate_female_first_names_arr(m);
     last_names        TEXT ARRAY DEFAULT generate_last_names_arr(size);
@@ -22,39 +51,40 @@ BEGIN
     FOR i IN 1..n
         LOOP
             INSERT INTO residence.person (rut, first_names, last_name, second_last_name, birth_date, gender)
-            VALUES (ruts[i], male_names[i], last_names[i], second_last_names[i], birth_dates[i], 1);
+            VALUES (ruts[i], male_names[i], last_names[i], second_last_names[i],
+                    birth_dates[i], 1);
         END LOOP;
     FOR j IN 1..m
         LOOP
             INSERT INTO residence.person (rut, first_names, last_name, second_last_name, birth_date, gender)
-            VALUES (ruts[n + j], female_names[j], last_names[n + j], second_last_names[n + j], birth_dates[n + j], 2);
+            VALUES (ruts[n + j], female_names[j], last_names[n + j], second_last_names[n + j],
+                    birth_dates[n + j], 2);
         END LOOP;
 END;
-$$;
+$func$;
 
-CREATE or replace PROCEDURE batch_insert_elders(n INTEGER)
-    LANGUAGE plpgsql
-AS
-$$
+CREATE OR REPLACE PROCEDURE batch_insert_elders(n INTEGER)
+    LANGUAGE plpgsql AS
+$func$
 BEGIN
     CALL batch_insert_people(n, 3, 6, 70, 90);
 END;
-$$;
+$func$;
 
-CREATE or replace PROCEDURE batch_insert_responsibles(n INTEGER)
-    LANGUAGE plpgsql
-AS
-$$
+CREATE OR REPLACE PROCEDURE batch_insert_responsibles(n INTEGER)
+    LANGUAGE plpgsql AS
+$func$
 BEGIN
     CALL batch_insert_people(n, 10, 15, 30, 50);
 END;
-$$;
+$func$;
 
-DELETE FROM residence.elder;
-DELETE FROM residence.responsible;
-DELETE FROM residence.person;
+CALL batch_insert_people(50);
 
-CALL batch_insert_responsibles(100);
-CALL batch_insert_elders(100);
+SELECT *
+FROM residence.person
+         NATURAL JOIN residence.responsible;
 
-SELECT * FROM residence.person;
+SELECT *
+FROM residence.person
+         NATURAL JOIN residence.elder;
