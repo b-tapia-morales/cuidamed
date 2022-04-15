@@ -5,13 +5,13 @@ DROP PROCEDURE IF EXISTS batch_insert_people(INTEGER, INTEGER, INTEGER, INTEGER,
 DROP PROCEDURE IF EXISTS batch_insert_elders(INTEGER);
 DROP PROCEDURE IF EXISTS batch_insert_responsibles(INTEGER);
 
-CREATE OR REPLACE PROCEDURE batch_insert_people(size INTEGER)
+CREATE OR REPLACE PROCEDURE batch_insert_people(n INTEGER)
     LANGUAGE plpgsql AS
 $func$
 DECLARE
     responsible_mobile_phones INTEGER ARRAY DEFAULT ARRAY(SELECT (floor(random() * (70000000) + 30000000))
-                                                          FROM generate_series(1, size));
-    elder_admission_dates     DATE ARRAY DEFAULT generate_random_date_arr(size, 1, 12);
+                                                          FROM generate_series(1, n));
+    elder_admission_dates     DATE ARRAY DEFAULT generate_random_date_arr(n, 1, 12);
     people_rut_arr            TEXT ARRAY;
     elder_rut_arr             TEXT ARRAY;
     responsible_rut_arr       TEXT ARRAY;
@@ -19,12 +19,12 @@ BEGIN
     TRUNCATE residence.elder CASCADE;
     TRUNCATE residence.responsible CASCADE;
     TRUNCATE residence.person CASCADE;
-    CALL batch_insert_responsibles(size);
-    CALL batch_insert_elders(size);
+    CALL batch_insert_responsibles(n);
+    CALL batch_insert_elders(n);
     people_rut_arr = ARRAY(SELECT rut FROM residence.person);
-    responsible_rut_arr = people_rut_arr[:size];
-    elder_rut_arr = people_rut_arr[size + 1:];
-    FOR i in 1..size
+    responsible_rut_arr = people_rut_arr[:n];
+    elder_rut_arr = people_rut_arr[n + 1:];
+    FOR i in 1..n
         LOOP
             INSERT INTO residence.responsible (rut, mobile_phone)
             VALUES (responsible_rut_arr[i], responsible_mobile_phones[i]);
