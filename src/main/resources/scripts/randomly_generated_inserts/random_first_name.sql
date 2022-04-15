@@ -1,4 +1,13 @@
-CREATE OR REPLACE FUNCTION generate_names(code TEXT)
+
+SET search_path = "residence";
+
+DROP FUNCTION IF EXISTS generate_names_arr(TEXT);
+DROP FUNCTION IF EXISTS generate_first_names_arr(TEXT, INTEGER);
+DROP FUNCTION IF EXISTS generate_male_first_names_arr(INTEGER);
+DROP FUNCTION IF EXISTS generate_female_first_names_arr(INTEGER);
+DROP FUNCTION IF EXISTS concatenate_names(TEXT ARRAY);
+
+CREATE OR REPLACE FUNCTION generate_names_arr(code TEXT)
     RETURNS TEXT ARRAY AS
 $func$
 DECLARE
@@ -42,36 +51,36 @@ BEGIN
 END
 $func$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION generate_concatenated_names(code TEXT, n INTEGER) RETURNS TEXT ARRAY AS
+CREATE OR REPLACE FUNCTION generate_first_names_arr(code TEXT, n INTEGER) RETURNS TEXT ARRAY AS
 $func$
 DECLARE
     names           TEXT ARRAY;
     generated_names TEXT ARRAY;
 BEGIN
-    names = generate_names(code);
+    names = generate_names_arr(code);
     FOR i IN 1..n
         LOOP
-            generated_names = array_append(generated_names, concatenate_name(names));
+            generated_names = array_append(generated_names, concatenate_names(names));
         END LOOP;
     RETURN generated_names;
 END
 $func$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION generate_concatenated_male_names(n INTEGER) RETURNS TEXT ARRAY AS
+CREATE OR REPLACE FUNCTION generate_male_first_names_arr(n INTEGER) RETURNS TEXT ARRAY AS
 $func$
 BEGIN
-    RETURN generate_concatenated_names('M', n);
+    RETURN generate_first_names_arr('M', n);
 END
 $func$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION generate_concatenated_female_names(n INTEGER) RETURNS TEXT ARRAY AS
+CREATE OR REPLACE FUNCTION generate_female_first_names_arr(n INTEGER) RETURNS TEXT ARRAY AS
 $func$
 BEGIN
-    RETURN generate_concatenated_names('F', n);
+    RETURN generate_first_names_arr('F', n);
 END
 $func$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION concatenate_name(names TEXT ARRAY) RETURNS TEXT AS
+CREATE OR REPLACE FUNCTION concatenate_names(names TEXT ARRAY) RETURNS TEXT AS
 $func$
 DECLARE
     names_match BOOLEAN DEFAULT TRUE;
@@ -91,4 +100,5 @@ BEGIN
 END
 $func$ LANGUAGE plpgsql;
 
-SELECT * from unnest(generate_concatenated_male_names(5));
+SELECT *
+from unnest(generate_male_first_names_arr(5));
