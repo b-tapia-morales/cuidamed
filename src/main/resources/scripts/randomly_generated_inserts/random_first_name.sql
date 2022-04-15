@@ -101,4 +101,4 @@ END
 $func$ LANGUAGE plpgsql;
 
 SELECT *
-from unnest(generate_male_first_names_arr(5));
+from unnest(generate_male_first_names_arr(5)) AS first_name;
