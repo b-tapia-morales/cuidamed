@@ -9,35 +9,35 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 public record Medication(String nameMedication, AdministrationRoute administrationRoute,
                          PharmaceuticalForm pharmaceuticalForm, MeasureUnit measureUnit) {
 
-  public static Medication createInstance(String nameMedication, short administrationRoute,
-      short pharmaceuticalForm, short measureUnit) {
-    return new Medication(nameMedication,
-        AdministrationRoute.getValueFromIndex(administrationRoute),
-        PharmaceuticalForm.getValueFromIndex(pharmaceuticalForm),
-        MeasureUnit.getValueFromIndex(measureUnit));
-  }
-
-  public boolean equals(Object object) {
-    if (this == object) {
-      return true;
+    public static Medication createInstance(String nameMedication, short administrationRoute,
+                                            short pharmaceuticalForm, short measureUnit) {
+        return new Medication(nameMedication,
+                AdministrationRoute.getValueFromIndex(administrationRoute),
+                PharmaceuticalForm.getValueFromIndex(pharmaceuticalForm),
+                MeasureUnit.getValueFromIndex(measureUnit));
     }
-    if (object instanceof final Medication medication) {
-      return new EqualsBuilder().
-          append(medication, medication.nameMedication).
-          isEquals();
+
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object instanceof final Medication medication) {
+            return new EqualsBuilder().
+                    append(medication, medication.nameMedication).
+                    isEquals();
+        }
+        return false;
     }
-    return false;
-  }
 
-  @Override
-  public int hashCode() {
-    return new HashCodeBuilder().
-        append(nameMedication).
-        toHashCode();
-  }
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().
+                append(nameMedication).
+                toHashCode();
+    }
 
-  @Override
-  public String toString() {
-    return nameMedication;
-  }
+    @Override
+    public String toString() {
+        return nameMedication;
+    }
 }

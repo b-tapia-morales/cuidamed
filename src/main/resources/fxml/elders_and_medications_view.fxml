@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane prefHeight="540.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bairontapia.projects.cuidamed.mvc.medication.EldersAndMedicationsView">
-  <VBox prefHeight="540.0" prefWidth="824.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-    <HBox prefHeight="57.0" prefWidth="606.0">
-      <Separator prefHeight="57.0" prefWidth="436.0" />
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="460.0" text="Adultos mayores, enfermedades y medicamentos" textAlignment="CENTER" />
-      <Separator prefHeight="57.0" prefWidth="451.0" />
-    </HBox>
-    <TableView fx:id="medicationPrescriptionTableView" prefHeight="420.0" prefWidth="846.0">
-      <columns>
-        <TableColumn fx:id="rutColumn" prefWidth="85.0" text="RUT" />
-        <TableColumn fx:id="fullNameColumn" prefWidth="150.0" text="Nombre completo" />
-        <TableColumn fx:id="nameDiseaseColumn" prefWidth="163.0" text="Nombre de enfermedad" />
-        <TableColumn fx:id="fullMedicationName" prefWidth="132.0" text="Medicamentos" />
-        <TableColumn fx:id="dateStart" minWidth="0.0" prefWidth="101.0" text="Fecha de inicio" />
-        <TableColumn fx:id="dateEnd" prefWidth="147.0" text="Fecha de término" />
-      </columns>
-      <padding>
-        <Insets left="2.0" right="2.0" />
-      </padding>
-    </TableView>
-    <AnchorPane prefHeight="38.0" prefWidth="1003.0">
-      <Button layoutX="225.0" layoutY="4.0" mnemonicParsing="false" onAction="#addedPreciption" prefHeight="34.0" prefWidth="86.0" text="prescripcion" />
-      <Button layoutX="463.0" layoutY="4.0" mnemonicParsing="false" onAction="#addedPrescriptionMedication" prefHeight="34.0" prefWidth="86.0" text="Button" />
-    </AnchorPane>
-  </VBox>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="540.0" prefWidth="780.0"
+            xmlns="http://javafx.com/javafx/11.0.1"
+            fx:controller="com.bairontapia.projects.cuidamed.mvc.medication.EldersAndMedicationsView">
+    <VBox prefHeight="540.0" prefWidth="824.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <HBox prefHeight="57.0" prefWidth="606.0">
+            <Separator prefHeight="57.0" prefWidth="436.0"/>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="57.0" prefWidth="460.0"
+                   text="Adultos mayores, enfermedades y medicamentos" textAlignment="CENTER"/>
+            <Separator prefHeight="57.0" prefWidth="451.0"/>
+        </HBox>
+        <TableView fx:id="medicationPrescriptionTableView" prefHeight="420.0" prefWidth="846.0">
+            <columns>
+                <TableColumn fx:id="rutColumn" prefWidth="85.0" text="RUT"/>
+                <TableColumn fx:id="fullNameColumn" prefWidth="150.0" text="Nombre completo"/>
+                <TableColumn fx:id="nameDiseaseColumn" prefWidth="163.0" text="Nombre de enfermedad"/>
+                <TableColumn fx:id="fullMedicationName" prefWidth="132.0" text="Medicamentos"/>
+                <TableColumn fx:id="dateStart" minWidth="0.0" prefWidth="101.0" text="Fecha de inicio"/>
+                <TableColumn fx:id="dateEnd" prefWidth="147.0" text="Fecha de término"/>
+            </columns>
+            <padding>
+                <Insets left="2.0" right="2.0"/>
+            </padding>
+        </TableView>
+        <AnchorPane prefHeight="38.0" prefWidth="1003.0">
+            <Button layoutX="225.0" layoutY="4.0" mnemonicParsing="false" onAction="#addedPreciption" prefHeight="34.0"
+                    prefWidth="86.0" text="prescripcion"/>
+            <Button layoutX="463.0" layoutY="4.0" mnemonicParsing="false" onAction="#addedPrescriptionMedication"
+                    prefHeight="34.0" prefWidth="86.0" text="Button"/>
+        </AnchorPane>
+    </VBox>
 </AnchorPane>

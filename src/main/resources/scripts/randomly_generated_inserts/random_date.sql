@@ -1,4 +1,3 @@
-
 SET search_path = "residence";
 
 DROP FUNCTION IF EXISTS generate_random_date(INTEGER, INTEGER);
@@ -17,7 +16,7 @@ $func$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION generate_random_date_arr(n INTEGER, starting_timeframe INTEGER, ending_timeframe INTEGER) RETURNS DATE ARRAY AS
 $func$
 DECLARE
-    date_arr      DATE ARRAY;
+    date_arr DATE ARRAY;
 BEGIN
     FOR i IN 1..N
         LOOP

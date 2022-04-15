@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class CuidaMedApplication {
 
-  public static void main(String... args) throws SQLException, IOException {
-    JavaFXApplication.main(args);
-  }
+    public static void main(String... args) throws SQLException, IOException {
+        JavaFXApplication.main(args);
+    }
 }

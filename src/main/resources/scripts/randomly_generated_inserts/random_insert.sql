@@ -18,7 +18,6 @@ DECLARE
 BEGIN
     TRUNCATE residence.elder CASCADE;
     TRUNCATE residence.responsible CASCADE;
-    TRUNCATE residence.person CASCADE;
     CALL batch_insert_responsibles(n);
     CALL batch_insert_elders(n);
     people_rut_arr = ARRAY(SELECT rut FROM residence.person);

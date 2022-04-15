@@ -1,4 +1,3 @@
-
 SET search_path = "residence";
 
 DROP FUNCTION IF EXISTS generate_last_names_arr(INTEGER);

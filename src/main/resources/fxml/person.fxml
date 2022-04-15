@@ -1,54 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
-<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bairontapia.projects.cuidamed.mvc.person.PersonView">
-  <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="710.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-    <BorderPane prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <center>
-        <TableView fx:id="personTableView" onMousePressed="#loadPanel" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-          <columns>
-            <TableColumn fx:id="rutColumn" prefWidth="100.0" text="Rut" />
-            <TableColumn fx:id="fullNameColumn" prefWidth="250.0" text="Nombre completo" />
-            <TableColumn fx:id="birthDateColumn" prefWidth="150.0" text="Fecha de nacimiento" />
-            <TableColumn fx:id="ageColumn" prefWidth="100.0" text="Edad" />
-            <TableColumn fx:id="genderColumn" prefWidth="100.0" text="Sexo" />
-          </columns>
-        </TableView>
-      </center>
-      <top>
-        <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
-          <Label text="Persona" />
-          <ComboBox fx:id="personComboBox" onAction="#onPersonChosen" prefWidth="150.0">
-            <HBox.margin>
-              <Insets right="10.0" />
-            </HBox.margin>
-          </ComboBox>
-          <Label text="Rut" />
-          <TextField fx:id="rutTextField">
-            <HBox.margin>
-              <Insets right="10.0" />
-            </HBox.margin>
-          </TextField>
-        </HBox>
-      </top>
-         <bottom>
-           <HBox alignment="CENTER" prefHeight="45.0" spacing="25.0" BorderPane.alignment="CENTER">
-             <Button fx:id="addElderButton" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#onElderButtonClicked" text="Ingresar adulto mayor">
-               <font>
-                 <Font name="System Bold" size="12.0" />
-               </font>
-             </Button>
-             <Button fx:id="addCarerButton" mnemonicParsing="false" onAction="#onCarerButtonClicked" text="Ingresar cuidador">
-               <font>
-                 <Font name="System Bold" size="12.0" />
-               </font>
-             </Button>
-           </HBox>
-         </bottom>
-    </BorderPane>
-  </AnchorPane>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="635.0" prefWidth="720.0"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.bairontapia.projects.cuidamed.mvc.person.PersonView">
+    <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="710.0"
+                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                AnchorPane.topAnchor="0.0">
+        <BorderPane prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <center>
+                <TableView fx:id="personTableView" onMousePressed="#loadPanel" prefHeight="200.0" prefWidth="200.0"
+                           BorderPane.alignment="CENTER">
+                    <columns>
+                        <TableColumn fx:id="rutColumn" prefWidth="100.0" text="Rut"/>
+                        <TableColumn fx:id="fullNameColumn" prefWidth="250.0" text="Nombre completo"/>
+                        <TableColumn fx:id="birthDateColumn" prefWidth="150.0" text="Fecha de nacimiento"/>
+                        <TableColumn fx:id="ageColumn" prefWidth="100.0" text="Edad"/>
+                        <TableColumn fx:id="genderColumn" prefWidth="100.0" text="Sexo"/>
+                    </columns>
+                </TableView>
+            </center>
+            <top>
+                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="10.0"
+                      BorderPane.alignment="CENTER">
+                    <Label text="Persona"/>
+                    <ComboBox fx:id="personComboBox" onAction="#onPersonChosen" prefWidth="150.0">
+                        <HBox.margin>
+                            <Insets right="10.0"/>
+                        </HBox.margin>
+                    </ComboBox>
+                    <Label text="Rut"/>
+                    <TextField fx:id="rutTextField">
+                        <HBox.margin>
+                            <Insets right="10.0"/>
+                        </HBox.margin>
+                    </TextField>
+                </HBox>
+            </top>
+            <bottom>
+                <HBox alignment="CENTER" prefHeight="45.0" spacing="25.0" BorderPane.alignment="CENTER">
+                    <Button fx:id="addElderButton" alignment="CENTER" mnemonicParsing="false"
+                            onMouseClicked="#onElderButtonClicked" text="Ingresar adulto mayor">
+                        <font>
+                            <Font name="System Bold" size="12.0"/>
+                        </font>
+                    </Button>
+                    <Button fx:id="addCarerButton" mnemonicParsing="false" onAction="#onCarerButtonClicked"
+                            text="Ingresar cuidador">
+                        <font>
+                            <Font name="System Bold" size="12.0"/>
+                        </font>
+                    </Button>
+                </HBox>
+            </bottom>
+        </BorderPane>
+    </AnchorPane>
 </AnchorPane>

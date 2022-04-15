@@ -1,4 +1,3 @@
-
 SET search_path = "residence";
 
 DROP FUNCTION IF EXISTS generate_rut(INTEGER, INTEGER);
@@ -69,4 +68,5 @@ BEGIN
 END
 $func$ LANGUAGE plpgsql;
 
-SELECT * FROM unnest(generate_rut_arr(100, 10, 16)) AS rut;
+SELECT *
+FROM unnest(generate_rut_arr(100, 10, 16)) AS rut;

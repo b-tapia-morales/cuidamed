@@ -7,41 +7,41 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public record Allergy(String rut, AllergyType type, String details) {
 
-  public static Allergy createInstance(String rut, short allergyTypeCode, String details) {
-    return new Allergy(rut, AllergyType.getValueFromIndex(allergyTypeCode), details);
-  }
-
-  @Override
-  public boolean equals(final Object object) {
-    if (this == object) {
-      return true;
+    public static Allergy createInstance(String rut, short allergyTypeCode, String details) {
+        return new Allergy(rut, AllergyType.getValueFromIndex(allergyTypeCode), details);
     }
-    if (object instanceof final Allergy allergy) {
-      return new EqualsBuilder()
-          .append(rut, allergy.rut)
-          .append(details, allergy.details)
-          .isEquals();
+
+    @Override
+    public boolean equals(final Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object instanceof final Allergy allergy) {
+            return new EqualsBuilder()
+                    .append(rut, allergy.rut)
+                    .append(details, allergy.details)
+                    .isEquals();
+        }
+        return false;
     }
-    return false;
-  }
 
-  @Override
-  public int hashCode() {
-    return new HashCodeBuilder()
-        .append(rut)
-        .append(details)
-        .toHashCode();
-  }
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+                .append(rut)
+                .append(details)
+                .toHashCode();
+    }
 
-  @Override
-  public String toString() {
-    return String.format
-        ("""
-                Rut:\t\t\t\t\t\t\t\t\t%s
-                Tipo de alergia:\t\t\t%s
-                Nombre de la alergia:\t%s
-                """, RutUtils.format(rut),
-            type, details);
-  }
+    @Override
+    public String toString() {
+        return String.format
+                ("""
+                                Rut:\t\t\t\t\t\t\t\t\t%s
+                                Tipo de alergia:\t\t\t%s
+                                Nombre de la alergia:\t%s
+                                """, RutUtils.format(rut),
+                        type, details);
+    }
 }
 
