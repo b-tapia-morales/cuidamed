@@ -7,5 +7,5 @@ WHERE datname = 'cuidamed';
 DROP DATABASE cuidamed;
 
 CREATE DATABASE cuidamed;
-CREATE USER cuidamed_dev WITH ENCRYPTED PASSWORD 'MVmYneLqe91$';
+CREATE USER cuidamed_dev WITH LOGIN SUPERUSER ENCRYPTED PASSWORD 'MVmYneLqe91$';
 GRANT ALL PRIVILEGES ON DATABASE cuidamed TO cuidamed_dev;

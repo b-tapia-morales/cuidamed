@@ -1,20 +1,89 @@
+SET search_path = "residence";
 
---Nombres masculinos
-/*
-'Agustín', 'Benjamín', 'Vicente', 'Martín', 'Matías', 'Joaquín', 'Tomás', 'Maximiliano', 'Mateo',
-'Cristóbal', 'Alonso', 'Sebastián', 'José', 'Felipe', 'Diego', 'Lucas', 'Nicolás', 'Máximo', 'Juan',
-'Bastián', 'Gaspar', 'Gabriel', 'Renato', 'Santiago', 'Emilio', 'Ignacio', 'Francisco', 'Javier',
-'Damián', 'Bruno', 'Simón', 'Daniel', 'Luis', 'Facundo', 'Franco', 'Ángel', 'Luciano', 'Julián',
-'Pedro', 'Pablo', 'Amaro', 'Fernando', 'Carlos', 'Cristián', 'Thomas', 'Esteban', 'Ian', 'David',
-'Alexander', 'León', 'Dante', 'Rafael', 'Jorge', 'Gustavo', 'Emiliano', 'Dylan', 'Rodrigo',
-'Víctor', 'Manuel', 'Camilo', 'Alejandro', 'Miguel', 'Elías', 'Álvaro', 'Eduardo', 'Leonardo',
-'Fabián', 'Andrés', 'Valentín', 'Gonzalo', 'Cristopher', 'Kevin', 'Isaac', 'Alexis', 'Samuel',
-'Aaron', 'Clemente', 'Jean', 'Ricardo', 'Alan', 'Héctor', 'Sergio', 'Óscar', 'Claudio', 'Demian',
-'Patricio', 'Iván', 'Guillermo', 'Mathías', 'Marcelo', 'Mauricio', 'Josué', 'Jesús', 'Lukas',
-'Isaías', 'César', 'Axel', 'Alfonso', 'Alex', 'Baltazar'
- */
+DROP PROCEDURE IF EXISTS batch_insert_people(INTEGER);
+DROP PROCEDURE IF EXISTS batch_insert_people(INTEGER, INTEGER, INTEGER, INTEGER, INTEGER);
+DROP PROCEDURE IF EXISTS batch_insert_elders(INTEGER);
+DROP PROCEDURE IF EXISTS batch_insert_responsibles(INTEGER);
 
---Nombres femeninos
-/*
-'Sofía', 'Emilia', 'Florencia', 'Antonella', 'Martina', 'Isidora', 'Maite', 'Josefa', 'Amanda', 'Agustina', 'Catalina', 'Antonia', 'Trinidad', 'Fernanda', 'María', 'Valentina', 'Javiera', 'Isabella', 'Ignacia', 'Constanza', 'Julieta', 'Francisca', 'Emily', 'Renata', 'Mia', 'Camila', 'Victoria', 'Matilda', 'Rafaela', 'Belén', 'Pascal', 'Monserrat', 'Laura', 'Magdalena', 'Paz', 'Anaís', 'Josefina', 'Pía', 'Violeta', 'Matilde', 'Dominique', 'Colomba', 'Rocío', 'Amalia', 'Leonor', 'Daniela', 'Pascale', 'Emma', 'Amparo', 'Samantha', 'Gabriela', 'Ámbar', 'Rafaella', 'Amelia', 'Mayra', 'Sophia', 'Génesis', 'Ema', 'Alondra', 'Mariana', 'Dominga', 'Mayte', 'Michelle', 'Rayén', 'Danae', 'Elena', 'Lucía', 'Millaray', 'Paula', 'Elizabeth', 'Anahís', 'Carolina', 'Elisa', 'Amy', 'Bárbara', 'Isabel', 'Ashley', 'Thiare', 'Noemí', 'Aylin', 'Luciana', 'Krishna', 'Ángela', 'Esperanza', 'Sara', 'Carla', 'Noelia', 'Kiara', 'Katalina', 'Celeste', 'Montserrat', 'Denisse', 'Dafne', 'Abigail', 'Antonela', 'Olivia', 'Maura', 'Alejandra', 'Alexandra', 'Consuelo
- */
+CREATE OR REPLACE PROCEDURE batch_insert_people(n INTEGER)
+    LANGUAGE plpgsql AS
+$func$
+DECLARE
+    responsible_mobile_phones INTEGER ARRAY DEFAULT ARRAY(SELECT (floor(random() * (70000000) + 30000000))
+                                                          FROM generate_series(1, n));
+    elder_admission_dates     DATE ARRAY DEFAULT generate_random_date_arr(n, 1, 12);
+    people_rut_arr            TEXT ARRAY;
+    elder_rut_arr             TEXT ARRAY;
+    responsible_rut_arr       TEXT ARRAY;
+BEGIN
+    TRUNCATE residence.elder CASCADE;
+    TRUNCATE residence.responsible CASCADE;
+    CALL batch_insert_responsibles(n);
+    CALL batch_insert_elders(n);
+    people_rut_arr = ARRAY(SELECT rut FROM residence.person);
+    responsible_rut_arr = people_rut_arr[:n];
+    elder_rut_arr = people_rut_arr[n + 1:];
+    FOR i in 1..n
+        LOOP
+            INSERT INTO residence.responsible (rut, mobile_phone)
+            VALUES (responsible_rut_arr[i], responsible_mobile_phones[i]);
+            INSERT INTO residence.elder (rut, is_active, admission_date, responsible_rut)
+            VALUES (elder_rut_arr[i], true, elder_admission_dates[i], responsible_rut_arr[i]);
+        END LOOP;
+END;
+$func$;
+
+CREATE OR REPLACE PROCEDURE batch_insert_people(size INTEGER, starting_digit INTEGER, ending_digit INTEGER,
+                                                starting_timeframe INTEGER, ending_timeframe INTEGER)
+    LANGUAGE plpgsql AS
+$func$
+DECLARE
+    n                 INTEGER DEFAULT 1 + floor(random() * size)::int;
+    m                 INTEGER DEFAULT size - n;
+    ruts              TEXT ARRAY DEFAULT generate_rut_arr(size, starting_digit, ending_digit);
+    male_names        TEXT ARRAY DEFAULT generate_male_first_names_arr(n);
+    female_names      TEXT ARRAY DEFAULT generate_female_first_names_arr(m);
+    last_names        TEXT ARRAY DEFAULT generate_last_names_arr(size);
+    second_last_names TEXT ARRAY DEFAULT generate_last_names_arr(size);
+    birth_dates       DATE ARRAY DEFAULT generate_random_date_arr(size, starting_timeframe, ending_timeframe);
+BEGIN
+    FOR i IN 1..n
+        LOOP
+            INSERT INTO residence.person (rut, first_names, last_name, second_last_name, birth_date, gender)
+            VALUES (ruts[i], male_names[i], last_names[i], second_last_names[i],
+                    birth_dates[i], 1);
+        END LOOP;
+    FOR j IN 1..m
+        LOOP
+            INSERT INTO residence.person (rut, first_names, last_name, second_last_name, birth_date, gender)
+            VALUES (ruts[n + j], female_names[j], last_names[n + j], second_last_names[n + j],
+                    birth_dates[n + j], 2);
+        END LOOP;
+END;
+$func$;
+
+CREATE OR REPLACE PROCEDURE batch_insert_elders(n INTEGER)
+    LANGUAGE plpgsql AS
+$func$
+BEGIN
+    CALL batch_insert_people(n, 3, 6, 70, 90);
+END;
+$func$;
+
+CREATE OR REPLACE PROCEDURE batch_insert_responsibles(n INTEGER)
+    LANGUAGE plpgsql AS
+$func$
+BEGIN
+    CALL batch_insert_people(n, 10, 15, 30, 50);
+END;
+$func$;
+
+CALL batch_insert_people(50);
+
+SELECT *
+FROM residence.person
+         NATURAL JOIN residence.responsible;
+
+SELECT *
+FROM residence.person
+         NATURAL JOIN residence.elder;

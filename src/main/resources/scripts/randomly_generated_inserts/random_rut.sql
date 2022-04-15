@@ -1,5 +1,10 @@
-CREATE OR REPLACE FUNCTION generate_rut(l INTEGER, u INTEGER)
-    RETURNS TEXT AS
+SET search_path = "residence";
+
+DROP FUNCTION IF EXISTS generate_rut(INTEGER, INTEGER);
+DROP FUNCTION IF EXISTS generate_last_digit(TEXT);
+DROP FUNCTION IF EXISTS generate_rut_arr(INTEGER, INTEGER, INTEGER);
+
+CREATE OR REPLACE FUNCTION generate_rut(l INTEGER, u INTEGER) RETURNS TEXT AS
 $func$
 DECLARE
     rut        TEXT;
@@ -64,6 +69,4 @@ END
 $func$ LANGUAGE plpgsql;
 
 SELECT *
-FROM generate_rut(-1, 23);
-
-SELECT * FROM unnest(generate_rut_arr(100, 10, 16));
+FROM unnest(generate_rut_arr(100, 10, 16)) AS rut;
