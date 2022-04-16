@@ -33,12 +33,20 @@ DECLARE
     n               INTEGER DEFAULT (select count(*)
                                      from residence.medical_record);
     height          real;
-    weight          real;
+    new_bmi         real;
+    elder_gender    smallint;
 BEGIN
     FOR i in 1..n
         LOOP
-            height = (random() * (2 - 1.34) + 1.34);
-            weight = (random() * (100 - 49) + 49);
+            elder_gender =
+                    (SELECT person.gender from residence.person where person.rut = elder_ruts[i]);
+            CASE
+                WHEN elder_gender = 1 THEN height = (random() * (1.75 - 1.55) + 1.55);
+                WHEN elder_gender = 2 THEN height = (random() * (1.65 - 1.45) + 1.45);
+                ELSE
+                    height = (random() * (1.8 - 1.4) + 1.4);
+                END CASE;
+            new_bmi = (random() * (34.99 - 16) + 16);
             INSERT INTO residence.routine_checkup(rut, checkup_date, height, weight, bmi,
                                                   heart_rate,
                                                   diastolic_pressure, systolic_pressure,
@@ -46,8 +54,8 @@ BEGIN
             SELECT elder_ruts[i],
                    fecha,
                    height,
-                   weight - (random() * (0.5 - (-0.5)) + (-0.5)),
-                   (weight / (pow(height, 2))),
+                   pow(height, 2) * new_bmi,
+                   new_bmi,
                    (round(random() * (100 - 60) + 60)),
                    random() * (100 - 70) + 70,
                    random() * (150 - 110) + 110,
@@ -60,7 +68,8 @@ end;
 $$;
 
 CALL generate_medical_records();
-
+select *
+from residence.routine_checkup;
 SELECT *
 FROM residence.person
          NATURAL JOIN residence.elder
