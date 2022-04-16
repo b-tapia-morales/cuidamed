@@ -11,23 +11,22 @@ $func$
 DECLARE
     responsible_mobile_phones INTEGER ARRAY DEFAULT ARRAY(SELECT (floor(random() * (70000000) + 30000000))
                                                           FROM generate_series(1, n));
-    elder_admission_dates     DATE ARRAY DEFAULT generate_random_date_arr(n, 1, 12);
+    elder_admission_dates     DATE ARRAY DEFAULT generate_random_date_arr(n, 1, 20);
     people_rut_arr            TEXT ARRAY;
     elder_rut_arr             TEXT ARRAY;
     responsible_rut_arr       TEXT ARRAY;
 BEGIN
-    TRUNCATE residence.elder CASCADE;
-    TRUNCATE residence.responsible CASCADE;
+    TRUNCATE person CASCADE;
     CALL batch_insert_responsibles(n);
     CALL batch_insert_elders(n);
-    people_rut_arr = ARRAY(SELECT rut FROM residence.person);
+    people_rut_arr = ARRAY(SELECT rut FROM person);
     responsible_rut_arr = people_rut_arr[:n];
     elder_rut_arr = people_rut_arr[n + 1:];
     FOR i in 1..n
         LOOP
-            INSERT INTO residence.responsible (rut, mobile_phone)
+            INSERT INTO responsible (rut, mobile_phone)
             VALUES (responsible_rut_arr[i], responsible_mobile_phones[i]);
-            INSERT INTO residence.elder (rut, is_active, admission_date, responsible_rut)
+            INSERT INTO elder (rut, is_active, admission_date, responsible_rut)
             VALUES (elder_rut_arr[i], true, elder_admission_dates[i], responsible_rut_arr[i]);
         END LOOP;
 END;
@@ -49,13 +48,13 @@ DECLARE
 BEGIN
     FOR i IN 1..n
         LOOP
-            INSERT INTO residence.person (rut, first_names, last_name, second_last_name, birth_date, gender)
+            INSERT INTO person (rut, first_names, last_name, second_last_name, birth_date, gender)
             VALUES (ruts[i], male_names[i], last_names[i], second_last_names[i],
                     birth_dates[i], 1);
         END LOOP;
     FOR j IN 1..m
         LOOP
-            INSERT INTO residence.person (rut, first_names, last_name, second_last_name, birth_date, gender)
+            INSERT INTO person (rut, first_names, last_name, second_last_name, birth_date, gender)
             VALUES (ruts[n + j], female_names[j], last_names[n + j], second_last_names[n + j],
                     birth_dates[n + j], 2);
         END LOOP;
@@ -81,9 +80,9 @@ $func$;
 CALL batch_insert_people(50);
 
 SELECT *
-FROM residence.person
-         NATURAL JOIN residence.responsible;
+FROM person
+         NATURAL JOIN responsible;
 
 SELECT *
-FROM residence.person
-         NATURAL JOIN residence.elder;
+FROM person
+         NATURAL JOIN elder;
