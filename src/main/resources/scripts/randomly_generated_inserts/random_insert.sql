@@ -37,7 +37,7 @@ CREATE OR REPLACE PROCEDURE batch_insert_people(size INTEGER, starting_digit INT
     LANGUAGE plpgsql AS
 $func$
 DECLARE
-    n                 INTEGER DEFAULT 1 + floor(random() * size)::int;
+    n                 INTEGER DEFAULT ((random() * 0.30 + 0.35) * size)::int;
     m                 INTEGER DEFAULT size - n;
     ruts              TEXT ARRAY DEFAULT generate_rut_arr(size, starting_digit, ending_digit);
     male_names        TEXT ARRAY DEFAULT generate_male_first_names_arr(n);
