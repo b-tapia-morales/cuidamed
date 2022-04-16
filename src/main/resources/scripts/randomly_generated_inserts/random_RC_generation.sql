@@ -1,23 +1,24 @@
+SET search_path = "residence";
+
+DROP PROCEDURE IF EXISTS generate_medical_records();
 
 /* Hay que crear fichas médicas para todos los viejujos o no se podrán crear chequeos rutinarios en
    cada uno
  */
 CREATE or replace PROCEDURE generate_medical_records()
-    LANGUAGE plpgsql
-AS
+    LANGUAGE plpgsql AS
 $$
 DECLARE
-    ruts varchar array default array(select elder.rut
-                                     from residence.elder);
-    n    INTEGER DEFAULT (select count(*)
-                          from residence.elder);
+    ruts TEXT ARRAY DEFAULT ARRAY(SELECT rut
+                                  FROM residence.elder);
+    n    INTEGER DEFAULT cardinality(ruts);
 BEGIN
     FOR i in 1..n
         LOOP
             INSERT INTO residence.medical_record
-            VALUES (ruts[i], (round(random() * (9 - 0) + 0)), (round(random() * (3 - 0) + 0)));
-        end loop;
-end;
+            VALUES (ruts[i], floor(random() * 8 + 1)::int, floor(random() * 2 + 1)::int);
+        END LOOP;
+END;
 $$;
 
 CREATE or replace PROCEDURE generate_random_RCs()
@@ -58,11 +59,18 @@ BEGIN
 end;
 $$;
 
-call generate_medical_records();
+CALL generate_medical_records();
+
+SELECT *
+FROM residence.person
+         NATURAL JOIN residence.elder
+         NATURAL JOIN residence.medical_record;
+
 --DELETE
 --FROM residence.routine_checkup;
 call generate_random_RCs();
+explain analyse
 select *
-from routine_checkup;
-explain analyse select *
-from routine_checkup where checkup_date < '2016-01-01' and checkup_date < '2015-01-02';
+from routine_checkup
+where checkup_date < '2016-01-01'
+  and checkup_date < '2015-01-02';
