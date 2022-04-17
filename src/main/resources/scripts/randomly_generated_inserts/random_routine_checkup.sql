@@ -82,5 +82,5 @@ LIMIT 200;
 EXPLAIN ANALYZE
 SELECT *
 FROM routine_checkup
-WHERE checkup_date < '2016-01-01'
-  AND checkup_date < '2015-01-02';
+WHERE checkup_date > '2015-01-01'
+  AND checkup_date < '2016-01-01';
