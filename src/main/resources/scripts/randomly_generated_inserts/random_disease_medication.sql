@@ -17,7 +17,7 @@ DECLARE
         'Levodopa',
         'Alteplasa',
         'Riluzol',
-        'Suplementos de calcio y vitamina D',
+        'Suplementos de Calcio y Vitamina D',
         'Tolbutamida',
         'Acebutolol',
         'Atenolol',
@@ -26,7 +26,7 @@ DECLARE
         'Pregabalina',
         'Suplementos Vitamínicos',
         'Lubiprostona',
-        'Pepto-bismol',
+        'Pepto Bismol',
         'Kaopectate',
         'Codeína',
         'Morfina',
@@ -43,23 +43,22 @@ DECLARE
         'Prednisolona',
         'Carbon Activado',
         'Acetilcisteína',
-        'Atropina',
-        'Cloruro de metiltioninio',
+        'Cloruro de Metiltioninio',
         'Atropina',
         'Deferoxamina',
         'Dimercaprol',
-        'DL-metionina',
-        'Edetato de calcio y sodio',
+        'Dl Metionina',
+        'Edetato de Calcio y Sodio',
         'Gluconato de Calcio',
         'Naloxona',
-        'Nitrito de sodio',
-        'Tiosulfato de sodio',
-        'Ácido valproico',
+        'Nitrito de Sodio',
+        'Tiosulfato de Sodio',
+        'Ácido Valproico',
         'Carbamazepina',
         'Diazepam',
         'Fenitoina',
         'Fenobarbital',
-        'Sulfato de magnesio',
+        'Sulfato de Magnesio',
         'Albendazol',
         'Levamisol',
         'Mebendazol',
@@ -110,9 +109,10 @@ DECLARE
         'Aciclovir'];
     n                INTEGER DEFAULT cardinality(medication_names);
 BEGIN
+    TRUNCATE medication CASCADE;
     FOR i in 1..n
         LOOP
-            INSERT INTO residence.medication
+            INSERT INTO medication
             VALUES (medication_names[i], floor(random() * 2 + 1)::smallint, floor(random() * 4 + 1)::smallint,
                     floor(random() * 2 + 1)::smallint);
         END LOOP;
@@ -172,7 +172,6 @@ DECLARE
         'Escarlatina',
         'Estreptococo B',
         'Gonorrhea',
-        'Hemofilia',
         'Herpes Genital',
         'Meningitis',
         'Paperas',
@@ -226,11 +225,12 @@ DECLARE
         'Sarna'
         ];
     n             INTEGER DEFAULT cardinality(names_disease);
-    chronic    BOOLEAN ARRAY DEFAULT ARRAY [TRUE, FALSE];
+    chronic       BOOLEAN ARRAY DEFAULT ARRAY [TRUE, FALSE];
 BEGIN
+    TRUNCATE disease CASCADE;
     FOR i in 1..n
         LOOP
-            INSERT INTO residence.disease
+            INSERT INTO disease
             VALUES (names_disease[i], floor(random() * 14 + 1)::smallint, chronic[floor(random() * 2 + 1)::int]);
         END LOOP;
 END;
