@@ -7,13 +7,14 @@ CREATE OR REPLACE PROCEDURE insert_random_medication()
     LANGUAGE plpgsql AS
 $$
 DECLARE
-    names_medication TEXT ARRAY DEFAULT ARRAY ['paracetamol',
+    medication_names TEXT ARRAY DEFAULT ARRAY [
+        'Paracetamol',
         'Ibuprofeno',
-        'Galtatamina',
+        'Galantamina',
         'Azitromicina',
         'Demerol',
-        'Donopezilo',
-        'Levadopa',
+        'Donepezilo',
+        'Levodopa',
         'Alteplasa',
         'Riluzol',
         'Suplementos de calcio y vitamina D',
@@ -23,29 +24,29 @@ DECLARE
         'Nitroglicerina',
         'Duloxetina',
         'Pregabalina',
-        'Suplementos Vitaminicos',
-        'Lubiprotona',
+        'Suplementos Vitamínicos',
+        'Lubiprostona',
         'Pepto-bismol',
         'Kaopectate',
-        'Codeina',
+        'Codeína',
         'Morfina',
         'Alopurinol',
         'Cloroquina',
-        'Azatioprima',
+        'Azatioprina',
         'Metotrexato',
         'Penicilamina',
-        'Sulfasolazina',
+        'Sulfasalazina',
         'Clorfenamina',
         'Dexametasona',
         'Epinefrina',
         'Hidrocortisona',
         'Prednisolona',
         'Carbon Activado',
-        'acetilcisteina',
-        'atropina',
+        'Acetilcisteína',
+        'Atropina',
         'Cloruro de metiltioninio',
         'Atropina',
-        'Deforaxamina',
+        'Deferoxamina',
         'Dimercaprol',
         'DL-metionina',
         'Edetato de calcio y sodio',
@@ -53,7 +54,7 @@ DECLARE
         'Naloxona',
         'Nitrito de sodio',
         'Tiosulfato de sodio',
-        'Acido valproico',
+        'Ácido valproico',
         'Carbamazepina',
         'Diazepam',
         'Fenitoina',
@@ -66,72 +67,71 @@ DECLARE
         'Pirantel',
         'Prazicuantel',
         'Ivermectina',
-        'Aldiman',
-        'Triclavendazol',
+        'Aldinam',
+        'Triciabendazol',
         'Amoxicilina',
         'Ampicilina',
         'Bencilpenicilina',
         'Cefazolina',
         'Cefixima',
         'Cloxacilina',
-        'Fenoximelpenicilina',
+        'Fenoximetilpenicilina',
         'Ciprofloxacino',
         'Cloranfenicol',
         'Doxiciclina',
-        'Eritomicina',
+        'Eritromicina',
         'Espectinomicina',
         'Gentamicina',
         'Metronidazol',
         'Nitrofurantoína',
         'Sulfametoxazol',
-        'Trimetoprim',
+        'Trimetoprima',
         'Clofazimina',
         'Dapsona',
         'Rifampicina',
-        'Estreptomocina',
+        'Estreptomicina',
         'Etambutol',
         'Isoniazida',
         'Pirazinamida',
-        'Anaframil',
+        'Anafranil',
         'Amikacina',
-        'Capreonicina',
+        'Capreomicina',
         'Cicloserina',
         'Etionamida',
         'Kanamicina',
         'Ofloxacino',
-        'CLotrimazol',
+        'Clotrimazol',
         'Fluconazol',
-        'Grisofulvina',
+        'Griseofulvina',
         'Nistatina',
-        'Amforeticina',
+        'Anfotericina',
         'Flucitosina',
         'Ioduro de Potasio',
         'Aciclovir'];
-    n                INTEGER DEFAULT cardinality(names_medication);
+    n                INTEGER DEFAULT cardinality(medication_names);
 BEGIN
     FOR i in 1..n
         LOOP
-            INSERT INTO medication
-            VALUES (names_medication[i], floor(random() * 2 + 1)::int, floor(random() * 4 + 1)::int,
-                    floor(random() * 2 + 1)::int);
-        end loop;
+            INSERT INTO residence.medication
+            VALUES (medication_names[i], floor(random() * 2 + 1)::smallint, floor(random() * 4 + 1)::smallint,
+                    floor(random() * 2 + 1)::smallint);
+        END LOOP;
 END;
 $$;
 
-
-
 CREATE OR REPLACE PROCEDURE insert_random_disease()
-    language plpgsql as
+    LANGUAGE plpgsql AS
 $$
 DECLARE
-    names_disease TEXT ARRAY DEFAULT ARRAY ['bupivacaína',
+    names_disease TEXT ARRAY DEFAULT ARRAY [
+        'Bupivacaína',
         'Artritis',
         'Alzheimer',
         'Neumonia',
         'Artrosis',
-        'Demencia senil',
+        'Demencia Senil',
         'Parkinson',
-        'ELA',
+        'Ela',
         'Osteoporosis',
         'Ictus',
         'Diabetes',
@@ -140,73 +140,73 @@ DECLARE
         'Fibromialgia',
         'Anemia',
         'Estreñimiento',
-        'Nauseas y vomitos',
-        'Bronquitis aguda',
-        'Resfriado comun',
-        'infeccion de oido',
-        'influenza',
+        'Nauseas y Vómitos',
+        'Bronquitis Aguda',
+        'Resfriado Común',
+        'Infección de Oído',
+        'Influenza',
         'Sinusitis',
-        'Infecciones de la piel',
+        'Infecciones de la Piel',
         'Dolor de Garganta',
-        'Infeccion Urinaria',
+        'Infección Urinaria',
         'Boletines DDR',
         'Diarrea',
-        'insuficencia renal Cronica',
-        'SIDA',
+        'Insuficiencia Renal Crónica',
+        'Sida',
         'Epilepsia',
-        'Hermofilia',
-        'Fibrosis quistica',
-        'Esclerosis Multiple',
+        'Hemofilia',
+        'Fibrosis Quística',
+        'Esclerosis Múltiple',
         'Hepatitis B',
         'Hepatitis C',
         'Hipotiroidismo',
         'Lupus',
-        'Helicibacter pylori',
-        'Antrax',
+        'Helicobacter Pylori',
+        'Ántrax',
         'Asma',
         'Autismo',
         'Clamidia',
         'Culebrilla',
-        'Deficit de atencion',
+        'Déficit de Atención',
         'Ebola',
         'Escarlatina',
         'Estreptococo B',
         'Gonorrhea',
         'Hemofilia',
-        'Herpes genital',
+        'Herpes Genital',
         'Meningitis',
         'Paperas',
         'Poliomielitis',
         'Rabia',
         'Rotavirus',
-        'Shigella',
-        'Sifilis',
+        'Shigelosis',
+        'Sífilis',
         'Silicosis',
-        'Sindrome alcohólico fetal',
-        'Sindrome fatiga cronica',
-        'Sindrome de tourette',
-        'TACO',
-        'Tosgeria',
-        'Tricomosiasis',
+        'Síndrome Alcohólico Fetal',
+        'Síndrome Fatiga Crónica',
+        'Síndrome de Tourette',
+        'Taco',
+        'Tosferina',
+        'Tricomoniasis',
         'Tuberculosis',
-        'Vaginosis bacteriana',
+        'Vaginosis Bacteriana',
         'Zika',
         'Arritmia',
         'Ampollas',
-        'Infeccion Rectal',
+        'Infección Rectal',
         'Apendicitis',
-        'Dismenorra',
+        'Dismenorrea',
         'Díspepsia',
         'Distonia',
         'Esclerodermia',
-        'EPOC',
+        'Epoc',
         'Escleritis',
-        'Fiebre de lassa',
+        'Fiebre de Lassa',
         'Galactorrea',
         'Gastroenteritis',
         'Hirsutismo',
         'Insomnio',
-        'Intolerancia a la histamina',
+        'Intolerancia a la Histamina',
         'Ladillas',
         'Laringitis',
         'Lepra',
@@ -220,29 +220,32 @@ DECLARE
         'Priapismo',
         'Pian',
         'Pancreatitis',
-        'Reflujo gastroesofagico',
-        'Sarampion',
+        'Reflujo Gastroesofágico',
+        'Sarampión',
         'Sarcoidosis',
-        'Sarna'];
+        'Sarna'
+        ];
     n             INTEGER DEFAULT cardinality(names_disease);
-    condicional   BOOLEAN ARRAY DEFAULT ARRAY ['t','f'];
-Begin
+    chronic    BOOLEAN ARRAY DEFAULT ARRAY [TRUE, FALSE];
+BEGIN
     FOR i in 1..n
         LOOP
-            INSERT INTO disease
-            VALUES (names_disease[i], floor(random() * 14 + 1)::int, condicional[floor(random() * 2 + 1)::int]);
-        end loop;
-end;
-
+            INSERT INTO residence.disease
+            VALUES (names_disease[i], floor(random() * 14 + 1)::smallint, chronic[floor(random() * 2 + 1)::int]);
+        END LOOP;
+END;
 $$;
 
-CALL insert_random_medication();
-SELECT *
-from medication;
-
 CALL insert_random_disease();
+
 SELECT *
-from disease;
+FROM disease;
+
+CALL insert_random_medication();
+
+SELECT *
+FROM medication;
+
 
 
 
