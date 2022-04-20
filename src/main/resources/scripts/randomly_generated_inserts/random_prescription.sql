@@ -21,12 +21,13 @@ BEGIN
             FOR j in 1..m
                 LOOP
                     k = floor(random() * cardinality(diseases) + 1);
-                    RAISE NOTICE '%', diseases[k];
                     random_date = current_date + random() * make_interval(months => 1);
                     INSERT INTO sick_elderly (rut, disease_name, diagnosis_date)
-                    VALUES (ruts[i], diseases[k], random_date);
+                    VALUES (ruts[i], diseases[k], random_date)
+                    ON CONFLICT DO NOTHING;
                     INSERT INTO prescription (rut, disease_name, prescription_date, description)
-                    VALUES (ruts[i], diseases[k], random_date, '');
+                    VALUES (ruts[i], diseases[k], random_date, '')
+                    ON CONFLICT DO NOTHING;
                 END LOOP;
         END LOOP;
 END;
