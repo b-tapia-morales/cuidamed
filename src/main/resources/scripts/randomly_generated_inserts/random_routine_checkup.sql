@@ -28,11 +28,14 @@ DECLARE
                                                FROM elder);
     admission_dates   DATE ARRAY DEFAULT ARRAY(SELECT admission_date
                                                FROM elder);
+    m                 INTEGER;
     n                 INTEGER DEFAULT (SELECT count(*)
                                        FROM medical_record);
     calculated_height DOUBLE PRECISION;
     calculated_weight DOUBLE PRECISION;
     calculated_bmi    DOUBLE PRECISION;
+    is_negative       BOOLEAN;
+    delta             DOUBLE PRECISION;
     elder_gender      SMALLINT;
 BEGIN
     FOR i in 1..n
@@ -43,41 +46,54 @@ BEGIN
                 WHEN elder_gender = 1 THEN calculated_height = (random() * (1.75 - 1.55) + 1.55);
                 WHEN elder_gender = 2 THEN calculated_height = (random() * (1.65 - 1.45) + 1.45);
                 END CASE;
-            calculated_bmi = (random() * (34.99 - 16.00) + 16.00);
-            calculated_weight = pow(calculated_height, 2) * calculated_bmi;
-            INSERT INTO routine_checkup(rut, checkup_date, height, weight, bmi, heart_rate, diastolic_pressure,
-                                        systolic_pressure, body_temperature)
-            SELECT elder_ruts[i],
-                   generated_date,
-                   round(calculated_height::numeric, 2),
-                   round(calculated_weight::numeric, 1),
-                   round(calculated_bmi::numeric, 1),
-                   round((random() * (110 - 70) + 70)::numeric, 0),
-                   round((random() * (120 - 70) + 70)::numeric, 0),
-                   round((random() * (180 - 110) + 110)::numeric, 0),
-                   round((random() * (41 - 35) + 35)::numeric, 1)
-            FROM generate_series(admission_dates[i] :: date,
-                                 now() :: date,
-                                 make_interval(days => 1)) as generated_date;
-        end loop;
-end;
+            calculated_bmi = (random() * (34.99 - 17.00) + 17.00);
+            calculated_weight = calculated_bmi * pow(calculated_height, 2);
+            SELECT(current_date - admission_dates[i]::date) INTO m;
+            FOR j in 1..m
+                LOOP
+                    is_negative = (random() < 0.5);
+                    delta = (random() * 0.5);
+                    IF ((is_negative) AND (calculated_bmi <= 17.00)) THEN
+                        delta = abs(delta);
+                    ELSIF ((NOT is_negative) AND (calculated_bmi >= 34.99)) THEN
+                        delta = -delta;
+                    ELSIF (is_negative) THEN
+                        delta = -delta;
+                    END IF;
+                    calculated_weight = calculated_weight + delta;
+                    calculated_bmi = calculated_weight / pow(calculated_height, 2);
+                    INSERT INTO routine_checkup(rut, checkup_date, height, weight, bmi, heart_rate,
+                                                diastolic_pressure,
+                                                systolic_pressure, body_temperature)
+                    VALUES (elder_ruts[i],
+                            current_date - make_interval(days => (j - 1)),
+                            round(calculated_height::numeric, 2),
+                            round(calculated_weight::numeric, 1),
+                            round(calculated_bmi::numeric, 1),
+                            floor(random() * (110 - 70) + 70)::int,
+                            floor(random() * (120 - 70) + 70)::int,
+                            floor(random() * (180 - 110) + 110)::int,
+                            round((random() * (41 - 35) + 35)::numeric, 1));
+                END LOOP;
+        END LOOP;
+END;
 $$;
 
 CALL insert_random_medical_records();
+CALL insert_random_routine_checkups();
 
 SELECT *
 FROM person
          NATURAL JOIN elder
          NATURAL JOIN medical_record;
 
-CALL insert_random_routine_checkups();
-
 SELECT *
 FROM person
          NATURAL JOIN elder
          NATURAL JOIN routine_checkup
-ORDER BY checkup_date
-LIMIT 200;
+WHERE bmi < 17.00 OR bmi > 34.99
+ORDER BY weight
+LIMIT 500;
 
 EXPLAIN ANALYZE
 SELECT *
