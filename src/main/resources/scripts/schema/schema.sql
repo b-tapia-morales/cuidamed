@@ -117,9 +117,9 @@ CREATE TABLE IF NOT EXISTS residence.routine_checkup
     height             REAL        NOT NULL,
     weight             REAL        NOT NULL,
     bmi                REAL        NOT NULL,
-    heart_rate         SMALLINT    NOT NULL,
-    diastolic_pressure REAL        NOT NULL,
-    systolic_pressure  REAL        NOT NULL,
+    heart_rate         INTEGER     NOT NULL,
+    diastolic_pressure INTEGER     NOT NULL,
+    systolic_pressure  INTEGER     NOT NULL,
     body_temperature   REAL        NOT NULL,
     FOREIGN KEY (rut) REFERENCES residence.medical_record (rut),
     PRIMARY KEY (rut, checkup_date)
