@@ -66,7 +66,7 @@ BEGIN
                                                 diastolic_pressure,
                                                 systolic_pressure, body_temperature)
                     VALUES (elder_ruts[i],
-                            current_date - make_interval(days => (j - 1)),
+                            current_date - make_interval(days => j),
                             round(calculated_height::numeric, 2),
                             round(calculated_weight::numeric, 1),
                             round(calculated_bmi::numeric, 1),
