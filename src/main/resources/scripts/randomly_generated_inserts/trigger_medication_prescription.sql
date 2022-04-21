@@ -18,10 +18,10 @@ BEGIN
         LOOP
             IF i = 1 THEN
                 INSERT INTO residence.medication_administration
-                VALUES (new.rut, new.medication_name, date_current, null, 0, carer_rut[floor(random() * (n - 1) + 1)]);
+                VALUES (new.rut, new.medication_name, date_trunc('millisecond',date_current::timestamp(0)), null, 0, carer_rut[floor(random() * (n - 1) + 1)]);
             ELSE
                 INSERT INTO residence.medication_administration
-                VALUES (new.rut, new.medication_name, date_current, null, 0, carer_rut[floor(random() * (n - 1) + 1)]);
+                VALUES (new.rut, new.medication_name, date_trunc('millisecond',date_current::timestamp(0)), null, 0, carer_rut[floor(random() * (n - 1) + 1)]);
             END IF;
             date_current = date_current + TIMES[new.frequency-1];
         END LOOP;
