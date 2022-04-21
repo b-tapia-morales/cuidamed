@@ -8,7 +8,7 @@ CREATE OR REPLACE FUNCTION insert_medication_prescription() RETURNS TRIGGER AS
 $$
 DECLARE
     medication  TEXT ARRAY DEFAULT array(SELECT medication_name FROM residence.medication);
-    n  INTEGER DEFAULT cardinality(carer_elder);
+    n  INTEGER DEFAULT cardinality(medication);
 BEGIN
     INSERT INTO residence.medication_prescription VALUES (new.rut,new.disease_name,new.prescription_date);
 
