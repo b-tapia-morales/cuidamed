@@ -1,5 +1,6 @@
 SET search_path = "residence";
 
+
 DROP TRIGGER IF EXISTS update_medication_prescription on residence.medication_prescription;
 DROP FUNCTION IF EXISTS insert_medication_administration();
 
@@ -22,7 +23,7 @@ BEGIN
                 INSERT INTO residence.medication_administration
                 VALUES (new.rut, new.medication_name, date_current, null, 0, carer_rut[floor(random() * (n - 1) + 1)]);
             END IF;
-            date_current = date_current + TIMES[new.frequency];
+            date_current = date_current + TIMES[new.frequency-1];
         END LOOP;
     return new;
 END
@@ -51,9 +52,3 @@ FROM residence.medication_prescription;
 
 DELETE
 FROM residence.medication;
-
-SELECT current_date;
-
-SELECT CAST ('100' AS INTEGER);
-SELECT CURRENT_TIMESTAMP;
-SELECT CONCAT(9::VARCHAR,' hr');
