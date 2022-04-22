@@ -44,6 +44,34 @@ end;
 $$;
  */
 
+/*
+CREATE OR REPLACE FUNCTION insert_medication_administration_alt() RETURNS TRIGGER AS
+$$
+DECLARE
+    carer_rut    TEXT ARRAY DEFAULT array(SELECT rut
+                                          FROM carer);
+    n            INTEGER DEFAULT cardinality(carer_rut);
+    date_current TIMESTAMP;
+    TIMES        TIME ARRAY DEFAULT ARRAY ['12:00:00','06:00:00','04:00:00','03:00:00', '02:20:00'];
+BEGIN
+    date_current = CURRENT_TIMESTAMP;
+    FOR i in 1..new.quantity
+        LOOP
+            IF i = 1 THEN
+                INSERT INTO medication_administration
+                VALUES (new.rut, new.medication_name, date_trunc('second', date_current::timestamp), null, 0,
+                        carer_rut[floor(random() * (n - 1) + 1)]);
+            ELSE
+                INSERT INTO medication_administration
+                VALUES (new.rut, new.medication_name, date_trunc('second', date_current::timestamp), null, 0,
+                        carer_rut[floor(random() * (n - 1) + 1)]);
+            END IF;
+            date_current = date_current + TIMES[new.quantity - 1];
+        END LOOP;
+    return new;
+END
+$$ LANGUAGE plpgsql;
+*/
 
 /*
 WITH ruts AS (SELECT * FROM unnest(generate_rut_arr(100, 1, 5))),
