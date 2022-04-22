@@ -16,7 +16,6 @@ DECLARE
     elder_rut_arr             TEXT ARRAY;
     responsible_rut_arr       TEXT ARRAY;
 BEGIN
-    TRUNCATE person CASCADE;
     CALL batch_insert_responsibles(n);
     CALL batch_insert_elders(n);
     people_rut_arr = ARRAY(SELECT rut FROM person);
@@ -76,13 +75,3 @@ BEGIN
     CALL batch_insert_people(n, 10, 15, 30, 50);
 END;
 $func$;
-
-CALL batch_insert_people(50);
-
-SELECT *
-FROM person
-         NATURAL JOIN responsible;
-
-SELECT *
-FROM person
-         NATURAL JOIN elder;

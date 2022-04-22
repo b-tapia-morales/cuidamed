@@ -79,14 +79,6 @@ BEGIN
 END;
 $$;
 
-CALL insert_random_medical_records();
-CALL insert_random_routine_checkups();
-
-SELECT *
-FROM person
-         NATURAL JOIN elder
-         NATURAL JOIN medical_record;
-
 SELECT *
 FROM person
          NATURAL JOIN elder

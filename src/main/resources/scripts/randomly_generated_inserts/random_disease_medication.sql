@@ -109,7 +109,6 @@ DECLARE
         'Aciclovir'];
     n                INTEGER DEFAULT cardinality(medication_names);
 BEGIN
-    TRUNCATE medication CASCADE;
     FOR i in 1..n
         LOOP
             INSERT INTO medication
@@ -227,7 +226,6 @@ DECLARE
     n             INTEGER DEFAULT cardinality(names_disease);
     chronic       BOOLEAN ARRAY DEFAULT ARRAY [TRUE, FALSE];
 BEGIN
-    TRUNCATE disease CASCADE;
     FOR i in 1..n
         LOOP
             INSERT INTO disease
@@ -235,16 +233,6 @@ BEGIN
         END LOOP;
 END;
 $$;
-
-CALL insert_random_disease();
-
-SELECT *
-FROM disease;
-
-CALL insert_random_medication();
-
-SELECT *
-FROM medication;
 
 
 

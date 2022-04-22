@@ -191,7 +191,6 @@ CREATE TABLE IF NOT EXISTS residence.medication_prescription
     medication_name   VARCHAR(64) NOT NULL,
     start_date        DATE        NOT NULL,
     end_date          DATE,
-    frequency         SMALLINT    NOT NULL,
     quantity          SMALLINT    NOT NULL,
     FOREIGN KEY (rut, disease_name, prescription_date) REFERENCES residence.prescription (rut, disease_name, prescription_date),
     FOREIGN KEY (medication_name) REFERENCES residence.medication (medication_name),

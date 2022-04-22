@@ -32,17 +32,3 @@ BEGIN
         END LOOP;
 END;
 $$;
-
-CALL insert_random_disease();
-CALL insert_random_medication();
-CALL insert_random_prescription();
-
-SELECT *
-FROM person
-         NATURAL JOIN elder
-         NATURAL JOIN sick_elderly;
-
-SELECT *
-FROM person
-         NATURAL JOIN elder
-         NATURAL JOIN prescription;

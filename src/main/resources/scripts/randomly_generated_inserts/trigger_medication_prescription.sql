@@ -1,54 +1,46 @@
 SET search_path = "residence";
 
+DROP TRIGGER IF EXISTS update_prescription ON prescription;
+DROP FUNCTION IF EXISTS insert_medication_prescription();
 
-DROP TRIGGER IF EXISTS update_medication_prescription on residence.medication_prescription;
-DROP FUNCTION IF EXISTS insert_medication_administration();
-
-CREATE OR REPLACE FUNCTION insert_medication_administration() RETURNS TRIGGER AS
+CREATE OR REPLACE FUNCTION insert_medication_prescription() RETURNS TRIGGER AS
 $$
 DECLARE
-    carer_rut    TEXT ARRAY DEFAULT array(SELECT rut
-                                          FROM residence.carer);
-    n            INTEGER DEFAULT cardinality(carer_rut);
-    date_current TIMESTAMP;
-    TIMES       TIME ARRAY DEFAULT ARRAY['12:00:00','06:00:00','04:00:00','03:00:00', '02:20:00'];
+    medication         TEXT ARRAY DEFAULT array(SELECT medication_name
+                                                FROM medication);
+    chronic            BOOLEAN;
+    n                  INTEGER DEFAULT cardinality(medication);
+    medications_amount INTEGER;
 BEGIN
-    date_current = CURRENT_TIMESTAMP;
-    FOR i in 1..new.frequency
+    medications_amount = floor(random() * 3 + 1);
+    FOR i in 1..medications_amount
         LOOP
-            IF i = 1 THEN
-                INSERT INTO residence.medication_administration
-                VALUES (new.rut, new.medication_name, date_trunc('millisecond',date_current::timestamp(0)), null, 0, carer_rut[floor(random() * (n - 1) + 1)]);
+            chronic = (SELECT is_chronic FROM disease WHERE disease_name = new.disease_name);
+            IF (chronic = TRUE) THEN
+                INSERT INTO medication_prescription (rut, disease_name, prescription_date, medication_name, start_date,
+                                                     end_date, quantity)
+                VALUES (new.rut, new.disease_name, new.prescription_date,
+                        medication[floor(random() * n + 1)::int], new.prescription_date,
+                        (new.prescription_date + make_interval(months => 1))::date,
+                        floor(random() * 4 + 1)::int)
+                ON CONFLICT DO NOTHING;
             ELSE
-                INSERT INTO residence.medication_administration
-                VALUES (new.rut, new.medication_name, date_trunc('millisecond',date_current::timestamp(0)), null, 0, carer_rut[floor(random() * (n - 1) + 1)]);
-            END IF;
-            date_current = date_current + TIMES[new.frequency-1];
+                INSERT INTO medication_prescription (rut, disease_name, prescription_date, medication_name, start_date,
+                                                     end_date, quantity)
+                VALUES (new.rut, new.disease_name, new.prescription_date,
+                        medication[floor(random() * n + 1)::int], new.prescription_date,
+                        (new.prescription_date + make_interval(days => (floor(random() * 7 + 7)::int)))::date,
+                        floor(random() * 4 + 1)::int)
+                ON CONFLICT DO NOTHING;
+            end if;
         END LOOP;
-    return new;
-END
+    RETURN new;
+end;
+
 $$ LANGUAGE plpgsql;
 
-
-CREATE TRIGGER update_medication_prescription
+CREATE TRIGGER update_prescription
     AFTER INSERT
-    ON residence.medication_prescription
+    ON prescription
     FOR EACH ROW
-execute procedure insert_medication_administration();
-
-SELECT *
-from residence.medication_administration;
-SELECT *
-from residence.medication_prescription;
-SELECT *
-from residence.medication;
-SELECT *
-from residence.carer;
-
-DELETE
-FROM residence.medication_administration;
-DELETE
-FROM residence.medication_prescription;
-
-DELETE
-FROM residence.medication;
+EXECUTE PROCEDURE insert_medication_prescription();
