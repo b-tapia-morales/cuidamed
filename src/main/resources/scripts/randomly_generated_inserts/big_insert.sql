@@ -28,9 +28,7 @@ CREATE INDEX extract_hour_btree ON medication_administration USING btree (extrac
 
 SELECT count(*) FROM medication_administration;
 
-SELECT * FROM person p NATURAL JOIN elder e RIGHT JOIN medication_administration mr ON e.rut = mr.elder_rut;
+SELECT * FROM person p NATURAL JOIN elder e RIGHT OUTER JOIN medication_administration mr ON e.rut = mr.elder_rut;
 
-SELECT * FROM medication_administration;
-
-SELECT * FROM medication_administration WHERE extract(HOUR FROM estimated_datetime) NOT IN (8, 11, 12, 14, 16, 17, 20);
+SELECT * FROM medication_administration WHERE extract(HOUR FROM estimated_datetime) NOT IN (8, 11, 12, 14, 16, 17);
 
