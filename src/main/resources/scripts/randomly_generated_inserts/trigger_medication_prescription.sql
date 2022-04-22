@@ -32,7 +32,7 @@ BEGIN
                         (new.prescription_date + make_interval(days => (floor(random() * 7 + 7)::int)))::date,
                         floor(random() * 4 + 1)::int)
                 ON CONFLICT DO NOTHING;
-            end if;
+            END IF;
         END LOOP;
     RETURN new;
 end;
