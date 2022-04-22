@@ -22,7 +22,7 @@ BEGIN
                 VALUES (new.rut, new.disease_name, new.prescription_date,
                         medication[floor(random() * n + 1)::int], new.prescription_date,
                         (new.prescription_date + make_interval(months => 1))::date,
-                        floor(random() * 4 + 1)::int)
+                        floor(random() * 5 + 1)::int)
                 ON CONFLICT DO NOTHING;
             ELSE
                 INSERT INTO medication_prescription (rut, disease_name, prescription_date, medication_name, start_date,
@@ -30,7 +30,7 @@ BEGIN
                 VALUES (new.rut, new.disease_name, new.prescription_date,
                         medication[floor(random() * n + 1)::int], new.prescription_date,
                         (new.prescription_date + make_interval(days => (floor(random() * 7 + 7)::int)))::date,
-                        floor(random() * 4 + 1)::int)
+                        floor(random() * 5 + 1)::int)
                 ON CONFLICT DO NOTHING;
             END IF;
         END LOOP;

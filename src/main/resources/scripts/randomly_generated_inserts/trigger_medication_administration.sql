@@ -18,20 +18,22 @@ BEGIN
     FOR i in 1..n
         LOOP
             IF new.quantity = 1 THEN
-                INSERT INTO medication_administration (elder_rut, medication_name, estimated_datetime,
-                                                       real_datetime, status, carer_rut)
-                VALUES (new.rut, new.medication_name, date_trunc('second', next_timestamp::timestamp), null, 0, null)
+                INSERT INTO medication_administration
+                VALUES (new.rut, new.medication_name, next_timestamp, null, 0, null)
                 ON CONFLICT DO NOTHING;
                 next_timestamp = next_timestamp + make_interval(days => 1);
             ELSE
-                FOR j in 1..new.quantity
+                hour_interval = ((upper_bound - lower_bound) / (new.quantity - 1))::int;
+                FOR j in 1..(new.quantity - 1)
                     LOOP
-                        INSERT INTO medication_administration (elder_rut, medication_name, estimated_datetime,
-                                                               real_datetime, status, carer_rut)
-                        VALUES (new.rut, new.medication_name, date_trunc('second', next_timestamp::timestamp), null, 0, null)
+                        INSERT INTO medication_administration
+                        VALUES (new.rut, new.medication_name, next_timestamp, null, 0, null)
                         ON CONFLICT DO NOTHING;
                         next_timestamp = next_timestamp + make_interval(hours => hour_interval);
                     END LOOP;
+                INSERT INTO medication_administration
+                VALUES (new.rut, new.medication_name, next_timestamp, null, 0, null)
+                ON CONFLICT DO NOTHING;
                 next_timestamp = next_timestamp + make_interval(hours => 12);
             END IF;
         END LOOP;
