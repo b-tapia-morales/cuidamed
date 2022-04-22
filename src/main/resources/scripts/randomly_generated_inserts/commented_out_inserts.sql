@@ -115,6 +115,31 @@ select
         + random() * INTERVAL '8 hours';
 
 select (NOW() + (random() * (interval '65 years')) + '90 years')::date;
+
+Index on medication_administration
+
+DROP INDEX IF EXISTS extract_hour_hash;
+DROP INDEX IF EXISTS extract_hour_btree;
+
+DROP INDEX IF EXISTS date_diff_hash;
+DROP INDEX IF EXISTS date_diff_btree;
+
+EXPLAIN ANALYZE SELECT *
+FROM medication_administration
+WHERE extract(DAY FROM estimated_datetime - now()) = 1
+  AND extract(HOUR FROM estimated_datetime) = (12);
+
+CREATE INDEX extract_hour_hash ON medication_administration USING hash (extract(HOUR FROM estimated_datetime));
+CREATE INDEX extract_hour_btree ON medication_administration USING btree (extract(HOUR FROM estimated_datetime));
+
+CREATE INDEX date_diff_hash ON medication_administration USING hash (extract(DAY FROM estimated_datetime - now()));
+CREATE INDEX date_diff_btree ON medication_administration USING btree (extract(DAY FROM estimated_datetime - now()));
+
+EXPLAIN ANALYZE SELECT *
+FROM medication_administration
+WHERE extract(DAY FROM estimated_datetime - now()) = 1
+  AND extract(HOUR FROM estimated_datetime) = (12);
+
 */
 
 --DELETE FROM residence.routine_checkup;

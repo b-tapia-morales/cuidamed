@@ -2,6 +2,8 @@ SET search_path = "residence";
 
 DROP PROCEDURE IF EXISTS batch_insert(n INTEGER);
 
+DROP INDEX IF EXISTS bmi_btree;
+
 CREATE OR REPLACE PROCEDURE batch_insert(n INTEGER)
     LANGUAGE plpgsql AS
 $func$
@@ -20,15 +22,33 @@ $func$;
 
 CALL batch_insert(100);
 
-DROP INDEX IF EXISTS extract_hour_hash;
-CREATE INDEX extract_hour_hash ON medication_administration USING hash (extract(HOUR FROM estimated_datetime));
+SELECT count(*) AS medication_administration_count
+FROM medication_administration;
 
-DROP INDEX IF EXISTS extract_hour_btree;
-CREATE INDEX extract_hour_btree ON medication_administration USING btree (extract(HOUR FROM estimated_datetime));
+SELECT *
+FROM person p
+         INNER JOIN elder e USING (rut)
+         RIGHT OUTER JOIN medication_administration mr ON rut = mr.elder_rut;
 
-SELECT count(*) FROM medication_administration;
+SELECT count(*) AS routine_checkup_count
+FROM routine_checkup;
 
-SELECT * FROM person p NATURAL JOIN elder e RIGHT OUTER JOIN medication_administration mr ON e.rut = mr.elder_rut;
+SELECT *
+FROM person p
+         INNER JOIN elder e USING (rut)
+         INNER JOIN routine_checkup rc USING (rut);
 
-SELECT * FROM medication_administration WHERE extract(HOUR FROM estimated_datetime) NOT IN (8, 11, 12, 14, 16, 17, 20);
+EXPLAIN ANALYZE
+SELECT *
+FROM routine_checkup
+WHERE bmi <= 18.00
+   OR bmi >= 30.00;
+
+CREATE INDEX bmi_btree ON routine_checkup USING btree (bmi);
+
+EXPLAIN ANALYZE
+SELECT *
+FROM routine_checkup
+WHERE bmi <= 18.00
+   OR bmi >= 30.00;
 
