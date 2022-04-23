@@ -12,7 +12,7 @@ DECLARE
     n                  INTEGER DEFAULT cardinality(medication);
     medications_amount INTEGER;
 BEGIN
-    medications_amount = floor(random() * 3 + 1);
+    medications_amount = floor(random() * 3 + 1)::int;
     FOR i in 1..medications_amount
         LOOP
             chronic = (SELECT is_chronic FROM disease WHERE disease_name = new.disease_name);
