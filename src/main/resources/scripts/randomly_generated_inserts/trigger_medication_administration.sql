@@ -15,14 +15,17 @@ DECLARE
 BEGIN
     next_timestamp = next_timestamp + make_interval(hours => lower_bound);
     SELECT(extract(DAY FROM new.end_date::timestamp - starting_timestamp)) INTO n;
-    FOR i in 1..n
-        LOOP
-            IF new.quantity = 1 THEN
+    IF new.quantity = 1 THEN
+        FOR i in 1..n
+            LOOP
                 INSERT INTO medication_administration
                 VALUES (new.rut, new.medication_name, next_timestamp, null, 0, null)
                 ON CONFLICT DO NOTHING;
                 next_timestamp = next_timestamp + make_interval(days => 1);
-            ELSE
+            END LOOP;
+    ELSE
+        FOR i in 1..n
+            LOOP
                 hour_interval = ((upper_bound - lower_bound) / (new.quantity - 1))::int;
                 FOR j in 1..(new.quantity - 1)
                     LOOP
@@ -35,8 +38,8 @@ BEGIN
                 VALUES (new.rut, new.medication_name, next_timestamp, null, 0, null)
                 ON CONFLICT DO NOTHING;
                 next_timestamp = next_timestamp + make_interval(hours => 12);
-            END IF;
-        END LOOP;
+            END LOOP;
+    END IF;
     return new;
 END
 $$ LANGUAGE plpgsql;
