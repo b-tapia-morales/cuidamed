@@ -10,7 +10,7 @@ DECLARE
     upper_bound        INTEGER DEFAULT 20;
     starting_timestamp TIMESTAMP DEFAULT new.prescription_date::timestamp + make_interval(days => 1);
     next_timestamp     TIMESTAMP DEFAULT starting_timestamp;
-    hour_interval      INTEGER DEFAULT ((upper_bound - lower_bound) / new.quantity)::int;
+    hour_interval      INTEGER;
     n                  INTEGER;
 BEGIN
     next_timestamp = next_timestamp + make_interval(hours => lower_bound);
