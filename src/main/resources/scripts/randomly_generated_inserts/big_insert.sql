@@ -2,7 +2,6 @@ SET search_path = "residence";
 
 DROP PROCEDURE IF EXISTS batch_insert(n INTEGER);
 
-DROP INDEX IF EXISTS bmi_btree;
 
 CREATE OR REPLACE PROCEDURE batch_insert(n INTEGER)
     LANGUAGE plpgsql AS
@@ -21,6 +20,9 @@ END;
 $func$;
 
 CALL batch_insert(100);
+
+DROP INDEX IF EXISTS bmi_btree;
+DROP INDEX IF EXISTS heart_rate_btree;
 
 SELECT count(*) AS medication_administration_count
 FROM medication_administration;
@@ -56,7 +58,17 @@ FROM person p
 WHERE bmi <= 18.00
    OR bmi >= 30.00;
 
+EXPLAIN analyze
 SELECT *
-FROM person p
-         INNER JOIN elder e USING (rut)
-         INNER JOIN routine_checkup rc USING (rut) ORDER BY checkup_date;
+FROM routine_checkup
+WHERE heart_rate > 100
+   or heart_rate < 60;
+
+--CREATE INDEX sys_press_btree ON routine_checkup USING btree (systolic_pressure);
+CREATE INDEX heart_rate_btree ON routine_checkup USING btree (heart_rate);
+
+EXPLAIN analyze
+SELECT *
+FROM routine_checkup
+WHERE heart_rate > 100
+   or heart_rate < 60;

@@ -70,7 +70,7 @@ BEGIN
                             round(calculated_height::numeric, 2),
                             round(calculated_weight::numeric, 1),
                             round(calculated_bmi::numeric, 1),
-                            floor(random() * (110 - 70) + 70)::int,
+                            floor(random() * (110 - 50) + 50)::int,
                             floor(random() * (120 - 70) + 70)::int,
                             floor(random() * (180 - 110) + 110)::int,
                             round((random() * (41 - 35) + 35)::numeric, 1));
