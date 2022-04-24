@@ -40,7 +40,9 @@ FROM person p
 
 EXPLAIN ANALYZE
 SELECT *
-FROM routine_checkup
+FROM person p
+         INNER JOIN elder e USING (rut)
+         INNER JOIN routine_checkup rc USING (rut)
 WHERE bmi <= 18.00
    OR bmi >= 30.00;
 
@@ -48,7 +50,13 @@ CREATE INDEX bmi_btree ON routine_checkup USING btree (bmi);
 
 EXPLAIN ANALYZE
 SELECT *
-FROM routine_checkup
+FROM person p
+         INNER JOIN elder e USING (rut)
+         INNER JOIN routine_checkup rc USING (rut)
 WHERE bmi <= 18.00
    OR bmi >= 30.00;
 
+SELECT *
+FROM person p
+         INNER JOIN elder e USING (rut)
+         INNER JOIN routine_checkup rc USING (rut) ORDER BY checkup_date;
