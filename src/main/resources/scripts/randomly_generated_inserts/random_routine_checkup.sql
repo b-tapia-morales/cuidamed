@@ -78,17 +78,3 @@ BEGIN
         END LOOP;
 END;
 $$;
-
-SELECT *
-FROM person
-         NATURAL JOIN elder
-         NATURAL JOIN routine_checkup
-WHERE bmi < 17.00 OR bmi > 34.99
-ORDER BY weight
-LIMIT 500;
-
-EXPLAIN ANALYZE
-SELECT *
-FROM routine_checkup
-WHERE checkup_date > '2015-01-01'
-  AND checkup_date < '2016-01-01';
