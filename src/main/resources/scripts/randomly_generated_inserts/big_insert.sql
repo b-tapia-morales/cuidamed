@@ -66,6 +66,7 @@ EXPLAIN ANALYZE
 SELECT *
 FROM person p
          INNER JOIN elder e USING (rut)
+         INNER JOIN medical_record mr USING (rut)
          INNER JOIN routine_checkup rc USING (rut)
 WHERE bmi <= 18.00
    OR bmi >= 30.00;
@@ -78,6 +79,7 @@ EXPLAIN ANALYZE
 SELECT *
 FROM person p
          INNER JOIN elder e USING (rut)
+         INNER JOIN medical_record mr USING (rut)
          INNER JOIN routine_checkup rc USING (rut)
 WHERE bmi <= 18.00
    OR bmi >= 30.00;
