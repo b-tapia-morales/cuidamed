@@ -93,39 +93,39 @@
             <artifactId>javafx-fxml</artifactId>
             <groupId>org.openjfx</groupId>
             <scope>compile</scope>
-            <version>17.0.1</version>
+            <version>18.0.1</version>
         </dependency>
         <dependency>
             <artifactId>javafx-fxml</artifactId>
             <classifier>win</classifier>
             <groupId>org.openjfx</groupId>
             <scope>compile</scope>
-            <version>17.0.1</version>
+            <version>18.0.1</version>
         </dependency>
         <dependency>
             <artifactId>javafx-controls</artifactId>
             <groupId>org.openjfx</groupId>
             <scope>compile</scope>
-            <version>17.0.1</version>
+            <version>18.0.1</version>
         </dependency>
         <dependency>
             <artifactId>javafx-controls</artifactId>
             <classifier>win</classifier>
             <groupId>org.openjfx</groupId>
             <scope>compile</scope>
-            <version>17.0.1</version>
+            <version>18.0.1</version>
         </dependency>
         <dependency>
             <artifactId>lombok</artifactId>
             <groupId>org.projectlombok</groupId>
             <scope>provided</scope>
-            <version>1.18.22</version>
+            <version>1.18.24</version>
         </dependency>
         <dependency>
             <artifactId>postgresql</artifactId>
             <groupId>org.postgresql</groupId>
             <scope>runtime</scope>
-            <version>42.3.1</version>
+            <version>42.3.4</version>
         </dependency>
 
     </dependencies>
