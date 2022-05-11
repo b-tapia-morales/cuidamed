@@ -9,12 +9,11 @@ import java.time.LocalDate;
 
 
 public record RoutineCheckup(String rut, LocalDate checkupDate, Double height, Double weight,
-                             Double bmi, Short heartRate, Double diastolicPressure,
-                             Double systolicPressure, Double bodyTemperature) {
+                             Double bmi, Integer heartRate, Integer diastolicPressure,
+                             Integer systolicPressure, Double bodyTemperature) {
 
-    public static RoutineCheckup createInstance(String rut, Date checkupDate, Double height,
-                                                Double weight,
-                                                Double bmi, short heartRate, Double diastolicPressure, Double systolicPressure,
+    public static RoutineCheckup createInstance(String rut, Date checkupDate, Double height, Double weight, Double bmi,
+                                                Integer heartRate, Integer diastolicPressure, Integer systolicPressure,
                                                 Double bodyTemperature) {
         return new RoutineCheckup(rut, checkupDate.toLocalDate(), height, weight, bmi, heartRate,
                 diastolicPressure, systolicPressure, bodyTemperature);

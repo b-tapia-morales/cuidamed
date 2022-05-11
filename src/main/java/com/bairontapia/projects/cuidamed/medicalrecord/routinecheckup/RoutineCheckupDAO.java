@@ -60,9 +60,9 @@ public class RoutineCheckupDAO implements ReadAndWriteDAO<RoutineCheckup, String
         final var height = resultSet.getDouble(3);
         final var weight = resultSet.getDouble(4);
         final var bmi = resultSet.getDouble(5);
-        final var heartRate = resultSet.getShort(6);
-        final var diastolicPressure = resultSet.getDouble(7);
-        final var systolicPressure = resultSet.getDouble(8);
+        final var heartRate = resultSet.getInt(6);
+        final var diastolicPressure = resultSet.getInt(7);
+        final var systolicPressure = resultSet.getInt(8);
         final var bodyTemperature = resultSet.getDouble(9);
         return RoutineCheckup.createInstance(rut, checkupDate, height, weight, bmi, heartRate,
                 diastolicPressure, systolicPressure, bodyTemperature);
@@ -76,9 +76,9 @@ public class RoutineCheckupDAO implements ReadAndWriteDAO<RoutineCheckup, String
         statement.setDouble(3, routineCheckup.height());
         statement.setDouble(4, routineCheckup.weight());
         statement.setDouble(5, routineCheckup.bmi());
-        statement.setShort(6, routineCheckup.heartRate());
-        statement.setDouble(7, routineCheckup.diastolicPressure());
-        statement.setDouble(8, routineCheckup.systolicPressure());
+        statement.setInt(6, routineCheckup.heartRate());
+        statement.setInt(7, routineCheckup.diastolicPressure());
+        statement.setInt(8, routineCheckup.systolicPressure());
         statement.setDouble(9, routineCheckup.bodyTemperature());
         statement.executeUpdate();
     }
