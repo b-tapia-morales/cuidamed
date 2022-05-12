@@ -1,6 +1,5 @@
 package com.bairontapia.projects.cuidamed.pojo;
 
-import com.bairontapia.projects.cuidamed.disease.prescription.Prescription;
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.person.elder.Elder;
 import lombok.Getter;
@@ -33,7 +32,7 @@ public class ElderPOJO {
     @Getter
     private final MedicalRecordPOJO medicalRecord;
     @Getter
-    private final List<PrescriptionPOJO> prescriptionPOJOList;
+    private final List<PrescriptionPOJO> prescriptions;
 
     public ElderPOJO(final Elder elder, final ResponsiblePOJO responsiblePOJO, final MedicalRecordPOJO medicalRecordPOJO /*,final List<Prescription> prescriptions*/) {
         rut = elder.rut();
@@ -47,7 +46,7 @@ public class ElderPOJO {
         admissionDate = elder.admissionDate();
         responsible = responsiblePOJO;
         medicalRecord = medicalRecordPOJO;
-        prescriptionPOJOList = null;//prescriptions.stream().map(PrescriptionPOJO::new).toList();
+        prescriptions = null;//prescriptions.stream().map(PrescriptionPOJO::new).toList();
     }
 
 }
