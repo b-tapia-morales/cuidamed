@@ -57,8 +57,8 @@ public class RoutineCheckupView {
                 .createInstance(RutUtils.removeDots(rut.toLowerCase()),
                         Date.valueOf(checkupDatePicker.getValue()), Double.parseDouble(height.getText()),
                         Double.parseDouble(weight.getText()), Double.parseDouble(bmi.getText()),
-                        Short.parseShort(height.getText()), Double.parseDouble(diastolicPressure.getText()),
-                        Double.parseDouble(systolicPressure.getText()),
+                        Integer.parseInt(height.getText()), Integer.parseInt(diastolicPressure.getText()),
+                        Integer.parseInt(systolicPressure.getText()),
                         Double.parseDouble(bodyTemperature.getText()));
     }
 
