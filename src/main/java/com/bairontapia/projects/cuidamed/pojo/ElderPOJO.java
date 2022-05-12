@@ -1,10 +1,12 @@
 package com.bairontapia.projects.cuidamed.pojo;
 
+import com.bairontapia.projects.cuidamed.disease.prescription.Prescription;
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.person.elder.Elder;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class ElderPOJO {
 
@@ -30,8 +32,10 @@ public class ElderPOJO {
     private final ResponsiblePOJO responsible;
     @Getter
     private final MedicalRecordPOJO medicalRecord;
+    @Getter
+    private final List<PrescriptionPOJO> prescriptionPOJOList;
 
-    public ElderPOJO(final Elder elder, final ResponsiblePOJO responsiblePOJO, final MedicalRecordPOJO medicalRecordPOJO) {
+    public ElderPOJO(final Elder elder, final ResponsiblePOJO responsiblePOJO, final MedicalRecordPOJO medicalRecordPOJO /*,final List<Prescription> prescriptions*/) {
         rut = elder.rut();
         firstName = elder.firstName();
         lastName = elder.lastName();
@@ -43,6 +47,7 @@ public class ElderPOJO {
         admissionDate = elder.admissionDate();
         responsible = responsiblePOJO;
         medicalRecord = medicalRecordPOJO;
+        prescriptionPOJOList = null;//prescriptions.stream().map(PrescriptionPOJO::new).toList();
     }
 
 }
