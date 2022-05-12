@@ -7,6 +7,7 @@ import com.bairontapia.projects.cuidamed.person.responsible.ResponsibleDAO;
 import com.bairontapia.projects.cuidamed.pojo.ElderPOJO;
 import com.bairontapia.projects.cuidamed.pojo.MedicalRecordPOJO;
 import com.bairontapia.projects.cuidamed.pojo.ResponsiblePOJO;
+import com.bairontapia.projects.cuidamed.pojo.RoutineCheckupPOJO;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ import java.sql.SQLException;
 public class CuidaMedApplication {
 
     public static void main(String... args) throws SQLException, IOException {
-        for (var elder : ElderDAO.getInstance().findAll()) {
+        for (var elder : ElderDAO.getInstance().findAll().stream().limit(2).toList()) {
             var responsible = ResponsibleDAO.getInstance().find(elder.responsibleRut()).orElseThrow();
             var responsiblePOJO = new ResponsiblePOJO(responsible);
             var medicalRecord = MedicalRecordDAO.getInstance().find(elder.rut()).orElseThrow();
@@ -25,7 +26,7 @@ public class CuidaMedApplication {
             System.out.println(elderPOJO.getResponsible().getRut());
             System.out.println(elderPOJO.getMedicalRecord().getBloodType());
             System.out.println(elderPOJO.getMedicalRecord().getHealthCare());
-            System.out.println(elderPOJO.getMedicalRecord().getRoutineCheckupPOJOS().get(0).getCheckupDate());
+            System.out.println(elderPOJO.getMedicalRecord().getRoutineCheckups().stream().map(RoutineCheckupPOJO::getCheckupDate).toList());
         }
     }
 }
