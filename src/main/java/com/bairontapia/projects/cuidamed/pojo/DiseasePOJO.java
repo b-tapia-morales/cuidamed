@@ -1,7 +1,6 @@
 package com.bairontapia.projects.cuidamed.pojo;
 
 import com.bairontapia.projects.cuidamed.disease.Disease;
-import com.bairontapia.projects.cuidamed.mappings.diseasetype.DiseaseType;
 import lombok.Getter;
 
 public class DiseasePOJO {
