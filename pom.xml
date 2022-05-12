@@ -127,6 +127,11 @@
             <scope>runtime</scope>
             <version>42.3.4</version>
         </dependency>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.12.11</version>
+        </dependency>
 
     </dependencies>
     <description>A desktop application that registers the medication intake in a nursing home
