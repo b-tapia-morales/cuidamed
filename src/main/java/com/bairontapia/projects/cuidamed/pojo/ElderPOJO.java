@@ -1,13 +1,11 @@
 package com.bairontapia.projects.cuidamed.pojo;
 
-import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.person.elder.Elder;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ElderPOJO {
@@ -25,7 +23,7 @@ public class ElderPOJO {
     @Getter
     private final Integer age;
     @Getter
-    private final Gender gender;
+    private final String gender;
     @Getter
     private final Boolean isActive;
     @Getter
@@ -44,7 +42,7 @@ public class ElderPOJO {
         this.lastName = elder.lastName();
         this.secondLastName = elder.secondLastName();
         this.birthDate = elder.birthDate();
-        this.gender = elder.gender();
+        this.gender = elder.gender().toString();
         this.age = elder.age();
         this.isActive = elder.isActive();
         this.admissionDate = elder.admissionDate();
@@ -64,7 +62,7 @@ public class ElderPOJO {
                                 Sexo:\t\t\t\t\t\t\t\t\t%s
                                 Activo:\t\t\t\t\t\t\t\t%s
                                 Fecha de admisión:\t\t%s
-                                
+                                                                
                                 Ficha Médica:
                                 %s
                                 """, RutUtils.format(rut),

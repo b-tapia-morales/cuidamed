@@ -13,7 +13,7 @@ public class DiseasePOJO {
     @Getter
     private final Boolean isChronic;
 
-    public DiseasePOJO(final Disease disease){
+    public DiseasePOJO(final Disease disease) {
         name = disease.name();
         diseaseType = disease.diseaseType();
         isChronic = disease.isChronic();
