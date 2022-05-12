@@ -5,6 +5,7 @@ import com.bairontapia.projects.cuidamed.person.elder.Elder;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ElderPOJO {
@@ -34,19 +35,20 @@ public class ElderPOJO {
     @Getter
     private final List<PrescriptionPOJO> prescriptions;
 
-    public ElderPOJO(final Elder elder, final ResponsiblePOJO responsiblePOJO, final MedicalRecordPOJO medicalRecordPOJO /*,final List<Prescription> prescriptions*/) {
-        rut = elder.rut();
-        firstName = elder.firstName();
-        lastName = elder.lastName();
-        secondLastName = elder.secondLastName();
-        birthDate = elder.birthDate();
-        gender = elder.gender();
-        age = elder.age();
-        isActive = elder.isActive();
-        admissionDate = elder.admissionDate();
-        responsible = responsiblePOJO;
-        medicalRecord = medicalRecordPOJO;
-        prescriptions = null;//prescriptions.stream().map(PrescriptionPOJO::new).toList();
+    public ElderPOJO(final Elder elder, final ResponsiblePOJO responsiblePOJO,
+                     final MedicalRecordPOJO medicalRecordPOJO, final List<PrescriptionPOJO> prescriptions) {
+        this.rut = elder.rut();
+        this.firstName = elder.firstName();
+        this.lastName = elder.lastName();
+        this.secondLastName = elder.secondLastName();
+        this.birthDate = elder.birthDate();
+        this.gender = elder.gender();
+        this.age = elder.age();
+        this.isActive = elder.isActive();
+        this.admissionDate = elder.admissionDate();
+        this.responsible = responsiblePOJO;
+        this.medicalRecord = medicalRecordPOJO;
+        this.prescriptions = prescriptions;
     }
 
 }

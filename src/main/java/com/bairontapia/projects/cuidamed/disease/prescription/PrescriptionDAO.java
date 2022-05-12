@@ -1,6 +1,7 @@
 package com.bairontapia.projects.cuidamed.disease.prescription;
 
 import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.OneToManyDAO;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -12,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
-public class PrescriptionDAO implements CrudDAO<Prescription, String> {
+public class PrescriptionDAO implements CrudDAO<Prescription, String>, OneToManyDAO<Prescription, String> {
 
     private static final PrescriptionDAO INSTANCE = new PrescriptionDAO();
     private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();

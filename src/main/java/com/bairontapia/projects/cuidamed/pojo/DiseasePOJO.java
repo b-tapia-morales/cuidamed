@@ -19,5 +19,4 @@ public class DiseasePOJO {
         isChronic = disease.isChronic();
     }
 
-
 }
