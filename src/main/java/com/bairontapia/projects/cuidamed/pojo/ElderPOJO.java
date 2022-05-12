@@ -2,7 +2,9 @@ package com.bairontapia.projects.cuidamed.pojo;
 
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.person.elder.Elder;
+import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -51,4 +53,22 @@ public class ElderPOJO {
         this.prescriptions = prescriptions;
     }
 
+    @Override
+    public String toString() {
+        return String.format
+                ("""
+                                Rut:\t\t\t\t\t\t\t\t\t%s
+                                Nombre completo:\t\t\t%s
+                                Fecha de nacimiento:\t%s
+                                Edad:\t\t\t\t\t\t\t\t\t%s
+                                Sexo:\t\t\t\t\t\t\t\t\t%s
+                                Activo:\t\t\t\t\t\t\t\t%s
+                                Fecha de admisión:\t\t%s
+                                
+                                Ficha Médica:
+                                %s
+                                """, RutUtils.format(rut),
+                        StringUtils.joinWith(" ", firstName, lastName, secondLastName), birthDate, age,
+                        gender, isActive ? "Sí" : "No", admissionDate, medicalRecord);
+    }
 }
