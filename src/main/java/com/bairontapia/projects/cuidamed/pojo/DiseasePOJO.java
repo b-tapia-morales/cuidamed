@@ -9,13 +9,13 @@ public class DiseasePOJO {
     @Getter
     private final String name;
     @Getter
-    private final DiseaseType diseaseType;
+    private final String diseaseType;
     @Getter
     private final Boolean isChronic;
 
     public DiseasePOJO(final Disease disease) {
         name = disease.name();
-        diseaseType = disease.diseaseType();
+        diseaseType = disease.diseaseType().toString();
         isChronic = disease.isChronic();
     }
 
