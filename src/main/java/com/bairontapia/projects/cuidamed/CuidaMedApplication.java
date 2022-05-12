@@ -29,11 +29,7 @@ public class CuidaMedApplication {
             var routineCheckups = RoutineCheckupDAO.getInstance().findAll(medicalRecord.rut()).stream().toList();
             var medicalRecordPOJO = new MedicalRecordPOJO(medicalRecord, routineCheckups);
             var elderPOJO = new ElderPOJO(elder, responsiblePOJO, medicalRecordPOJO, prescriptionPOJOs);
-            System.out.println(elderPOJO.getRut());
-            System.out.println(elderPOJO.getResponsible().getRut());
-            System.out.println(elderPOJO.getMedicalRecord().getBloodType());
-            System.out.println(elderPOJO.getMedicalRecord().getHealthCare());
-            System.out.println(elderPOJO.getPrescriptions());
+            System.out.println(elderPOJO);
         }
     }
 }

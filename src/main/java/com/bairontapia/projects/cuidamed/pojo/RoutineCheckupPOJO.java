@@ -35,4 +35,21 @@ public class RoutineCheckupPOJO {
         bodyTemperature = routineCheckup.bodyTemperature();
     }
 
+    @Override
+    public String toString() {
+        return String.format
+                ("""
+                                Fecha del chequeo:\t\t%s
+                                Altura:\t\t\t\t\t\t\t\t%s
+                                Peso:\t\t\t\t\t\t\t\t\t%s
+                                IMC:\t\t\t\t\t\t\t\t\t%s
+                                Ritmo cardiaco:\t\t\t\t%s
+                                Presión diastólica:\t\t%s
+                                Presión sistólica:\t\t%s
+                                Temperatura corporal:\t%s
+                                """,
+                        checkupDate, height, weight, bmi, heartRate, diastolicPressure, systolicPressure,
+                        bodyTemperature);
+    }
+
 }
