@@ -12,7 +12,6 @@ import com.bairontapia.projects.cuidamed.pojo.PrescriptionPOJO;
 import com.bairontapia.projects.cuidamed.pojo.ResponsiblePOJO;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
-import com.mongodb.client.MongoCollection;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
 import java.io.IOException;
@@ -27,10 +26,9 @@ public class CuidaMedApplication {
     public static void main(String... args) throws SQLException, IOException {
         var pojoCodecRegistry = fromRegistries(MongoClient.getDefaultCodecRegistry(),
                 fromProviders(PojoCodecProvider.builder().automatic(true).build()));
-        try (var mongoClient = new MongoClient("localhost:27017",
-                MongoClientOptions.builder().codecRegistry(pojoCodecRegistry).build())) {
+        try (var mongoClient = new MongoClient("localhost:27017", MongoClientOptions.builder().codecRegistry(pojoCodecRegistry).build())) {
             var database = mongoClient.getDatabase("admin");
-            MongoCollection<ElderPOJO> collection = database.getCollection("people", ElderPOJO.class);
+            var collection = database.getCollection("people", ElderPOJO.class);
             collection.drop();
             for (var elder : ElderDAO.getInstance().findAll().stream().limit(2).toList()) {
                 var prescriptions = PrescriptionDAO.getInstance().findAll(elder.rut());
