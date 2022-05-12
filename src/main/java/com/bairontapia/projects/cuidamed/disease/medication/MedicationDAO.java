@@ -59,7 +59,7 @@ public class MedicationDAO implements CrudDAO<Medication, String> {
 
     @Override
     public void saveTuple(PreparedStatement statement, Medication medication) throws SQLException {
-        statement.setString(1, medication.nameMedication());
+        statement.setString(1, medication.name());
         statement.setShort(2, (short) medication.administrationRoute().getIndex());
         statement.setShort(3, (short) medication.pharmaceuticalForm().getIndex());
         statement.setShort(3, (short) medication.measureUnit().getIndex());
@@ -71,7 +71,7 @@ public class MedicationDAO implements CrudDAO<Medication, String> {
         statement.setShort(1, (short) medication.administrationRoute().getIndex());
         statement.setShort(2, (short) medication.pharmaceuticalForm().getIndex());
         statement.setShort(3, (short) medication.measureUnit().getIndex());
-        statement.setString(4, medication.nameMedication());
+        statement.setString(4, medication.name());
     }
 
     @Override

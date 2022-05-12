@@ -1,26 +1,21 @@
 package com.bairontapia.projects.cuidamed.pojo;
 
 import com.bairontapia.projects.cuidamed.disease.Disease;
-import com.bairontapia.projects.cuidamed.disease.medicationprescription.MedicationPrescription;
 import com.bairontapia.projects.cuidamed.disease.prescription.Prescription;
-import java.time.LocalDate;
-import java.util.List;
 import lombok.Getter;
 
-public class PrescriptionPOJO {
-  @Getter private final DiseasePOJO disease;
-  @Getter private final LocalDate prescriptionDate;
-  @Getter private final String description;
-  @Getter private final List<MedicationPrescriptionPOJO> medicationPrescriptions;
+import java.time.LocalDate;
 
-  public PrescriptionPOJO(
-      final Prescription prescription,
-      final DiseasePOJO diseasePOJO,
-      final List<MedicationPrescription> medicationPrescriptions) {
-    disease = diseasePOJO;
-    prescriptionDate = prescription.prescriptionDate();
-    description = prescription.description();
-    this.medicationPrescriptions =
-        medicationPrescriptions.stream().map(MedicationPrescriptionPOJO::new).toList();
+public class PrescriptionPOJO {
+
+  @Getter
+  private final LocalDate date;
+  @Getter
+  private final DiseasePOJO disease;
+
+  public PrescriptionPOJO(final Prescription prescription, final Disease disease) {
+    this.date = prescription.prescriptionDate();
+    this.disease = new DiseasePOJO(disease);
   }
+
 }
