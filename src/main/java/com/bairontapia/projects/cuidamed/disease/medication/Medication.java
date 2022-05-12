@@ -6,7 +6,7 @@ import com.bairontapia.projects.cuidamed.mappings.pharmaceuticalform.Pharmaceuti
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public record Medication(String nameMedication, AdministrationRoute administrationRoute,
+public record Medication(String name, AdministrationRoute administrationRoute,
                          PharmaceuticalForm pharmaceuticalForm, MeasureUnit measureUnit) {
 
     public static Medication createInstance(String nameMedication, short administrationRoute,
@@ -23,7 +23,7 @@ public record Medication(String nameMedication, AdministrationRoute administrati
         }
         if (object instanceof final Medication medication) {
             return new EqualsBuilder().
-                    append(medication, medication.nameMedication).
+                    append(medication, medication.name).
                     isEquals();
         }
         return false;
@@ -32,12 +32,12 @@ public record Medication(String nameMedication, AdministrationRoute administrati
     @Override
     public int hashCode() {
         return new HashCodeBuilder().
-                append(nameMedication).
+                append(name).
                 toHashCode();
     }
 
     @Override
     public String toString() {
-        return nameMedication;
+        return name;
     }
 }

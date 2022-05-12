@@ -9,25 +9,19 @@ import lombok.Getter;
 public class MedicationPOJO {
 
     @Getter
-    private final String medicationName;
-
+    private final String name;
     @Getter
-    private final AdministrationRoute admiRoute;
-
+    private final AdministrationRoute administrationRoute;
     @Getter
     private final MeasureUnit measureUnit;
-
     @Getter
     private final PharmaceuticalForm pharmaceuticalForm;
 
-
-    public MedicationPOJO(final Medication medication){
-        medicationName = medication.nameMedication();
-        admiRoute = medication.administrationRoute();
+    public MedicationPOJO(final Medication medication) {
+        name = medication.name();
+        administrationRoute = medication.administrationRoute();
         measureUnit = medication.measureUnit();
         pharmaceuticalForm = medication.pharmaceuticalForm();
-
-
     }
 
 }

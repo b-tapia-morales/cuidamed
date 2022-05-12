@@ -69,7 +69,7 @@ public class PrescriptionView {
             a.show();
         } else {
             SickElderly sickElderly = SickElderly.createInstance(rut.getValue(),
-                    diseaseNameComboBox.getSelectionModel().getSelectedItem().disease_name(),
+                    diseaseNameComboBox.getSelectionModel().getSelectedItem().name(),
                     Date.valueOf(diagnosisDatePicker.getValue()));
             SickElderlyDAO.getInstance().save(sickElderly);
             if (isPrescriptionEnabled.isSelected()) {
@@ -79,7 +79,7 @@ public class PrescriptionView {
                     a.show();
                 } else {
                     Prescription prescription = Prescription.createInstance(rut.getValue(),
-                            diseaseNameComboBox.getSelectionModel().getSelectedItem().disease_name(),
+                            diseaseNameComboBox.getSelectionModel().getSelectedItem().name(),
                             Date.valueOf(diagnosisDatePicker.getValue()), description.getText());
                     PrescriptionDAO.getInstance().save(prescription);
                 }

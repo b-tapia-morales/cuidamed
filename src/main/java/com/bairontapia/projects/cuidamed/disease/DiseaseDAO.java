@@ -61,9 +61,9 @@ public class DiseaseDAO implements CrudDAO<Disease, String> {
 
     @Override
     public void saveTuple(PreparedStatement statement, Disease disease) throws SQLException {
-        statement.setString(1, disease.disease_name());
+        statement.setString(1, disease.name());
         statement.setShort(2, (short) disease.diseaseType().getIndex());
-        statement.setBoolean(3, disease.is_chronic());
+        statement.setBoolean(3, disease.isChronic());
         statement.executeUpdate();
     }
 
