@@ -7,7 +7,6 @@ import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineChe
 import lombok.Getter;
 
 import java.util.List;
-
 public class MedicalRecordPOJO {
 
     @Getter
