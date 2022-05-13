@@ -2,6 +2,7 @@ package com.bairontapia.projects.cuidamed.pojo;
 
 import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineCheckup;
 import lombok.Getter;
+import org.apache.commons.math3.util.Precision;
 
 import java.time.LocalDate;
 
@@ -26,13 +27,13 @@ public class RoutineCheckupPOJO {
 
     public RoutineCheckupPOJO(final RoutineCheckup routineCheckup) {
         checkupDate = routineCheckup.checkupDate();
-        height = routineCheckup.height();
-        weight = routineCheckup.weight();
-        bmi = routineCheckup.bmi();
+        height = Precision.round(routineCheckup.height(), 2);
+        weight = Precision.round(routineCheckup.weight(), 1);
+        bmi = Precision.round(routineCheckup.bmi(), 2);
         heartRate = routineCheckup.heartRate();
         diastolicPressure = routineCheckup.diastolicPressure();
         systolicPressure = routineCheckup.systolicPressure();
-        bodyTemperature = routineCheckup.bodyTemperature();
+        bodyTemperature = Precision.round(routineCheckup.bodyTemperature(), 1);
     }
 
     @Override
