@@ -30,7 +30,7 @@ public class CuidaMedApplication {
             var database = mongoClient.getDatabase("admin");
             var collection = database.getCollection("people", ElderPOJO.class);
             collection.drop();
-            for (var elder : ElderDAO.getInstance().findAll().stream().limit(2).toList()) {
+            for (var elder : ElderDAO.getInstance().findAll()) {
                 var prescriptions = PrescriptionDAO.getInstance().findAll(elder.rut());
                 var prescriptionPOJOs = new ArrayList<PrescriptionPOJO>();
                 for (var prescription : prescriptions) {
