@@ -3,6 +3,7 @@ package com.bairontapia.projects.cuidamed.pojo;
 import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineCheckup;
 import lombok.Getter;
 import org.apache.commons.math3.util.Precision;
+import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
 
@@ -24,16 +25,19 @@ public class RoutineCheckupPOJO {
     private final Integer systolicPressure;
     @Getter
     private final Double bodyTemperature;
+    @Getter
+    private final ObjectId elderId;
 
-    public RoutineCheckupPOJO(final RoutineCheckup routineCheckup) {
-        checkupDate = routineCheckup.checkupDate();
-        height = Precision.round(routineCheckup.height(), 2);
-        weight = Precision.round(routineCheckup.weight(), 1);
-        bmi = Precision.round(routineCheckup.bmi(), 2);
-        heartRate = routineCheckup.heartRate();
-        diastolicPressure = routineCheckup.diastolicPressure();
-        systolicPressure = routineCheckup.systolicPressure();
-        bodyTemperature = Precision.round(routineCheckup.bodyTemperature(), 1);
+    public RoutineCheckupPOJO(final RoutineCheckup routineCheckup, final ObjectId elderId) {
+        this.checkupDate = routineCheckup.checkupDate();
+        this.height = Precision.round(routineCheckup.height(), 2);
+        this.weight = Precision.round(routineCheckup.weight(), 1);
+        this.bmi = Precision.round(routineCheckup.bmi(), 2);
+        this.heartRate = routineCheckup.heartRate();
+        this.diastolicPressure = routineCheckup.diastolicPressure();
+        this.systolicPressure = routineCheckup.systolicPressure();
+        this.bodyTemperature = Precision.round(routineCheckup.bodyTemperature(), 1);
+        this.elderId = elderId;
     }
 
     @Override

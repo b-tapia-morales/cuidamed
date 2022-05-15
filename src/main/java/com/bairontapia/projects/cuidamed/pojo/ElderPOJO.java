@@ -4,12 +4,15 @@ import com.bairontapia.projects.cuidamed.person.elder.Elder;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
+import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class ElderPOJO {
 
+    @Getter
+    private final ObjectId id;
     @Getter
     private final String rut;
     @Getter
@@ -37,6 +40,7 @@ public class ElderPOJO {
 
     public ElderPOJO(final Elder elder, final ResponsiblePOJO responsiblePOJO,
                      final MedicalRecordPOJO medicalRecordPOJO, final List<PrescriptionPOJO> prescriptions) {
+        this.id = new ObjectId();
         this.rut = elder.rut();
         this.firstName = elder.firstName();
         this.lastName = elder.lastName();

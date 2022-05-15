@@ -6,10 +6,7 @@ import com.bairontapia.projects.cuidamed.medicalrecord.MedicalRecordDAO;
 import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineCheckupDAO;
 import com.bairontapia.projects.cuidamed.person.elder.ElderDAO;
 import com.bairontapia.projects.cuidamed.person.responsible.ResponsibleDAO;
-import com.bairontapia.projects.cuidamed.pojo.ElderPOJO;
-import com.bairontapia.projects.cuidamed.pojo.MedicalRecordPOJO;
-import com.bairontapia.projects.cuidamed.pojo.PrescriptionPOJO;
-import com.bairontapia.projects.cuidamed.pojo.ResponsiblePOJO;
+import com.bairontapia.projects.cuidamed.pojo.*;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import org.bson.codecs.pojo.PojoCodecProvider;
@@ -28,8 +25,10 @@ public class CuidaMedApplication {
                 fromProviders(PojoCodecProvider.builder().automatic(true).build()));
         try (var mongoClient = new MongoClient("localhost:27017", MongoClientOptions.builder().codecRegistry(pojoCodecRegistry).build())) {
             var database = mongoClient.getDatabase("admin");
-            var collection = database.getCollection("people", ElderPOJO.class);
-            collection.drop();
+            var elderColl = database.getCollection("elder", ElderPOJO.class);
+            elderColl.drop();
+            var routineCheckupColl = database.getCollection("routine_checkup", RoutineCheckupPOJO.class);
+            routineCheckupColl.drop();
             for (var elder : ElderDAO.getInstance().findAll()) {
                 var prescriptions = PrescriptionDAO.getInstance().findAll(elder.rut());
                 var prescriptionPOJOs = new ArrayList<PrescriptionPOJO>();
@@ -40,11 +39,12 @@ public class CuidaMedApplication {
                 var responsible = ResponsibleDAO.getInstance().find(elder.responsibleRut()).orElseThrow();
                 var responsiblePOJO = new ResponsiblePOJO(responsible);
                 var medicalRecord = MedicalRecordDAO.getInstance().find(elder.rut()).orElseThrow();
-                var routineCheckups = RoutineCheckupDAO.getInstance().findAll(medicalRecord.rut()).stream().toList();
-                var medicalRecordPOJO = new MedicalRecordPOJO(medicalRecord, routineCheckups);
+                var medicalRecordPOJO = new MedicalRecordPOJO(medicalRecord);
                 var elderPOJO = new ElderPOJO(elder, responsiblePOJO, medicalRecordPOJO, prescriptionPOJOs);
-                System.out.println(elderPOJO);
-                collection.insertOne(elderPOJO);
+                elderColl.insertOne(elderPOJO);
+                var routineCheckupPOJOS = RoutineCheckupDAO.getInstance().findAll(medicalRecord.rut())
+                        .stream().map(e -> new RoutineCheckupPOJO(e, elderPOJO.getId())).toList();
+                routineCheckupColl.insertMany(routineCheckupPOJOS);
             }
         }
     }

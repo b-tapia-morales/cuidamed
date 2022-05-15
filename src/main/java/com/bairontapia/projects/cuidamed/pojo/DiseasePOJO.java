@@ -13,9 +13,9 @@ public class DiseasePOJO {
     private final Boolean isChronic;
 
     public DiseasePOJO(final Disease disease) {
-        name = disease.name();
-        diseaseType = disease.diseaseType().toString();
-        isChronic = disease.isChronic();
+        this.name = disease.name();
+        this.diseaseType = disease.diseaseType().toString();
+        this.isChronic = disease.isChronic();
     }
 
 }
