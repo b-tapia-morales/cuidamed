@@ -54,6 +54,6 @@ public record Elder(String rut, String firstName, String lastName, String second
                                 Fecha de admisión:\t\t%s
                                 """, RutUtils.format(rut),
                         StringUtils.joinWith(" ", firstName, lastName, secondLastName), birthDate, age,
-                        gender, isActive ? "Sí" : "No", admissionDate);
+                        gender, isActive.equals(Boolean.TRUE) ? "Sí" : "No", admissionDate);
     }
 }
