@@ -1,6 +1,5 @@
 package com.bairontapia.projects.cuidamed.pojo;
 
-import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.person.responsible.Responsible;
 import lombok.Getter;
 
@@ -21,7 +20,7 @@ public class ResponsiblePOJO {
     @Getter
     private final Integer age;
     @Getter
-    private final Gender gender;
+    private final String gender;
     @Getter
     private final Integer mobilePhone;
 
@@ -31,7 +30,7 @@ public class ResponsiblePOJO {
         lastName = responsible.lastName();
         secondLastName = responsible.secondLastName();
         birthDate = responsible.birthDate();
-        gender = responsible.gender();
+        gender = responsible.gender().toString();
         age = responsible.age();
         mobilePhone = responsible.mobilePhone();
     }

@@ -1,20 +1,26 @@
-SET search_path = "residence";
+SET
+    search_path = "residence";
 
 DROP PROCEDURE IF EXISTS batch_insert_people(INTEGER);
 DROP PROCEDURE IF EXISTS batch_insert_people(INTEGER, INTEGER, INTEGER, INTEGER, INTEGER);
 DROP PROCEDURE IF EXISTS batch_insert_elders(INTEGER);
 DROP PROCEDURE IF EXISTS batch_insert_responsibles(INTEGER);
 
-CREATE OR REPLACE PROCEDURE batch_insert_people(n INTEGER)
+CREATE
+    OR REPLACE PROCEDURE batch_insert_people(n INTEGER)
     LANGUAGE plpgsql AS
 $func$
 DECLARE
     responsible_mobile_phones INTEGER ARRAY DEFAULT ARRAY(SELECT (floor(random() * (70000000) + 30000000))
                                                           FROM generate_series(1, n));
-    elder_admission_dates     DATE ARRAY DEFAULT generate_random_date_arr(n, 1, 20);
-    people_rut_arr            TEXT ARRAY;
-    elder_rut_arr             TEXT ARRAY;
-    responsible_rut_arr       TEXT ARRAY;
+    elder_admission_dates
+                              DATE ARRAY DEFAULT generate_random_date_arr(n, 1, 20);
+    people_rut_arr
+                              TEXT ARRAY;
+    elder_rut_arr
+                              TEXT ARRAY;
+    responsible_rut_arr
+                              TEXT ARRAY;
 BEGIN
     CALL batch_insert_responsibles(n);
     CALL batch_insert_elders(n);
@@ -31,19 +37,27 @@ BEGIN
 END;
 $func$;
 
-CREATE OR REPLACE PROCEDURE batch_insert_people(size INTEGER, starting_digit INTEGER, ending_digit INTEGER,
-                                                starting_timeframe INTEGER, ending_timeframe INTEGER)
+CREATE
+    OR REPLACE PROCEDURE batch_insert_people(size INTEGER, starting_digit INTEGER, ending_digit INTEGER,
+                                             starting_timeframe INTEGER, ending_timeframe INTEGER)
     LANGUAGE plpgsql AS
 $func$
 DECLARE
-    n                 INTEGER DEFAULT ((random() * 0.30 + 0.35) * size)::int;
-    m                 INTEGER DEFAULT size - n;
-    ruts              TEXT ARRAY DEFAULT generate_rut_arr(size, starting_digit, ending_digit);
-    male_names        TEXT ARRAY DEFAULT generate_male_first_names_arr(n);
-    female_names      TEXT ARRAY DEFAULT generate_female_first_names_arr(m);
-    last_names        TEXT ARRAY DEFAULT generate_last_names_arr(size);
-    second_last_names TEXT ARRAY DEFAULT generate_last_names_arr(size);
-    birth_dates       DATE ARRAY DEFAULT generate_random_date_arr(size, starting_timeframe, ending_timeframe);
+    n INTEGER DEFAULT ((random() * 0.30 + 0.35) * size)::int;
+    m
+      INTEGER DEFAULT size - n;
+    ruts
+      TEXT ARRAY DEFAULT generate_rut_arr(size, starting_digit, ending_digit);
+    male_names
+      TEXT ARRAY DEFAULT generate_male_first_names_arr(n);
+    female_names
+      TEXT ARRAY DEFAULT generate_female_first_names_arr(m);
+    last_names
+      TEXT ARRAY DEFAULT generate_last_names_arr(size);
+    second_last_names
+      TEXT ARRAY DEFAULT generate_last_names_arr(size);
+    birth_dates
+      DATE ARRAY DEFAULT generate_random_date_arr(size, starting_timeframe, ending_timeframe);
 BEGIN
     FOR i IN 1..n
         LOOP
@@ -60,7 +74,8 @@ BEGIN
 END;
 $func$;
 
-CREATE OR REPLACE PROCEDURE batch_insert_elders(n INTEGER)
+CREATE
+    OR REPLACE PROCEDURE batch_insert_elders(n INTEGER)
     LANGUAGE plpgsql AS
 $func$
 BEGIN
@@ -68,7 +83,8 @@ BEGIN
 END;
 $func$;
 
-CREATE OR REPLACE PROCEDURE batch_insert_responsibles(n INTEGER)
+CREATE
+    OR REPLACE PROCEDURE batch_insert_responsibles(n INTEGER)
     LANGUAGE plpgsql AS
 $func$
 BEGIN

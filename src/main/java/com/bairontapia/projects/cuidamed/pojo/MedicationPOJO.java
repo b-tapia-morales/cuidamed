@@ -1,9 +1,6 @@
 package com.bairontapia.projects.cuidamed.pojo;
 
 import com.bairontapia.projects.cuidamed.disease.medication.Medication;
-import com.bairontapia.projects.cuidamed.mappings.administrationroute.AdministrationRoute;
-import com.bairontapia.projects.cuidamed.mappings.measureunit.MeasureUnit;
-import com.bairontapia.projects.cuidamed.mappings.pharmaceuticalform.PharmaceuticalForm;
 import lombok.Getter;
 
 public class MedicationPOJO {
@@ -11,17 +8,17 @@ public class MedicationPOJO {
     @Getter
     private final String name;
     @Getter
-    private final AdministrationRoute administrationRoute;
+    private final String administrationRoute;
     @Getter
-    private final MeasureUnit measureUnit;
+    private final String measureUnit;
     @Getter
-    private final PharmaceuticalForm pharmaceuticalForm;
+    private final String pharmaceuticalForm;
 
     public MedicationPOJO(final Medication medication) {
         name = medication.name();
-        administrationRoute = medication.administrationRoute();
-        measureUnit = medication.measureUnit();
-        pharmaceuticalForm = medication.pharmaceuticalForm();
+        administrationRoute = medication.administrationRoute().toString();
+        measureUnit = medication.measureUnit().toString();
+        pharmaceuticalForm = medication.pharmaceuticalForm().toString();
     }
 
 }
