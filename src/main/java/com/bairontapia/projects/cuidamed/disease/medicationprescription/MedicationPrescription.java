@@ -6,20 +6,18 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import java.sql.Date;
 import java.time.LocalDate;
 
-public record MedicationPrescription(String rut, String fullName, String diseaseName,
-                                     LocalDate prescriptionDate,
-                                     String medicationName, LocalDate startDate,
-                                     LocalDate endDate) {
+public record MedicationPrescription(String rut, String diseaseName, LocalDate prescriptionDate,
+                                     String medicationName, LocalDate startDate, LocalDate endDate, Short quantity) {
 
-    public static MedicationPrescription createInstance(String rut, String fullName,
-                                                        String diseaseName,
-                                                        Date prescriptionDate, String medicationName, Date startDate, Date endDate) {
+    public static MedicationPrescription createInstance(String rut, String diseaseName, Date prescriptionDate,
+                                                        String medicationName, Date startDate, Date endDate,
+                                                        Short quantity) {
         if (endDate != null) {
-            return new MedicationPrescription(rut, fullName, diseaseName, prescriptionDate.toLocalDate(),
-                    medicationName, startDate.toLocalDate(), endDate.toLocalDate());
+            return new MedicationPrescription(rut, diseaseName, prescriptionDate.toLocalDate(), medicationName,
+                    startDate.toLocalDate(), endDate.toLocalDate(), quantity);
         } else {
-            return new MedicationPrescription(rut, fullName, diseaseName, prescriptionDate.toLocalDate(),
-                    medicationName, startDate.toLocalDate(), null);
+            return new MedicationPrescription(rut, diseaseName, prescriptionDate.toLocalDate(), medicationName,
+                    startDate.toLocalDate(), null, quantity);
         }
     }
 
