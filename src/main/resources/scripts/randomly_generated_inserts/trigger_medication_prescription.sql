@@ -17,7 +17,8 @@ BEGIN
         LOOP
             chronic = (SELECT is_chronic FROM disease WHERE disease_name = new.disease_name);
             IF (chronic = TRUE) THEN
-                INSERT INTO medication_prescription (rut, disease_name, prescription_date, medication_name, start_date,
+                INSERT INTO medication_prescription (rut, disease_name, prescription_date,
+                                                     medication_name, start_date,
                                                      end_date, quantity)
                 VALUES (new.rut, new.disease_name, new.prescription_date,
                         medication[floor(random() * n + 1)::int], new.prescription_date,
@@ -25,11 +26,13 @@ BEGIN
                         floor(random() * 5 + 1)::int)
                 ON CONFLICT DO NOTHING;
             ELSE
-                INSERT INTO medication_prescription (rut, disease_name, prescription_date, medication_name, start_date,
+                INSERT INTO medication_prescription (rut, disease_name, prescription_date,
+                                                     medication_name, start_date,
                                                      end_date, quantity)
                 VALUES (new.rut, new.disease_name, new.prescription_date,
                         medication[floor(random() * n + 1)::int], new.prescription_date,
-                        (new.prescription_date + make_interval(days => (floor(random() * 7 + 7)::int)))::date,
+                        (new.prescription_date +
+                         make_interval(days => (floor(random() * 7 + 7)::int)))::date,
                         floor(random() * 5 + 1)::int)
                 ON CONFLICT DO NOTHING;
             END IF;

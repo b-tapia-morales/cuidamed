@@ -13,14 +13,16 @@ BEGIN
 END;
 $func$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION generate_random_date_arr(n INTEGER, starting_timeframe INTEGER, ending_timeframe INTEGER) RETURNS DATE ARRAY AS
+CREATE OR REPLACE FUNCTION generate_random_date_arr(n INTEGER, starting_timeframe INTEGER,
+                                                    ending_timeframe INTEGER) RETURNS DATE ARRAY AS
 $func$
 DECLARE
     date_arr DATE ARRAY;
 BEGIN
     FOR i IN 1..N
         LOOP
-            date_arr = array_append(date_arr, generate_random_date(starting_timeframe, ending_timeframe));
+            date_arr = array_append(date_arr,
+                                    generate_random_date(starting_timeframe, ending_timeframe));
         END LOOP;
     RETURN date_arr;
 END;

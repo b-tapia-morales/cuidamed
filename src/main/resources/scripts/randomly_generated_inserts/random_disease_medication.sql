@@ -114,7 +114,8 @@ BEGIN
     FOR i in 1..n
         LOOP
             INSERT INTO disease
-            VALUES (names_disease[i], floor(random() * 14 + 1)::smallint, chronic[floor(random() * 2 + 1)::int]);
+            VALUES (names_disease[i], floor(random() * 14 + 1)::smallint,
+                    chronic[floor(random() * 2 + 1)::int]);
         END LOOP;
 END;
 $$;
@@ -228,7 +229,8 @@ BEGIN
     FOR i in 1..n
         LOOP
             INSERT INTO medication
-            VALUES (medication_names[i], floor(random() * 2 + 1)::smallint, floor(random() * 4 + 1)::smallint,
+            VALUES (medication_names[i], floor(random() * 2 + 1)::smallint,
+                    floor(random() * 4 + 1)::smallint,
                     floor(random() * 2 + 1)::smallint);
         END LOOP;
 END;

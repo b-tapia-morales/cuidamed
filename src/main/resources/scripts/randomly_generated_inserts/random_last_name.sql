@@ -22,7 +22,8 @@ DECLARE
 BEGIN
     FOR i in 1..n
         LOOP
-            generated_last_names = array_append(generated_last_names, last_names[1 + floor(random() * n)::int]);
+            generated_last_names =
+                    array_append(generated_last_names, last_names[1 + floor(random() * n)::int]);
         END LOOP;
     RETURN generated_last_names;
 END;
