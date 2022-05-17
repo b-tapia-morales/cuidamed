@@ -13,38 +13,36 @@ import java.util.Objects;
 
 public class BloodTypeStatsDAO implements ReadOnlyDAO<BloodTypeStats, Short> {
 
-    private static final BloodTypeStatsDAO INSTANCE = new BloodTypeStatsDAO();
+  private static final BloodTypeStatsDAO INSTANCE = new BloodTypeStatsDAO();
 
-    private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
+  private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
 
-    private static final String RELATIVE_PATH_STRING =
-            DirectoryPathUtils.pathBuilder("scripts", "class_queries", "stats");
-    private static final String FIND_ALL_QUERY_PATH = RELATIVE_PATH_STRING + "blood_type.sql";
+  private static final String RELATIVE_PATH_STRING =
+      DirectoryPathUtils.pathBuilder("scripts", "class_queries", "stats");
+  private static final String FIND_ALL_QUERY_PATH = RELATIVE_PATH_STRING + "blood_type.sql";
 
-    public static BloodTypeStatsDAO getInstance() {
-        return INSTANCE;
-    }
+  public static BloodTypeStatsDAO getInstance() {
+    return INSTANCE;
+  }
 
-    @Override
-    public String findQuery() throws IOException {
-        return null;
-    }
+  @Override
+  public String findQuery() throws IOException {
+    return null;
+  }
 
-    @Override
-    public String findAllQuery() throws IOException {
-        final var inputStream = CLASS_LOADER.getResourceAsStream(FIND_ALL_QUERY_PATH);
-        return IOUtils.toString(Objects.requireNonNull(inputStream), Charset.defaultCharset());
-    }
+  @Override
+  public String findAllQuery() throws IOException {
+    final var inputStream = CLASS_LOADER.getResourceAsStream(FIND_ALL_QUERY_PATH);
+    return IOUtils.toString(Objects.requireNonNull(inputStream), Charset.defaultCharset());
+  }
 
-    @Override
-    public void setKeyParameter(PreparedStatement statement, Short id) throws SQLException {
-    }
+  @Override
+  public void setKeyParameter(PreparedStatement statement, Short id) throws SQLException {}
 
-    @Override
-    public BloodTypeStats readTuple(ResultSet resultSet) throws SQLException {
-        final var bloodType = resultSet.getShort(1);
-        final var frequency = resultSet.getInt(2);
-        return BloodTypeStats.createInstance(bloodType, frequency);
-    }
-
+  @Override
+  public BloodTypeStats readTuple(ResultSet resultSet) throws SQLException {
+    final var bloodType = resultSet.getShort(1);
+    final var frequency = resultSet.getInt(2);
+    return BloodTypeStats.createInstance(bloodType, frequency);
+  }
 }

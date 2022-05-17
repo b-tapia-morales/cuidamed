@@ -17,52 +17,50 @@ import java.sql.Date;
 @Getter
 public class SurgicalInterventionView {
 
-    @FXML
-    private DatePicker datePicker;
-    @FXML
-    private TextField textHospital;
-    @FXML
-    private ComboBox<Severity> severityComboBox;
-    @FXML
-    private TextArea textDescription;
+  @FXML private DatePicker datePicker;
+  @FXML private TextField textHospital;
+  @FXML private ComboBox<Severity> severityComboBox;
+  @FXML private TextArea textDescription;
 
-    private SurgicalIntervention surgicalIntervention;
+  private SurgicalIntervention surgicalIntervention;
 
-    private String rut;
+  private String rut;
 
-    public void initialize() {
-        severityComboBox.setItems(FXCollections.observableArrayList(Severity.getValues()));
+  public void initialize() {
+    severityComboBox.setItems(FXCollections.observableArrayList(Severity.getValues()));
+  }
 
+  public void changes(String rut) {
+    this.rut = rut;
+  }
+
+  @FXML
+  public void addSurgicalIntervention(ActionEvent actionEvent) {
+    Node source = (Node) actionEvent.getSource();
+    Stage stage = (Stage) source.getScene().getWindow();
+    stage.close();
+    if (datePicker.getValue() == null
+        || textHospital.getText().equals("")
+        || severityComboBox.getSelectionModel().isEmpty()
+        || textDescription.getText().equals("")) {
+      Alert a = new Alert(AlertType.WARNING);
+      a.setContentText("¡¡Valores vacíos!!");
+      a.show();
+    } else {
+      this.surgicalIntervention =
+          SurgicalIntervention.createInstance(
+              RutUtils.removeDots(rut.toLowerCase()),
+              Date.valueOf(datePicker.getValue()),
+              textHospital.getText(),
+              (short) (severityComboBox.getSelectionModel().getSelectedIndex() + 1),
+              textDescription.getText());
     }
+  }
 
-    public void changes(String rut) {
-        this.rut = rut;
-    }
-
-    @FXML
-    public void addSurgicalIntervention(ActionEvent actionEvent) {
-        Node source = (Node) actionEvent.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
-        if (datePicker.getValue() == null || textHospital.getText().equals("") || severityComboBox
-                .getSelectionModel().isEmpty() || textDescription.getText().equals("")) {
-            Alert a = new Alert(AlertType.WARNING);
-            a.setContentText("¡¡Valores vacíos!!");
-            a.show();
-        } else {
-            this.surgicalIntervention = SurgicalIntervention
-                    .createInstance(RutUtils.removeDots(rut.toLowerCase()),
-                            Date.valueOf(datePicker.getValue()),
-                            textHospital.getText(),
-                            (short) (severityComboBox.getSelectionModel().getSelectedIndex() + 1),
-                            textDescription.getText());
-        }
-    }
-
-    @FXML
-    public void cancelSurgicalIntervention(ActionEvent actionEvent) {
-        Node source = (Node) actionEvent.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
-    }
+  @FXML
+  public void cancelSurgicalIntervention(ActionEvent actionEvent) {
+    Node source = (Node) actionEvent.getSource();
+    Stage stage = (Stage) source.getScene().getWindow();
+    stage.close();
+  }
 }

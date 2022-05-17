@@ -6,18 +6,17 @@ import java.time.LocalDate;
 
 public interface Person {
 
-    String rut();
+  String rut();
 
-    String firstName();
+  String firstName();
 
-    String lastName();
+  String lastName();
 
-    String secondLastName();
+  String secondLastName();
 
-    LocalDate birthDate();
+  LocalDate birthDate();
 
-    Integer age();
+  Integer age();
 
-    Gender gender();
-
+  Gender gender();
 }

@@ -8,16 +8,15 @@ import java.sql.SQLException;
 
 public interface CrudDAO<T, ID> extends ReadAndWriteDAO<T, ID> {
 
-    String updateQuery() throws IOException;
+  String updateQuery() throws IOException;
 
-    void updateTuple(PreparedStatement statement, T t) throws SQLException;
+  void updateTuple(PreparedStatement statement, T t) throws SQLException;
 
-    default void update(T t) throws IOException, SQLException {
-        var query = updateQuery();
-        var connection = ConnectionSingleton.getInstance();
-        var statement = connection.prepareStatement(query);
-        updateTuple(statement, t);
-        statement.close();
-    }
-
+  default void update(T t) throws IOException, SQLException {
+    var query = updateQuery();
+    var connection = ConnectionSingleton.getInstance();
+    var statement = connection.prepareStatement(query);
+    updateTuple(statement, t);
+    statement.close();
+  }
 }

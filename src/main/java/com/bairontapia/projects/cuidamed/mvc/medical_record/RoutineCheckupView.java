@@ -16,55 +16,48 @@ import java.sql.Date;
 @Getter
 public class RoutineCheckupView {
 
-    @FXML
-    private Button add;
-    @FXML
-    private Button cancel;
-    @FXML
-    private DatePicker checkupDatePicker;
-    @FXML
-    private TextField height;
-    @FXML
-    private TextField weight;
-    @FXML
-    private TextField bmi;
-    @FXML
-    private TextField heartRate;
-    @FXML
-    private TextField diastolicPressure;
-    @FXML
-    private TextField systolicPressure;
-    @FXML
-    private TextField bodyTemperature;
+  @FXML private Button add;
+  @FXML private Button cancel;
+  @FXML private DatePicker checkupDatePicker;
+  @FXML private TextField height;
+  @FXML private TextField weight;
+  @FXML private TextField bmi;
+  @FXML private TextField heartRate;
+  @FXML private TextField diastolicPressure;
+  @FXML private TextField systolicPressure;
+  @FXML private TextField bodyTemperature;
 
-    private RoutineCheckup routineCheckup;
-    private String rut;
+  private RoutineCheckup routineCheckup;
+  private String rut;
 
+  public void initialize() {
+    routineCheckup = null;
+  }
 
-    public void initialize() {
-        routineCheckup = null;
-    }
+  public void changes(String rut) {
+    this.rut = rut;
+  }
 
-    public void changes(String rut) {
-        this.rut = rut;
-    }
+  public void addRoutineCheckup(ActionEvent actionEvent) {
+    Node source = (Node) actionEvent.getSource();
+    Stage stage = (Stage) source.getScene().getWindow();
+    stage.close();
+    this.routineCheckup =
+        RoutineCheckup.createInstance(
+            RutUtils.removeDots(rut.toLowerCase()),
+            Date.valueOf(checkupDatePicker.getValue()),
+            Double.parseDouble(height.getText()),
+            Double.parseDouble(weight.getText()),
+            Double.parseDouble(bmi.getText()),
+            Integer.parseInt(height.getText()),
+            Integer.parseInt(diastolicPressure.getText()),
+            Integer.parseInt(systolicPressure.getText()),
+            Double.parseDouble(bodyTemperature.getText()));
+  }
 
-    public void addRoutineCheckup(ActionEvent actionEvent) {
-        Node source = (Node) actionEvent.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
-        this.routineCheckup = RoutineCheckup
-                .createInstance(RutUtils.removeDots(rut.toLowerCase()),
-                        Date.valueOf(checkupDatePicker.getValue()), Double.parseDouble(height.getText()),
-                        Double.parseDouble(weight.getText()), Double.parseDouble(bmi.getText()),
-                        Integer.parseInt(height.getText()), Integer.parseInt(diastolicPressure.getText()),
-                        Integer.parseInt(systolicPressure.getText()),
-                        Double.parseDouble(bodyTemperature.getText()));
-    }
-
-    public void cancelRoutineCheckup(ActionEvent actionEvent) {
-        Node source = (Node) actionEvent.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
-    }
+  public void cancelRoutineCheckup(ActionEvent actionEvent) {
+    Node source = (Node) actionEvent.getSource();
+    Stage stage = (Stage) source.getScene().getWindow();
+    stage.close();
+  }
 }

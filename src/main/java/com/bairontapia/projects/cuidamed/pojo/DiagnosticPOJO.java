@@ -8,14 +8,11 @@ import java.time.LocalDate;
 
 public class DiagnosticPOJO {
 
-    @Getter
-    private final LocalDate date;
-    @Getter
-    private final DiseasePOJO disease;
+  @Getter private final LocalDate date;
+  @Getter private final DiseasePOJO disease;
 
-    public DiagnosticPOJO(final Diagnostic diagnostic, final Disease disease) {
-        this.date = diagnostic.prescriptionDate();
-        this.disease = new DiseasePOJO(disease);
-    }
-
+  public DiagnosticPOJO(final Diagnostic diagnostic, final Disease disease) {
+    this.date = diagnostic.prescriptionDate();
+    this.disease = new DiseasePOJO(disease);
+  }
 }

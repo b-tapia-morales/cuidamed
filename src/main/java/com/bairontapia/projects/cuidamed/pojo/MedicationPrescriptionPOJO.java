@@ -8,19 +8,15 @@ import java.time.LocalDate;
 
 public class MedicationPrescriptionPOJO {
 
-    @Getter
-    private final ObjectId id;
-    @Getter
-    private final LocalDate startDate;
-    @Getter
-    private final LocalDate endDate;
-    @Getter
-    private final Short quantity;
+  @Getter private final ObjectId id;
+  @Getter private final LocalDate startDate;
+  @Getter private final LocalDate endDate;
+  @Getter private final Short quantity;
 
-    public MedicationPrescriptionPOJO(final MedicationPrescription medicationPrescription) {
-        this.id = new ObjectId();
-        this.startDate = medicationPrescription.startDate();
-        this.endDate = medicationPrescription.endDate();
-        this.quantity = medicationPrescription.quantity();
-    }
+  public MedicationPrescriptionPOJO(final MedicationPrescription medicationPrescription) {
+    this.id = new ObjectId();
+    this.startDate = medicationPrescription.startDate();
+    this.endDate = medicationPrescription.endDate();
+    this.quantity = medicationPrescription.quantity();
+  }
 }

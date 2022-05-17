@@ -8,7 +8,6 @@ import java.util.Objects;
 
 public record Disease(String name, DiseaseType diseaseType, Boolean isChronic) {
 
-
     public static Disease createInstance(String diseaseName, short diseaseType, boolean isChronic) {
         return new Disease(diseaseName, DiseaseType.getValueFromIndex(diseaseType), isChronic);
     }

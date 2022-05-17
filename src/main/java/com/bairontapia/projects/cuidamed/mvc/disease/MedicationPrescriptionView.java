@@ -13,23 +13,18 @@ import java.sql.SQLException;
 
 public class MedicationPrescriptionView {
 
-    @FXML
-    private DatePicker startDatePicker;
-    @FXML
-    private DatePicker endDatePicker;
-    @FXML
-    private TextField rut;
-    @FXML
-    private DatePicker prescriptionDatePicker;
-    @FXML
-    private ComboBox<Medication> medicationComboBox;
+  @FXML private DatePicker startDatePicker;
+  @FXML private DatePicker endDatePicker;
+  @FXML private TextField rut;
+  @FXML private DatePicker prescriptionDatePicker;
+  @FXML private ComboBox<Medication> medicationComboBox;
 
-    public void initialize() throws SQLException, IOException {
-        initializeComboBoxes();
-    }
+  public void initialize() throws SQLException, IOException {
+    initializeComboBoxes();
+  }
 
-    public void initializeComboBoxes() throws SQLException, IOException {
-        medicationComboBox.setItems(
-                FXCollections.observableArrayList(MedicationDAO.getInstance().findAll()));
-    }
+  public void initializeComboBoxes() throws SQLException, IOException {
+    medicationComboBox.setItems(
+        FXCollections.observableArrayList(MedicationDAO.getInstance().findAll()));
+  }
 }

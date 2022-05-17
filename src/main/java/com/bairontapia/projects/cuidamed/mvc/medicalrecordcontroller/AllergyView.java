@@ -19,46 +19,44 @@ import java.io.IOException;
 @Getter
 public class AllergyView {
 
-    @FXML
-    private ComboBox<AllergyType> comboBoxType;
-    @FXML
-    private TextField labelDetails;
+  @FXML private ComboBox<AllergyType> comboBoxType;
+  @FXML private TextField labelDetails;
 
-    private Allergy allergy;
+  private Allergy allergy;
 
-    private String rut;
+  private String rut;
 
-    public void initialize() {
-        comboBoxType.setItems(FXCollections.observableArrayList(AllergyType.getValues()));
-        allergy = null;
+  public void initialize() {
+    comboBoxType.setItems(FXCollections.observableArrayList(AllergyType.getValues()));
+    allergy = null;
+  }
+
+  @FXML
+  public void addedAllergy(ActionEvent actionEvent) throws IOException {
+    Node source = (Node) actionEvent.getSource();
+    Stage stage = (Stage) source.getScene().getWindow();
+    stage.close();
+    if (comboBoxType.getSelectionModel().isEmpty() || labelDetails.getText().equals("")) {
+      Alert a = new Alert(AlertType.WARNING);
+      a.setContentText("¡¡Valores vacíos!!");
+      a.show();
+    } else {
+      this.allergy =
+          Allergy.createInstance(
+              RutUtils.removeDots(rut.toLowerCase()),
+              (short) (comboBoxType.getSelectionModel().getSelectedIndex() + 1),
+              labelDetails.getText());
     }
+  }
 
-    @FXML
-    public void addedAllergy(ActionEvent actionEvent) throws IOException {
-        Node source = (Node) actionEvent.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
-        if (comboBoxType.getSelectionModel().isEmpty() || labelDetails.getText().equals("")) {
-            Alert a = new Alert(AlertType.WARNING);
-            a.setContentText("¡¡Valores vacíos!!");
-            a.show();
-        } else {
-            this.allergy = Allergy
-                    .createInstance(RutUtils.removeDots(rut.toLowerCase()),
-                            (short) (comboBoxType.getSelectionModel().getSelectedIndex() + 1),
-                            labelDetails.getText());
-        }
-    }
+  @FXML
+  public void cancelAllergy(ActionEvent actionEvent) {
+    Node source = (Node) actionEvent.getSource();
+    Stage stage = (Stage) source.getScene().getWindow();
+    stage.close();
+  }
 
-
-    @FXML
-    public void cancelAllergy(ActionEvent actionEvent) {
-        Node source = (Node) actionEvent.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
-    }
-
-    public void changes(String rut) {
-        this.rut = rut;
-    }
+  public void changes(String rut) {
+    this.rut = rut;
+  }
 }
