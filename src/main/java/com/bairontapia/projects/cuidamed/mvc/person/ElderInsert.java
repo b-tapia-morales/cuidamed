@@ -1,6 +1,11 @@
 package com.bairontapia.projects.cuidamed.mvc.person;
 
-import com.bairontapia.projects.cuidamed.localization.*;
+import com.bairontapia.projects.cuidamed.localization.Commune;
+import com.bairontapia.projects.cuidamed.localization.CommuneDAO;
+import com.bairontapia.projects.cuidamed.localization.Province;
+import com.bairontapia.projects.cuidamed.localization.ProvinceDAO;
+import com.bairontapia.projects.cuidamed.localization.Region;
+import com.bairontapia.projects.cuidamed.localization.RegionDAO;
 import com.bairontapia.projects.cuidamed.mappings.bloodtype.BloodType;
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.mappings.healthcaresystem.HealthCare;
@@ -13,52 +18,81 @@ import com.bairontapia.projects.cuidamed.person.elder.ElderDAO;
 import com.bairontapia.projects.cuidamed.person.responsible.Responsible;
 import com.bairontapia.projects.cuidamed.person.responsible.ResponsibleDAO;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
-import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
-import lombok.Getter;
-import org.apache.commons.lang3.StringUtils;
-
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Period;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
 
 @Getter
 public class ElderInsert {
 
   private final StringBuilder stringBuilder = new StringBuilder();
 
-  @FXML private TextField rut;
-  @FXML private TextField name;
-  @FXML private TextField lastName;
-  @FXML private TextField secondLastName;
-  @FXML private DatePicker birthDate;
-  @FXML private ComboBox<Gender> gender;
-  @FXML private CheckBox isActive;
-  @FXML private DatePicker admissionDate;
-  @FXML private ComboBox<BloodType> bloodType;
-  @FXML private ComboBox<HealthCare> healthCare;
+  @FXML
+  private TextField rut;
+  @FXML
+  private TextField name;
+  @FXML
+  private TextField lastName;
+  @FXML
+  private TextField secondLastName;
+  @FXML
+  private DatePicker birthDate;
+  @FXML
+  private ComboBox<Gender> gender;
+  @FXML
+  private CheckBox isActive;
+  @FXML
+  private DatePicker admissionDate;
+  @FXML
+  private ComboBox<BloodType> bloodType;
+  @FXML
+  private ComboBox<HealthCare> healthCare;
 
-  @FXML private TextField responsibleRut;
-  @FXML private TextField responsibleName;
-  @FXML private TextField responsibleLastName;
-  @FXML private TextField responsibleSecondLastName;
-  @FXML private DatePicker responsibleBirthDate;
-  @FXML private ComboBox<Gender> responsibleGender;
-  @FXML private TextField responsibleMobilePhone;
+  @FXML
+  private TextField responsibleRut;
+  @FXML
+  private TextField responsibleName;
+  @FXML
+  private TextField responsibleLastName;
+  @FXML
+  private TextField responsibleSecondLastName;
+  @FXML
+  private DatePicker responsibleBirthDate;
+  @FXML
+  private ComboBox<Gender> responsibleGender;
+  @FXML
+  private TextField responsibleMobilePhone;
 
-  @FXML private ComboBox<Region> regionComboBox;
-  @FXML private ComboBox<Province> provinceComboBox;
-  @FXML private ComboBox<Commune> communeComboBox;
-  @FXML private TextField street;
-  @FXML private TextField number;
-  @FXML private TextField fixedPhone;
-  @FXML private TextField postalCode;
+  @FXML
+  private ComboBox<Region> regionComboBox;
+  @FXML
+  private ComboBox<Province> provinceComboBox;
+  @FXML
+  private ComboBox<Commune> communeComboBox;
+  @FXML
+  private TextField street;
+  @FXML
+  private TextField number;
+  @FXML
+  private TextField fixedPhone;
+  @FXML
+  private TextField postalCode;
 
-  @FXML private Button addData;
+  @FXML
+  private Button addData;
 
   private static void appendEmptyField(final StringBuilder stringBuilder, String panelName) {
     stringBuilder

@@ -3,24 +3,31 @@ package com.bairontapia.projects.cuidamed.mvc.medicalrecordcontroller;
 import com.bairontapia.projects.cuidamed.mappings.severity.Severity;
 import com.bairontapia.projects.cuidamed.medicalrecord.surgicalintervention.SurgicalIntervention;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
+import java.sql.Date;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lombok.Getter;
-
-import java.sql.Date;
 
 @Getter
 public class SurgicalInterventionView {
 
-  @FXML private DatePicker datePicker;
-  @FXML private TextField textHospital;
-  @FXML private ComboBox<Severity> severityComboBox;
-  @FXML private TextArea textDescription;
+  @FXML
+  private DatePicker datePicker;
+  @FXML
+  private TextField textHospital;
+  @FXML
+  private ComboBox<Severity> severityComboBox;
+  @FXML
+  private TextArea textDescription;
 
   private SurgicalIntervention surgicalIntervention;
 

@@ -6,11 +6,16 @@ import org.bson.types.ObjectId;
 
 public class MedicationPOJO {
 
-  @Getter private final ObjectId id;
-  @Getter private final String name;
-  @Getter private final String administrationRoute;
-  @Getter private final String measureUnit;
-  @Getter private final String pharmaceuticalForm;
+  @Getter
+  private final ObjectId id;
+  @Getter
+  private final String name;
+  @Getter
+  private final String administrationRoute;
+  @Getter
+  private final String measureUnit;
+  @Getter
+  private final String pharmaceuticalForm;
 
   public MedicationPOJO(final Medication medication) {
     this.id = new ObjectId();

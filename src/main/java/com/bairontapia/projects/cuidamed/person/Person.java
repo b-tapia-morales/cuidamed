@@ -1,7 +1,6 @@
 package com.bairontapia.projects.cuidamed.person;
 
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
-
 import java.time.LocalDate;
 
 public interface Person {

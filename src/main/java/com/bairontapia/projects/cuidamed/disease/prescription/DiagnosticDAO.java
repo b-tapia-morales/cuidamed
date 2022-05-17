@@ -3,8 +3,6 @@ package com.bairontapia.projects.cuidamed.disease.prescription;
 import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
 import com.bairontapia.projects.cuidamed.daotemplate.OneToManyDAO;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
-import org.apache.commons.io.IOUtils;
-
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.sql.Date;
@@ -12,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
+import org.apache.commons.io.IOUtils;
 
 public class DiagnosticDAO
     implements CrudDAO<Diagnostic, String>, OneToManyDAO<Diagnostic, String> {

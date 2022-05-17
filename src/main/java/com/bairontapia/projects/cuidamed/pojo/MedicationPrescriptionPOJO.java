@@ -1,17 +1,20 @@
 package com.bairontapia.projects.cuidamed.pojo;
 
 import com.bairontapia.projects.cuidamed.disease.medicationprescription.MedicationPrescription;
+import java.time.LocalDate;
 import lombok.Getter;
 import org.bson.types.ObjectId;
 
-import java.time.LocalDate;
-
 public class MedicationPrescriptionPOJO {
 
-  @Getter private final ObjectId id;
-  @Getter private final LocalDate startDate;
-  @Getter private final LocalDate endDate;
-  @Getter private final Short quantity;
+  @Getter
+  private final ObjectId id;
+  @Getter
+  private final LocalDate startDate;
+  @Getter
+  private final LocalDate endDate;
+  @Getter
+  private final Short quantity;
 
   public MedicationPrescriptionPOJO(final MedicationPrescription medicationPrescription) {
     this.id = new ObjectId();

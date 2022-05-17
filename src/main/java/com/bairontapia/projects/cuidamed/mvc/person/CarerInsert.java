@@ -1,6 +1,11 @@
 package com.bairontapia.projects.cuidamed.mvc.person;
 
-import com.bairontapia.projects.cuidamed.localization.*;
+import com.bairontapia.projects.cuidamed.localization.Commune;
+import com.bairontapia.projects.cuidamed.localization.CommuneDAO;
+import com.bairontapia.projects.cuidamed.localization.Province;
+import com.bairontapia.projects.cuidamed.localization.ProvinceDAO;
+import com.bairontapia.projects.cuidamed.localization.Region;
+import com.bairontapia.projects.cuidamed.localization.RegionDAO;
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.person.address.Address;
 import com.bairontapia.projects.cuidamed.person.address.AddressDAO;
@@ -8,41 +13,61 @@ import com.bairontapia.projects.cuidamed.person.carer.Carer;
 import com.bairontapia.projects.cuidamed.person.carer.CarerDAO;
 import com.bairontapia.projects.cuidamed.person.elder.ElderDAO;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
-import javafx.collections.FXCollections;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
-import lombok.Getter;
-import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
-
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Period;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 @Getter
 public class CarerInsert {
 
   private final StringBuilder stringBuilder = new StringBuilder();
-  @Setter private Carer carer;
-  @FXML private TextField rut;
-  @FXML private TextField name;
-  @FXML private TextField lastName;
-  @FXML private TextField secondLastName;
-  @FXML private TextField mobilePhone;
-  @FXML private DatePicker birthDate;
-  @FXML private ComboBox<Gender> gender;
-  @FXML private DatePicker hireDate;
-  @FXML private ComboBox<Region> regionComboBox;
-  @FXML private ComboBox<Province> provinceComboBox;
-  @FXML private ComboBox<Commune> communeComboBox;
-  @FXML private TextField street;
-  @FXML private TextField number;
-  @FXML private TextField postalCode;
-  @FXML private TextField fixedPhone;
-  @FXML private Button addData;
+  @Setter
+  private Carer carer;
+  @FXML
+  private TextField rut;
+  @FXML
+  private TextField name;
+  @FXML
+  private TextField lastName;
+  @FXML
+  private TextField secondLastName;
+  @FXML
+  private TextField mobilePhone;
+  @FXML
+  private DatePicker birthDate;
+  @FXML
+  private ComboBox<Gender> gender;
+  @FXML
+  private DatePicker hireDate;
+  @FXML
+  private ComboBox<Region> regionComboBox;
+  @FXML
+  private ComboBox<Province> provinceComboBox;
+  @FXML
+  private ComboBox<Commune> communeComboBox;
+  @FXML
+  private TextField street;
+  @FXML
+  private TextField number;
+  @FXML
+  private TextField postalCode;
+  @FXML
+  private TextField fixedPhone;
+  @FXML
+  private Button addData;
 
   private static void appendEmptyField(final StringBuilder stringBuilder, String panelName) {
     stringBuilder

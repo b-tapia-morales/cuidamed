@@ -1,7 +1,6 @@
 package com.bairontapia.projects.cuidamed.connection;
 
 import com.bairontapia.projects.cuidamed.utils.properties.PropertyUtils;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;

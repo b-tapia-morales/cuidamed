@@ -2,14 +2,13 @@ package com.bairontapia.projects.cuidamed.disease;
 
 import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
-import org.apache.commons.io.IOUtils;
-
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
+import org.apache.commons.io.IOUtils;
 
 public class DiseaseDAO implements CrudDAO<Disease, String> {
 
@@ -66,7 +65,8 @@ public class DiseaseDAO implements CrudDAO<Disease, String> {
   }
 
   @Override
-  public void updateTuple(PreparedStatement statement, Disease disease) throws SQLException {}
+  public void updateTuple(PreparedStatement statement, Disease disease) throws SQLException {
+  }
 
   @Override
   public Disease readTuple(ResultSet resultSet) throws SQLException {

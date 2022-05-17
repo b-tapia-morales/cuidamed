@@ -3,6 +3,9 @@ package com.bairontapia.projects.cuidamed.mvc.medication;
 import com.bairontapia.projects.cuidamed.disease.medicationprescription.MedicationPrescription;
 import com.bairontapia.projects.cuidamed.disease.medicationprescription.MedicationPrescriptionDAO;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -13,18 +16,20 @@ import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.time.LocalDate;
-
 public class EldersAndMedicationsView {
 
-  @FXML private TableView<MedicationPrescription> medicationPrescriptionTableView;
-  @FXML private TableColumn<MedicationPrescription, String> rutColumn;
-  @FXML private TableColumn<MedicationPrescription, String> nameDiseaseColumn;
-  @FXML private TableColumn<MedicationPrescription, String> fullMedicationName;
-  @FXML private TableColumn<MedicationPrescription, LocalDate> dateStart;
-  @FXML private TableColumn<MedicationPrescription, LocalDate> dateEnd;
+  @FXML
+  private TableView<MedicationPrescription> medicationPrescriptionTableView;
+  @FXML
+  private TableColumn<MedicationPrescription, String> rutColumn;
+  @FXML
+  private TableColumn<MedicationPrescription, String> nameDiseaseColumn;
+  @FXML
+  private TableColumn<MedicationPrescription, String> fullMedicationName;
+  @FXML
+  private TableColumn<MedicationPrescription, LocalDate> dateStart;
+  @FXML
+  private TableColumn<MedicationPrescription, LocalDate> dateEnd;
   private TableColumn<MedicationPrescription, Short> quantity;
 
   public void initialize() throws SQLException, IOException {

@@ -2,14 +2,13 @@ package com.bairontapia.projects.cuidamed.medicalrecord.stats;
 
 import com.bairontapia.projects.cuidamed.daotemplate.ReadOnlyDAO;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
-import org.apache.commons.io.IOUtils;
-
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
+import org.apache.commons.io.IOUtils;
 
 public class HealthSystemStatsDAO implements ReadOnlyDAO<HealthSystemStats, Short> {
 
@@ -43,5 +42,6 @@ public class HealthSystemStatsDAO implements ReadOnlyDAO<HealthSystemStats, Shor
   }
 
   @Override
-  public void setKeyParameter(PreparedStatement statement, Short aShort) throws SQLException {}
+  public void setKeyParameter(PreparedStatement statement, Short aShort) throws SQLException {
+  }
 }

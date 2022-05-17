@@ -1,24 +1,27 @@
 package com.bairontapia.projects.cuidamed;
 
+import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
+import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+
 import com.bairontapia.projects.cuidamed.disease.DiseaseDAO;
 import com.bairontapia.projects.cuidamed.disease.prescription.DiagnosticDAO;
 import com.bairontapia.projects.cuidamed.medicalrecord.MedicalRecordDAO;
 import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineCheckupDAO;
 import com.bairontapia.projects.cuidamed.person.elder.ElderDAO;
 import com.bairontapia.projects.cuidamed.person.responsible.ResponsibleDAO;
-import com.bairontapia.projects.cuidamed.pojo.*;
+import com.bairontapia.projects.cuidamed.pojo.DiagnosticPOJO;
+import com.bairontapia.projects.cuidamed.pojo.ElderPOJO;
+import com.bairontapia.projects.cuidamed.pojo.MedicalRecordPOJO;
+import com.bairontapia.projects.cuidamed.pojo.ResponsiblePOJO;
+import com.bairontapia.projects.cuidamed.pojo.RoutineCheckupPOJO;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
-import org.bson.codecs.pojo.PojoCodecProvider;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
-import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+import org.bson.codecs.pojo.PojoCodecProvider;
 
 public class CuidaMedApplication {
 

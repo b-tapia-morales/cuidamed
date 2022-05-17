@@ -3,8 +3,6 @@ package com.bairontapia.projects.cuidamed.localization;
 import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
 import com.bairontapia.projects.cuidamed.daotemplate.ReadOnlyDAO;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
-import org.apache.commons.io.IOUtils;
-
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.sql.PreparedStatement;
@@ -13,6 +11,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Objects;
+import org.apache.commons.io.IOUtils;
 
 public class ProvinceDAO implements ReadOnlyDAO<Province, Short> {
 

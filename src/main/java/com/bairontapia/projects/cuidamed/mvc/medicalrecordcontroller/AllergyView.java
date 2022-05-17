@@ -3,6 +3,7 @@ package com.bairontapia.projects.cuidamed.mvc.medicalrecordcontroller;
 import com.bairontapia.projects.cuidamed.mappings.allergytype.AllergyType;
 import com.bairontapia.projects.cuidamed.medicalrecord.allergy.Allergy;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
+import java.io.IOException;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,13 +15,13 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lombok.Getter;
 
-import java.io.IOException;
-
 @Getter
 public class AllergyView {
 
-  @FXML private ComboBox<AllergyType> comboBoxType;
-  @FXML private TextField labelDetails;
+  @FXML
+  private ComboBox<AllergyType> comboBoxType;
+  @FXML
+  private TextField labelDetails;
 
   private Allergy allergy;
 

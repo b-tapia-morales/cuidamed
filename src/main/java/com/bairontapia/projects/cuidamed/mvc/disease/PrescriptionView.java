@@ -8,30 +8,39 @@ import com.bairontapia.projects.cuidamed.disease.sickelderly.SickElderly;
 import com.bairontapia.projects.cuidamed.disease.sickelderly.SickElderlyDAO;
 import com.bairontapia.projects.cuidamed.person.elder.Elder;
 import com.bairontapia.projects.cuidamed.person.elder.ElderDAO;
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-import lombok.Getter;
-
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.LinkedHashSet;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import lombok.Getter;
 
 @Getter
 public class PrescriptionView {
 
-  @FXML private ComboBox<String> rut;
-  @FXML private ComboBox<Disease> diseaseNameComboBox;
-  @FXML private DatePicker diagnosisDatePicker;
-  @FXML private DatePicker prescriptionDate;
-  @FXML private TextArea description;
-  @FXML private CheckBox isPrescriptionEnabled;
+  @FXML
+  private ComboBox<String> rut;
+  @FXML
+  private ComboBox<Disease> diseaseNameComboBox;
+  @FXML
+  private DatePicker diagnosisDatePicker;
+  @FXML
+  private DatePicker prescriptionDate;
+  @FXML
+  private TextArea description;
+  @FXML
+  private CheckBox isPrescriptionEnabled;
 
   public void initialize() throws SQLException, IOException {
     initializeComboBoxes();

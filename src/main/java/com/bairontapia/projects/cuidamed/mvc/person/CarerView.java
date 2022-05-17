@@ -1,12 +1,22 @@
 package com.bairontapia.projects.cuidamed.mvc.person;
 
-import com.bairontapia.projects.cuidamed.localization.*;
+import com.bairontapia.projects.cuidamed.localization.Commune;
+import com.bairontapia.projects.cuidamed.localization.CommuneDAO;
+import com.bairontapia.projects.cuidamed.localization.Province;
+import com.bairontapia.projects.cuidamed.localization.ProvinceDAO;
+import com.bairontapia.projects.cuidamed.localization.Region;
+import com.bairontapia.projects.cuidamed.localization.RegionDAO;
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.person.address.Address;
 import com.bairontapia.projects.cuidamed.person.address.AddressDAO;
 import com.bairontapia.projects.cuidamed.person.carer.Carer;
 import com.bairontapia.projects.cuidamed.person.carer.CarerDAO;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
+import java.io.IOException;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Period;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,34 +27,47 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.IOException;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.Period;
-
 @Getter
 public class CarerView {
 
-  @Setter private Carer carer;
-  @Setter private Address address;
-  @FXML private DatePicker birthDatePicker;
-  @FXML private ComboBox<Gender> genderComboBox;
-  @FXML private DatePicker hireDatePicker;
-  @FXML private Button updateData;
-  @FXML private TextField rut;
-  @FXML private TextField name;
-  @FXML private TextField lastName;
-  @FXML private TextField secondLastName;
-  @FXML private TextField age;
-  @FXML private TextField mobilePhone;
-  @FXML private TextField region;
-  @FXML private TextField province;
-  @FXML private TextField commune;
-  @FXML private TextField street;
-  @FXML private TextField number;
-  @FXML private TextField postalCode;
-  @FXML private TextField fixedPhone;
+  @Setter
+  private Carer carer;
+  @Setter
+  private Address address;
+  @FXML
+  private DatePicker birthDatePicker;
+  @FXML
+  private ComboBox<Gender> genderComboBox;
+  @FXML
+  private DatePicker hireDatePicker;
+  @FXML
+  private Button updateData;
+  @FXML
+  private TextField rut;
+  @FXML
+  private TextField name;
+  @FXML
+  private TextField lastName;
+  @FXML
+  private TextField secondLastName;
+  @FXML
+  private TextField age;
+  @FXML
+  private TextField mobilePhone;
+  @FXML
+  private TextField region;
+  @FXML
+  private TextField province;
+  @FXML
+  private TextField commune;
+  @FXML
+  private TextField street;
+  @FXML
+  private TextField number;
+  @FXML
+  private TextField postalCode;
+  @FXML
+  private TextField fixedPhone;
 
   public void initialize() throws SQLException, IOException {
     initializeComboBoxes();

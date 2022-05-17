@@ -2,8 +2,6 @@ package com.bairontapia.projects.cuidamed.person.address;
 
 import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
-import org.apache.commons.io.IOUtils;
-
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.sql.PreparedStatement;
@@ -11,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Objects;
+import org.apache.commons.io.IOUtils;
 
 public class AddressDAO implements CrudDAO<Address, String> {
 

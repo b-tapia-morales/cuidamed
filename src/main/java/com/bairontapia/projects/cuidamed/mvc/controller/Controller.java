@@ -1,16 +1,16 @@
 package com.bairontapia.projects.cuidamed.mvc.controller;
 
+import java.io.IOException;
+import java.util.Objects;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-import java.io.IOException;
-import java.util.Objects;
-
 public class Controller {
 
-  @FXML private AnchorPane layout;
+  @FXML
+  private AnchorPane layout;
 
   private AnchorPane dateElder;
   private AnchorPane allerElder;

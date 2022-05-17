@@ -1,7 +1,6 @@
 package com.bairontapia.projects.cuidamed.daotemplate;
 
 import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
-
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

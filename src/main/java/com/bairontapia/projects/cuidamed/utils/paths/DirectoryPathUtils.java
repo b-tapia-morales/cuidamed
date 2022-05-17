@@ -1,13 +1,12 @@
 package com.bairontapia.projects.cuidamed.utils.paths;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.io.File;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Objects;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * This class consists exclusively of static methods that return a {@link String} or a {@link Path}

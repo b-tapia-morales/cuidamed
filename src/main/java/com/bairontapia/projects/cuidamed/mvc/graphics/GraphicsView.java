@@ -4,6 +4,8 @@ import com.bairontapia.projects.cuidamed.medicalrecord.stats.BloodTypeStatsDAO;
 import com.bairontapia.projects.cuidamed.medicalrecord.stats.DiseaseStatsDAO;
 import com.bairontapia.projects.cuidamed.medicalrecord.stats.HealthSystemStatsDAO;
 import com.bairontapia.projects.cuidamed.medicalrecord.stats.MedicationStatsDAO;
+import java.io.IOException;
+import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
@@ -11,17 +13,19 @@ import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.ComboBox;
 import lombok.Getter;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
 @Getter
 public class GraphicsView {
 
-  @FXML private ComboBox<DataSelection> dataComboBox;
-  @FXML private PieChart bloodTypes;
-  @FXML private PieChart healthSystems;
-  @FXML private PieChart diseases;
-  @FXML private PieChart medications;
+  @FXML
+  private ComboBox<DataSelection> dataComboBox;
+  @FXML
+  private PieChart bloodTypes;
+  @FXML
+  private PieChart healthSystems;
+  @FXML
+  private PieChart diseases;
+  @FXML
+  private PieChart medications;
 
   private static void setChartVisibility(
       final PieChart firstChart,

@@ -1,11 +1,10 @@
 package com.bairontapia.projects.cuidamed.datasource;
 
 import com.bairontapia.projects.cuidamed.utils.properties.PropertyUtils;
-import org.apache.commons.dbcp2.BasicDataSource;
-
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.SQLException;
+import javax.sql.DataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 public final class DataSourceSingleton {
 

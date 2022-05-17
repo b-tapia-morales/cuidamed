@@ -1,6 +1,11 @@
 package com.bairontapia.projects.cuidamed.mvc.person;
 
-import com.bairontapia.projects.cuidamed.localization.*;
+import com.bairontapia.projects.cuidamed.localization.Commune;
+import com.bairontapia.projects.cuidamed.localization.CommuneDAO;
+import com.bairontapia.projects.cuidamed.localization.Province;
+import com.bairontapia.projects.cuidamed.localization.ProvinceDAO;
+import com.bairontapia.projects.cuidamed.localization.Region;
+import com.bairontapia.projects.cuidamed.localization.RegionDAO;
 import com.bairontapia.projects.cuidamed.mappings.bloodtype.BloodType;
 import com.bairontapia.projects.cuidamed.mappings.gender.Gender;
 import com.bairontapia.projects.cuidamed.mappings.healthcaresystem.HealthCare;
@@ -22,6 +27,12 @@ import com.bairontapia.projects.cuidamed.person.elder.ElderDAO;
 import com.bairontapia.projects.cuidamed.person.responsible.Responsible;
 import com.bairontapia.projects.cuidamed.person.responsible.ResponsibleDAO;
 import com.bairontapia.projects.cuidamed.utils.validation.RutUtils;
+import java.io.IOException;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Collection;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -30,7 +41,14 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -38,67 +56,104 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.IOException;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.Period;
-import java.util.Collection;
-
 @Getter
 public class ElderView {
 
-  @FXML private AnchorPane anchor;
-  @Setter private Elder elder;
-  @FXML private TextField rut;
-  @FXML private TextField name;
-  @FXML private TextField lastName;
-  @FXML private TextField secondLastName;
-  @FXML private DatePicker birthDatePicker;
-  @FXML private TextField age;
-  @FXML private ComboBox<Gender> genderComboBox;
-  @FXML private CheckBox isActiveCheckBox;
-  @FXML private DatePicker admissionDatePicker;
-  @FXML private ComboBox<BloodType> bloodTypeComboBox;
-  @FXML private ComboBox<HealthCare> healthCareComboBox;
-  @FXML private Button updateData;
+  @FXML
+  private AnchorPane anchor;
+  @Setter
+  private Elder elder;
+  @FXML
+  private TextField rut;
+  @FXML
+  private TextField name;
+  @FXML
+  private TextField lastName;
+  @FXML
+  private TextField secondLastName;
+  @FXML
+  private DatePicker birthDatePicker;
+  @FXML
+  private TextField age;
+  @FXML
+  private ComboBox<Gender> genderComboBox;
+  @FXML
+  private CheckBox isActiveCheckBox;
+  @FXML
+  private DatePicker admissionDatePicker;
+  @FXML
+  private ComboBox<BloodType> bloodTypeComboBox;
+  @FXML
+  private ComboBox<HealthCare> healthCareComboBox;
+  @FXML
+  private Button updateData;
 
-  @FXML private TextField responsibleRut;
-  @FXML private TextField responsibleFullName;
-  @FXML private TextField responsibleBirthDate;
-  @FXML private TextField responsibleAge;
-  @FXML private TextField responsibleGender;
-  @FXML private TextField responsibleMobilePhone;
+  @FXML
+  private TextField responsibleRut;
+  @FXML
+  private TextField responsibleFullName;
+  @FXML
+  private TextField responsibleBirthDate;
+  @FXML
+  private TextField responsibleAge;
+  @FXML
+  private TextField responsibleGender;
+  @FXML
+  private TextField responsibleMobilePhone;
 
-  @FXML private TextField region;
-  @FXML private TextField province;
-  @FXML private TextField commune;
-  @FXML private TextField street;
-  @FXML private TextField number;
+  @FXML
+  private TextField region;
+  @FXML
+  private TextField province;
+  @FXML
+  private TextField commune;
+  @FXML
+  private TextField street;
+  @FXML
+  private TextField number;
 
-  @FXML private TabPane tabPane;
+  @FXML
+  private TabPane tabPane;
 
-  @FXML private TableView<Allergy> allergyTableView;
-  @FXML private TableColumn<Allergy, String> allergyType;
-  @FXML private TableColumn<Allergy, String> allergyDetails;
+  @FXML
+  private TableView<Allergy> allergyTableView;
+  @FXML
+  private TableColumn<Allergy, String> allergyType;
+  @FXML
+  private TableColumn<Allergy, String> allergyDetails;
 
-  @FXML private TableView<RoutineCheckup> checkupTableView;
-  @FXML private TableColumn<RoutineCheckup, LocalDate> checkupDate;
-  @FXML private TableColumn<RoutineCheckup, Double> height;
-  @FXML private TableColumn<RoutineCheckup, Double> weight;
-  @FXML private TableColumn<RoutineCheckup, Double> bmi;
-  @FXML private TableColumn<RoutineCheckup, Integer> heartRate;
-  @FXML private TableColumn<RoutineCheckup, Double> diastolicPressure;
-  @FXML private TableColumn<RoutineCheckup, Double> systolicPressure;
-  @FXML private TableColumn<RoutineCheckup, Double> bodyTemperature;
+  @FXML
+  private TableView<RoutineCheckup> checkupTableView;
+  @FXML
+  private TableColumn<RoutineCheckup, LocalDate> checkupDate;
+  @FXML
+  private TableColumn<RoutineCheckup, Double> height;
+  @FXML
+  private TableColumn<RoutineCheckup, Double> weight;
+  @FXML
+  private TableColumn<RoutineCheckup, Double> bmi;
+  @FXML
+  private TableColumn<RoutineCheckup, Integer> heartRate;
+  @FXML
+  private TableColumn<RoutineCheckup, Double> diastolicPressure;
+  @FXML
+  private TableColumn<RoutineCheckup, Double> systolicPressure;
+  @FXML
+  private TableColumn<RoutineCheckup, Double> bodyTemperature;
 
-  @FXML private TableView<SurgicalIntervention> surgicalInterventionTable;
-  @FXML private TableColumn<SurgicalIntervention, LocalDate> interventionDate;
-  @FXML private TableColumn<SurgicalIntervention, String> hospital;
-  @FXML private TableColumn<SurgicalIntervention, String> severity;
-  @FXML private TableColumn<SurgicalIntervention, String> description;
+  @FXML
+  private TableView<SurgicalIntervention> surgicalInterventionTable;
+  @FXML
+  private TableColumn<SurgicalIntervention, LocalDate> interventionDate;
+  @FXML
+  private TableColumn<SurgicalIntervention, String> hospital;
+  @FXML
+  private TableColumn<SurgicalIntervention, String> severity;
+  @FXML
+  private TableColumn<SurgicalIntervention, String> description;
 
-  @FXML private Button addData;
+  @FXML
+  private Button addData;
 
   private Allergy allergy;
   private SurgicalIntervention surgicalIntervention;
