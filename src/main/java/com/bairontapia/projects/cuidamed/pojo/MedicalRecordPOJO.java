@@ -12,12 +12,12 @@ public class MedicalRecordPOJO {
     @Getter
     private final String healthCare;
     @Getter
-    private final List<AllergyPOJO> allergyPOJOS;
+    private final List<AllergyPOJO> allergies;
 
     public MedicalRecordPOJO(final MedicalRecord medicalRecord, final List<AllergyPOJO> allergies) {
         this.bloodType = medicalRecord.bloodType().toString();
         this.healthCare = medicalRecord.healthCare().toString();
-        this.allergyPOJOS = allergies;
+        this.allergies = allergies;
     }
 
     @Override
