@@ -4,6 +4,7 @@ import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 import com.bairontapia.projects.cuidamed.disease.DiseaseDAO;
+import com.bairontapia.projects.cuidamed.disease.medicationprescription.MedicationPrescriptionDAO;
 import com.bairontapia.projects.cuidamed.disease.prescription.DiagnosticDAO;
 import com.bairontapia.projects.cuidamed.medicalrecord.MedicalRecordDAO;
 import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineCheckupDAO;
@@ -12,6 +13,7 @@ import com.bairontapia.projects.cuidamed.person.responsible.ResponsibleDAO;
 import com.bairontapia.projects.cuidamed.pojo.DiagnosticPOJO;
 import com.bairontapia.projects.cuidamed.pojo.ElderPOJO;
 import com.bairontapia.projects.cuidamed.pojo.MedicalRecordPOJO;
+import com.bairontapia.projects.cuidamed.pojo.MedicationPrescriptionPOJO;
 import com.bairontapia.projects.cuidamed.pojo.ResponsiblePOJO;
 import com.bairontapia.projects.cuidamed.pojo.RoutineCheckupPOJO;
 import com.mongodb.MongoClient;
@@ -29,12 +31,10 @@ public class CuidaMedApplication {
     var mongoLogger = Logger.getLogger("org.mongodb.driver");
     mongoLogger.setLevel(Level.WARNING);
     var pojoCodecRegistry =
-        fromRegistries(
-            MongoClient.getDefaultCodecRegistry(),
+        fromRegistries(MongoClient.getDefaultCodecRegistry(),
             fromProviders(PojoCodecProvider.builder().automatic(true).build()));
     try (var mongoClient =
-        new MongoClient(
-            "localhost:27017",
+        new MongoClient("localhost:27017",
             MongoClientOptions.builder().codecRegistry(pojoCodecRegistry).build())) {
       var database = mongoClient.getDatabase("admin");
       var elderColl = database.getCollection("elder", ElderPOJO.class);
@@ -46,7 +46,12 @@ public class CuidaMedApplication {
         var diagnosticPOJOS = new ArrayList<DiagnosticPOJO>();
         for (var diagnostic : diagnostics) {
           var disease = DiseaseDAO.getInstance().find(diagnostic.diseaseName()).orElseThrow();
-          diagnosticPOJOS.add(new DiagnosticPOJO(diagnostic, disease));
+          var medicationPrescriptions =
+              MedicationPrescriptionDAO.getInstance().findByRutAndDiseaseName(elder.rut(),
+                  disease.name());
+          var medicationPrescriptionPOJOS = medicationPrescriptions.stream().map(
+              MedicationPrescriptionPOJO::new).toList();
+          diagnosticPOJOS.add(new DiagnosticPOJO(diagnostic, disease, medicationPrescriptionPOJOS));
         }
         var responsible = ResponsibleDAO.getInstance().find(elder.responsibleRut()).orElseThrow();
         var responsiblePOJO = new ResponsiblePOJO(responsible);
