@@ -1,22 +1,27 @@
 package com.bairontapia.projects.cuidamed;
 
+import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
+import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+
 import com.bairontapia.projects.cuidamed.disease.DiseaseDAO;
 import com.bairontapia.projects.cuidamed.disease.prescription.PrescriptionDAO;
+import com.bairontapia.projects.cuidamed.mappings.allergytype.AllergyType;
 import com.bairontapia.projects.cuidamed.medicalrecord.MedicalRecordDAO;
+import com.bairontapia.projects.cuidamed.medicalrecord.allergy.Allergy;
 import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineCheckupDAO;
 import com.bairontapia.projects.cuidamed.person.elder.ElderDAO;
 import com.bairontapia.projects.cuidamed.person.responsible.ResponsibleDAO;
 import com.bairontapia.projects.cuidamed.pojo.*;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
-import org.bson.codecs.pojo.PojoCodecProvider;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
 
-import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
-import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+import org.bson.codecs.pojo.PojoCodecProvider;
+
 
 public class CuidaMedApplication {
 
@@ -39,7 +44,13 @@ public class CuidaMedApplication {
                 var responsible = ResponsibleDAO.getInstance().find(elder.responsibleRut()).orElseThrow();
                 var responsiblePOJO = new ResponsiblePOJO(responsible);
                 var medicalRecord = MedicalRecordDAO.getInstance().find(elder.rut()).orElseThrow();
-                var medicalRecordPOJO = new MedicalRecordPOJO(medicalRecord);
+                var allergyPOJOS = new ArrayList<AllergyPOJO>();
+                for (int i = 0; i < 3; i++) {
+                    int randomNum = 1 + (int) (Math.random() * ((5 - 1) + 1));
+                    var allergy = Allergy.createInstance(elder.rut(), (short) randomNum, "xddddddddd");
+                    allergyPOJOS.add(new AllergyPOJO(allergy));
+                }
+                var medicalRecordPOJO = new MedicalRecordPOJO(medicalRecord, allergyPOJOS);
                 var elderPOJO = new ElderPOJO(elder, responsiblePOJO, medicalRecordPOJO, prescriptionPOJOs);
                 elderColl.insertOne(elderPOJO);
                 var routineCheckupPOJOS = RoutineCheckupDAO.getInstance().findAll(medicalRecord.rut())
