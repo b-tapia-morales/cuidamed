@@ -1,6 +1,8 @@
 package com.bairontapia.projects.cuidamed.disease.medicationprescription;
 
+import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
 import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
+import com.bairontapia.projects.cuidamed.daotemplate.OneToManyDAO;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -8,16 +10,21 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import org.apache.commons.io.IOUtils;
 
-public class MedicationPrescriptionDAO implements CrudDAO<MedicationPrescription, String> {
+public class MedicationPrescriptionDAO implements CrudDAO<MedicationPrescription, String>,
+    OneToManyDAO<MedicationPrescription, String> {
 
   private static final MedicationPrescriptionDAO INSTANCE = new MedicationPrescriptionDAO();
   private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
 
   private static final String RELATIVE_PATH_STRING =
       DirectoryPathUtils.pathBuilder("scripts", "class_queries", "medication_prescription");
+  private static final String FIND_BY_RUT_AND_DISEASE_NAME = RELATIVE_PATH_STRING +
+      "get_by_rut_and_disease_name.sql";
   private static final String FIND_ALL_QUERY_PATH = RELATIVE_PATH_STRING + "get_all.sql";
   private static final String FIND_QUERY_PATH = RELATIVE_PATH_STRING + "get.sql";
   private static final String UPDATE_QUERY_PATH = RELATIVE_PATH_STRING + "update.sql";
@@ -25,6 +32,26 @@ public class MedicationPrescriptionDAO implements CrudDAO<MedicationPrescription
 
   public static MedicationPrescriptionDAO getInstance() {
     return INSTANCE;
+  }
+
+  public Collection<MedicationPrescription> findByRutAndDiseaseName(String rut, String diseaseName)
+      throws IOException, SQLException {
+    final var inputStream = CLASS_LOADER.getResourceAsStream(FIND_BY_RUT_AND_DISEASE_NAME);
+    final var query =
+        IOUtils.toString(Objects.requireNonNull(inputStream), Charset.defaultCharset());
+    final var connection = ConnectionSingleton.getInstance();
+    try (var statement = connection.prepareStatement(query)) {
+      statement.setString(1, rut);
+      statement.setString(2, diseaseName);
+      final var resultSet = statement.executeQuery();
+      final var set = new LinkedHashSet<MedicationPrescription>();
+      while (resultSet.next()) {
+        final var medicationPrescription = readTuple(resultSet);
+        set.add(medicationPrescription);
+      }
+      resultSet.close();
+      return set;
+    }
   }
 
   @Override
