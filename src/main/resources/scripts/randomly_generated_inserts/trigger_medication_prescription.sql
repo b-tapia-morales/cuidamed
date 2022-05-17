@@ -1,6 +1,6 @@
 SET search_path = "residence";
 
-DROP TRIGGER IF EXISTS update_prescription ON prescription;
+DROP TRIGGER IF EXISTS update_prescription ON diagnostic;
 DROP FUNCTION IF EXISTS insert_medication_prescription();
 
 CREATE OR REPLACE FUNCTION insert_medication_prescription() RETURNS TRIGGER AS
@@ -41,6 +41,6 @@ $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER update_prescription
     AFTER INSERT
-    ON prescription
+    ON diagnostic
     FOR EACH ROW
 EXECUTE PROCEDURE insert_medication_prescription();

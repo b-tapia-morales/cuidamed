@@ -105,43 +105,43 @@ INSERT INTO residence.sick_elderly
 VALUES ('5875397-1', 'Hipertensión', '2018-09-25');
 
 
-INSERT INTO residence.prescription
+INSERT INTO residence.diagnostic
 VALUES ('8768514-4', 'Artritis', '2020-05-10', 'Enfermedad que afecta los huesos.');
-INSERT INTO residence.prescription
+INSERT INTO residence.diagnostic
 VALUES ('5595642-1', 'Alzheimer', '2018-07-15', 'Enfermedad degenerativa cerebral.');
-INSERT INTO residence.prescription
+INSERT INTO residence.diagnostic
 VALUES ('10031785-0', 'Neumonia', '2019-06-18',
         'Enfermedad por COVID. necesita reposo 2 semanas en cama y sin licencia.');
-INSERT INTO residence.prescription
+INSERT INTO residence.diagnostic
 VALUES ('8742099-k', 'Demencia senil', '2018-05-14',
         'Enfermedad degenerativa. se ruega tomar los medicamentos en orden.');
-INSERT INTO residence.prescription
+INSERT INTO residence.diagnostic
 VALUES ('8768514-4', 'Artrosis', '2020-03-19',
         'Enfermedad con mucho dolor. n caso de no persistir, se ruega llamar a un nuevo médico.');
-INSERT INTO residence.prescription
+INSERT INTO residence.diagnostic
 VALUES ('5595642-1', 'Diabetes', '2017-07-02', 'Enfermedad crónica típica chilena.');
-INSERT INTO residence.prescription
+INSERT INTO residence.diagnostic
 VALUES ('5875397-1', 'Nauseas y vómitos', '2018-11-08',
         'Dolores estomacales, cuidado en sus comidas alrededor de 1 semana.');
-INSERT INTO residence.prescription
+INSERT INTO residence.diagnostic
 VALUES ('8820206-6', 'Osteoporosis', '2020-09-30',
         'dolores musculares fuertes en su zona abdominal. Toma de medicamentos recurrentes.');
-INSERT INTO residence.prescription
+INSERT INTO residence.diagnostic
 VALUES ('8346739-8', 'Infarto', '2021-02-14',
         'Disminución de comidas por obstrucción de arterias. Se ruega ejercidos y nutricionista.');
-INSERT INTO residence.prescription
+INSERT INTO residence.diagnostic
 VALUES ('8358513-7', 'Estreñimiento', '2018-05-14',
         'Comidas más ligeras por 2 semanas y seguimiento de medicamentos.');
-INSERT INTO residence.prescription
+INSERT INTO residence.diagnostic
 VALUES ('8358513-7', 'Diabetes', '2017-12-20',
         'Diabetes elevada. toma de medicamentos urgentes de ahora en adelante.');
-INSERT INTO residence.prescription
+INSERT INTO residence.diagnostic
 VALUES ('5902831-6', 'Parkinson', '2019-10-18',
         'Enfermedad degenerativa, empezar el tratamiento lo antes posible.');
-INSERT INTO residence.prescription
+INSERT INTO residence.diagnostic
 VALUES ('5968347-0', 'Ictus', '2016-12-20',
         'Síntomas típicos de la enfermedad ictus, se ruega tomar los medicamentos los antes posible.');
-INSERT INTO residence.prescription
+INSERT INTO residence.diagnostic
 VALUES ('5875397-1', 'Hipertensión', '2018-09-25',
         'Presiones arteriales altas, se ruega empezar un tratamiento.');
 

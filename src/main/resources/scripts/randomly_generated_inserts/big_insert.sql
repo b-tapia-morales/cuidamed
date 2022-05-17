@@ -18,7 +18,7 @@ BEGIN
     CALL batch_insert_people(n);
     CALL insert_random_medical_records();
     CALL insert_random_routine_checkups();
-    CALL insert_random_prescription();
+    CALL insert_random_diagnostic();
 END;
 $func$;
 

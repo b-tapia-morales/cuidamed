@@ -36,10 +36,9 @@ public class ElderPOJO {
     @Getter
     private final MedicalRecordPOJO medicalRecord;
     @Getter
-    private final List<PrescriptionPOJO> prescriptions;
+    private final List<DiagnosticPOJO> diagnostics;
 
-    public ElderPOJO(final Elder elder, final ResponsiblePOJO responsiblePOJO,
-                     final MedicalRecordPOJO medicalRecordPOJO, final List<PrescriptionPOJO> prescriptions) {
+    public ElderPOJO(final Elder elder, final ResponsiblePOJO responsiblePOJO, final MedicalRecordPOJO medicalRecordPOJO, final List<DiagnosticPOJO> diagnostics) {
         this.id = new ObjectId();
         this.rut = elder.rut();
         this.firstName = elder.firstName();
@@ -52,25 +51,22 @@ public class ElderPOJO {
         this.admissionDate = elder.admissionDate();
         this.responsible = responsiblePOJO;
         this.medicalRecord = medicalRecordPOJO;
-        this.prescriptions = prescriptions;
+        this.diagnostics = diagnostics;
     }
 
     @Override
     public String toString() {
-        return String.format
-                ("""
-                                Rut:\t\t\t\t\t\t\t\t\t%s
-                                Nombre completo:\t\t\t%s
-                                Fecha de nacimiento:\t%s
-                                Edad:\t\t\t\t\t\t\t\t\t%s
-                                Sexo:\t\t\t\t\t\t\t\t\t%s
-                                Activo:\t\t\t\t\t\t\t\t%s
-                                Fecha de admisión:\t\t%s
-                                                                
-                                Ficha Médica:
-                                %s
-                                """, RutUtils.format(rut),
-                        StringUtils.joinWith(" ", firstName, lastName, secondLastName), birthDate, age,
-                        gender, isActive ? "Sí" : "No", admissionDate, medicalRecord);
+        return String.format("""
+                Rut:\t\t\t\t\t\t\t\t\t%s
+                Nombre completo:\t\t\t%s
+                Fecha de nacimiento:\t%s
+                Edad:\t\t\t\t\t\t\t\t\t%s
+                Sexo:\t\t\t\t\t\t\t\t\t%s
+                Activo:\t\t\t\t\t\t\t\t%s
+                Fecha de admisión:\t\t%s
+                                                
+                Ficha Médica:
+                %s
+                """, RutUtils.format(rut), StringUtils.joinWith(" ", firstName, lastName, secondLastName), birthDate, age, gender, isActive.equals(Boolean.TRUE) ? "Sí" : "No", admissionDate, medicalRecord);
     }
 }

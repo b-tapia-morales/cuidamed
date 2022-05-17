@@ -6,19 +6,19 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import java.sql.Date;
 import java.time.LocalDate;
 
-public record Prescription(String rut, String diseaseName, LocalDate prescriptionDate,
-                           String description) {
+public record Diagnostic(String rut, String diseaseName, LocalDate prescriptionDate,
+                         String description) {
 
-    public static Prescription createInstance(String rut, String diseaseName, Date prescriptionDate,
-                                              String description) {
-        return new Prescription(rut, diseaseName, prescriptionDate.toLocalDate(), description);
+    public static Diagnostic createInstance(String rut, String diseaseName, Date prescriptionDate,
+                                            String description) {
+        return new Diagnostic(rut, diseaseName, prescriptionDate.toLocalDate(), description);
     }
 
     public boolean equals(Object object) {
         if (this == object) {
             return true;
         }
-        if (object instanceof final Prescription prescription) {
+        if (object instanceof final Diagnostic prescription) {
             return new EqualsBuilder().
                     append(rut, prescription.rut).
                     append(diseaseName, prescription.diseaseName).

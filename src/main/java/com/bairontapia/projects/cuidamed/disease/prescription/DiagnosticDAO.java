@@ -13,20 +13,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
-public class PrescriptionDAO implements CrudDAO<Prescription, String>, OneToManyDAO<Prescription, String> {
+public class DiagnosticDAO implements CrudDAO<Diagnostic, String>, OneToManyDAO<Diagnostic, String> {
 
-    private static final PrescriptionDAO INSTANCE = new PrescriptionDAO();
+    private static final DiagnosticDAO INSTANCE = new DiagnosticDAO();
     private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
 
     private static final String RELATIVE_PATH_STRING = DirectoryPathUtils
-            .pathBuilder("scripts", "class_queries", "prescription");
+            .pathBuilder("scripts", "class_queries", "diagnostic");
     private static final String FIND_QUERY_PATH = RELATIVE_PATH_STRING + "get.sql";
     private static final String FIND_ALL_QUERY_PATH = RELATIVE_PATH_STRING + "get_all.sql";
     private static final String SAVE_QUERY_PATH = RELATIVE_PATH_STRING + "save.sql";
     private static final String UPDATE_QUERY_PATH = RELATIVE_PATH_STRING + "update.sql";
 
 
-    public static PrescriptionDAO getInstance() {
+    public static DiagnosticDAO getInstance() {
         return INSTANCE;
     }
 
@@ -60,7 +60,7 @@ public class PrescriptionDAO implements CrudDAO<Prescription, String>, OneToMany
     }
 
     @Override
-    public void saveTuple(PreparedStatement statement, Prescription prescription)
+    public void saveTuple(PreparedStatement statement, Diagnostic prescription)
             throws SQLException {
         statement.setString(1, prescription.rut());
         statement.setString(2, prescription.diseaseName());
@@ -70,7 +70,7 @@ public class PrescriptionDAO implements CrudDAO<Prescription, String>, OneToMany
     }
 
     @Override
-    public void updateTuple(PreparedStatement statement, Prescription prescription)
+    public void updateTuple(PreparedStatement statement, Diagnostic prescription)
             throws SQLException {
         statement.setString(1, prescription.diseaseName());
         statement.setDate(2, Date.valueOf(prescription.diseaseName()));
@@ -80,11 +80,11 @@ public class PrescriptionDAO implements CrudDAO<Prescription, String>, OneToMany
     }
 
     @Override
-    public Prescription readTuple(ResultSet resultSet) throws SQLException {
+    public Diagnostic readTuple(ResultSet resultSet) throws SQLException {
         final var rut = resultSet.getString(1);
         final var diseaseName = resultSet.getString(2);
         final var prescriptionDate = resultSet.getDate(3);
         final var description = resultSet.getString(4);
-        return Prescription.createInstance(rut, diseaseName, prescriptionDate, description);
+        return Diagnostic.createInstance(rut, diseaseName, prescriptionDate, description);
     }
 }

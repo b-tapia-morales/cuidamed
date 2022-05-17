@@ -1,7 +1,7 @@
 package com.bairontapia.projects.cuidamed;
 
 import com.bairontapia.projects.cuidamed.disease.DiseaseDAO;
-import com.bairontapia.projects.cuidamed.disease.prescription.PrescriptionDAO;
+import com.bairontapia.projects.cuidamed.disease.prescription.DiagnosticDAO;
 import com.bairontapia.projects.cuidamed.medicalrecord.MedicalRecordDAO;
 import com.bairontapia.projects.cuidamed.medicalrecord.routinecheckup.RoutineCheckupDAO;
 import com.bairontapia.projects.cuidamed.person.elder.ElderDAO;
@@ -30,11 +30,11 @@ public class CuidaMedApplication {
             var routineCheckupColl = database.getCollection("routine_checkup", RoutineCheckupPOJO.class);
             routineCheckupColl.drop();
             for (var elder : ElderDAO.getInstance().findAll()) {
-                var prescriptions = PrescriptionDAO.getInstance().findAll(elder.rut());
-                var prescriptionPOJOs = new ArrayList<PrescriptionPOJO>();
+                var prescriptions = DiagnosticDAO.getInstance().findAll(elder.rut());
+                var prescriptionPOJOs = new ArrayList<DiagnosticPOJO>();
                 for (var prescription : prescriptions) {
                     var disease = DiseaseDAO.getInstance().find(prescription.diseaseName()).orElseThrow();
-                    prescriptionPOJOs.add(new PrescriptionPOJO(prescription, disease));
+                    prescriptionPOJOs.add(new DiagnosticPOJO(prescription, disease));
                 }
                 var responsible = ResponsibleDAO.getInstance().find(elder.responsibleRut()).orElseThrow();
                 var responsiblePOJO = new ResponsiblePOJO(responsible);

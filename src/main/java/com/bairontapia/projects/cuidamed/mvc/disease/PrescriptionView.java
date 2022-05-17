@@ -2,8 +2,8 @@ package com.bairontapia.projects.cuidamed.mvc.disease;
 
 import com.bairontapia.projects.cuidamed.disease.Disease;
 import com.bairontapia.projects.cuidamed.disease.DiseaseDAO;
-import com.bairontapia.projects.cuidamed.disease.prescription.Prescription;
-import com.bairontapia.projects.cuidamed.disease.prescription.PrescriptionDAO;
+import com.bairontapia.projects.cuidamed.disease.prescription.Diagnostic;
+import com.bairontapia.projects.cuidamed.disease.prescription.DiagnosticDAO;
 import com.bairontapia.projects.cuidamed.disease.sickelderly.SickElderly;
 import com.bairontapia.projects.cuidamed.disease.sickelderly.SickElderlyDAO;
 import com.bairontapia.projects.cuidamed.person.elder.Elder;
@@ -78,10 +78,10 @@ public class PrescriptionView {
                     a.setContentText("¡¡Valores vacíos!!");
                     a.show();
                 } else {
-                    Prescription prescription = Prescription.createInstance(rut.getValue(),
+                    Diagnostic diagnostic = Diagnostic.createInstance(rut.getValue(),
                             diseaseNameComboBox.getSelectionModel().getSelectedItem().name(),
                             Date.valueOf(diagnosisDatePicker.getValue()), description.getText());
-                    PrescriptionDAO.getInstance().save(prescription);
+                    DiagnosticDAO.getInstance().save(diagnostic);
                 }
             }
         }

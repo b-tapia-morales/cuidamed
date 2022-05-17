@@ -5,5 +5,5 @@ SELECT P.rut,
        Pr.prescription_date,
        Pr.description
 FROM residence.person P,
-     residence.prescription Pr
+     residence.diagnostic Pr
 WHERE P.rut = Pr.rut;

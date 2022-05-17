@@ -1,8 +1,8 @@
 SET search_path = "residence";
 
-DROP PROCEDURE IF EXISTS insert_random_prescription();
+DROP PROCEDURE IF EXISTS insert_random_diagnostic();
 
-CREATE OR REPLACE PROCEDURE insert_random_prescription()
+CREATE OR REPLACE PROCEDURE insert_random_diagnostic()
     LANGUAGE plpgsql AS
 $$
 DECLARE
@@ -25,7 +25,7 @@ BEGIN
                     INSERT INTO sick_elderly (rut, disease_name, diagnosis_date)
                     VALUES (ruts[i], diseases[k], random_date)
                     ON CONFLICT DO NOTHING;
-                    INSERT INTO prescription (rut, disease_name, prescription_date, description)
+                    INSERT INTO diagnostic (rut, disease_name, prescription_date, description)
                     VALUES (ruts[i], diseases[k], random_date, '')
                     ON CONFLICT DO NOTHING;
                 END LOOP;

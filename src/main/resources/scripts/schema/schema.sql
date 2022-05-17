@@ -3,7 +3,7 @@ CREATE SCHEMA IF NOT EXISTS residence;
 DROP TABLE IF EXISTS residence.medication_administration;
 DROP TABLE IF EXISTS residence.medication_prescription;
 DROP TABLE IF EXISTS residence.medication;
-DROP TABLE IF EXISTS residence.prescription;
+DROP TABLE IF EXISTS residence.diagnostic;
 DROP TABLE IF EXISTS residence.sick_elderly;
 DROP TABLE IF EXISTS residence.disease;
 
@@ -172,7 +172,7 @@ CREATE TABLE IF NOT EXISTS residence.medication
     PRIMARY KEY (medication_name)
 );
 
-CREATE TABLE IF NOT EXISTS residence.prescription
+CREATE TABLE IF NOT EXISTS residence.diagnostic
 (
     rut               VARCHAR(16) NOT NULL,
     disease_name      VARCHAR(32) NOT NULL,
@@ -192,7 +192,7 @@ CREATE TABLE IF NOT EXISTS residence.medication_prescription
     start_date        DATE        NOT NULL,
     end_date          DATE,
     quantity          SMALLINT    NOT NULL,
-    FOREIGN KEY (rut, disease_name, prescription_date) REFERENCES residence.prescription (rut, disease_name, prescription_date),
+    FOREIGN KEY (rut, disease_name, prescription_date) REFERENCES residence.diagnostic (rut, disease_name, prescription_date),
     FOREIGN KEY (medication_name) REFERENCES residence.medication (medication_name),
     PRIMARY KEY (rut, disease_name, prescription_date, medication_name)
 );

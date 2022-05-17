@@ -222,7 +222,7 @@ SELECT DISTINCT Pr.rut,
                 extract(DAY FROM age(MP.start_date, Pr.prescription_date)) AS difference
 FROM residence.person P,
      residence.elder E,
-     residence.prescription Pr,
+     residence.diagnostic Pr,
      residence.medication_prescription MP
 WHERE P.rut = E.rut
   AND E.rut = Pr.rut
