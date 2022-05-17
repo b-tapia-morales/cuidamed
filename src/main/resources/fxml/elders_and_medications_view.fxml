@@ -28,7 +28,7 @@
             </padding>
         </TableView>
         <AnchorPane prefHeight="38.0" prefWidth="1003.0">
-            <Button layoutX="225.0" layoutY="4.0" mnemonicParsing="false" onAction="#addedPreciption" prefHeight="34.0"
+            <Button layoutX="225.0" layoutY="4.0" mnemonicParsing="false" onAction="#addedPrescription" prefHeight="34.0"
                     prefWidth="86.0" text="prescripcion"/>
             <Button layoutX="463.0" layoutY="4.0" mnemonicParsing="false" onAction="#addedPrescriptionMedication"
                     prefHeight="34.0" prefWidth="86.0" text="Button"/>
