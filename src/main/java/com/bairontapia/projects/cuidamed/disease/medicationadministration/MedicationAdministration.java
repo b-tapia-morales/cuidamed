@@ -1,7 +1,6 @@
 package com.bairontapia.projects.cuidamed.disease.medicationadministration;
 
 import com.bairontapia.projects.cuidamed.mappings.dosagestatus.DosageStatus;
-import java.sql.Date;
 import java.time.LocalDateTime;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -12,11 +11,15 @@ public record MedicationAdministration(String rut, String medicationName,
                                        String carerRut) {
 
   public static MedicationAdministration createInstance(String rut, String medicationName,
-      Date estimatedDateTime,
-      Date realDateTime, short dosageStatus, String carerRut) {
-    return new MedicationAdministration(rut, medicationName, estimatedDateTime.toLocalDate()
-        .atStartOfDay(), realDateTime.toLocalDate().atStartOfDay(),
-        DosageStatus.getValueFromIndex(dosageStatus), carerRut);
+      LocalDateTime estimatedDateTime, LocalDateTime realDateTime, short dosageStatus,
+      String carerRut) {
+    if (realDateTime != null) {
+      return new MedicationAdministration(rut, medicationName, estimatedDateTime, realDateTime,
+          DosageStatus.getValueFromIndex(dosageStatus), carerRut);
+    } else {
+      return new MedicationAdministration(rut, medicationName, estimatedDateTime, null,
+          DosageStatus.getValueFromIndex(dosageStatus), carerRut);
+    }
   }
 
   public boolean equals(Object object) {
