@@ -19,7 +19,7 @@ public class MedicationAdministrationPOJO {
   public MedicationAdministrationPOJO(final MedicationAdministration medicationAdministration) {
     this.id = new ObjectId();
     this.estimatedDateTime = medicationAdministration.estimatedDateTime();
-    this.realDatetime = medicationAdministration.estimatedDateTime();
+    this.realDatetime = medicationAdministration.realDatetime();
     this.status = medicationAdministration.status().toString();
   }
 
