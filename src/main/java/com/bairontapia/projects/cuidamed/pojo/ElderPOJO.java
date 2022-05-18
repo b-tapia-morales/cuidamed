@@ -37,9 +37,9 @@ public class ElderPOJO {
   @Getter
   private final List<DiagnosticPOJO> diagnostics;
 
-  public ElderPOJO(final Elder elder, final ResponsiblePOJO responsiblePOJO,
+  public ElderPOJO(final ObjectId id, final Elder elder, final ResponsiblePOJO responsiblePOJO,
       final MedicalRecordPOJO medicalRecordPOJO, final List<DiagnosticPOJO> diagnostics) {
-    this.id = new ObjectId();
+    this.id = id;
     this.rut = elder.rut();
     this.firstName = elder.firstName();
     this.lastName = elder.lastName();

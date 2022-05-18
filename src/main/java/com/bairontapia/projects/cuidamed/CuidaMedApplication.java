@@ -79,7 +79,7 @@ public class CuidaMedApplication {
         var responsiblePOJO = new ResponsiblePOJO(responsible);
         var medicalRecord = MedicalRecordDAO.getInstance().find(elder.rut()).orElseThrow();
         var medicalRecordPOJO = new MedicalRecordPOJO(medicalRecord);
-        var elderPOJO = new ElderPOJO(elder, responsiblePOJO, medicalRecordPOJO, diagnosticPOJOS);
+        var elderPOJO = new ElderPOJO(elderId, elder, responsiblePOJO, medicalRecordPOJO, diagnosticPOJOS);
         elderColl.insertOne(elderPOJO);
         var routineCheckupPOJOS =
             RoutineCheckupDAO.getInstance().findAll(medicalRecord.rut()).stream()
