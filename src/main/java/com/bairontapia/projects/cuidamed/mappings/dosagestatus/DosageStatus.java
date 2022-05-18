@@ -22,10 +22,10 @@ public enum DosageStatus {
   }
 
   public static DosageStatus getValueFromIndex(final int index) {
-    if (index < 1 || index > VALUES.length) {
+    if (index < 0 || index > VALUES.length) {
       throw new IllegalArgumentException();
     }
-    return VALUES[index - 1];
+    return VALUES[index];
   }
 
   @Override
