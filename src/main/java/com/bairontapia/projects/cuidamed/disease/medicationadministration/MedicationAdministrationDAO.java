@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -20,12 +21,13 @@ public class MedicationAdministrationDAO implements CrudDAO<MedicationAdministra
   private static final ClassLoader CLASS_LOADER = Thread.currentThread().getContextClassLoader();
 
   private static final String RELATIVE_PATH_STRING =
-      DirectoryPathUtils.pathBuilder("scripts", "class_queries", "medical_administration");
+      DirectoryPathUtils.pathBuilder("scripts", "class_queries", "medication_administration");
   private static final String FIND_ALL_QUERY_PATH = RELATIVE_PATH_STRING + "get_all.sql";
   private static final String FIND_QUERY_PATH = RELATIVE_PATH_STRING + "get.sql";
   private static final String SAVE_QUERY_PATH = RELATIVE_PATH_STRING + "save.sql";
   private static final String UPDATE_QUERY_PATH = RELATIVE_PATH_STRING + "update.sql";
-  private static final String FIND_BY_RUT_AND_MEDICATION_NAME = "get_by_rut_and_medication_name.sql";
+  private static final String FIND_BY_RUT_AND_MEDICATION_NAME = RELATIVE_PATH_STRING +
+      "get_by_rut_and_medication_name.sql";
 
   public static MedicationAdministrationDAO getInstance() {
     return INSTANCE;
@@ -88,8 +90,8 @@ public class MedicationAdministrationDAO implements CrudDAO<MedicationAdministra
       throws SQLException {
     statement.setString(1, medicationAdministration.rut());
     statement.setString(2, medicationAdministration.medicationName());
-    statement.setDate(3, Date.valueOf(medicationAdministration.estimatedDateTime().toLocalDate()));
-    statement.setDate(4, Date.valueOf(medicationAdministration.realDatetime().toLocalDate()));
+    statement.setObject(3, medicationAdministration.estimatedDateTime());
+    statement.setObject(4, medicationAdministration.realDatetime());
     statement.setShort(5, (short) medicationAdministration.status().getIndex());
     statement.setString(6, medicationAdministration.carerRut());
     statement.executeUpdate();
@@ -99,11 +101,11 @@ public class MedicationAdministrationDAO implements CrudDAO<MedicationAdministra
   public void updateTuple(
       PreparedStatement statement, MedicationAdministration medicationAdministration)
       throws SQLException {
-    statement.setDate(1, Date.valueOf(medicationAdministration.realDatetime().toLocalDate()));
+    statement.setObject(1, medicationAdministration.realDatetime());
     statement.setShort(2, (short) medicationAdministration.status().getIndex());
     statement.setString(3, medicationAdministration.rut());
     statement.setString(4, medicationAdministration.medicationName());
-    statement.setDate(5, Date.valueOf(medicationAdministration.estimatedDateTime().toLocalDate()));
+    statement.setObject(5, medicationAdministration.estimatedDateTime());
     statement.executeUpdate();
   }
 
@@ -111,8 +113,8 @@ public class MedicationAdministrationDAO implements CrudDAO<MedicationAdministra
   public MedicationAdministration readTuple(ResultSet resultSet) throws SQLException {
     final var rut = resultSet.getString(1);
     final var medicationName = resultSet.getString(2);
-    final var estimatedDateTime = resultSet.getDate(3);
-    final var realDateTime = resultSet.getDate(4);
+    final var estimatedDateTime = resultSet.getObject(3, LocalDateTime.class);
+    final var realDateTime = resultSet.getObject(4, LocalDateTime.class);
     final var status = resultSet.getShort(5);
     final var carerRut = resultSet.getString(6);
     return MedicationAdministration.createInstance(
