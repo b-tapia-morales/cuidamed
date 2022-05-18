@@ -4,6 +4,7 @@ import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 import com.bairontapia.projects.cuidamed.disease.DiseaseDAO;
+import com.bairontapia.projects.cuidamed.disease.medication.MedicationDAO;
 import com.bairontapia.projects.cuidamed.disease.medicationprescription.MedicationPrescriptionDAO;
 import com.bairontapia.projects.cuidamed.disease.prescription.DiagnosticDAO;
 import com.bairontapia.projects.cuidamed.medicalrecord.MedicalRecordDAO;
@@ -18,6 +19,7 @@ import com.bairontapia.projects.cuidamed.pojo.ResponsiblePOJO;
 import com.bairontapia.projects.cuidamed.pojo.RoutineCheckupPOJO;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
+import com.mongodb.client.model.Indexes;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -49,8 +51,13 @@ public class CuidaMedApplication {
           var medicationPrescriptions =
               MedicationPrescriptionDAO.getInstance().findByRutAndDiseaseName(elder.rut(),
                   disease.name());
-          var medicationPrescriptionPOJOS = medicationPrescriptions.stream().map(
-              MedicationPrescriptionPOJO::new).toList();
+          var medicationPrescriptionPOJOS = new ArrayList<MedicationPrescriptionPOJO>();
+          for (var medicationPrescription : medicationPrescriptions) {
+            var medication = MedicationDAO.getInstance()
+                .find(medicationPrescription.medicationName()).orElseThrow();
+            medicationPrescriptionPOJOS.add(
+                new MedicationPrescriptionPOJO(medicationPrescription, medication));
+          }
           diagnosticPOJOS.add(new DiagnosticPOJO(diagnostic, disease, medicationPrescriptionPOJOS));
         }
         var responsible = ResponsibleDAO.getInstance().find(elder.responsibleRut()).orElseThrow();
@@ -64,6 +71,7 @@ public class CuidaMedApplication {
                 .map(e -> new RoutineCheckupPOJO(e, elderPOJO.getId()))
                 .toList();
         routineCheckupColl.insertMany(routineCheckupPOJOS);
+        routineCheckupColl.createIndex(Indexes.hashed("elderId"));
       }
     }
   }
