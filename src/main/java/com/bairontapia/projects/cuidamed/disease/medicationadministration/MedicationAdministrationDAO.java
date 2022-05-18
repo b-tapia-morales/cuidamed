@@ -1,5 +1,6 @@
 package com.bairontapia.projects.cuidamed.disease.medicationadministration;
 
+import com.bairontapia.projects.cuidamed.connection.ConnectionSingleton;
 import com.bairontapia.projects.cuidamed.daotemplate.CrudDAO;
 import com.bairontapia.projects.cuidamed.utils.paths.DirectoryPathUtils;
 import java.io.IOException;
@@ -8,6 +9,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import org.apache.commons.io.IOUtils;
 
@@ -22,9 +25,32 @@ public class MedicationAdministrationDAO implements CrudDAO<MedicationAdministra
   private static final String FIND_QUERY_PATH = RELATIVE_PATH_STRING + "get.sql";
   private static final String SAVE_QUERY_PATH = RELATIVE_PATH_STRING + "save.sql";
   private static final String UPDATE_QUERY_PATH = RELATIVE_PATH_STRING + "update.sql";
+  private static final String FIND_BY_RUT_AND_MEDICATION_NAME = "get_by_rut_and_medication_name.sql";
 
   public static MedicationAdministrationDAO getInstance() {
     return INSTANCE;
+  }
+
+  public Collection<MedicationAdministration> findByRutAndMedicationName(String rut,
+      String medicationName)
+      throws IOException, SQLException {
+    final var inputStream =
+        CLASS_LOADER.getResourceAsStream(FIND_BY_RUT_AND_MEDICATION_NAME);
+    final var query =
+        IOUtils.toString(Objects.requireNonNull(inputStream), Charset.defaultCharset());
+    final var connection = ConnectionSingleton.getInstance();
+    try (var statement = connection.prepareStatement(query)) {
+      statement.setString(1, rut);
+      statement.setString(2, medicationName);
+      final var resultSet = statement.executeQuery();
+      final var set = new LinkedHashSet<MedicationAdministration>();
+      while (resultSet.next()) {
+        final var medicationAdministration = readTuple(resultSet);
+        set.add(medicationAdministration);
+      }
+      resultSet.close();
+      return set;
+    }
   }
 
   @Override
