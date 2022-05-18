@@ -86,6 +86,8 @@ public class CuidaMedApplication {
                 .map(e -> new RoutineCheckupPOJO(e, elderId)).toList();
         routineCheckupColl.insertMany(routineCheckupPOJOS);
         routineCheckupColl.createIndex(Indexes.hashed("elderId"));
+        elderColl.createIndex(Indexes.hashed("{diagnostics.medicationPrescriptions"
+            + ".administrationIds:1}"));
       }
     }
   }
